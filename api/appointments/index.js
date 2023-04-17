@@ -1,4 +1,4 @@
-import BaseAPI from 'pn-api-base'
+import BaseAPI from '../base'
 
 class AppointmentsAPI extends BaseAPI {
   constructor() {
