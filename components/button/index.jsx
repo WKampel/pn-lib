@@ -1,8 +1,8 @@
 import React, { useContext } from 'react'
 import { Platform, Pressable, StyleSheet, Text, View } from 'react-native'
-import Spinner from 'pn-spinner'
+import Spinner from '../../spinner'
 import { useNavigation } from '@react-navigation/native'
-import { Context as StyleContext } from 'pn-context-style'
+import { Context as StyleContext } from '../../context-style'
 
 export default props => {
   const nav = useNavigation()

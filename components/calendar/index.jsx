@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 import moment from 'moment'
-import Button from 'pn-button'
+import Button from '../../button'
 import { ScrollView } from 'react-native-gesture-handler'
-import { Context as StyleContext } from 'pn-context-style'
+import { Context as StyleContext } from '../../context-style'
 
 export default props => {
   const [date, setDate] = useState(new Date())

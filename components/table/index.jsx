@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
-import useDebounce from 'pn-usedebounce'
-import TextInput from 'pn-textinput'
-import { Context as StyleContext } from 'pn-context-style'
-import Field from 'pn-field'
+import useDebounce from '../../usedebounce'
+import TextInput from '../../textinput'
+import { Context as StyleContext } from '../../context-style'
+import Field from '../../field'
 
 export default props => {
   const [page, setPage] = useState(0)
