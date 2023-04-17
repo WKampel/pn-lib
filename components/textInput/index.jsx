@@ -1,4 +1,4 @@
-import { Context as StyleContext } from '../../context-style'
+import { Context as StyleContext } from '../../contexts/style'
 import React, { useContext, useState } from 'react'
 import { StyleSheet, TextInput, View, Text } from 'react-native'
 

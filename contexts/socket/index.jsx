@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from 'react'
 import io from 'socket.io-client'
-import BaseAPI from '../base'
+import BaseAPI from '../../api/base'
 
 export const Context = createContext({})
 

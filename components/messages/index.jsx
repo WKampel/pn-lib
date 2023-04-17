@@ -1,11 +1,11 @@
 import { StyleSheet, Text, View } from 'react-native'
-import TextInput from '../../textinput'
+import TextInput from '../../components/textinput'
 import Button from '../../button'
 import { Feather } from '@expo/vector-icons'
 import { FlatList, ScrollView } from 'react-native-gesture-handler'
 import { useContext, useRef } from 'react'
 import moment from 'moment'
-import { Context as StyleContext } from '../../context-style'
+import { Context as StyleContext } from '../../contexts/style'
 
 export const Conversation = props => {
   const scrollViewRef = useRef()

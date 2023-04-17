@@ -3,7 +3,7 @@ import { Pressable, StyleSheet, Text, View } from 'react-native'
 import moment from 'moment'
 import Button from '../../button'
 import { ScrollView } from 'react-native-gesture-handler'
-import { Context as StyleContext } from '../../context-style'
+import { Context as StyleContext } from '../../contexts/style'
 
 export default props => {
   const [date, setDate] = useState(new Date())

@@ -1,5 +1,5 @@
 import { Link, StackActions } from '@react-navigation/native'
-import { Context as StyleContext } from '../../context-style'
+import { Context as StyleContext } from '../../contexts/style'
 import React, { useContext } from 'react'
 import { StyleSheet } from 'react-native'
 

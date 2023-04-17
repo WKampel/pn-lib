@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet, View, Text, Pressable } from 'react-native'
-import { Context } from '../../context-style'
+import { Context } from '../../contexts/style'
 
 export default props => {
   return (

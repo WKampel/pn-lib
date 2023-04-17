@@ -2,7 +2,7 @@ import DateTimePicker from '@react-native-community/datetimepicker'
 import { createElement, useContext, useState } from 'react'
 import { Platform, Pressable, StyleSheet, Text } from 'react-native'
 import moment from 'moment'
-import { Context as StyleContext } from '../../context-style'
+import { Context as StyleContext } from '../../contexts/style'
 
 export default props => {
   const [androidOpen, setAndroidOpen] = useState(false)

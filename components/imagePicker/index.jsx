@@ -1,13 +1,13 @@
 import { Platform, Pressable, StyleSheet, Text, View } from 'react-native'
 import filesAPI from '../../api/files'
 import * as ImagePicker from 'expo-image-picker'
-import useAPI from '../../useAPI'
+import useAPI from '../../components/useAPI'
 import Button from '../../button'
 import * as FileSystem from 'expo-file-system'
 import { useContext } from 'react'
 import { Image } from 'expo-image'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
-import Spinner from '../../spinner'
+import Spinner from '../../components/spinner'
 
 export default props => {
   const [cameraPermissionStatus, requestPermission] = ImagePicker.useCameraPermissions()
