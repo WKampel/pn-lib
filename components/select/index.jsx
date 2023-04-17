@@ -1,7 +1,7 @@
 import { Picker } from '@react-native-picker/picker'
 import { useRef, useState } from 'react'
 import { Modal, Platform, Pressable, StyleSheet, Text, View } from 'react-native'
-import Button from '../../button'
+import Button from '../../components/button'
 
 export default props => {
   const onChange = itemValue => props.onChange(props.options.find(option => getValue(option) == itemValue))

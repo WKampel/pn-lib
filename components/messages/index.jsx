@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native'
-import TextInput from '../../components/textinput'
-import Button from '../../button'
+import TextInput from '../../components/textInput'
+import Button from '../../components/button'
 import { Feather } from '@expo/vector-icons'
 import { FlatList, ScrollView } from 'react-native-gesture-handler'
 import { useContext, useRef } from 'react'

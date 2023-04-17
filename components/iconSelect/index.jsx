@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet } from 'react-native'
-import useAPI from '../../components/useAPI'
-import Select from '../../select'
+import useAPI from '../../libs/useAPI'
+import Select from '../../components/select'
 import iconsAPI from '../../api/icons'
 
 export default props => {
