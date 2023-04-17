@@ -1,7 +1,7 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { HeaderBackButton } from '@react-navigation/elements'
 import { Platform } from 'react-native'
-import OpenDrawerButton from '../../opendrawerbutton'
+import OpenDrawerButton from '../../openDrawerButton'
 import { useContext } from 'react'
 import { Context as StyleContext } from '../../context-style'
 

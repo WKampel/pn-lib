@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet } from 'react-native'
-import useAPI from '../../useapi'
+import useAPI from '../../useAPI'
 import Select from '../../select'
 import iconsAPI from '../../api/icons'
 

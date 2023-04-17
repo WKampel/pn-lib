@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
-import useDebounce from '../../usedebounce'
+import useDebounce from '../../libs/useDebounce'
 import TextInput from '../../textinput'
 import { Context as StyleContext } from '../../context-style'
 import Field from '../../field'

@@ -2,7 +2,7 @@ const { createDrawerNavigator } = require('@react-navigation/drawer')
 const { useWindowDimensions, Platform } = require('react-native')
 import { HeaderBackButton } from '@react-navigation/elements'
 import { Context as StyleContext } from '../../context-style'
-import OpenDrawerButton from '../../opendrawerbutton'
+import OpenDrawerButton from '../../openDrawerButton'
 import { useContext } from 'react'
 
 const Drawer = createDrawerNavigator()

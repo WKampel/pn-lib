@@ -1,7 +1,7 @@
 import { Platform, Pressable, StyleSheet, Text, View } from 'react-native'
 import filesAPI from '../../api/files'
 import * as ImagePicker from 'expo-image-picker'
-import useAPI from '../../useapi'
+import useAPI from '../../useAPI'
 import Button from '../../button'
 import * as FileSystem from 'expo-file-system'
 import { useContext } from 'react'
