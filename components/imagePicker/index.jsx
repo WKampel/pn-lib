@@ -58,7 +58,10 @@ export default props => {
           <MaterialCommunityIcons name='image-plus' size={50} color='black' />
         </Pressable>
       )}
-      <Image style={styles.image} source={{ uri: data?.file?.url || props.value?.url }} contentFit='contain' transition={1000} />
+      {console.log(data?.file?.url || props.value?.url)}
+      {data?.file?.url || props.value?.url ? (
+        <Image style={styles.image} source={{ uri: data?.file?.url || props.value?.url }} contentFit='contain' transition={1000} />
+      ) : null}
     </View>
   )
 }
