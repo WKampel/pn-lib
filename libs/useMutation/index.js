@@ -1,21 +1,20 @@
-const { useEffect } = require('react')
 const { useNavigation } = require('@react-navigation/native')
-const { useMutation: useMutationGraphQL } = require('graphql-hooks')
+const { useMutation: useMutationGraphQL } = require('@apollo/client')
 
 const useMutation = (query, config) => {
   const nav = useNavigation()
 
-  const [exec, { loading, error, data }] = useMutationGraphQL(query, {
-    variables: config?.variables,
-    onSuccess: () => {
-      if (config?.onSuccess) config.onSuccess()
-      if (config?.redirectOnSuccess) nav.navigate(options.redirectOnSuccess)
+  const [runMutation, { loading, error, data }] = useMutationGraphQL(query, {
+    onCompleted: data => {
+      if (config?.onSuccess) config.onSuccess(data)
+      if (config?.redirectOnSuccess) nav.navigate(config.redirectOnSuccess)
+    },
+    onError: e => {
+      if (config?.alertError) alert(e?.message)
     },
   })
 
-  useEffect(() => {
-    if (config?.alertError) alert(error)
-  }, [error])
+  const exec = variables => runMutation({ variables })
 
   return {
     loading,

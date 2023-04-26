@@ -3,10 +3,15 @@ import { StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native'
 import CheckBox from 'expo-checkbox'
 
 export default props => {
+  const value = props.state ? props.state.val : props.value
+  const onPress = () => {
+    if (props.state) props.state.set(!value)
+    if (props.onValueChange) props.onValueChange(!value)
+  }
   return (
-    <TouchableWithoutFeedback onPress={() => props.onValueChange(!props.value)}>
+    <TouchableWithoutFeedback onPress={onPress}>
       <View style={styles.container}>
-        <CheckBox disabled={props.disabled} value={props.value} onValueChange={props.onValueChange} style={styles.checkbox} />
+        <CheckBox disabled={props.disabled} value={value} onValueChange={props.onValueChange} style={styles.checkbox} />
         <Text style={styles.label}>{props.label}</Text>
       </View>
     </TouchableWithoutFeedback>

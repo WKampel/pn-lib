@@ -1,19 +1,32 @@
 import { Platform, Pressable, StyleSheet, Text, View } from 'react-native'
-import filesAPI from '../../api/files'
 import * as ImagePicker from 'expo-image-picker'
-import useAPI from '../../libs/useAPI'
-import Button from '../../components/button'
-import * as FileSystem from 'expo-file-system'
-import { useContext } from 'react'
-import { Image } from 'expo-image'
+import Img from '../../components/img'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import Spinner from '../../components/spinner'
+import { gql } from '@apollo/client'
+import useMutation from '../../libs/useMutation'
+
+const CREATE_FILE = gql`
+  mutation ($file: Upload) {
+    createFile(file: $file) {
+      id
+      url
+    }
+  }
+`
 
 export default props => {
   const [cameraPermissionStatus, requestPermission] = ImagePicker.useCameraPermissions()
 
-  /* Upload Image to API */
-  const { data, status, exec } = useAPI(filesAPI.createOne.bind(filesAPI), { autoExec: false, onSuccess: () => props.onChange(data.file) })
+  const createFile = useMutation(CREATE_FILE, {
+    alertError: true,
+    onSuccess: data => {
+      if (props.state) props.state.set(data.createFile)
+      if (props.onChange) props.onChange(data.createFile)
+    },
+  })
+
+  const value = props.state ? props.state.val : data?.file
 
   /* Trigger image select popup */
   const pickImage = async () => {
@@ -27,7 +40,7 @@ export default props => {
 
   return (
     <View style={styles.container}>
-      {status === 'loading' ? (
+      {createFile.loading ? (
         <View style={styles.spinner}>
           <Spinner />
         </View>
@@ -37,31 +50,29 @@ export default props => {
           onPress={async () => {
             const result = await pickImage()
             if (result) {
-              const formData = new FormData()
+              let file = null
 
               if (Platform.OS == 'web') {
                 const res = await fetch(result.uri)
                 const blob = await res.blob()
-                formData.append('file', blob)
+                file = blob
               } else {
-                formData.append('file', {
+                file = {
                   uri: result.uri,
                   name: result.uri.substring(result.uri.lastIndexOf('/') + 1, result.uri.length),
                   type: 'image/' + result.uri.substring(result.uri.lastIndexOf('.') + 1),
-                })
+                }
               }
 
-              exec(formData)
+              createFile.exec({ file })
             }
           }}
         >
-          <MaterialCommunityIcons name='image-plus' size={50} color='black' />
+          {props.label ? <Text style={styles.label}>{props.label}</Text> : null}
+          <MaterialCommunityIcons name='image-plus' size={40} color='white' />
         </Pressable>
       )}
-      {console.log(data?.file?.url || props.value?.url)}
-      {data?.file?.url || props.value?.url ? (
-        <Image style={styles.image} source={{ uri: data?.file?.url || props.value?.url }} contentFit='contain' transition={1000} />
-      ) : null}
+      {value.url ? <Img containerStyle={styles.image} src={value.url} /> : null}
     </View>
   )
 }
@@ -89,7 +100,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     zIndex: 1,
-    opacity: 0.5,
+    backgroundColor: 'rgba(0,0,0,0.4)',
   },
   spinner: {
     position: 'absolute',
@@ -101,50 +112,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     zIndex: 1,
     backgroundColor: 'black',
-    opacity: 0.5,
+    opacity: 0.75,
   },
   image: {
     flex: 1,
     width: '100%',
   },
+  label: {
+    fontWeight: 'bold',
+    color: 'white',
+  },
 })
-
-// const getBlobFromUri = async uri => {
-//   const blob = await new Promise((resolve, reject) => {
-//     const xhr = new XMLHttpRequest()
-//     xhr.onload = () => resolve(xhr.response)
-//     xhr.onerror = e => reject(new TypeError('Network request failed'))
-//     xhr.responseType = 'blob'
-//     xhr.open('GET', uri, true)
-//     xhr.send(null)
-//   })
-//   return blob
-// }
-
-// const uploadResult = await FileSystem.uploadAsync('http://192.168.1.36:3050/backend/files', result.uri, {
-//   httpMethod: 'POST',
-//   uploadType: FileSystem.FileSystemUploadType.MULTIPART,
-//   fieldName: 'file',
-//   headers: {
-//     Authorization:
-//       'Bearer ' +
-//       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidHlwZSI6InBhdGllbnQiLCJpYXQiOjE2ODE1OTEwMDYsImV4cCI6MTY4MTY3NzQwNn0.UId2mgJIFnxifqrbV33NdeUJJ-8SnY5PRQ1AWgAj3vA',
-//   },
-// })
-// alert(uploadResult)
-
-// await fetch('http://192.168.1.36:3050/backend/files', {
-//   method: 'post',
-//   body: formData,
-//   headers: {
-//     Authorization:
-//       'Bearer ' +
-//       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidHlwZSI6InBhdGllbnQiLCJpYXQiOjE2ODE1OTEwMDYsImV4cCI6MTY4MTY3NzQwNn0.UId2mgJIFnxifqrbV33NdeUJJ-8SnY5PRQ1AWgAj3vA',
-//   },
-// })
-//   .then(response => {
-//     // alert('worked')
-//   })
-//   .catch(err => {
-//     console.log('err:', err)
-//   })

@@ -24,10 +24,10 @@ export const Conversation = props => {
 }
 export const ComposeMessage = props => (
   <View style={styles.composeMessageContainer}>
-    <TextInput value={props.value} onChangeText={props.onChangeText} autoHeight={true} multiline={true} containerStyle={styles.sendMessageInput} />
+    <TextInput state={props.state} autoHeight={true} multiline={true} containerStyle={styles.sendMessageInput} />
     <Button
-      disabled={!props.value?.trim().length}
-      status={props.status}
+      disabled={!props.state?.val?.trim().length}
+      loading={props.loading}
       onPress={props.onSubmit}
       style={styles.sendMessageButton}
       icon={<Feather name='send' size={20} color='white' />}

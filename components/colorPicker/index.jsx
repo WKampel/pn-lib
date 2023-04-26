@@ -8,38 +8,42 @@ export default props => {
       <ColorPicker
         sliderThickness={10}
         thumbSize={8}
-        width
         style={styles.picker}
-        value={props.value}
-        onComplete={e => props.onChange && props.onChange(e.hex)}
+        value={props.state?.val}
+        onComplete={e => props.state?.set && props.state.set(e.hex)}
         thumbAnimationDuration={100}
       >
-        <Panel1 style={styles.pickerPanel1} />
-        <HueSlider />
-        <InputWidget />
+        <View>
+          <Panel1 style={styles.pickerPanel1} />
+          <InputWidget inputStyle={styles.inputWidget} formats={['HEX']} inputTitleStyle={{ display: 'none' }} />
+        </View>
+        <HueSlider style={styles.hueSlider} vertical={true} />
       </ColorPicker>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-  card: {
-    backgroundColor: 'white',
-    padding: 10,
-    shadowColor: 'black',
-    shadowRadius: 8,
-    elevation: 8,
-    shadowOpacity: 0.2,
-    alignSelf: 'flex-start',
-  },
   picker: {
-    width: 100,
-    height: 100,
-    minHeight: 0,
+    flexDirection: 'row',
+  },
+  card: {
+    backgroundColor: 'rgb(240,240,240)',
+    padding: 7,
+    borderColor: 'rgb(220, 220, 220)',
+    borderWidth: 2,
+    borderRadius: 10,
   },
   pickerPanel1: {
     width: 100,
     height: 100,
-    minHeight: 0,
+  },
+  hueSlider: {
+    marginLeft: 5,
+  },
+  inputWidget: {
+    width: 100,
+    fontSize: 12,
+    marginTop: 5,
   },
 })

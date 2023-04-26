@@ -7,7 +7,7 @@ class BaseAPI {
   }
 
   static serverUrl() {
-    return 'http://137.184.135.124:3050'
+    // return 'http://137.184.135.124:3050'
     return Platform.OS === 'web' ? 'http://localhost:3050' : 'http://192.168.1.36:3050'
   }
 

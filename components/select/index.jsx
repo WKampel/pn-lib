@@ -4,7 +4,7 @@ import { Modal, Platform, Pressable, StyleSheet, Text, View } from 'react-native
 import Button from '../../components/button'
 
 export default props => {
-  const onChange = itemValue => props.onChange(props.options.find(option => getValue(option) == itemValue))
+  const onChange = itemValue => props.state.set(props.options.find(option => getValue(option) == itemValue))
 
   const [iosModalVisible, setIosModalVisible] = useState(false)
   const androidPickerRef = useRef()
@@ -15,13 +15,13 @@ export default props => {
     return (
       <>
         <Pressable style={styles.picker} onPress={() => setIosModalVisible(true)}>
-          <Text>{getLabel(props.selected)}</Text>
+          <Text>{getLabel(props.state.val)}</Text>
         </Pressable>
         <Modal transparent={true} animationType={'fade'} visible={iosModalVisible} onRequestClose={() => {}}>
           <View style={iosStyles.modalContainer}>
             <View style={iosStyles.modal}>
               <Button text='Done' onPress={() => setIosModalVisible(false)} />
-              <Picker style={iosStyles.picker} selectedValue={getValue(props.selected)} onValueChange={onChange}>
+              <Picker style={iosStyles.picker} selectedValue={getValue(props.state.val)} onValueChange={onChange}>
                 <Picker.Item label='Select' />
                 {props.options?.map(option => (
                   <Picker.Item key={getValue(option)} label={getLabel(option)} value={getValue(option)} />
@@ -34,7 +34,7 @@ export default props => {
     )
   } else if (Platform.OS == 'web') {
     return (
-      <Picker style={styles.picker} selectedValue={getValue(props.selected)} onValueChange={onChange}>
+      <Picker style={styles.picker} selectedValue={getValue(props.state.val)} onValueChange={onChange}>
         <Picker.Item key='_SELECT ONE_' label='Select' value={null} disabled />
         {props.options?.map(option => (
           <Picker.Item key={getValue(option)} label={getLabel(option)} value={getValue(option)} />
@@ -45,9 +45,9 @@ export default props => {
     return (
       <>
         <Pressable style={styles.picker} onPress={() => androidPickerRef.current.focus()}>
-          <Text>{getLabel(props.selected)}</Text>
+          <Text>{getLabel(props.state.val)}</Text>
         </Pressable>
-        <Picker ref={androidPickerRef} style={{ display: 'none' }} selectedValue={getValue(props.selected)} onValueChange={onChange}>
+        <Picker ref={androidPickerRef} style={{ display: 'none' }} selectedValue={getValue(props.state.val)} onValueChange={onChange}>
           <Picker.Item label='Select' />
           {props.options?.map(option => (
             <Picker.Item key={getValue(option)} label={getLabel(option)} value={getValue(option)} />
@@ -60,13 +60,15 @@ export default props => {
 
 const styles = StyleSheet.create({
   picker: {
-    backgroundColor: '#f0f0f0',
-    borderRadius: 5,
+    backgroundColor: 'rgb(240, 240, 240)',
+    borderColor: 'rgb(220, 220, 220)',
+    borderWidth: 2,
+    borderRadius: 10,
     height: 35,
-    borderWidth: 0,
     paddingLeft: Platform.OS == 'web' ? 5 : 10,
     justifyContent: 'center',
     flex: 1,
+    fontSize: 12,
   },
 })
 

@@ -10,15 +10,15 @@ export default props => {
 
   const onChange = (e, date) => {
     setAndroidOpen(false)
-    props.onChange(date)
+    props.state.set(date)
   }
 
-  const momentValue = moment(props.value)
+  const momentValue = moment(props.state.val)
   if (Platform.OS == 'web') {
     return createElement('input', {
       type: 'date',
       value: momentValue.format('YYYY-MM-DD'),
-      onChange: e => props.onChange(moment(e.target.value).toDate()),
+      onChange: e => props.state.set(moment(e.target.value).toDate()),
       style: styles.webInput,
     })
   } else if (Platform.OS == 'android') {

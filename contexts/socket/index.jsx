@@ -7,7 +7,7 @@ export const Context = createContext({})
 export const Provider = props => {
   const [socket, setSocket] = useState(null)
   useEffect(() => {
-    const socket = io(BaseAPI.serverUrl())
+    const socket = io('http://localhost:3050')
     setSocket(socket)
 
     socket.on('error', e => {

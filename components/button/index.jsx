@@ -8,7 +8,7 @@ export default props => {
   const nav = useNavigation()
   const style = useContext(StyleContext)
 
-  if (props.status == 'loading') {
+  if (props.loading) {
     return (
       <View style={[styles.button, styles.disabled, props.style]}>
         <Spinner />
@@ -41,8 +41,9 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
   button: {
-    paddingTop: 10,
-    paddingBottom: 10,
+    minHeight: 35,
+    paddingTop: 0,
+    paddingBottom: 0,
     paddingLeft: 15,
     paddingRight: 15,
     borderRadius: 10,
