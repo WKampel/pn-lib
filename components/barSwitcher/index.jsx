@@ -16,12 +16,13 @@ export default props => {
 const styles = StyleSheet.create({
   barSwitcher: {
     flexDirection: 'row',
-    backgroundColor: 'rgb(235, 235, 235)',
+    backgroundColor: 'rgb(230, 230, 240)',
+    borderWidth: 1,
+    borderColor: 'rgb(200, 200, 220)',
     borderRadius: 5,
-    padding: 2,
     marginBottom: 20,
   },
-  item: { flex: 1, padding: 5, borderRadius: 5 },
+  item: { flex: 1, padding: 7, borderRadius: 5 },
   itemActive: {
     backgroundColor: 'white',
   },

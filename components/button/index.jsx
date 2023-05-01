@@ -41,12 +41,12 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
   button: {
-    minHeight: 35,
+    minHeight: 38,
     paddingTop: 0,
     paddingBottom: 0,
-    paddingLeft: 15,
-    paddingRight: 15,
-    borderRadius: 10,
+    paddingLeft: 20,
+    paddingRight: 20,
+    borderRadius: 100,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
@@ -55,7 +55,9 @@ const styles = StyleSheet.create({
   text: {
     color: 'white',
     textAlign: 'center',
-    fontWeight: 'bold',
+    textTransform: 'uppercase',
+    fontSize: 12,
+    fontWeight: 500,
   },
   disabled: {
     backgroundColor: 'lightgray',

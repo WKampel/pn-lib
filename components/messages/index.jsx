@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, Platform } from 'react-native'
 import TextInput from '../../components/textInput'
 import Button from '../../components/button'
 import { Feather } from '@expo/vector-icons'
@@ -24,7 +24,14 @@ export const Conversation = props => {
 }
 export const ComposeMessage = props => (
   <View style={styles.composeMessageContainer}>
-    <TextInput state={props.state} autoHeight={true} multiline={true} containerStyle={styles.sendMessageInput} />
+    <TextInput
+      textInputStyle={[Platform.OS === 'web' ? { paddingTop: 10, paddingBottom: 10 } : null]}
+      placeholder='Message...'
+      state={props.state}
+      autoHeight={true}
+      multiline={true}
+      containerStyle={styles.sendMessageInput}
+    />
     <Button
       disabled={!props.state?.val?.trim().length}
       loading={props.loading}

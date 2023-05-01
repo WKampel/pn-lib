@@ -60,11 +60,11 @@ export default props => {
 
 const styles = StyleSheet.create({
   picker: {
-    backgroundColor: 'rgb(240, 240, 240)',
-    borderColor: 'rgb(220, 220, 220)',
-    borderWidth: 2,
+    backgroundColor: 'rgb(230, 230, 240)',
+    borderColor: 'rgb(200, 200, 220)',
+    borderWidth: 1,
     borderRadius: 10,
-    height: 35,
+    height: 38,
     paddingLeft: Platform.OS == 'web' ? 5 : 10,
     justifyContent: 'center',
     flex: 1,

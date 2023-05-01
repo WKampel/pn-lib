@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     padding: 0,
     paddingLeft: 10,
     paddingRight: 10,
-    height: 35,
+    height: 38,
     paddingVertical: 0 /* Android fix */,
     outlineColor: '#69b4f5',
     borderRadius: 5,

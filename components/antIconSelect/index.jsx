@@ -1,37 +1,23 @@
 import React, { useContext } from 'react'
 import { StyleSheet, View, Pressable } from 'react-native'
-import Img from '../../components/img'
-import { gql } from '@apollo/client'
-import useQuery from '../../libs/useQuery'
 import { Context } from '../../contexts/style'
 import { ScrollView } from 'react-native-gesture-handler'
-
-const GET_ICONS = gql`
-  query {
-    icons {
-      id
-      name
-      file {
-        url
-      }
-    }
-  }
-`
+import { AntDesign } from '@expo/vector-icons'
 
 export default props => {
-  const { data } = useQuery(GET_ICONS)
   const style = useContext(Context)
+  const icons = Object.keys(AntDesign.glyphMap)
 
   return (
     <ScrollView style={styles.scrollView}>
       <View style={styles.icons}>
-        {data?.icons?.map(icon => (
+        {icons?.map(icon => (
           <Pressable
             key={icon.id}
             onPress={() => props.state.set(icon)}
-            style={[styles.iconContainer, ...(props.state.val?.id === icon.id ? [styles.selected, { borderColor: style.primaryColor }] : [])]}
+            style={[styles.iconContainer, ...(props.state.val === icon ? [styles.selected, { borderColor: style.primaryColor }] : [])]}
           >
-            <Img containerStyle={styles.icon} src={icon.file.url} />
+            <AntDesign name={icon} size={20} color='black' />
           </Pressable>
         ))}
       </View>
@@ -59,10 +45,8 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: 'transparent',
     borderRadius: 5,
-  },
-  icon: {
-    width: '100%',
-    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   selected: {
     backgroundColor: 'white',

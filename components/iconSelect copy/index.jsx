@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { StyleSheet, View, Pressable } from 'react-native'
-import Img from '../../components/img'
+import Img from '../img'
 import { gql } from '@apollo/client'
 import useQuery from '../../libs/useQuery'
 import { Context } from '../../contexts/style'

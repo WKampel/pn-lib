@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Pressable, StyleSheet, Text, View } from 'react-native'
+import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native'
 import moment from 'moment'
 import Button from '../../components/button'
 import { ScrollView } from 'react-native-gesture-handler'
 import { Context as StyleContext } from '../../contexts/style'
+import { FlashList } from '@shopify/flash-list'
+import Spinner from '../spinner'
 
 export default props => {
   const [date, setDate] = useState(new Date())
@@ -12,7 +14,7 @@ export default props => {
 
   const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
-  const startDate = moment.utc(date).startOf('month').startOf('week')
+  const startDate = moment(date).startOf('month').startOf('week')
   const endDate = startDate.clone().add(41, 'days')
 
   const getDaysBetweenDates = (start, end) => {
@@ -20,6 +22,14 @@ export default props => {
     let dt = new Date(start)
     for (; dt <= new Date(end); dt.setDate(dt.getDate() + 1)) arr.push(new Date(dt))
     return arr
+  }
+
+  const renderEvent = ({ item }) => {
+    return (
+      <Pressable onPress={() => props.onEventPress(item)}>
+        <Text style={[styles.event, { backgroundColor: style.primaryColor }]}>{props.getEventLabel(item)}</Text>
+      </Pressable>
+    )
   }
 
   useEffect(() => {
@@ -30,23 +40,24 @@ export default props => {
 
   const prev = () => {
     if (view == 'month') {
-      setDate(moment.utc(date).subtract(1, 'month').toDate())
+      setDate(moment(date).subtract(1, 'month').toDate())
     }
   }
 
   const next = () => {
     if (view == 'month') {
-      setDate(moment.utc(date).add(1, 'month').toDate())
+      setDate(moment(date).add(1, 'month').toDate())
     }
   }
   return (
     <View>
       <View style={styles.controls}>
-        <View style={styles.controlsChild}>
+        <View style={[styles.controlsChild, styles.controlButtons]}>
           <Button text='<' style={styles.controlButton} onPress={prev} />
           <Button text='>' style={styles.controlButton} onPress={next} />
         </View>
-        <Text style={styles.controlsChild}>{moment.utc(date).format('MMM YYYY')}</Text>
+        <Text style={[styles.controlsChild, styles.month]}>{moment(date).format('MMM YYYY')}</Text>
+        {props.loading ? <Spinner color='black' /> : null}
         {/* <View style={styles.controlsChild}>
           <Button text='Month' style={styles.controlButton} onPress={() => setView('month')} />
           <Button text='Week' style={styles.controlButton} onPress={() => setView('week')} />
@@ -55,28 +66,24 @@ export default props => {
       </View>
       <View style={styles.calendar}>
         {daysOfWeek.map((day, i) => (
-          <View key={day + i} style={[styles.cell, styles.header, i % 7 == 0 ? styles.firstCol : null]}>
-            <Text>{day}</Text>
+          <View key={day + i} style={[styles.cell, styles.header, i % 7 == 0 ? styles.firstCell : null]}>
+            <Text style={styles.headerText}>{day}</Text>
           </View>
         ))}
         {days.map((day, i) => (
-          <View key={day + i} style={[styles.cell, i % 7 == 0 ? styles.firstCol : null]}>
-            <Text style={moment.utc(day).month() == moment.utc(date).month() ? null : styles.differentMonth}>{moment.utc(day).date()}</Text>
+          <View key={day + i} style={[styles.cell, i % 7 == 0 ? styles.firstCell : null, styles.cell, i % 2 == 0 ? styles.evenCell : null]}>
+            <Text style={moment(day).month() == moment(date).month() ? null : styles.differentMonth}>{moment(day).date()}</Text>
 
-            <ScrollView>
-              {props.events
-                .filter(event =>
-                  moment
-                    .utc(day)
-                    .startOf('day')
-                    .isSame(moment.utc(props.getEventStartDate(event)).startOf('day'))
-                )
-                .map((event, i) => (
-                  <Pressable key={i} onPress={() => props.onEventPress(event)}>
-                    <Text style={[styles.event, { backgroundColor: style.primaryColor }]}>{props.getEventLabel(event)}</Text>
-                  </Pressable>
-                ))}
-            </ScrollView>
+            <FlashList
+              keyExtractor={item => item.appointmentSrNo}
+              data={props.events.filter(event =>
+                moment(day)
+                  .startOf('day')
+                  .isSame(moment(props.getEventStartDate(event)).startOf('day'))
+              )}
+              estimatedItemSize={17}
+              renderItem={renderEvent}
+            />
           </View>
         ))}
       </View>
@@ -89,37 +96,53 @@ const styles = StyleSheet.create({
     color: 'white',
     flexWrap: 'wrap',
     flexDirection: 'row',
+    borderRadius: 10,
+    overflow: 'hidden',
   },
+  month: {
+    marginLeft: 15,
+    marginRight: 15,
+    fontWeight: 'bold',
+  },
+
   header: {
+    height: 40,
     minHeight: 0,
     textAlign: 'center',
-    borderTopWidth: 1,
+    backgroundColor: '#36304a',
+    justifyContent: 'center',
+  },
+  headerText: {
+    color: 'white',
   },
   cell: {
-    borderRightWidth: 1,
-    borderBottomWidth: 1,
     width: 'calc(100% / 7)',
     minHeight: 120,
     maxHeight: 120,
     textAlign: 'right',
     padding: 5,
-    borderColor: 'rgb(220, 220, 220)',
+    backgroundColor: 'white',
   },
-  firstCol: {
-    borderLeftWidth: 1,
+  firstCell: {},
+  evenCell: {
+    backgroundColor: 'whitesmoke',
   },
   controls: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     marginBottom: 10,
     alignItems: 'center',
   },
   controlsChild: {
     flexDirection: 'row',
   },
+  controlButtons: {
+    borderRadius: 10,
+    overflow: 'hidden',
+  },
   controlButton: {
     borderRadius: 0,
   },
+
   event: {
     color: 'white',
     marginBottom: 2,

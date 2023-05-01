@@ -26,8 +26,9 @@ export default props => {
     },
   })
 
-  const value = props.state ? props.state.val : data?.file
+  const value = props.state.val ? props.state.val : data?.file
 
+  console.log('val:', value)
   /* Trigger image select popup */
   const pickImage = async () => {
     await requestPermission()
@@ -68,8 +69,8 @@ export default props => {
             }
           }}
         >
-          {props.label ? <Text style={styles.label}>{props.label}</Text> : null}
-          <MaterialCommunityIcons name='image-plus' size={40} color='white' />
+          {props.label && !value.url ? <Text style={styles.label}>{props.label}</Text> : null}
+          {!value.url ? <MaterialCommunityIcons name='image-plus' size={40} color='gray' /> : null}
         </Pressable>
       )}
       {value.url ? <Img containerStyle={styles.image} src={value.url} /> : null}
@@ -82,14 +83,14 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgb(240, 240, 240)',
+    backgroundColor: 'rgb(230, 230, 240)',
     width: 150,
     height: 150,
     position: 'relative',
     borderRadius: 7,
     cursor: 'pointer',
-    borderColor: 'rgb(220, 220, 220)',
-    borderWidth: 2,
+    borderColor: 'rgb(200, 200, 220)',
+    borderWidth: 1,
   },
   button: {
     position: 'absolute',
@@ -100,7 +101,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     zIndex: 1,
-    backgroundColor: 'rgba(0,0,0,0.4)',
   },
   spinner: {
     position: 'absolute',
