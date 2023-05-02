@@ -50,8 +50,10 @@ export default props => {
 
 const styles = StyleSheet.create({
   webInput: {
-    backgroundColor: '#f0f0f0',
-    borderWidth: 0,
+    backgroundColor: 'rgb(220, 220, 230)',
+    borderWidth: 1,
+    borderColor: 'rgb(200, 200, 220)',
+    borderStyle: 'solid',
     fontSize: 12,
     padding: 0,
     paddingLeft: 10,

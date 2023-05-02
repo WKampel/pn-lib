@@ -18,6 +18,7 @@ const styles = StyleSheet.create({
   label: { marginBottom: 7, paddingLeft: 5, fontSize: 12, color: '#616161', fontWeight: 'bold' },
   children: {
     flexDirection: 'row',
+    gap: 15,
   },
 })
 

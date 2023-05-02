@@ -21,14 +21,19 @@ export default props => {
     if (props.linkTo) nav.navigate(props.linkTo)
   }
 
+  const primaryColor = props.danger ? 'red' : style.primaryColor
+
+  const buttonStyle = props.secondary ? { borderWidth: 2, borderColor: primaryColor } : { backgroundColor: primaryColor }
+  const textStyle = props.secondary ? { color: primaryColor, fontWeight: 'bold' } : null
+
   return (
     <Pressable
       pointerEvents={props.disabled ? 'none' : 'auto'}
-      style={[styles.button, { backgroundColor: style.primaryColor }, props.style, props.disabled ? styles.disabled : {}]}
+      style={[styles.button, buttonStyle, props.style, props.disabled ? styles.disabled : {}]}
       onPress={onPress}
     >
       {props.icon && !props.iconAfter ? <View style={styles.icon}>{props.icon}</View> : null}
-      <Text style={[styles.text, props.textStyle]}>{props.text}</Text>
+      <Text style={[styles.text, textStyle, props.textStyle]}>{props.text}</Text>
       {props.icon && props.iconAfter ? <View style={(styles.icon, styles.iconAfter)}>{props.icon}</View> : null}
     </Pressable>
   )
