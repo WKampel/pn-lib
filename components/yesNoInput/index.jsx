@@ -5,10 +5,10 @@ import { Context } from '../../contexts/style'
 export default props => {
   return (
     <View style={styles.yesNoInput}>
-      <Pressable style={[styles.option, props.value === 'yes' ? styles.selected : {}]} onPress={() => props.onChange('yes')}>
+      <Pressable style={[styles.option, props.state.val === 'yes' ? styles.selected : {}]} onPress={() => props.state.set('yes')}>
         <Text style={styles.label}>Yes</Text>
       </Pressable>
-      <Pressable style={[styles.option, props.value === 'no' ? styles.selected : {}]} onPress={() => props.onChange('no')}>
+      <Pressable style={[styles.option, props.state.val === 'no' ? styles.selected : {}]} onPress={() => props.state.set('no')}>
         <Text style={styles.label}>No</Text>
       </Pressable>
     </View>
