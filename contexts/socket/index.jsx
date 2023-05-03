@@ -1,20 +1,39 @@
-import { createContext, useEffect, useState } from 'react'
+import { createContext, useEffect } from 'react'
+import { DeviceEventEmitter } from 'react-native'
 import io from 'socket.io-client'
 
 export const Context = createContext({})
 
+export const useSocketEvent = (type, callback) => {
+  useEffect(() => {
+    const eventListener = DeviceEventEmitter.addListener('socket event', info => {
+      if (info.type === type) callback(info.data)
+    })
+    return () => {
+      eventListener.remove()
+    }
+  }, [])
+}
+
 export const Provider = props => {
-  const [socket, setSocket] = useState(null)
   useEffect(() => {
     const socket = io('http://localhost:3050', {
       query: { token: props.token },
     })
-    setSocket(socket)
 
     socket.on('error', e => {
       alert('error:' + e)
     })
+
+    socket.on('new message', data => {
+      DeviceEventEmitter.emit('socket event', { type: 'new message', data })
+    })
+
+    return () => {
+      socket?.off('error')
+      socket?.off('new message')
+    }
   }, [])
 
-  return <Context.Provider value={socket}>{props.children}</Context.Provider>
+  return <Context.Provider value={{}}>{props.children}</Context.Provider>
 }
