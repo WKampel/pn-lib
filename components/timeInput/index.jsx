@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     height: 38,
     paddingVertical: 0 /* Android fix */,
     outlineColor: '#69b4f5',
-    borderRadius: 5,
+    borderRadius: 10,
     justifyContent: 'center',
     flex: 1,
   },

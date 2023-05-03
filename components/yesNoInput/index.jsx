@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   yesNoInput: {
     flexDirection: 'row',
     backgroundColor: 'rgb(220, 220, 230)',
-    borderRadius: 5,
+    borderRadius: 10,
     padding: 2,
     flex: 1,
     borderWidth: 1,
