@@ -5,11 +5,10 @@ import useState from '../../libs/useState'
 
 export default props => {
   const style = useContext(StyleContext)
-  const value = props.value || props.state?.val
+  const value = props.state?.val
   const ref = useRef()
 
   const onChange = text => {
-    if (props.onChangeText) props.onChangeText(text)
     if (props.state) props.state.set(text)
   }
 
