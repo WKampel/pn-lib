@@ -1,13 +1,14 @@
 import { createContext, useEffect, useState } from 'react'
 import io from 'socket.io-client'
-import BaseAPI from '../../api/base'
 
 export const Context = createContext({})
 
 export const Provider = props => {
   const [socket, setSocket] = useState(null)
   useEffect(() => {
-    const socket = io('http://localhost:3050')
+    const socket = io('http://localhost:3050', {
+      query: { token: props.token },
+    })
     setSocket(socket)
 
     socket.on('error', e => {
