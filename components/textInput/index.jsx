@@ -1,7 +1,6 @@
 import { Context as StyleContext } from '../../contexts/style'
 import React, { useContext, useEffect, useRef } from 'react'
 import { StyleSheet, TextInput, View, Text } from 'react-native'
-import useState from '../../libs/useState'
 
 export default props => {
   const style = useContext(StyleContext)

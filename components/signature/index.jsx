@@ -19,5 +19,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'rgb(200, 200, 220)',
     borderRadius: 10,
+    overflow: 'hidden',
   },
 })
