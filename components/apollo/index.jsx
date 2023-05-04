@@ -25,7 +25,7 @@ export default props => {
       }
     })
 
-    const uploadLink = createUploadLink({ uri: 'http://localhost:3050/graphql' })
+    const uploadLink = createUploadLink({ uri: 'http://137.184.135.124:3050/graphql' })
 
     return new ApolloClient({
       link: from([authLink, errorLink, uploadLink]),
