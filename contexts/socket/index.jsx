@@ -17,7 +17,7 @@ export const useSocketEvent = (type, callback) => {
 
 export const Provider = props => {
   useEffect(() => {
-    const socket = io('http://localhost:3050', {
+    const socket = io('http://192.168.1.36:3050', {
       query: { token: props.token },
     })
 

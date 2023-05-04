@@ -51,6 +51,9 @@ export default props => {
                 headerRight: () => <OpenDrawerButton navigation={navigation} />,
                 headerLeft: () => {},
               }
+              if (screen.hideInSideNav) {
+                options.drawerItemStyle = { display: 'none' }
+              }
 
               if (screen.backButton) {
                 options.headerLeft = () => <HeaderBackButton onPress={() => navigation.navigate(screen.backButton)} />

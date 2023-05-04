@@ -1,5 +1,6 @@
 import { Context as StyleContext } from '../../contexts/style'
 import React, { useContext, useEffect, useRef } from 'react'
+import { Platform } from 'react-native'
 import { StyleSheet, TextInput, View, Text } from 'react-native'
 
 export default props => {
@@ -12,7 +13,7 @@ export default props => {
   }
 
   useEffect(() => {
-    if (props.autoHeight) {
+    if (props.autoHeight && Platform.OS === 'web') {
       ref.current.style.height = 0
       ref.current.style.height = ref.current.scrollHeight + 'px'
     }

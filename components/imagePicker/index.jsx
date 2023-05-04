@@ -26,7 +26,7 @@ export default props => {
     },
   })
 
-  const value = props.state.val ? props.state.val : data?.file
+  const value = props.state.val || {}
 
   console.log('val:', value)
   /* Trigger image select popup */

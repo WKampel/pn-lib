@@ -7,26 +7,33 @@ export default props => {
 
   const onChange = (e, time) => {
     setAndroidOpen(false)
-    props.onChange(moment(time).format('HH:mm'))
+    props.state.set(moment(time).format('HH:mm'))
+  }
+
+  if (Platform.OS === 'ios') {
+    if (!props.state.val) {
+      props.state.set(new Date())
+      return
+    }
   }
 
   if (Platform.OS == 'web') {
     return createElement('input', {
       type: 'time',
-      value: props.value,
-      onChange: e => props.onChange(e.target.value),
+      value: props.state.val,
+      onChange: e => props.state.set(e.target.value),
       style: styles.webInput,
     })
   } else if (Platform.OS == 'android') {
     return (
       <>
         <Pressable onPress={() => setAndroidOpen(true)} style={styles.webInput}>
-          <Text>{props.value}</Text>
+          <Text>{props.state.val}</Text>
         </Pressable>
         {androidOpen ? (
           <DateTimePicker
             display='default'
-            value={new Date(new Date().toDateString() + ' ' + props.value)}
+            value={new Date(new Date().toDateString() + ' ' + props.state.val)}
             mode='time'
             is24Hour={true}
             onChange={onChange}
@@ -39,10 +46,12 @@ export default props => {
       <DateTimePicker
         style={styles.iosInput}
         display='default'
-        value={new Date(new Date().toDateString() + ' ' + props.value)}
+        value={props.state.val}
         mode={'time'}
         is24Hour={true}
-        onChange={onChange}
+        onChange={(e, val) => {
+          props.state.set(val)
+        }}
       />
     )
   }
@@ -64,11 +73,5 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     justifyContent: 'center',
     flex: 1,
-  },
-  iosInput: {
-    alignSelf: 'flex-start',
-    margin: 0,
-    fontSize: 1,
-    color: 'red',
   },
 })

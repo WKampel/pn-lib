@@ -1,12 +1,12 @@
 const { useState: useReactState, useEffect } = require('react')
 const { useIsFocused } = require('@react-navigation/native')
 
-const useState = initialVal => {
+const useState = (initialVal, options) => {
   const [val, set] = useReactState(initialVal)
   const isFocused = useIsFocused()
 
   useEffect(() => {
-    set(initialVal)
+    if (options?.persist === false) set(initialVal)
   }, [isFocused])
 
   const arrayPush = item => {

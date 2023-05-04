@@ -4,8 +4,8 @@ export default props => {
   return (
     <View style={styles.radio}>
       {props.options?.map((option, i) => (
-        <Pressable key={i} style={styles.buttonContainer} onPress={() => props.onChange && props.onChange(option)}>
-          <View style={[styles.button, props.selected && props.getValue(props.selected) === props.getValue(option) ? styles.selected : {}]} />
+        <Pressable key={i} style={styles.buttonContainer} onPress={() => props.state && props.state.set(option)}>
+          <View style={[styles.button, props.state?.val && props.getValue(props.state?.val) === props.getValue(option) ? styles.selected : {}]} />
           <Text>{props.getLabel(option, i)}</Text>
         </Pressable>
       ))}

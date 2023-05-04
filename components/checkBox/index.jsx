@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native'
+import { StyleSheet, Text, Pressable, View } from 'react-native'
 import CheckBox from 'expo-checkbox'
 
 export default props => {
@@ -9,12 +9,12 @@ export default props => {
     if (props.onValueChange) props.onValueChange(!value)
   }
   return (
-    <TouchableWithoutFeedback onPress={onPress}>
+    <Pressable onPress={onPress} style={{ paddingTop: 10, paddingBottom: 10 }}>
       <View style={styles.container}>
         <CheckBox disabled={props.disabled} value={value} onValueChange={props.onValueChange} style={styles.checkbox} />
         <Text style={styles.label}>{props.label}</Text>
       </View>
-    </TouchableWithoutFeedback>
+    </Pressable>
   )
 }
 

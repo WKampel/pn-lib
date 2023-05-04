@@ -6,12 +6,15 @@ import { createUploadLink } from 'apollo-upload-client'
 
 export default props => {
   const client = useMemo(() => {
-    const authLink = setContext((_, { headers }) => ({
-      headers: {
-        ...headers,
-        authorization: props.token ? `Bearer ${props.token}` : '',
-      },
-    }))
+    const authLink = setContext((_, { headers }) => {
+      return {
+        headers: {
+          ...headers,
+          authorization: props.token ? `Bearer ${props.token}` : '',
+          practiceid: props.practiceId,
+        },
+      }
+    })
 
     const errorLink = onError(({ graphQLErrors, networkError }) => {
       if (graphQLErrors)
@@ -25,23 +28,13 @@ export default props => {
       }
     })
 
-    const uploadLink = createUploadLink({ uri: 'http://localhost:3050/graphql' })
+    const uploadLink = createUploadLink({ uri: 'http://192.168.1.36:3050/graphql' })
 
     return new ApolloClient({
       link: from([authLink, errorLink, uploadLink]),
       cache: new InMemoryCache(),
-      defaultOptions: {
-        watchQuery: {
-          fetchPolicy: 'no-cache',
-          errorPolicy: 'ignore',
-        },
-        query: {
-          fetchPolicy: 'no-cache',
-          errorPolicy: 'all',
-        },
-      },
     })
-  }, [props.token])
+  }, [props.token, props.practiceId])
 
   return <ApolloProvider client={client}>{props.children}</ApolloProvider>
 }
