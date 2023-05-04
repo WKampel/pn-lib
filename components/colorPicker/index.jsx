@@ -3,6 +3,11 @@ import { StyleSheet, View } from 'react-native'
 import ColorPicker, { Panel1, HueSlider, InputWidget } from 'reanimated-color-picker'
 
 export default props => {
+  if (!props.state.val) {
+    props.state.set('#69b4f5')
+    return
+  }
+
   return (
     <View style={styles.card}>
       <ColorPicker
