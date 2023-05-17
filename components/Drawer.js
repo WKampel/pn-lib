@@ -17,7 +17,14 @@ const Drawer = props => {
           return <Header {...data} />
         },
       }}
-      drawerContent={_props => <PracticeDrawerContent {..._props} hideDefaultItems={props.hideDefaultItems} customItems={props.customItems} />}
+      drawerContent={_props => (
+        <PracticeDrawerContent
+          {..._props}
+          hideDefaultItems={props.hideDefaultItems}
+          customItems={props.customItems}
+          extraChildren={props.extraChildren}
+        />
+      )}
     >
       {props.screens.map(screen => {
         let options = {}

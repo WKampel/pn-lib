@@ -8,9 +8,10 @@ const TextInput = props => {
     <ReactNativeTextInput
       multiline={props.multiline}
       secureTextEntry={props.password}
-      style={branding.input.style}
+      style={[branding.input.style, props.style]}
       value={props.state.val}
       onChangeText={props.state.set}
+      placeholder={props.placeholder}
       placeholderTextColor='gray'
     />
   )

@@ -1,20 +1,20 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native'
-import moment from 'moment'
-import Button from '../../components/button'
-import { ScrollView } from 'react-native-gesture-handler'
-import { Context as StyleContext } from '../../contexts/style'
 import { FlashList } from '@shopify/flash-list'
-import Spinner from '../spinner'
+import moment from 'moment'
+import React, { useEffect } from 'react'
+import { Pressable, StyleSheet, Text, View } from 'react-native'
+import { useBranding } from '../contexts/Branding'
+import useState from '../hooks/useState'
+import Button from './Button'
+import Spinner from './Spinner'
 
 export default props => {
-  const [date, setDate] = useState(new Date())
-  const [view, setView] = useState('month')
-  const style = useContext(StyleContext)
+  const date = useState(new Date())
+  const view = useState('month')
+  const branding = useBranding()
 
   const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
-  const startDate = moment(date).startOf('month').startOf('week')
+  const startDate = moment(date.val).startOf('month').startOf('week')
   const endDate = startDate.clone().add(41, 'days')
 
   const getDaysBetweenDates = (start, end) => {
@@ -27,26 +27,26 @@ export default props => {
   const renderEvent = ({ item }) => {
     return (
       <Pressable onPress={() => props.onEventPress(item)}>
-        <Text style={[styles.event, { backgroundColor: style.primaryColor }]}>{props.getEventLabel(item)}</Text>
+        <Text style={branding.calendar.event.style}>{props.getEventLabel(item)}</Text>
       </Pressable>
     )
   }
 
   useEffect(() => {
     if (props.onChangeVisibleDates) props.onChangeVisibleDates(startDate, endDate)
-  }, [view, date])
+  }, [view.val, date.val])
 
   const days = getDaysBetweenDates(startDate, endDate)
 
   const prev = () => {
-    if (view == 'month') {
-      setDate(moment(date).subtract(1, 'month').toDate())
+    if (view.val == 'month') {
+      date.set(moment(date.val).subtract(1, 'month').toDate())
     }
   }
 
   const next = () => {
-    if (view == 'month') {
-      setDate(moment(date).add(1, 'month').toDate())
+    if (view.val == 'month') {
+      date.set(moment(date.val).add(1, 'month').toDate())
     }
   }
   return (
@@ -56,7 +56,7 @@ export default props => {
           <Button text='<' style={styles.controlButton} onPress={prev} />
           <Button text='>' style={styles.controlButton} onPress={next} />
         </View>
-        <Text style={[styles.controlsChild, styles.month]}>{moment(date).format('MMM YYYY')}</Text>
+        <Text style={[styles.controlsChild, styles.month]}>{moment(date.val).format('MMM YYYY')}</Text>
         {props.loading ? <Spinner color='black' /> : null}
         {/* <View style={styles.controlsChild}>
           <Button text='Month' style={styles.controlButton} onPress={() => setView('month')} />
@@ -64,7 +64,7 @@ export default props => {
           <Button text='Day' style={styles.controlButton} onPress={() => setView('day ')} />
         </View> */}
       </View>
-      <View style={styles.calendar}>
+      <View style={branding.calendar.style}>
         {daysOfWeek.map((day, i) => (
           <View key={day + i} style={[styles.cell, styles.header, i % 7 == 0 ? styles.firstCell : null]}>
             <Text style={styles.headerText}>{day}</Text>
@@ -72,7 +72,7 @@ export default props => {
         ))}
         {days.map((day, i) => (
           <View key={day + i} style={[styles.cell, i % 7 == 0 ? styles.firstCell : null, styles.cell, i % 2 == 0 ? styles.evenCell : null]}>
-            <Text style={moment(day).month() == moment(date).month() ? null : styles.differentMonth}>{moment(day).date()}</Text>
+            <Text style={moment(day).month() == moment(date.val).month() ? null : styles.differentMonth}>{moment(day).date()}</Text>
 
             <FlashList
               keyExtractor={item => item.appointmentSrNo}
@@ -92,13 +92,6 @@ export default props => {
 }
 
 const styles = StyleSheet.create({
-  calendar: {
-    color: 'white',
-    flexWrap: 'wrap',
-    flexDirection: 'row',
-    borderRadius: 10,
-    overflow: 'hidden',
-  },
   month: {
     marginLeft: 15,
     marginRight: 15,
@@ -141,15 +134,6 @@ const styles = StyleSheet.create({
   },
   controlButton: {
     borderRadius: 0,
-  },
-
-  event: {
-    color: 'white',
-    marginBottom: 2,
-    borderRadius: 3,
-    padding: 2,
-    fontSize: 10,
-    textAlign: 'left',
   },
   differentMonth: {
     color: 'rgb(200, 200, 200)',

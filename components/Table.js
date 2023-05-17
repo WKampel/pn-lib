@@ -1,16 +1,13 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
-import useDebounce from '../../libs/useDebounce'
-import TextInput from '../textInput'
-import { Context as StyleContext } from '../../contexts/style'
-import Field from '../field'
-import useState from '../../libs/useState'
+import useState from '../hooks/useState'
+import Field from './Field'
+import TextInput from './TextInput'
 
 export default props => {
   const page = useState(0)
   const search = useState('')
-  const style = useContext(StyleContext)
 
   const perPage = 100
 
@@ -45,7 +42,7 @@ export default props => {
     <>
       <Field>
         {props.headerLeft}
-        <TextInput containerStyle={styles.search} placeholder='Search' state={search} />
+        <TextInput style={styles.search} placeholder='Search' state={search} />
       </Field>
       <View style={styles.table}>
         <View style={[styles.row, styles.headerRow]}>
@@ -85,11 +82,7 @@ const PageBar = props => {
       <ScrollView style={styles.pageContainer} horizontal={true}>
         {[...Array(parseInt(props.pageCount))].map((x, i) => (
           <Pressable key={i} onPress={() => props.page.set(i)}>
-            <Text
-              style={[styles.pageItem, i == props.page.val ? styles.activePageItem : {}, i == props.page.val ? { color: styles.primaryColor } : {}]}
-            >
-              {i + 1}
-            </Text>
+            <Text style={[styles.pageItem, i == props.page.val ? styles.activePageItem : null]}>{i + 1}</Text>
           </Pressable>
         ))}
       </ScrollView>
@@ -141,8 +134,6 @@ const styles = StyleSheet.create({
   },
   pageItem: {
     padding: 5,
-    // alignItems: 'center',
-    // justifyContent: 'center',
     color: 'rgb(100, 100, 100)',
   },
   activePageItem: {
