@@ -1,0 +1,43 @@
+import { ApolloProvider as ApolloApolloProvider, ApolloClient, InMemoryCache, from } from '@apollo/client'
+import { setContext } from '@apollo/client/link/context'
+import { onError } from '@apollo/client/link/error'
+import { createUploadLink } from 'apollo-upload-client'
+import { useMemo } from 'react'
+
+const ApolloProvider = props => {
+  const token = props.token
+  const setToken = props.setToken
+
+  const client = useMemo(() => {
+    const authLink = setContext((_, { headers }) => ({
+      headers: {
+        ...headers,
+        authorization: token ? `Bearer ${token}` : '',
+        ...(props.headers || {}),
+      },
+    }))
+
+    const errorLink = onError(({ graphQLErrors, networkError }) => {
+      if (graphQLErrors)
+        graphQLErrors.forEach(({ message, locations, path }) =>
+          console.log(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`)
+        )
+      if (networkError) {
+        const { statusCode } = networkError
+        if (statusCode === 401) setToken && setToken(null)
+        console.log(`[Network error]: ${networkError}`)
+      }
+    })
+
+    const uploadLink = createUploadLink({ uri: 'http://192.168.1.36:3050/backend/graphql' })
+
+    return new ApolloClient({
+      link: from([authLink, errorLink, uploadLink]),
+      cache: new InMemoryCache(),
+    })
+  }, [token])
+
+  return <ApolloApolloProvider client={client}>{props.children}</ApolloApolloProvider>
+}
+
+export { ApolloProvider }
