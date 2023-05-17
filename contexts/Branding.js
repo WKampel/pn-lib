@@ -163,10 +163,6 @@ export const BrandingProvider = props => {
         paddingTop: 10,
         paddingBottom: 10,
         borderRadius: 10,
-<<<<<<< HEAD
-=======
-        flexDirection: 'row',
->>>>>>> 6b928fa97f686ce2356514626a3446a3ebb5bdc1
         marginBottom: 15,
         backgroundColor: primaryColor,
       },
@@ -184,8 +180,6 @@ export const BrandingProvider = props => {
         },
       },
     },
-<<<<<<< HEAD
-=======
     calendar: {
       style: {
         color: 'white',
@@ -206,7 +200,6 @@ export const BrandingProvider = props => {
         },
       },
     },
->>>>>>> 6b928fa97f686ce2356514626a3446a3ebb5bdc1
   }
 
   return <Context.Provider value={styles}>{props.children}</Context.Provider>
