@@ -12,6 +12,7 @@ const Button = props => {
   const buttonStyle = {
     ...branding.button.style,
     ...(props.secondary ? branding.button.secondary.style : branding.button.primary.style),
+    ...(props.dangerous && branding.button.dangerous.style),
     ...props.style,
     ...((props.disabled || props.loading) && branding.button.disabled.style),
   }

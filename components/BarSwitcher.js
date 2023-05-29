@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginBottom: 20,
     flex: Platform.OS === 'web' ? 'unset' : null,
+    paddingLeft: Platform.OS === 'web' ? 'unset' : null,
   },
   item: { flex: 1, padding: 7, borderRadius: 5 },
   itemActive: {

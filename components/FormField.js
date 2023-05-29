@@ -30,6 +30,10 @@ const FormField = ({ type, label, options, state, style }) => {
   if (type == 'dropdown') element = <Select getLabel={i => i?.value} getValue={i => i?.value} options={options} state={state} />
   if (type == 'date') element = <DayInput state={state} />
   if (type == 'time') element = <TimeInput state={state} />
+  if (type == 'longtext') {
+    element = <Text>{label}</Text>
+    label = null
+  }
 
   return (
     <Field style={style} label={label}>

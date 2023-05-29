@@ -47,6 +47,11 @@ export const BrandingProvider = props => {
           backgroundColor: 'gray',
         },
       },
+      dangerous: {
+        style: {
+          backgroundColor: 'rgb(230, 50, 50)',
+        },
+      },
       primary: {
         style: {
           backgroundColor: primaryColor,

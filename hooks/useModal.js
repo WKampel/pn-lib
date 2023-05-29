@@ -2,7 +2,7 @@ import { ScrollView, StyleSheet, View } from 'react-native'
 import Popup from '../components/Popup'
 import useState from './useState'
 
-const useModal = (jsx, containerStyle) => {
+const useModal = (jsx, containerStyle, options) => {
   const open = useState(false)
   const context = useState(null)
 
@@ -14,6 +14,7 @@ const useModal = (jsx, containerStyle) => {
   const closeModal = () => {
     context.set(null)
     open.set(false)
+    if (options.onClose) options.onClose()
   }
 
   const toggleModal = () => {
@@ -26,7 +27,7 @@ const useModal = (jsx, containerStyle) => {
 
   return {
     render: (
-      <Popup onPressBackground={() => open.set(false)} visible={open.val}>
+      <Popup onPressBackground={closeModal} visible={open.val}>
         <View style={[styles.box, containerStyle]}>
           <ScrollView>{typeof jsx === 'function' ? jsx(context.val) : jsx}</ScrollView>
         </View>
@@ -35,6 +36,7 @@ const useModal = (jsx, containerStyle) => {
     open: openModal,
     close: closeModal,
     toggle: toggleModal,
+    isOpen: open.val,
   }
 }
 

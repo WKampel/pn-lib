@@ -35,6 +35,7 @@ export default props => {
     let result = await ImagePicker[props.camera ? 'launchCameraAsync' : 'launchImageLibraryAsync']({
       allowsEditing: true,
       aspect: props.aspect || [4, 4],
+      allowsEditing: true,
     })
     if (!result.canceled) return result.assets[0]
   }
@@ -49,9 +50,14 @@ export default props => {
         <Pressable
           style={styles.button}
           onPress={async () => {
-            const result = await pickImage()
+            let result = await pickImage()
             if (result) {
               let file = null
+
+              if (props.transformUri) {
+                const transformed = await props.transformUri(result.uri)
+                result.uri = transformed
+              }
 
               if (Platform.OS == 'web') {
                 const res = await fetch(result.uri)
