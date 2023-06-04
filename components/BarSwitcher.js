@@ -2,6 +2,7 @@ import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { Platform, Pressable, StyleSheet, Text, View } from 'react-native'
 import { useBranding } from '../contexts/Branding'
+import Icon from './Icon'
 
 export default props => {
   const branding = useBranding()
@@ -16,6 +17,7 @@ export default props => {
     <View style={[branding.input.style, styles.barSwitcher]}>
       {props.items.map((item, i) => (
         <Pressable key={i} onPress={() => onPress(item)} style={[styles.item, props.active === item.name ? styles.itemActive : {}]}>
+          {item.icon ? <Icon set={item.icon.set} name={item.icon.name} size={13} /> : null}
           <Text style={styles.name}>{item.name}</Text>
         </Pressable>
       ))}
@@ -29,10 +31,11 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     flex: Platform.OS === 'web' ? 'unset' : null,
     paddingLeft: Platform.OS === 'web' ? 'unset' : null,
+    padding: 0,
   },
-  item: { flex: 1, padding: 7, borderRadius: 5 },
+  item: { flex: 1, justifyContent: 'center', alignItems: 'center', flexDirection: 'row', gap: 5 },
   itemActive: {
-    backgroundColor: 'white',
+    backgroundColor: 'lightgray',
   },
-  name: { fontSize: 12, textAlign: 'center' },
+  name: { fontSize: 13, textAlign: 'center' },
 })

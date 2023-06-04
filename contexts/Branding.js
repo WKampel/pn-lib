@@ -12,9 +12,9 @@ export const BrandingProvider = props => {
     primaryColor,
     input: {
       style: {
-        backgroundColor: 'rgb(230, 230, 240)',
-        borderWidth: 1,
-        borderColor: 'rgb(200, 200, 220)',
+        backgroundColor: 'white',
+        borderWidth: 2,
+        borderColor: 'lightgray',
         borderStyle: 'solid',
         borderRadius: 10,
         fontSize: 12,
@@ -36,11 +36,14 @@ export const BrandingProvider = props => {
         alignItems: 'center',
         borderRadius: 500,
         textTransform: 'uppercase',
-        paddingLeft: 15,
-        paddingRight: 15,
+        paddingLeft: 25,
+        paddingRight: 25,
       },
       text: {
-        style: {},
+        style: {
+          fontWeight: 'bold',
+          fontSize: 13,
+        },
       },
       disabled: {
         style: {
@@ -106,9 +109,9 @@ export const BrandingProvider = props => {
       header: {
         style: {
           backgroundColor: primaryColor,
-          paddingTop: 60,
-          paddingLeft: 15,
-          paddingBottom: 15,
+          paddingTop: 50,
+          paddingLeft: 20,
+          paddingBottom: 25,
           marginBottom: 10,
         },
         practiceName: {
@@ -116,12 +119,25 @@ export const BrandingProvider = props => {
             color: 'white',
             fontWeight: 'bold',
             fontSize: 20,
+            marginBottom: 5,
           },
         },
         practiceSlogan: {
           style: {
             color: 'rgb(220, 220, 220)',
             fontSize: 14,
+          },
+        },
+        userName: {
+          style: {
+            color: 'white',
+            borderWidth: 1,
+            borderColor: 'white',
+            fontSize: 12,
+            borderRadius: 50,
+            padding: 5,
+            paddingLeft: 10,
+            marginTop: 10,
           },
         },
         logo: {

@@ -1,5 +1,6 @@
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import { useWindowDimensions } from 'react-native'
+import { useBranding } from '../contexts/Branding'
 import Header from './Header'
 import PracticeDrawerContent from './PracticeDrawerContent'
 
@@ -7,6 +8,7 @@ const ReactDrawer = createDrawerNavigator()
 
 const Drawer = props => {
   const dimensions = useWindowDimensions()
+  const branding = useBranding()
 
   return (
     <ReactDrawer.Navigator
@@ -16,6 +18,9 @@ const Drawer = props => {
         header: data => {
           return <Header {...data} />
         },
+        drawerItemStyle: { margin: 0, paddingLeft: 25 },
+        drawerActiveBackgroundColor: 'white',
+        drawerActiveTintColor: branding.primaryColor,
       }}
       drawerContent={_props => (
         <PracticeDrawerContent

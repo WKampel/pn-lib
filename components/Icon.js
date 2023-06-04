@@ -1,4 +1,4 @@
-import { AntDesign, Feather, Ionicons, MaterialIcons } from '@expo/vector-icons'
+import { AntDesign, Feather, Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
 import { DentalSet1, DentalSet2, DentalSet3, DentalSet4, DentalSet5, DentalSet6 } from './DentalIcons'
 
 const Icon = props => {
@@ -16,6 +16,8 @@ const Icon = props => {
     return <Feather name={name} size={props.size} color={props.color} />
   } else if (set === 'materialicons') {
     return <MaterialIcons name={name} size={props.size} color={props.color} />
+  } else if (set === 'materialcommunityicons') {
+    return <MaterialCommunityIcons name={name} size={props.size} color={props.color} />
   } else if (set === 'dental1') {
     return <DentalSet1 name={name} size={props.size} />
   } else if (set === 'dental2') {

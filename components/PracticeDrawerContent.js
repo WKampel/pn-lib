@@ -1,3 +1,4 @@
+import { AntDesign } from '@expo/vector-icons'
 import { DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer'
 import { useNavigation } from '@react-navigation/native'
 import { StyleSheet, Text, View } from 'react-native'
@@ -20,7 +21,9 @@ const PracticeDrawerContent = props => {
           <View>
             <Text style={branding.sideNav.header.practiceName.style}>{practice?.name}</Text>
             <Text style={branding.sideNav.header.practiceSlogan.style}>{practice?.slogan}</Text>
-            <Text style={branding.sideNav.header.practiceSlogan.style}>{me?.userDetails?.fullName || ''}</Text>
+            <Text style={branding.sideNav.header.userName.style}>
+              <AntDesign style={styles.arrow} name='user' size={12} color='white' /> {me?.userDetails?.fullName || ''}
+            </Text>
           </View>
         </View>
       </View>
@@ -40,8 +43,10 @@ const PracticeDrawerContent = props => {
             label={item.label}
             onPress={onPress}
             labelStyle={{ fontSize: 14 }}
-            style={{ marginBottom: 0, marginTop: 0 }}
+            // style={{ marginBottom: 0, marginTop: 0 }}
             focused={item.isFocused && item.isFocused(props.state.routes[props.state.index])}
+            style={{ paddingLeft: 25, margin: 0 }}
+            inactiveTintColor='gray'
           />
         )
       })}
@@ -53,7 +58,7 @@ const PracticeDrawerContent = props => {
 const styles = StyleSheet.create({
   nameLogoContainer: {
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-start',
   },
 })
 
