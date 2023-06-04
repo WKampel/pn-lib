@@ -13,15 +13,15 @@ export const BrandingProvider = props => {
     input: {
       style: {
         backgroundColor: 'white',
-        borderWidth: 2,
-        borderColor: 'lightgray',
+        borderWidth: 1,
+        borderColor: 'rgb(210,210,210)',
         borderStyle: 'solid',
-        borderRadius: 10,
+        borderRadius: 7,
         fontSize: 12,
         padding: 5,
         minHeight: 40,
         flex: 1,
-        paddingLeft: 10,
+        paddingLeft: 15,
         ...(Platform.OS === 'web' && { outlineColor: primaryColor }),
       },
       text: {
@@ -35,13 +35,13 @@ export const BrandingProvider = props => {
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 500,
-        textTransform: 'uppercase',
-        paddingLeft: 25,
-        paddingRight: 25,
+        textTransform: 'capitalize',
+        paddingLeft: 50,
+        paddingRight: 50,
       },
       text: {
         style: {
-          fontWeight: 'bold',
+          fontWeight: 500,
           fontSize: 13,
         },
       },

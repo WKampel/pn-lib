@@ -1,10 +1,10 @@
 import { gql } from '@apollo/client'
-import { MaterialCommunityIcons } from '@expo/vector-icons'
+import { AntDesign } from '@expo/vector-icons'
 import { ReactNativeFile } from 'apollo-upload-client'
-import * as ImagePicker from 'expo-image-picker'
+import * as DocumentPicker from 'expo-document-picker'
 import { Platform, Pressable, StyleSheet, Text, View } from 'react-native'
 import useMutation from '../hooks/useMutation'
-import Image from './Image'
+import Pdf from './Pdf'
 import Spinner from './Spinner'
 
 const CREATE_FILE = gql`
@@ -16,9 +16,7 @@ const CREATE_FILE = gql`
   }
 `
 
-export default props => {
-  const [cameraPermissionStatus, requestPermission] = ImagePicker.useCameraPermissions()
-
+const PdfInput = props => {
   const createFile = useMutation(CREATE_FILE, {
     alertError: true,
     onSuccess: data => {
@@ -29,14 +27,11 @@ export default props => {
 
   const value = props.state.val || {}
 
-  /* Trigger image select popup */
-  const pickImage = async () => {
-    await requestPermission()
-    let result = await ImagePicker[props.camera ? 'launchCameraAsync' : 'launchImageLibraryAsync']({
-      allowsEditing: true,
-      aspect: props.aspect || [4, 4],
+  const pickDocument = async () => {
+    let result = await DocumentPicker.getDocumentAsync({
+      type: 'application/pdf',
     })
-    if (!result.canceled) return result.assets[0]
+    return result
   }
 
   return (
@@ -49,7 +44,7 @@ export default props => {
         <Pressable
           style={styles.button}
           onPress={async () => {
-            let result = await pickImage()
+            let result = await pickDocument()
             if (result) {
               let file = null
 
@@ -65,7 +60,7 @@ export default props => {
               } else {
                 file = new ReactNativeFile({
                   uri: result.uri,
-                  type: 'image/' + result.uri.substring(result.uri.lastIndexOf('.') + 1),
+                  type: 'application/pdf',
                   name: result.uri.substring(result.uri.lastIndexOf('/') + 1, result.uri.length),
                 })
               }
@@ -75,10 +70,10 @@ export default props => {
           }}
         >
           {props.label && !value.url ? <Text style={styles.label}>{props.label}</Text> : null}
-          {!value.url ? <MaterialCommunityIcons name='image-plus' size={40} color='gray' /> : null}
+          {!value.url ? <AntDesign name='pdffile1' size={40} color='gray' /> : null}
         </Pressable>
       )}
-      {value.url ? <Image style={styles.image} src={value.url} /> : null}
+      {value.url ? <Pdf src={value.url} style={styles.pdf} /> : null}
     </View>
   )
 }
@@ -89,8 +84,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     // backgroundColor: 'white',
-    width: 150,
-    height: 150,
+    width: 200,
+    height: 280,
     position: 'relative',
     borderRadius: 7,
     cursor: 'pointer',
@@ -120,12 +115,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
     opacity: 0.75,
   },
-  image: {
-    flex: 1,
-    width: '100%',
-  },
   label: {
     fontWeight: 'bold',
     color: 'white',
   },
 })
+
+export default PdfInput

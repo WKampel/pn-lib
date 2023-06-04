@@ -14,6 +14,9 @@ const Drawer = props => {
     <ReactDrawer.Navigator
       screenOptions={{
         drawerType: dimensions.width >= 900 ? 'permanent' : 'front',
+        drawerStyle: {
+          marginRight: 15,
+        },
         swipeEdgeWidth: 50,
         header: data => {
           return <Header {...data} />
@@ -21,6 +24,9 @@ const Drawer = props => {
         drawerItemStyle: { margin: 0, paddingLeft: 25 },
         drawerActiveBackgroundColor: 'white',
         drawerActiveTintColor: branding.primaryColor,
+        contentStyle: {
+          backgroundColor: 'red',
+        },
       }}
       drawerContent={_props => (
         <PracticeDrawerContent
