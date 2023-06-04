@@ -1,9 +1,9 @@
 import { gql } from '@apollo/client'
-import { AntDesign } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native'
 import { useBranding } from '../contexts/Branding'
 import useQuery from '../hooks/useQuery'
+import Icon from './Icon'
 
 const GET_PAGES = gql`
   query {
@@ -24,16 +24,16 @@ const HomeTiles = () => {
   return (
     <ScrollView>
       <View style={styles.tiles}>
-        <Tile to='Messages' icon='message1' title='MESSAGES' />
-        <Tile to='CheckIn' icon='calendar' title='CHECK IN' />
-        <Tile to='ContactUs' icon='phone' title='CONTACT US' />
-        <Tile to='ServiceGroup' icon='setting' title='SERVICES' />
-        <Tile to='FormGroup' icon='form' title='FORMS' />
-        <Tile to='AboutUs' icon='infocirlceo' title='ABOUT US' />
-        <Tile to='ProfileGroup' icon='profile' title='PATIENT PROFILE' />
-        <Tile to='Review' icon='staro' title='REVIEW' />
-        <Tile to='Appointments' icon='calendar' title='APPOINTMENTS' />
-        <Tile to='Payment' icon='creditcard' title='MAKE PAYMENT' />
+        <Tile to='Messages' icon='antdesign:message1' title='MESSAGES' />
+        <Tile to='CheckIn' icon='antdesign:calendar' title='CHECK IN' />
+        <Tile to='ContactUs' icon='antdesign:phone' title='CONTACT US' />
+        <Tile to='ServiceGroup' icon='antdesign:setting' title='SERVICES' />
+        <Tile to='FormGroup' icon='antdesign:form' title='FORMS' />
+        <Tile to='AboutUs' icon='antdesign:infocirlceo' title='ABOUT US' />
+        <Tile to='ProfileGroup' icon='antdesign:profile' title='PATIENT PROFILE' />
+        <Tile to='Review' icon='antdesign:staro' title='REVIEW' />
+        <Tile to='Appointments' icon='antdesign:calendar' title='APPOINTMENTS' />
+        <Tile to='Payment' icon='antdesign:creditcard' title='MAKE PAYMENT' />
         {pages
           .filter(page => page.tile)
           .filter(page => page.name !== 'About Us')
@@ -52,7 +52,7 @@ const Tile = props => {
   return (
     <Pressable onPress={() => nav.navigate(props.to)} style={styles.tileOuter}>
       <View style={branding.homeTile.style}>
-        <AntDesign name={props.icon} size={40} color='white' />
+        <Icon val={props.icon} size={40} color='white' />
         <Text style={branding.homeTile.title.style}>{props.title}</Text>
       </View>
     </Pressable>

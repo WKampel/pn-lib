@@ -13,6 +13,7 @@ const TextInput = props => {
       onChangeText={props.state.set}
       placeholder={props.placeholder}
       placeholderTextColor='gray'
+      keyboardType={props.email ? 'email-address' : null}
     />
   )
 }
