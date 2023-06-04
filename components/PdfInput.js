@@ -2,7 +2,7 @@ import { gql } from '@apollo/client'
 import { AntDesign } from '@expo/vector-icons'
 import { ReactNativeFile } from 'apollo-upload-client'
 import * as DocumentPicker from 'expo-document-picker'
-import { Platform, Pressable, StyleSheet, Text, View } from 'react-native'
+import { Platform, Pressable, StyleSheet, View } from 'react-native'
 import useMutation from '../hooks/useMutation'
 import Pdf from './Pdf'
 import Spinner from './Spinner'
@@ -36,6 +36,8 @@ const PdfInput = props => {
 
   return (
     <View style={styles.container}>
+      {value.url ? <Pdf src={value.url} /> : null}
+
       {createFile.loading ? (
         <View style={styles.spinner}>
           <Spinner />
@@ -69,23 +71,20 @@ const PdfInput = props => {
             }
           }}
         >
-          {props.label && !value.url ? <Text style={styles.label}>{props.label}</Text> : null}
-          {!value.url ? <AntDesign name='pdffile1' size={40} color='gray' /> : null}
+          <AntDesign name='pdffile1' size={40} color='gray' />
         </Pressable>
       )}
-      {value.url ? <Pdf src={value.url} style={styles.pdf} /> : null}
     </View>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    overflow: 'hidden',
     alignItems: 'center',
     justifyContent: 'center',
     // backgroundColor: 'white',
     width: 200,
-    height: 280,
+    height: 250,
     position: 'relative',
     borderRadius: 7,
     cursor: 'pointer',
@@ -95,13 +94,12 @@ const styles = StyleSheet.create({
   },
   button: {
     position: 'absolute',
-    left: 0,
-    top: 0,
-    width: '100%',
-    height: '100%',
+    left: '50%',
+    top: '50%',
     justifyContent: 'center',
     alignItems: 'center',
     zIndex: 1,
+    transform: [{ translateX: '-50%' }, { translateY: '-50%' }],
   },
   spinner: {
     position: 'absolute',
