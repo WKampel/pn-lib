@@ -27,7 +27,15 @@ export default props => {
 
   const cropModal = useModal(
     <View style={{ width: 500, height: 500 }}>
-      <Cropper image={url.current} crop={crop} zoom={zoom} aspect={1} onCropChange={setCrop} onCropComplete={onCropComplete} onZoomChange={setZoom} />
+      <Cropper
+        image={url.current}
+        crop={crop}
+        zoom={zoom}
+        aspect={props.aspect || 1}
+        onCropChange={setCrop}
+        onCropComplete={onCropComplete}
+        onZoomChange={setZoom}
+      />
     </View>,
     {},
     {

@@ -40,7 +40,7 @@ export default props => {
   }
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, props.style]}>
       {createFile.loading ? (
         <View style={styles.spinner}>
           <Spinner />

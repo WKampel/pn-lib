@@ -134,7 +134,7 @@ export const BrandingProvider = props => {
             borderWidth: 1,
             borderColor: 'white',
             fontSize: 12,
-            borderRadius: 50,
+            borderRadius: 15,
             padding: 5,
             paddingLeft: 10,
             marginTop: 10,
