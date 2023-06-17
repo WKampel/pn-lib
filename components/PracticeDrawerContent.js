@@ -46,7 +46,7 @@ const PracticeDrawerContent = props => {
             // style={{ marginBottom: 0, marginTop: 0 }}
             focused={item.isFocused && item.isFocused(props.state.routes[props.state.index])}
             style={{ paddingLeft: 25, margin: 0 }}
-            inactiveTintColor='gray'
+            inactiveTintColor={item.color || 'rgb(85,85,85)'}
           />
         )
       })}

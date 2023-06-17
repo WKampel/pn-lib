@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   selected: {
-    backgroundColor: 'white',
+    backgroundColor: 'rgb(220,220,220)',
   },
   label: { fontSize: 12, textAlign: 'center' },
 })
