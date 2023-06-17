@@ -215,7 +215,7 @@ export const BrandingProvider = props => {
           marginBottom: 2,
           borderRadius: 3,
           padding: 2,
-          fontSize: 10,
+          fontSize: 12,
           textAlign: 'left',
           backgroundColor: primaryColor,
         },
