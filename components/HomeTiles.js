@@ -2,8 +2,10 @@ import { gql } from '@apollo/client'
 import { useNavigation } from '@react-navigation/native'
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native'
 import { useBranding } from '../contexts/Branding'
+import { usePractice } from '../contexts/Practice'
 import useQuery from '../hooks/useQuery'
 import Icon from './Icon'
+import Image from './Image'
 
 const GET_PAGES = gql`
   query {
@@ -20,9 +22,14 @@ const GET_PAGES = gql`
 const HomeTiles = () => {
   const getPages = useQuery(GET_PAGES)
   const pages = getPages.data?.pages || []
+  const practice = usePractice()
 
   return (
     <ScrollView>
+      <View style={{ alignItems: 'center', marginBottom: 15 }}>
+        <Text style={{ marginBottom: 5 }}>{practice.slogan}</Text>
+        <Image style={{ width: 50, height: 50 }} src={practice?.logo?.url} />
+      </View>
       <View style={styles.tiles}>
         <Tile to='Messages' icon='antdesign:message1' title='MESSAGES' />
         <Tile to='CheckIn' icon='antdesign:calendar' title='CHECK IN' />

@@ -16,10 +16,13 @@ const DayInput = props => {
     modal.open()
   }
 
-  const modal = useModal(() => <DateTimePicker display='spinner' value={moment(props.state.val).toDate()} mode='date' onChange={onChange} />, {
-    marginTop: 'auto',
-    padding: 0,
-  })
+  const modal = useModal(
+    () => <DateTimePicker themeVariant='light' display='spinner' value={moment(props.state.val).toDate()} mode='date' onChange={onChange} />,
+    {
+      marginTop: 'auto',
+      padding: 0,
+    }
+  )
 
   return (
     <>

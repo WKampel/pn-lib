@@ -2,7 +2,7 @@ import { ScrollView, StyleSheet, View } from 'react-native'
 import Popup from '../components/Popup'
 import useState from './useState'
 
-const useModal = (jsx, containerStyle, options) => {
+const useModal = (jsx, containerStyle, options = {}) => {
   const open = useState(false)
   const context = useState(null)
 
