@@ -32,6 +32,8 @@ export default props => {
     )
   }
 
+  const events = [...props.events].sort((a, b) => new Date(a.startDate) - new Date(b.startDate))
+
   useEffect(() => {
     if (props.onChangeVisibleDates) props.onChangeVisibleDates(startDate, endDate)
   }, [view.val, date.val])
@@ -76,7 +78,7 @@ export default props => {
 
             <FlashList
               keyExtractor={item => item.appointmentSrNo}
-              data={props.events.filter(event =>
+              data={events.filter(event =>
                 moment(day)
                   .startOf('day')
                   .isSame(moment(props.getEventStartDate(event)).startOf('day'))
