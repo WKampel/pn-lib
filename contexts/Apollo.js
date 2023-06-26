@@ -29,7 +29,7 @@ const ApolloProvider = props => {
       }
     })
 
-    const uploadLink = createUploadLink({ uri: 'http://192.168.171.176:3050' + '/backend/graphql' })
+    const uploadLink = createUploadLink({ uri: 'https://platformnow.app' + '/backend/graphql' })
 
     return new ApolloClient({
       link: from([authLink, errorLink, uploadLink]),
