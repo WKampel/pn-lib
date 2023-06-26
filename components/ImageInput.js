@@ -74,7 +74,7 @@ export default props => {
             }
           }}
         >
-          {props.label && !value.url ? <Text style={styles.label}>{props.label}</Text> : null}
+          {props.label ? <Text style={styles.label}>{props.label}</Text> : null}
           {!value.url ? <MaterialCommunityIcons name='image-plus' size={40} color='gray' /> : null}
         </Pressable>
       )}
