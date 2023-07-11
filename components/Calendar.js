@@ -85,12 +85,12 @@ const MonthView = ({ date, getEventStartDate, getEventId, events, onChangeVisibl
   const days = getDaysBetweenDates(startDate, endDate)
 
   useEffect(() => {
-    onChangeVisibleDates(startDate, endDate)
+    if (onChangeVisibleDates) onChangeVisibleDates(startDate, endDate)
   }, [date])
 
   const renderEvent = ({ item }) => {
     return (
-      <Pressable onPress={onEventPress.bind(null, item)}>
+      <Pressable onPress={onEventPress?.bind(null, item)}>
         <Event startDate={moment(getEventStartDate(item)).format('h:mmA')} name={getEventName(item)} desc={getEventDesc(item)} />
       </Pressable>
     )
@@ -136,7 +136,7 @@ const WeekView = ({ date, getEventStartDate, getEventId, events, onChangeVisible
 
   const renderEvent = ({ item }) => {
     return (
-      <Pressable onPress={onEventPress.bind(null, item)}>
+      <Pressable onPress={onEventPress?.bind(null, item)}>
         <Event startDate={moment(getEventStartDate(item)).format('h:mmA')} name={getEventName(item)} desc={getEventDesc(item)} />
       </Pressable>
     )
@@ -175,7 +175,7 @@ const DayView = ({ date, getEventStartDate, getEventId, events, onChangeVisibleD
 
   const renderEvent = ({ item }) => {
     return (
-      <Pressable onPress={onEventPress.bind(null, item)}>
+      <Pressable onPress={onEventPress?.bind(null, item)}>
         <Event startDate={moment(getEventStartDate(item)).format('h:mmA')} name={getEventName(item)} desc={getEventDesc(item)} />
       </Pressable>
     )
