@@ -177,6 +177,19 @@ export const BrandingProvider = props => {
           },
         },
       },
+      server: {
+        style: {
+          marginLeft: 'auto',
+          marginRight: 'auto',
+          backgroundColor: 'transparent',
+          textAlign: 'center',
+        },
+        text: {
+          style: {
+            color: 'black',
+          },
+        },
+      },
     },
     profileCard: {
       style: {

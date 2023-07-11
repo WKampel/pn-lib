@@ -41,12 +41,6 @@ const HomeTiles = () => {
         <Tile to='Review' icon='antdesign:staro' title='REVIEW' />
         <Tile to='Appointments' icon='antdesign:calendar' title='APPOINTMENTS' />
         <Tile to='Payment' icon='antdesign:creditcard' title='MAKE PAYMENT' />
-        {pages
-          .filter(page => page.tile)
-          .filter(page => page.name !== 'About Us')
-          .map(page => (
-            <Tile key={page.name} icon={page.icon} title={page.name} to={{ name: 'Page', params: { name: page.name } }} />
-          ))}
       </View>
     </ScrollView>
   )

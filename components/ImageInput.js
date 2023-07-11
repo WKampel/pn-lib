@@ -33,8 +33,7 @@ export default props => {
   const pickImage = async () => {
     await requestPermission()
     let result = await ImagePicker[props.camera ? 'launchCameraAsync' : 'launchImageLibraryAsync']({
-      allowsEditing: true,
-      aspect: props.aspect ? [props.aspect, 1] : [1, 1],
+      allowsEditing: false,
     })
     if (!result.canceled) return result.assets[0]
   }
