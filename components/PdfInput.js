@@ -1,8 +1,7 @@
 import { gql } from '@apollo/client'
 import { AntDesign } from '@expo/vector-icons'
-import { ReactNativeFile } from 'apollo-upload-client'
 import * as DocumentPicker from 'expo-document-picker'
-import { Platform, Pressable, StyleSheet, View } from 'react-native'
+import { Pressable, StyleSheet, View } from 'react-native'
 import useMutation from '../hooks/useMutation'
 import Pdf from './Pdf'
 import Spinner from './Spinner'
@@ -35,7 +34,34 @@ const PdfInput = props => {
   }
 
   return (
-    <View style={styles.container}>
+    <Pressable
+      style={styles.container}
+      onPress={async () => {
+        let result = await pickDocument()
+        if (result) {
+          let file = null
+
+          if (props.transformUri) {
+            const transformed = await props.transformUri(result.uri)
+            result.uri = transformed
+          }
+
+          if (Platform.OS == 'web') {
+            const res = await fetch(result.uri)
+            const blob = await res.blob()
+            file = blob
+          } else {
+            file = new ReactNativeFile({
+              uri: result.uri,
+              type: 'application/pdf',
+              name: result.uri.substring(result.uri.lastIndexOf('/') + 1, result.uri.length),
+            })
+          }
+
+          createFile.exec({ file })
+        }
+      }}
+    >
       {value.url ? <Pdf src={value.url} /> : null}
 
       {createFile.loading ? (
@@ -43,38 +69,9 @@ const PdfInput = props => {
           <Spinner />
         </View>
       ) : (
-        <Pressable
-          style={styles.button}
-          onPress={async () => {
-            let result = await pickDocument()
-            if (result) {
-              let file = null
-
-              if (props.transformUri) {
-                const transformed = await props.transformUri(result.uri)
-                result.uri = transformed
-              }
-
-              if (Platform.OS == 'web') {
-                const res = await fetch(result.uri)
-                const blob = await res.blob()
-                file = blob
-              } else {
-                file = new ReactNativeFile({
-                  uri: result.uri,
-                  type: 'application/pdf',
-                  name: result.uri.substring(result.uri.lastIndexOf('/') + 1, result.uri.length),
-                })
-              }
-
-              createFile.exec({ file })
-            }
-          }}
-        >
-          <AntDesign name='pdffile1' size={40} color='gray' />
-        </Pressable>
+        <AntDesign style={styles.icon} name='pdffile1' size={40} color='gray' />
       )}
-    </View>
+    </Pressable>
   )
 }
 
@@ -92,7 +89,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderStyle: 'dashed',
   },
-  button: {
+  icon: {
     position: 'absolute',
     left: '50%',
     top: '50%',

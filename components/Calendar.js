@@ -5,101 +5,233 @@ import { Pressable, StyleSheet, Text, View } from 'react-native'
 import { useBranding } from '../contexts/Branding'
 import useState from '../hooks/useState'
 import Button from './Button'
+import Icon from './Icon'
 import Spinner from './Spinner'
+
+const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+
+const getDaysBetweenDates = (start, end) => {
+  let arr = []
+  let dt = new Date(start)
+  for (; dt <= new Date(end); dt.setDate(dt.getDate() + 1)) arr.push(new Date(dt))
+  return arr
+}
 
 export default props => {
   const date = useState(new Date())
   const view = useState('month')
-  const branding = useBranding()
 
-  const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+  const events = [...props.events].sort((a, b) => new Date(a.startDate) - new Date(b.startDate))
 
-  const startDate = moment(date.val).startOf('month').startOf('week')
-  const endDate = startDate.clone().add(41, 'days')
-
-  const getDaysBetweenDates = (start, end) => {
-    let arr = []
-    let dt = new Date(start)
-    for (; dt <= new Date(end); dt.setDate(dt.getDate() + 1)) arr.push(new Date(dt))
-    return arr
+  const prev = () => {
+    date.set(moment(date.val).subtract(1, view.val).toDate())
   }
+
+  const next = () => {
+    date.set(moment(date.val).add(1, view.val).toDate())
+  }
+
+  return (
+    <View>
+      <Controls date={date.val} loading={props.loading} prev={prev} next={next} setView={view.set} view={view.val} />
+      {view.val === 'month' ? (
+        <MonthView
+          date={date.val}
+          getEventStartDate={props.getEventStartDate}
+          getEventId={props.getEventId}
+          events={events}
+          onChangeVisibleDates={props.onChangeVisibleDates}
+          onEventPress={props.onEventPress}
+          getEventName={props.getEventName}
+          getEventDesc={props.getEventDesc}
+        />
+      ) : null}
+
+      {view.val === 'week' ? (
+        <WeekView
+          date={date.val}
+          getEventStartDate={props.getEventStartDate}
+          getEventId={props.getEventId}
+          events={events}
+          onChangeVisibleDates={props.onChangeVisibleDates}
+          onEventPress={props.onEventPress}
+          getEventName={props.getEventName}
+          getEventDesc={props.getEventDesc}
+        />
+      ) : null}
+
+      {view.val === 'day' ? (
+        <DayView
+          date={date.val}
+          getEventStartDate={props.getEventStartDate}
+          getEventId={props.getEventId}
+          events={events}
+          onChangeVisibleDates={props.onChangeVisibleDates}
+          onEventPress={props.onEventPress}
+          getEventName={props.getEventName}
+          getEventDesc={props.getEventDesc}
+        />
+      ) : null}
+    </View>
+  )
+}
+
+const MonthView = ({ date, getEventStartDate, getEventId, events, onChangeVisibleDates, onEventPress, getEventName, getEventDesc }) => {
+  const momentDate = moment(date)
+  const startDate = momentDate.clone().startOf('month').startOf('week').startOf('day')
+  const endDate = startDate.clone().add(41, 'days').endOf('day')
+  const month = momentDate.month()
+
+  const days = getDaysBetweenDates(startDate, endDate)
+
+  useEffect(() => {
+    onChangeVisibleDates(startDate, endDate)
+  }, [date])
 
   const renderEvent = ({ item }) => {
     return (
-      <Pressable onPress={() => props.onEventPress(item)}>
-        <Text style={branding.calendar.event.style}>{props.getEventLabel(item)}</Text>
+      <Pressable onPress={onEventPress.bind(null, item)}>
+        <Event startDate={moment(getEventStartDate(item)).format('h:mmA')} name={getEventName(item)} desc={getEventDesc(item)} />
       </Pressable>
     )
   }
 
-  const events = [...props.events].sort((a, b) => new Date(a.startDate) - new Date(b.startDate))
+  return (
+    <View style={styles.calendar}>
+      {daysOfWeek.map((day, i) => (
+        <View key={day} style={[styles.cell, styles.header]}>
+          <Text style={styles.headerText}>{day}</Text>
+        </View>
+      ))}
+      {days.map((day, i) => (
+        <View key={day} style={[styles.cell, styles.cell, i % 2 === 0 ? styles.evenCell : null]}>
+          <Text style={moment(day).month() === month ? null : styles.differentMonth}>{moment(day).date()}</Text>
 
-  useEffect(() => {
-    if (props.onChangeVisibleDates) props.onChangeVisibleDates(startDate, endDate)
-  }, [view.val, date.val])
+          <FlashList
+            keyExtractor={event => getEventId(event)}
+            data={events.filter(event =>
+              moment(day)
+                .startOf('day')
+                .isSame(moment(getEventStartDate(event)).startOf('day'))
+            )}
+            estimatedItemSize={17}
+            renderItem={renderEvent}
+          />
+        </View>
+      ))}
+    </View>
+  )
+}
+
+const WeekView = ({ date, getEventStartDate, getEventId, events, onChangeVisibleDates, onEventPress, getEventName, getEventDesc }) => {
+  const momentDate = moment(date)
+  const startDate = momentDate.clone().startOf('week').startOf('day')
+  const endDate = startDate.clone().add(6, 'days').endOf('day')
 
   const days = getDaysBetweenDates(startDate, endDate)
 
-  const prev = () => {
-    if (view.val == 'month') {
-      date.set(moment(date.val).subtract(1, 'month').toDate())
-    }
+  useEffect(() => {
+    if (onChangeVisibleDates) onChangeVisibleDates(startDate, endDate)
+  }, [date])
+
+  const renderEvent = ({ item }) => {
+    return (
+      <Pressable onPress={onEventPress.bind(null, item)}>
+        <Event startDate={moment(getEventStartDate(item)).format('h:mmA')} name={getEventName(item)} desc={getEventDesc(item)} />
+      </Pressable>
+    )
   }
 
-  const next = () => {
-    if (view.val == 'month') {
-      date.set(moment(date.val).add(1, 'month').toDate())
-    }
-  }
   return (
-    <View>
-      <View style={styles.controls}>
-        <View style={[styles.controlsChild, styles.controlButtons]}>
-          <Button text='<' style={styles.controlButton} onPress={prev} />
-          <Button text='>' style={styles.controlButton} onPress={next} />
+    <View style={styles.calendar}>
+      {days.map((day, i) => (
+        <View key={day} style={[styles.cell, styles.header]}>
+          <Text style={styles.headerText}>{moment(day).format('ddd, MMM D')}</Text>
         </View>
-        <Text style={[styles.controlsChild, styles.month]}>{moment(date.val).format('MMM YYYY')}</Text>
-        {props.loading ? <Spinner color='black' /> : null}
-        {/* <View style={styles.controlsChild}>
-          <Button text='Month' style={styles.controlButton} onPress={() => setView('month')} />
-          <Button text='Week' style={styles.controlButton} onPress={() => setView('week')} />
-          <Button text='Day' style={styles.controlButton} onPress={() => setView('day ')} />
-        </View> */}
-      </View>
-      <View style={branding.calendar.style}>
-        {daysOfWeek.map((day, i) => (
-          <View key={day + i} style={[styles.cell, styles.header, i % 7 == 0 ? styles.firstCell : null]}>
-            <Text style={styles.headerText}>{day}</Text>
-          </View>
-        ))}
-        {days.map((day, i) => (
-          <View key={day + i} style={[styles.cell, i % 7 == 0 ? styles.firstCell : null, styles.cell, i % 2 == 0 ? styles.evenCell : null]}>
-            <Text style={moment(day).month() == moment(date.val).month() ? null : styles.differentMonth}>{moment(day).date()}</Text>
+      ))}
 
-            <FlashList
-              keyExtractor={item => item.appointmentSrNo}
-              data={events.filter(event =>
-                moment(day)
-                  .startOf('day')
-                  .isSame(moment(props.getEventStartDate(event)).startOf('day'))
-              )}
-              estimatedItemSize={17}
-              renderItem={renderEvent}
-            />
-          </View>
-        ))}
+      {days.map((day, i) => (
+        <View key={day} style={[styles.cell, styles.weekCell, i % 2 === 0 ? styles.evenCell : null]}>
+          <FlashList
+            keyExtractor={event => getEventId(event)}
+            data={events.filter(event =>
+              moment(day)
+                .startOf('day')
+                .isSame(moment(getEventStartDate(event)).startOf('day'))
+            )}
+            estimatedItemSize={17}
+            renderItem={renderEvent}
+          />
+        </View>
+      ))}
+    </View>
+  )
+}
+
+const DayView = ({ date, getEventStartDate, getEventId, events, onChangeVisibleDates, onEventPress, getEventName, getEventDesc }) => {
+  useEffect(() => {
+    if (onChangeVisibleDates) onChangeVisibleDates(moment(date).startOf('day'), moment(date).endOf('day'))
+  }, [date])
+
+  const renderEvent = ({ item }) => {
+    return (
+      <Pressable onPress={onEventPress.bind(null, item)}>
+        <Event startDate={moment(getEventStartDate(item)).format('h:mmA')} name={getEventName(item)} desc={getEventDesc(item)} />
+      </Pressable>
+    )
+  }
+
+  return (
+    <View style={styles.calendar}>
+      <View style={[styles.cell, styles.header, styles.dayHeader]}>
+        <Text style={styles.headerText}>{moment(date).format('ddd, MMM D')}</Text>
+      </View>
+
+      <View style={[styles.cell, styles.dayCell]}>
+        <FlashList
+          keyExtractor={event => getEventId(event)}
+          data={events.filter(event =>
+            moment(date)
+              .startOf('day')
+              .isSame(moment(getEventStartDate(event)).startOf('day'))
+          )}
+          estimatedItemSize={17}
+          renderItem={renderEvent}
+        />
       </View>
     </View>
   )
 }
 
-const styles = StyleSheet.create({
-  month: {
-    marginLeft: 15,
-    marginRight: 15,
-    fontWeight: 'bold',
-  },
+const Controls = ({ date, loading, prev, next, setView, view }) => (
+  <View style={styles.controls}>
+    <View style={styles.controlsChild}>
+      <Button icon={<Icon set='ionicons' name='chevron-back' size={20} />} style={styles.controlButton} onPress={prev} />
+      <Button icon={<Icon set='ionicons' name='chevron-forward' size={20} />} style={styles.controlButton} onPress={next} />
+    </View>
+    <View style={[styles.controlsChild, styles.controlsMonth]}>
+      <Text style={styles.controlsMonthText}>{moment(date).format('MMM YYYY')}</Text> {loading ? <Spinner color='black' /> : null}
+    </View>
+    <View style={styles.controlsChild}>
+      <Button text='Month' style={[styles.controlButton, view === 'month' ? styles.activeViewButton : {}]} onPress={setView.bind(null, 'month')} />
+      <Button text='Week' style={[styles.controlButton, view === 'week' ? styles.activeViewButton : {}]} onPress={setView.bind(null, 'week')} />
+      <Button text='Day' style={[styles.controlButton, view === 'day' ? styles.activeViewButton : {}]} onPress={setView.bind(null, 'day')} />
+    </View>
+  </View>
+)
 
+const Event = ({ name, desc, startDate }) => {
+  const branding = useBranding()
+  return (
+    <View style={branding.calendar.event.style}>
+      <Text style={branding.calendar.event.text.style}>{startDate}</Text>
+      <Text style={branding.calendar.event.text.style}>{name}</Text>
+      <Text style={branding.calendar.event.text.style}>{desc}</Text>
+    </View>
+  )
+}
+
+const styles = StyleSheet.create({
   header: {
     height: 40,
     minHeight: 0,
@@ -118,7 +250,6 @@ const styles = StyleSheet.create({
     padding: 5,
     backgroundColor: 'white',
   },
-  firstCell: {},
   evenCell: {
     backgroundColor: 'whitesmoke',
   },
@@ -126,6 +257,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginBottom: 10,
     alignItems: 'center',
+    justifyContent: 'space-between',
   },
   controlsChild: {
     flexDirection: 'row',
@@ -136,8 +268,33 @@ const styles = StyleSheet.create({
   },
   controlButton: {
     borderRadius: 0,
+    minHeight: 30,
+  },
+  controlsMonth: {},
+  controlsMonthText: {
+    fontWeight: 'bold',
   },
   differentMonth: {
     color: 'rgb(200, 200, 200)',
+  },
+  activeViewButton: {
+    backgroundColor: 'gray',
+  },
+  calendar: {
+    color: 'white',
+    flexWrap: 'wrap',
+    flexDirection: 'row',
+    borderRadius: 10,
+    overflow: 'hidden',
+  },
+  weekCell: {
+    maxHeight: 'unset',
+  },
+  dayHeader: {
+    width: '100%',
+  },
+  dayCell: {
+    maxHeight: 'unset',
+    width: '100%',
   },
 })

@@ -4,6 +4,8 @@ import Cropper from 'react-easy-crop'
 import { View } from 'react-native'
 import useConfirm from '../hooks/useConfirm.js'
 import useModal from '../hooks/useModal.js'
+import Button from './Button.js'
+import Field from './Field.js'
 import ImageInput from './ImageInput.js'
 
 export default props => {
@@ -26,17 +28,24 @@ export default props => {
   }
 
   const cropModal = useModal(
-    <View style={{ width: 500, height: 500 }}>
-      <Cropper
-        image={url.current}
-        crop={crop}
-        zoom={zoom}
-        aspect={props.aspect || 1}
-        onCropChange={setCrop}
-        onCropComplete={onCropComplete}
-        onZoomChange={setZoom}
-      />
-    </View>,
+    (context, options) => (
+      <>
+        <Field label=' '>
+          <Button onPress={options.close} text='Finish' />
+        </Field>
+        <View style={{ width: 500, height: 500 }}>
+          <Cropper
+            image={url.current}
+            crop={crop}
+            zoom={zoom}
+            aspect={props.aspect || 1}
+            onCropChange={setCrop}
+            onCropComplete={onCropComplete}
+            onZoomChange={setZoom}
+          />
+        </View>
+      </>
+    ),
     {},
     {
       onClose: async () => {

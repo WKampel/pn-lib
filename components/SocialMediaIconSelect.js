@@ -4,7 +4,16 @@ const SocialMediaIconSelect = props => {
   return (
     <IconSelect
       {...props}
-      filter={item => ['facebook-square', 'instagram', 'twitter', 'youtube', 'google', 'tiktok', 'pinterest', 'snapchat'].includes(item.name)}
+      filter={item => {
+        return [
+          { set: 'entypo', name: 'youtube' },
+          { set: 'entypo', name: 'instagram' },
+          { set: 'entypo', name: 'yelp' },
+          { set: 'antdesign', name: 'google' },
+          { set: 'entypo', name: 'facebook' },
+          { set: 'entypo', name: 'share' },
+        ].find(_item => _item.set === item.set && _item.name === item.name)
+      }}
     />
   )
 }

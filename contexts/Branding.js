@@ -202,22 +202,19 @@ export const BrandingProvider = props => {
       },
     },
     calendar: {
-      style: {
-        color: 'white',
-        flexWrap: 'wrap',
-        flexDirection: 'row',
-        borderRadius: 10,
-        overflow: 'hidden',
-      },
       event: {
         style: {
-          color: 'white',
           marginBottom: 2,
           borderRadius: 3,
           padding: 2,
-          fontSize: 12,
           textAlign: 'left',
           backgroundColor: primaryColor,
+        },
+        text: {
+          style: {
+            color: 'white',
+            fontSize: 11,
+          },
         },
       },
     },

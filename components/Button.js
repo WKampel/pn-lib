@@ -9,11 +9,17 @@ const Button = props => {
 
   const branding = useBranding()
 
+  let propsStyle = props.style
+
+  if (Array.isArray(propsStyle)) {
+    propsStyle = propsStyle.reduce((acc, item) => ({ ...acc, ...item }), {})
+  }
+
   const buttonStyle = {
     ...branding.button.style,
     ...(props.secondary ? branding.button.secondary.style : branding.button.primary.style),
     ...(props.dangerous && branding.button.dangerous.style),
-    ...props.style,
+    ...propsStyle,
     ...((props.disabled || props.loading) && branding.button.disabled.style),
   }
   const buttonTextStyle = {

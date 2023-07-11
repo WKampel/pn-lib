@@ -19,7 +19,7 @@ const useModal = (jsx, containerStyle, options = {}) => {
 
   const toggleModal = () => {
     if (open.val) {
-      oepnModal()
+      openModal()
     } else {
       closeModal()
     }
@@ -29,7 +29,7 @@ const useModal = (jsx, containerStyle, options = {}) => {
     render: (
       <Popup onPressBackground={closeModal} visible={open.val}>
         <View style={[styles.box, containerStyle]}>
-          <ScrollView>{typeof jsx === 'function' ? jsx(context.val) : jsx}</ScrollView>
+          <ScrollView>{typeof jsx === 'function' ? jsx(context.val, { close: closeModal }) : jsx}</ScrollView>
         </View>
       </Popup>
     ),
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
   box: {
     backgroundColor: 'white',
     minWidth: 300,
-    maxHeight: '75%',
+    maxHeight: '85%',
     padding: 20,
     borderRadius: 10,
     margin: 'auto',

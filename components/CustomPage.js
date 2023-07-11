@@ -1,14 +1,16 @@
 import React from 'react'
-import { StyleSheet } from 'react-native'
+import { StyleSheet, View } from 'react-native'
+import Pdf from './Pdf'
 import WebView from './WebView'
 
 const CustomPage = props => {
   return (
-    <WebView
-      style={styles.content}
-      contain
-      source={{
-        html: `
+    <>
+      <WebView
+        style={styles.content}
+        contain
+        source={{
+          html: `
         <html style="background-color:rgba(0,0,0,0);">
         <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0">
@@ -28,8 +30,12 @@ const CustomPage = props => {
           ${props.content}
           </body>
           </html>`,
-      }}
-    />
+        }}
+      />
+      <View style={{ width: '100%', aspectRatio: 0.8 }}>
+        <Pdf src={props.pdfFileUrl} />
+      </View>
+    </>
   )
 }
 const styles = StyleSheet.create({

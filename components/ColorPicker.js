@@ -4,72 +4,71 @@ import ColorPicker, { InputWidget, Swatches } from 'reanimated-color-picker'
 import { useBranding } from '../contexts/Branding'
 
 const colors = [
-  '#69b4f5',
-  '#f56969',
-  '#b569f5',
-  '#696bf5',
-  '#6995f5',
-  '#f569df',
-  '#f59c69',
-  '#51c961',
-  '#32c4b8',
-  '#c43232',
-  '#32c4ad',
-  '#c4b032',
-  '#3c33c4',
-  '#8f8f8f',
-  '#000000',
-  '#a783bb',
-  '#838dbb',
-  '#74a7a5',
-  '#9fa774',
-  '#a79074',
-  '#ff8080', // Light Coral
-  '#ffa07a', // Light Salmon
-  '#ffa500', // Orange
-  '#ffd700', // Gold
-  '#ffff00', // Yellow
-  '#32cd32', // Lime Green
-  '#00ced1', // Dark Turquoise
-  '#4169e1', // Royal Blue
-  '#800080', // Purple
-  '#db7093', // Pale Violet Red
-  '#ff69b4', // Hot Pink
-  '#ff1493', // Deep Pink
-  '#ff4500', // Orange Red
-  '#ff8c00', // Dark Orange
-  '#ffd700', // Gold
-  '#228b22', // Forest Green
-  '#008080', // Teal
-  '#4682b4', // Steel Blue
-  '#4b0082', // Indigo
-  '#ba55d3', // Medium Orchid
-  '#ff00ff', // Magenta
-  '#afeeee', // Pale Turquoise
-  '#00bfff', // Deep Sky Blue
-  '#7b68ee', // Medium Slate Blue
-  '#9370db', // Medium Purple
-  '#a0522d', // Sienna
-  '#d2691e', // Chocolate
-  '#daa520', // Goldenrod
-  '#808000', // Olive
-  '#556b2f', // Dark Olive Green
-  '#2e8b57', // Sea Green
-  '#008000', // Green
-  '#006400', // Dark Green
-  '#8b4513', // Saddle Brown
-  '#b22222', // Fire Brick
-  '#dc143c', // Crimson
-  '#800000', // Maroon
-  '#ffb6c1', // Light Pink
-  '#add8e6', // Light Blue
-  '#00fa9a', // Medium Spring Green
-  '#9acd32', // Yellow Green
-  '#9932cc', // Dark Orchid
-  '#ff7f50', // Coral
-  '#20b2aa', // Light Sea Green
+  'rgb(169,207,84)',
+  'rgb(121,189,143)',
+  'rgb(145,196,108)',
+  'rgb(103,204,142)',
+  'rgb(168,197,69)',
+  'rgb(149,171,99)',
+  'rgb(139,195,74)',
+  'rgb(102,187,106)',
+  'rgb(69,191,85)',
+  'rgb(104,159,56)',
+  'rgb(70,137,102)',
+  'rgb(67,160,71)',
+  'rgb(88,143,39)',
+  'rgb(38,166,154)',
+  'rgb(40,153,118)',
+  'rgb(0,163,136)',
+  'rgb(40,125,125)',
+  'rgb(31,138,112)',
+  'rgb(126, 206, 253)',
+  'rgb(122, 186, 242)',
+  'rgb(89, 216, 230)',
+  'rgb(121, 154, 224)',
+  'rgb(52, 152, 219)',
+  'rgb(27, 118, 255)',
+  'rgb(0, 171, 216)',
+  'rgb(4, 191, 191)',
+  'rgb(41, 128, 185)',
+  'rgb(2, 136, 209)',
+  'rgb(54, 95, 183)',
+  'rgb(0, 146, 178)',
+  'rgb(53, 71, 140)',
+  'rgb(4, 102, 140)',
+  'rgb(13, 71, 161)',
+  'rgb(231, 76, 60)',
+  'rgb(244, 67, 54)',
+  'rgb(255, 29, 35)',
+  'rgb(213, 0, 0)',
+  'rgb(252, 125, 73)',
+  'rgb(255, 130, 46)',
+  'rgb(245, 115, 54)',
+  'rgb(250, 150, 0)',
+  'rgb(255, 102, 0)',
+  'rgb(250, 91, 15)',
+  'rgb(242, 96, 12)',
+  'rgb(222, 109, 0)',
+  'rgb(210, 54, 0)',
+  'rgb(151, 104, 209)',
+  'rgb(171, 71, 188)',
+  'rgb(146, 80, 188)',
+  'rgb(139, 99, 166)',
+  'rgb(115, 45, 217)',
+  'rgb(123, 82, 171)',
+  'rgb(156, 39, 176)',
+  'rgb(103, 58, 183)',
+  'rgb(107, 20, 166)',
+  'rgb(85, 50, 133)',
+  'rgb(242, 193, 46)',
+  'rgb(255, 190, 0)',
+  'rgb(232, 202, 0)',
+  'rgb(140, 140, 140)',
+  'rgb(96, 125, 139)',
+  'rgb(84, 110, 122)',
+  'rgb(89, 89, 89)',
+  'rgb(55, 65, 64)',
 ]
-
 export default props => {
   const branding = useBranding()
 

@@ -14,6 +14,7 @@ const TextInput = props => {
       placeholder={props.placeholder}
       placeholderTextColor='gray'
       keyboardType={props.email ? 'email-address' : null}
+      disabled={props.disabled}
     />
   )
 }

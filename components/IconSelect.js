@@ -1,4 +1,4 @@
-import { AntDesign, Feather, Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
+import { AntDesign, Entypo, Feather, Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
 import { useIsFocused } from '@react-navigation/native'
 import { FlashList } from '@shopify/flash-list'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
@@ -20,6 +20,7 @@ const icons = {
   dental4: Object.keys(dentalset4),
   dental5: Object.keys(dentalset5),
   dental6: Object.keys(dentalset6),
+  entypo: Object.keys(Entypo.glyphMap),
 }
 
 export default props => {
@@ -56,7 +57,6 @@ const Item = ({ set, name, onPress, style }) => (
     <Icon set={set} name={name} size={20} color='gray' />
     <View style={{ marginLeft: 10 }}>
       <Text style={{ fontSize: 16, fontWeight: 'bold' }}>{name}</Text>
-      <Text style={{ fontSize: 12 }}>{set}</Text>
     </View>
   </Pressable>
 )
