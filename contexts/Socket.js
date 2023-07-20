@@ -17,7 +17,7 @@ export const useSocketEvent = (type, callback, dependencies) => {
 
 export const SocketProvider = props => {
   useEffect(() => {
-    const socket = io('http://localhost:3050', {
+    const socket = io('https://platformnow.app', {
       query: { token: props.token },
     })
 
