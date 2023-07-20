@@ -38,6 +38,8 @@ export default props => {
             image={url.current}
             crop={crop}
             zoom={zoom}
+            minZoom={0.1}
+            restrictPosition={false}
             aspect={props.aspect || 1}
             onCropChange={setCrop}
             onCropComplete={onCropComplete}
@@ -54,10 +56,10 @@ export default props => {
           [
             {
               crop: {
+                width: pixels.width,
                 height: pixels.height,
                 originX: pixels.x,
                 originY: pixels.y,
-                width: pixels.width,
               },
             },
           ],

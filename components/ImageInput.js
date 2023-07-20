@@ -1,6 +1,7 @@
 import { gql } from '@apollo/client'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { ReactNativeFile } from 'apollo-upload-client'
+import { manipulateAsync } from 'expo-image-manipulator'
 import * as ImagePicker from 'expo-image-picker'
 import { Platform, Pressable, StyleSheet, Text, View } from 'react-native'
 import useMutation from '../hooks/useMutation'
@@ -15,6 +16,9 @@ const CREATE_FILE = gql`
     }
   }
 `
+
+const MAX_WIDTH = 512
+const MAX_HEIGHT = 512
 
 export default props => {
   const [cameraPermissionStatus, requestPermission] = ImagePicker.useCameraPermissions()
@@ -38,6 +42,21 @@ export default props => {
     if (!result.canceled) return result.assets[0]
   }
 
+  const compressImage = async (uri, result) => {
+    let resize
+    if (result.width > result.height) {
+      if (result.width > MAX_WIDTH) {
+        resize = { resize: { width: MAX_WIDTH } }
+      }
+    } else {
+      if (result.height > MAX_HEIGHT) {
+        resize = { resize: { height: MAX_HEIGHT } }
+      }
+    }
+    const manipResult = await manipulateAsync(uri, [resize], { compress: 1 })
+    return manipResult
+  }
+
   return (
     <View style={[styles.container, props.style]}>
       {createFile.loading ? (
@@ -52,8 +71,11 @@ export default props => {
             if (result) {
               let file = null
 
+              const compressedImage = await compressImage(result.uri, result)
+              result.uri = compressedImage.uri
+
               if (props.transformUri) {
-                const transformed = await props.transformUri(result.uri)
+                const transformed = await props.transformUri(result.uri, result)
                 result.uri = transformed
               }
 
