@@ -91,7 +91,6 @@ const MonthView = ({ date, getEventStartDate, getEventId, events, onChangeVisibl
   const renderEvent = ({ item }) => {
     return (
       <Pressable onPress={onEventPress?.bind(null, item)}>
-        {getEventStartDate(item)}
         <Event startDate={moment(getEventStartDate(item)).format('h:mmA')} name={getEventName(item)} desc={getEventDesc(item)} />
       </Pressable>
     )
