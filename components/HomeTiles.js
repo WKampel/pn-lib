@@ -1,27 +1,11 @@
-import { gql } from '@apollo/client'
 import { useNavigation } from '@react-navigation/native'
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native'
 import { useBranding } from '../contexts/Branding'
 import { usePractice } from '../contexts/Practice'
-import useQuery from '../hooks/useQuery'
 import Icon from './Icon'
 import Image from './Image'
 
-const GET_PAGES = gql`
-  query {
-    pages {
-      id
-      name
-      active
-      tile
-      icon
-    }
-  }
-`
-
 const HomeTiles = () => {
-  const getPages = useQuery(GET_PAGES)
-  const pages = getPages.data?.pages || []
   const practice = usePractice()
 
   return (

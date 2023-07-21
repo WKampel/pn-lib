@@ -1,13 +1,15 @@
 import React from 'react'
-import { ScrollView } from 'react-native-gesture-handler'
+import { ScrollView, View } from 'react-native'
 import PageFieldDisplay from './PageFieldDisplay'
 
 const CustomPage = ({ fields }) => {
   return (
     <ScrollView>
-      {fields.map(field => (
-        <PageFieldDisplay field={field} />
-      ))}
+      <View style={{ flex: 1 }}>
+        {fields?.map(field => (
+          <PageFieldDisplay field={field} />
+        ))}
+      </View>
     </ScrollView>
   )
 }
