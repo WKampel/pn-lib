@@ -26,7 +26,7 @@ const DayInput = props => {
 
   return (
     <>
-      <Pressable onPress={onPress} style={[branding.input.style, { justifyContent: 'center' }]}>
+      <Pressable onPress={onPress} style={[branding?.input.style, { justifyContent: 'center' }]}>
         <Text>{moment(props.state.val).format('MMM DD, YYYY')}</Text>
       </Pressable>
       {modal.render}

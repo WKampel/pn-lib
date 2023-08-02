@@ -1,9 +1,9 @@
 import { gql } from '@apollo/client'
-import { MaterialCommunityIcons } from '@expo/vector-icons'
+import { Feather } from '@expo/vector-icons'
 import { ReactNativeFile } from 'apollo-upload-client'
 import { manipulateAsync } from 'expo-image-manipulator'
 import * as ImagePicker from 'expo-image-picker'
-import { Platform, Pressable, StyleSheet, Text, View } from 'react-native'
+import { Platform, Pressable, StyleSheet, View } from 'react-native'
 import useMutation from '../hooks/useMutation'
 import Image from './Image'
 import Spinner from './Spinner'
@@ -43,7 +43,7 @@ export default props => {
   }
 
   const compressImage = async (uri, result) => {
-    let resize
+    let resize = null
     if (result.width > result.height) {
       if (result.width > MAX_WIDTH) {
         resize = { resize: { width: MAX_WIDTH } }
@@ -53,7 +53,14 @@ export default props => {
         resize = { resize: { height: MAX_HEIGHT } }
       }
     }
-    const manipResult = await manipulateAsync(uri, [resize], { compress: 1 })
+    console.log('before')
+    const manipResult = await manipulateAsync(
+      uri,
+      [resize].filter(item => item),
+      { compress: 1 }
+    )
+    console.log('after')
+
     return manipResult
   }
 
@@ -95,8 +102,7 @@ export default props => {
             }
           }}
         >
-          {props.label ? <Text style={styles.label}>{props.label}</Text> : null}
-          {!value.url ? <MaterialCommunityIcons name='image-plus' size={40} color='gray' /> : null}
+          {!value.url ? <Feather name='image' size={40} color='gray' /> : null}
         </Pressable>
       )}
       {value.url ? <Image style={styles.image} src={value.url} /> : null}
@@ -109,7 +115,6 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     alignItems: 'center',
     justifyContent: 'center',
-    // backgroundColor: 'white',
     width: 150,
     height: 150,
     position: 'relative',
@@ -144,9 +149,5 @@ const styles = StyleSheet.create({
   image: {
     flex: 1,
     width: '100%',
-  },
-  label: {
-    fontWeight: 'bold',
-    color: 'white',
   },
 })

@@ -36,9 +36,9 @@ const Tile = props => {
 
   return (
     <Pressable onPress={() => nav.navigate(props.to)} style={styles.tileOuter}>
-      <View style={branding.homeTile.style}>
+      <View style={branding?.homeTile.style}>
         <Icon val={props.icon} size={40} color='white' />
-        <Text style={branding.homeTile.title.style}>{props.title}</Text>
+        <Text style={branding?.homeTile.title.style}>{props.title}</Text>
       </View>
     </Pressable>
   )

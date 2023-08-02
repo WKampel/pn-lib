@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
   children: {
     flexDirection: 'row',
     gap: 10,
+    flex: 1,
   },
   header: {
     padding: 7,

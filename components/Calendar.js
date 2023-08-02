@@ -223,10 +223,10 @@ const Controls = ({ date, loading, prev, next, setView, view }) => (
 const Event = ({ name, desc, startDate }) => {
   const branding = useBranding()
   return (
-    <View style={branding.calendar.event.style}>
-      <Text style={branding.calendar.event.text.style}>{startDate}</Text>
-      <Text style={branding.calendar.event.text.style}>{name}</Text>
-      <Text style={branding.calendar.event.text.style}>{desc}</Text>
+    <View style={branding?.calendar.event.style}>
+      <Text style={branding?.calendar.event.text.style}>{startDate}</Text>
+      <Text style={branding?.calendar.event.text.style}>{name}</Text>
+      <Text style={branding?.calendar.event.text.style}>{desc}</Text>
     </View>
   )
 }

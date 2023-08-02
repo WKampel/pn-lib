@@ -1,73 +1,25 @@
-import { useIsFocused } from '@react-navigation/native'
-import { useEffect, useState as useReactState } from 'react'
+import { useState as useReactState } from 'react'
 
 const useState = initialVal => {
   const [val, set] = useReactState(initialVal)
-  const isFocused = useIsFocused()
 
-  useEffect(() => {
-    // if (!isFocused) set(initialVal)
-  }, [isFocused])
-
-  const arrayPush = item => {
-    if (!Array.isArray(val)) return
-    set(val => [...val, item])
-  }
-
-  const arrayInsert = (index, item) => {
-    if (!Array.isArray(val)) return
-    set(val => {
-      let copy = [...val]
-      copy[index] = item
-      return copy
-    })
-  }
-
-  const arrayDelete = index => {
-    if (!Array.isArray(val)) return
-    set(val => {
-      return val.filter((item, i) => i !== index)
-    })
-  }
-
-  const arrayUpsert = (item, upsertProps = null) => {
-    if (!Array.isArray(val)) return
-    let copy = [...val]
-    const foundIndex = copy.findIndex(elem => {
-      if (!upsertProps) return elem === item
-      for (let i = 0; i < upsertProps.length; i++) {
-        if (elem[upsertProps[i]] !== item[upsertProps[i]]) return false
-      }
-      return true
-    })
-    if (foundIndex === -1) {
-      arrayPush(item)
-    } else {
-      arrayInsert(foundIndex, item)
-    }
-  }
-
-  const objectInsert = (index, item) => {
-    if (typeof val !== 'object' || val === null) return
-
-    set(val => {
-      let copy = { ...val }
-      copy[index] = item
-      return copy
-    })
+  const reset = () => {
+    set(initialVal)
   }
 
   return {
     val,
     set,
-    object: {
-      insert: objectInsert,
-    },
+    reset,
     array: {
-      push: arrayPush,
-      insert: arrayInsert,
-      upsert: arrayUpsert,
-      delete: arrayDelete,
+      remove: index => {
+        if (!Array.isArray(val)) return
+        set(prev => prev.filter((item, i) => i !== index))
+      },
+      update: (index, newVal) => {
+        if (!Array.isArray(val)) return
+        set(prev => prev.map((item, i) => (i === index ? newVal : item)))
+      },
     },
   }
 }

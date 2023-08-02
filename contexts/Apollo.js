@@ -4,16 +4,14 @@ import { onError } from '@apollo/client/link/error'
 import { createUploadLink } from 'apollo-upload-client'
 import { useMemo } from 'react'
 
-const ApolloProvider = props => {
-  const token = props.token
-  const setToken = props.setToken
-
+const ApolloProvider = ({ children, token, setToken, app, practiceUrl }) => {
   const client = useMemo(() => {
     const authLink = setContext((_, { headers }) => ({
       headers: {
         ...headers,
         authorization: token ? `Bearer ${token}` : '',
-        ...(props.headers || {}),
+        practiceUrl,
+        app,
       },
     }))
 
@@ -29,7 +27,7 @@ const ApolloProvider = props => {
       }
     })
 
-    const uploadLink = createUploadLink({ uri: 'https://platformnow.app' + '/backend/graphql' })
+    const uploadLink = createUploadLink({ uri: 'http://localhost:3050' + '/backend/graphql' })
 
     return new ApolloClient({
       link: from([authLink, errorLink, uploadLink]),
@@ -37,7 +35,7 @@ const ApolloProvider = props => {
     })
   }, [token])
 
-  return <ApolloApolloProvider client={client}>{props.children}</ApolloApolloProvider>
+  return <ApolloApolloProvider client={client}>{children}</ApolloApolloProvider>
 }
 
 export { ApolloProvider }

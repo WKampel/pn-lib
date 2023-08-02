@@ -5,68 +5,77 @@ import useState from '../hooks/useState'
 import Field from './Field'
 import TextInput from './TextInput'
 
-export default props => {
-  const page = useState(0)
-  const search = useState('')
+const useSearch = (rows, searchValue) => {
+  return rows.filter(row => {
+    const lowerCaseSearchArray = searchValue.toLowerCase().split(' ')
+    return lowerCaseSearchArray.every(item => JSON.stringify(row)?.toLowerCase().includes(item))
+  })
+}
 
-  const perPage = 100
-
-  let rows = Array.isArray(props.rows) ? props.rows : []
-  const cols = Array.isArray(props.cols) ? props.cols : []
-
-  const lowerCaseSearchArray = search.val?.toLowerCase()?.split(' ')
-  if (search.val) rows = rows.filter(row => lowerCaseSearchArray.every(item => JSON.stringify(row)?.toLowerCase().includes(item)))
-
+const usePagination = (rows, page, perPage) => {
   const pageCount = Math.ceil(rows.length / perPage) || 0
-  rows = rows.slice(page.val * perPage, (page.val + 1) * perPage) || []
+  const slicedRows = rows.slice(page * perPage, (page + 1) * perPage)
 
-  useEffect(() => {
-    if (page.val > pageCount - 1) page.set(Math.max(pageCount - 1, 0))
-  }, [pageCount])
+  return { pageCount, slicedRows }
+}
 
-  const renderItem = ({ item: row, index: rowIndex }) => (
-    <Pressable
-      onPress={() => props.onRowPress && props.onRowPress(row)}
-      style={[styles.row, rowIndex == rows.length - 1 ? styles.lastRow : {}, rowIndex % 2 === 0 ? styles.evenRow : {}]}
-      key={rowIndex}
-    >
+const Header = ({ cols }) => (
+  <View style={[styles.row, styles.headerRow]}>
+    {cols.map((col, colIndex) => (
+      <View style={styles.header} key={colIndex}>
+        <Text style={styles.headerText}>{col.label || ''}</Text>
+      </View>
+    ))}
+  </View>
+)
+
+const Rows = ({ rows, cols, onRowPress }) => (
+  <FlatList
+    data={rows}
+    renderItem={({ item: row, index: rowIndex }) => <Row cols={cols} row={row} onPress={() => onRowPress(row)} key={rowIndex} rowIndex={rowIndex} />}
+  />
+)
+
+const Row = ({ row, cols, onPress = () => {}, rowIndex }) => {
+  return (
+    <Pressable onPress={onPress} style={[styles.row, rowIndex % 2 === 0 && styles.evenRow]}>
       {cols.map((col, colIndex) => (
-        <View style={[styles.data]} key={colIndex}>
+        <View style={styles.data} key={colIndex}>
           <Text>{col.getCell(row)}</Text>
         </View>
       ))}
     </Pressable>
   )
+}
+
+// Main component
+export default Table = props => {
+  const page = useState(0)
+  const search = useState('')
+  const { rows: rowsProp, cols = [], onRowPress, headerLeft, loading } = props
+
+  const rows = useSearch(rowsProp || [], search.val)
+  const { pageCount, slicedRows } = usePagination(rows, page.val, 100)
+
+  useEffect(() => {
+    if (page.val > pageCount - 1) page.set(Math.max(pageCount - 1, 0))
+  }, [pageCount])
 
   return (
     <>
       <Field>
-        {props.headerLeft}
-        <TextInput style={styles.search} placeholder='Search' state={search} />
+        {headerLeft}
+        <TextInput containerStyle={styles.search} variants={['round']} placeholder='Search' state={search} />
       </Field>
       <View style={styles.table}>
-        <View style={[styles.row, styles.headerRow]}>
-          {cols.map((col, colIndex) => (
-            <View style={[styles.header, { backgroundColor: '#36304a' }]} key={colIndex}>
-              <Text style={styles.headerText}>{col.label}</Text>
-            </View>
-          ))}
-        </View>
+        <Header cols={cols} />
         <ScrollView style={styles.body}>
-          {props.loading ? (
-            <View style={styles.row}>
-              <View style={styles.data}>
-                <Text style={styles.loading}>Loading</Text>
-              </View>
-            </View>
-          ) : !props.rows?.length ? (
-            <View style={styles.row}>
-              <View style={styles.data}>
-                <Text style={styles.loading}>No Data</Text>
-              </View>
-            </View>
+          {loading ? (
+            <Text style={styles.loading}>Loading...</Text>
+          ) : !rowsProp?.length ? (
+            <Text style={styles.loading}>No data</Text>
           ) : (
-            <FlatList data={rows || []} renderItem={renderItem} />
+            <Rows rows={slicedRows} cols={cols} onRowPress={onRowPress} />
           )}
         </ScrollView>
         <PageBar page={page} pageCount={pageCount} />
@@ -112,6 +121,7 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     paddingRight: 15,
     justifyContent: 'center',
+    backgroundColor: '#36304a',
   },
   headerText: {
     color: 'white',
@@ -120,13 +130,13 @@ const styles = StyleSheet.create({
 
   loading: {
     fontWeight: 'bold',
+    padding: 10,
   },
   headerRow: {
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
     overflow: 'hidden',
   },
-  lastRow: {},
   pageContainer: {
     flexDirection: 'row',
     padding: 5,
@@ -142,6 +152,6 @@ const styles = StyleSheet.create({
   },
   search: {
     marginLeft: 'auto',
-    maxWidth: 250,
+    width: 300,
   },
 })

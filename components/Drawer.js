@@ -23,10 +23,7 @@ const Drawer = props => {
         },
         drawerItemStyle: { margin: 0, paddingLeft: 25 },
         drawerActiveBackgroundColor: 'white',
-        drawerActiveTintColor: branding.primaryColor,
-        contentStyle: {
-          backgroundColor: 'red',
-        },
+        drawerActiveTintColor: branding?.primaryColor,
       }}
       drawerContent={_props => (
         <PracticeDrawerContent

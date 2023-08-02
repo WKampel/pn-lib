@@ -7,7 +7,7 @@ const DayInput = props => {
 
   return createElement('input', {
     type: 'time',
-    style: { ...branding.input.style, ...styles.input },
+    style: { ...branding?.input.style, ...styles.input },
     value: props.state.val,
     onChange: e => props.state.set(e.target.value),
   })

@@ -6,7 +6,7 @@ export default props => {
   const branding = useBranding()
 
   return (
-    <View style={[branding.input.style, styles.yesNoInput]}>
+    <View style={[branding?.input.style, styles.yesNoInput]}>
       <Pressable style={[styles.option, props.state?.val === 'yes' ? styles.selected : {}]} onPress={() => props.state?.set('yes')}>
         <Text style={styles.label}>Yes</Text>
       </Pressable>

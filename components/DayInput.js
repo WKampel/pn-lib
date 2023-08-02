@@ -22,7 +22,7 @@ const DayInput = props => {
 
   return createElement('input', {
     type: 'date',
-    style: { ...branding.input.style, ...styles.input },
+    style: { ...branding?.input.style, ...styles.input },
     value: date.val,
     onChange: e => date.set(e.target.value),
   })

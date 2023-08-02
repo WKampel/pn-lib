@@ -1,63 +1,46 @@
 import { useNavigation } from '@react-navigation/native'
 import React from 'react'
-import { Pressable, Text, View } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity } from 'react-native'
 import { useBranding } from '../contexts/Branding'
+import usePlatformStyles from '../hooks/usePlatformStyles'
 import Spinner from './Spinner'
 
-const Button = props => {
+const Button = ({ onPress, linkTo, variants, style, disabled, loading, icon, text }) => {
   const nav = useNavigation()
 
-  const branding = useBranding()
+  if (loading) disabled = true
+  variants = disabled ? ['disabled', ...[].concat(variants)] : variants
 
-  let propsStyle = props.style
+  const { brandingStyles } = useBranding('button', variants)
 
-  if (Array.isArray(propsStyle)) {
-    propsStyle = propsStyle.reduce((acc, item) => ({ ...acc, ...item }), {})
-  }
+  const platformStyles = usePlatformStyles(brandingStyles, {
+    web: { container: { alignSelf: 'flex-start' } },
+  })
 
-  const buttonStyle = {
-    ...branding.button.style,
-    ...(props.secondary ? branding.button.secondary.style : branding.button.primary.style),
-    ...(props.dangerous && branding.button.dangerous.style),
-    ...propsStyle,
-    ...((props.disabled || props.loading) && branding.button.disabled.style),
-  }
-  const buttonTextStyle = {
-    ...branding.button.text.style,
-    ...props.textStyle,
-    ...(props.secondary ? branding.button.secondary.text.style : branding.button.primary.text.style),
-  }
-
-  if (props.loading) {
-    return (
-      <View style={buttonStyle}>
-        <Spinner />
-      </View>
-    )
-  } else if (props.disabled) {
-    return (
-      <View style={buttonStyle}>
-        <Text style={buttonTextStyle}>
-          {props.icon}
-          {props.text}
-        </Text>
-      </View>
-    )
-  }
-
-  const onPress = () => {
-    if (props.onPress) props.onPress()
-    if (props.linkTo) nav.navigate(props.linkTo)
+  function handlePress() {
+    if (onPress) onPress()
+    if (linkTo) nav.navigate(linkTo)
   }
 
   return (
-    <Pressable pointerEvents={props.disabled ? 'none' : 'auto'} style={buttonStyle} onPress={onPress}>
-      <Text style={buttonTextStyle}>
-        {props.icon}
-        {props.text}
-      </Text>
-    </Pressable>
+    <TouchableOpacity activeOpacity={0.75} disabled={disabled} style={[styles.container, platformStyles.container, style]} onPress={handlePress}>
+      {loading ? (
+        <Spinner />
+      ) : (
+        <Text style={[platformStyles.text]}>
+          {icon}
+          {text}
+        </Text>
+      )}
+    </TouchableOpacity>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+})
 
 export default Button

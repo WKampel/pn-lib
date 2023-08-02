@@ -1,12 +1,9 @@
 import { AntDesign, Entypo, Feather, Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
-import { useIsFocused } from '@react-navigation/native'
-import { FlashList } from '@shopify/flash-list'
-import { Pressable, StyleSheet, Text, View } from 'react-native'
-import { useBranding } from '../contexts/Branding'
+import { View } from 'react-native'
 import useState from '../hooks/useState'
 import { dentalset1, dentalset2, dentalset3, dentalset4, dentalset5, dentalset6 } from './DentalIcons'
 import Icon from './Icon'
-import TextInput from './TextInput'
+import Select from './Select.web'
 
 const icons = {
   antdesign: Object.keys(AntDesign.glyphMap),
@@ -24,15 +21,8 @@ const icons = {
 }
 
 export default props => {
-  const branding = useBranding()
   const search = useState('')
-  const focused = useIsFocused()
 
-  if (!focused) return <View></View> //This reset scroll position when navigating away from page and returning. Also fixes a bug in which navigating away from page and returning causes layout to become 1 col instead of 2. Seems to improve performance as well
-
-  const renderItem = ({ item }) => {
-    return <Item onPress={() => props.state.set(item.set + ':' + item.name)} set={item.set} name={item.name} />
-  }
   const allIcons = Object.keys(icons)
     ?.flatMap(set => icons[set].map(name => ({ set, name })))
     .filter(item => (props.filter ? props.filter(item) : true))
@@ -42,51 +32,17 @@ export default props => {
   )
 
   return (
-    <View style={[branding.input.style, styles.container]}>
-      <View style={styles.header}>
-        <Item style={styles.selectedIcon} onPress={() => {}} set={props.state.val?.split(':')?.[0]} name={props.state.val?.split(':')?.[1]} />
-        <TextInput style={styles.search} state={search} placeholder='Search' />
-      </View>
-      <FlashList estimatedItemSize={50} renderItem={renderItem} data={filteredIcons} keyExtractor={item => item.set + item.name} numColumns={2} />
-    </View>
+    <Select
+      label={props.label}
+      getValue={icon => icon.set + ':' + icon.name}
+      getLabel={icon => (
+        <View style={{ flexDirection: 'row', gap: 10 }}>
+          <Icon set={icon.set} name={icon.name} size={20} color='gray' />
+          <View>{icon.name}</View>
+        </View>
+      )}
+      state={props.state}
+      options={filteredIcons}
+    />
   )
 }
-
-const Item = ({ set, name, onPress, style }) => (
-  <Pressable onPress={onPress} style={[styles.iconContainer, style]}>
-    <Icon set={set} name={name} size={20} color='gray' />
-    <View style={{ marginLeft: 10 }}>
-      <Text style={{ fontSize: 16, fontWeight: 'bold' }}>{name}</Text>
-    </View>
-  </Pressable>
-)
-
-const styles = StyleSheet.create({
-  container: {
-    height: 250,
-    width: '100%',
-    flex: 'unset',
-  },
-  iconContainer: {
-    height: 40,
-    padding: 5,
-    borderWidth: 2,
-    borderColor: 'transparent',
-    borderRadius: 5,
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    flexDirection: 'row',
-  },
-  search: {
-    flex: 1,
-  },
-  header: {
-    flexDirection: 'row',
-    paddingBottom: 5,
-    marginBottom: 5,
-    borderBottomWidth: 1,
-  },
-  selectedIcon: {
-    flex: 1,
-  },
-})

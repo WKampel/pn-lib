@@ -23,7 +23,7 @@ const TimeInput = props => {
 
   return (
     <>
-      <Pressable onPress={onPress} style={[branding.input.style, { justifyContent: 'center' }]}>
+      <Pressable onPress={onPress} style={[branding?.input.style, { justifyContent: 'center' }]}>
         <Text>{moment(props.state.val).format('hh:mm A')}</Text>
       </Pressable>
       {modal.render}

@@ -28,7 +28,7 @@ export default props => {
 
   return (
     <>
-      <Pressable style={[branding.input.style, { justifyContent: 'center' }]} onPress={modal.open}>
+      <Pressable style={[branding?.input.style, { justifyContent: 'center' }]} onPress={modal.open}>
         <Text>{getLabel(selectedOption)}</Text>
       </Pressable>
 

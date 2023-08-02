@@ -1,21 +1,45 @@
-import { TextInput as ReactNativeTextInput } from 'react-native'
+import { TextInput as ReactNativeTextInput, Text, View } from 'react-native'
 import { useBranding } from '../contexts/Branding'
 
-const TextInput = props => {
-  const branding = useBranding()
+const TextInput = ({
+  password,
+  multiline,
+  variants,
+  state,
+  email,
+  onSubmit,
+  label,
+  containerStyle,
+  inputStyle,
+  placeholder,
+  disabled,
+  onFocus,
+  onBlur,
+  onKeyPress,
+}) => {
+  variants = disabled ? ['disabled', ...[].concat(variants)] : variants
+
+  const { brandingStyles } = useBranding('textInput', variants)
 
   return (
-    <ReactNativeTextInput
-      multiline={props.multiline}
-      secureTextEntry={props.password}
-      style={[branding.input.style, props.style]}
-      value={props.state.val}
-      onChangeText={props.state.set}
-      placeholder={props.placeholder}
-      placeholderTextColor='gray'
-      keyboardType={props.email ? 'email-address' : null}
-      disabled={props.disabled}
-    />
+    <View style={containerStyle}>
+      {label && <Text style={[brandingStyles.label]}>{label}</Text>}
+      <ReactNativeTextInput
+        multiline={multiline}
+        secureTextEntry={password}
+        style={[brandingStyles.input, inputStyle]}
+        value={state.val}
+        onChangeText={state.set}
+        placeholder={placeholder || label}
+        placeholderTextColor='gray'
+        keyboardType={email ? 'email-address' : null}
+        disabled={disabled}
+        onSubmitEditing={onSubmit}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        onKeyPress={onKeyPress}
+      />
+    </View>
   )
 }
 

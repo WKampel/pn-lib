@@ -8,9 +8,6 @@ const Stack = props => {
     <ReactStack.Navigator
       screenOptions={{
         header: data => <Header {...data} />,
-        contentStyle: {
-          backgroundColor: 'white',
-        },
       }}
     >
       {props.screens.map(screen => {

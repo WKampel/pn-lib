@@ -20,7 +20,7 @@ export default props => {
 
   return (
     <Pressable style={styles.buttonContainer} onPress={props.state.set.bind(null, !value)}>
-      <View style={[branding.input.style, styles.button, props.borderRadius ? { borderRadius: props.borderRadius } : null]}>
+      <View style={[branding?.input.style, styles.button, props.borderRadius ? { borderRadius: props.borderRadius } : null]}>
         {selected ? <AntDesign name='check' size={16} color='black' /> : null}
       </View>
       <Text style={styles.label}>{props.label}</Text>

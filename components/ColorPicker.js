@@ -131,7 +131,7 @@ export default props => {
   }
 
   return (
-    <View style={[branding.input.style, styles.input]}>
+    <View style={[branding?.input.style, styles.input]}>
       <ColorPicker
         style={styles.picker}
         value={props.state?.val}

@@ -48,25 +48,25 @@ const Message = props => {
   return (
     <View
       style={[
-        branding.message.style,
-        props.data?.fromMe ? branding.message.mine.style : null,
-        props.data?.fromServer ? branding.message.server.style : null,
+        branding?.message.style,
+        props.data?.fromMe ? branding?.message.mine.style : null,
+        props.data?.fromServer ? branding?.message.server.style : null,
       ]}
     >
       <Text
         style={[
-          branding.message.text.style,
-          props.data?.fromMe ? branding.message.mine.text.style : null,
-          props.data?.fromServer ? branding.message.server.text.style : null,
+          branding?.message.text.style,
+          props.data?.fromMe ? branding?.message.mine.text.style : null,
+          props.data?.fromServer ? branding?.message.server.text.style : null,
         ]}
       >
         {props.data?.body}
       </Text>
       <Text
         style={[
-          branding.message.text.style,
-          props.data?.fromMe ? branding.message.mine.text.style : null,
-          props.data?.fromServer ? branding.message.server.text.style : null,
+          branding?.message.text.style,
+          props.data?.fromMe ? branding?.message.mine.text.style : null,
+          props.data?.fromServer ? branding?.message.server.text.style : null,
         ]}
       >
         {moment(props.data?.createdAt).format('ddd, MMM D YYYY, h:mm A')}

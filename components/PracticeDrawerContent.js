@@ -8,21 +8,21 @@ import { useMe } from '../contexts/Me'
 import { usePractice } from '../contexts/Practice'
 
 const PracticeDrawerContent = props => {
-  const branding = useBranding()
+  const { colors } = useBranding('sideNav')
   const practice = usePractice()
   const me = useMe()
   const nav = useNavigation()
 
   return (
     <DrawerContentScrollView {...props} contentContainerStyle={{ paddingTop: 0, height: '100%' }}>
-      <View style={branding.sideNav.header.style}>
+      <View style={[styles.header, { backgroundColor: colors.primary }]}>
         <View style={styles.nameLogoContainer}>
-          <Image style={branding.sideNav.header.logo.style} src={practice?.logo?.url} />
+          <Image style={styles.logo} src={practice?.logo?.url} />
           <View>
-            <Text style={branding.sideNav.header.practiceName.style}>{practice?.name}</Text>
-            <Text style={branding.sideNav.header.practiceSlogan.style}>{practice?.slogan}</Text>
-            <Text style={branding.sideNav.header.userName.style}>
-              <AntDesign style={styles.arrow} name='user' size={12} color='white' /> {me?.userDetails?.fullName || ''}
+            <Text style={styles.practiceName}>{practice?.name}</Text>
+            <Text style={styles.practiceSlogan}>{practice?.slogan}</Text>
+            <Text style={styles.userName}>
+              <AntDesign style={styles.arrow} name='user' size={12} color='white' /> {me?.fullName || ''}
             </Text>
           </View>
         </View>
@@ -59,6 +59,39 @@ const styles = StyleSheet.create({
   nameLogoContainer: {
     flexDirection: 'row',
     alignItems: 'flex-start',
+  },
+  header: {
+    paddingTop: 50,
+    paddingLeft: 20,
+    paddingBottom: 25,
+    marginBottom: 10,
+  },
+  practiceName: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 20,
+    marginBottom: 5,
+  },
+  practiceSlogan: {
+    color: 'rgb(220, 220, 220)',
+    fontSize: 14,
+  },
+  userName: {
+    color: 'white',
+    borderWidth: 1,
+    borderColor: 'white',
+    fontSize: 12,
+    borderRadius: 15,
+    padding: 5,
+    paddingLeft: 10,
+    paddingRight: 15,
+    marginTop: 10,
+    alignSelf: 'flex-start',
+  },
+  logo: {
+    width: 50,
+    height: 50,
+    marginRight: 15,
   },
 })
 

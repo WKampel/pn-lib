@@ -7,14 +7,14 @@ const Link = props => {
 
   if (props.external) {
     return (
-      <A style={branding.link.style} href={props.to} target={props.newTab ? '_blank' : null}>
+      <A style={branding?.link.style} href={props.to} target={props.newTab ? '_blank' : null}>
         {props.children}
       </A>
     )
   }
 
   return (
-    <ReactLink style={branding.link.style} to={props.to}>
+    <ReactLink style={branding?.link.style} to={props.to}>
       {props.children}
     </ReactLink>
   )
