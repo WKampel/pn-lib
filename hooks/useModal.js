@@ -1,5 +1,6 @@
-import { ScrollView, StyleSheet, View } from 'react-native'
+import { ScrollView, View } from 'react-native'
 import Popup from '../components/Popup'
+import Section from '../components/Section'
 import useState from './useState'
 
 const useModal = (jsx, containerStyle, options = {}) => {
@@ -28,8 +29,10 @@ const useModal = (jsx, containerStyle, options = {}) => {
   return {
     render: (
       <Popup onPressBackground={closeModal} visible={open.val}>
-        <View style={[styles.box, containerStyle]}>
-          <ScrollView>{typeof jsx === 'function' ? jsx(context.val, { close: closeModal }) : jsx}</ScrollView>
+        <View style={{ margin: 'auto', maxHeight: '75%' }}>
+          <ScrollView>
+            <Section style={containerStyle}>{typeof jsx === 'function' ? jsx(context.val, { close: closeModal }) : jsx}</Section>
+          </ScrollView>
         </View>
       </Popup>
     ),
@@ -39,17 +42,5 @@ const useModal = (jsx, containerStyle, options = {}) => {
     isOpen: open.val,
   }
 }
-
-const styles = StyleSheet.create({
-  box: {
-    backgroundColor: 'white',
-    minWidth: 300,
-    maxHeight: '85%',
-    padding: 20,
-    borderRadius: 10,
-    margin: 'auto',
-    overflow: 'hidden',
-  },
-})
 
 export default useModal

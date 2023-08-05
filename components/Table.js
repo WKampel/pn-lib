@@ -101,7 +101,6 @@ const PageBar = props => {
 
 const styles = StyleSheet.create({
   table: {
-    backgroundColor: 'white',
     overflow: 'hidden',
     maxHeight: 500,
   },
@@ -114,6 +113,7 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
     borderTopWidth: 0,
+    backgroundColor: 'white',
   },
   header: {
     flex: 1,
@@ -127,7 +127,6 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   data: { flex: 1, minHeight: 40, paddingLeft: 15, paddingRight: 15, justifyContent: 'center' },
-
   loading: {
     fontWeight: 'bold',
     padding: 10,
@@ -140,7 +139,11 @@ const styles = StyleSheet.create({
   pageContainer: {
     flexDirection: 'row',
     padding: 5,
-    backgroundColor: 'rgb(220,220,230)',
+    backgroundColor: 'rgb(230,235,240)',
+    borderRadius: 3,
+    marginTop: 5,
+    borderWidth: 1,
+    borderColor: 'rgb(200, 200, 220)',
   },
   pageItem: {
     padding: 5,
@@ -152,6 +155,6 @@ const styles = StyleSheet.create({
   },
   search: {
     marginLeft: 'auto',
-    width: 300,
+    maxWidth: 300,
   },
 })

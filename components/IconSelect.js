@@ -36,7 +36,7 @@ export default props => {
       label={props.label}
       getValue={icon => icon.set + ':' + icon.name}
       getLabel={icon => (
-        <View style={{ flexDirection: 'row', gap: 10 }}>
+        <View style={{ flexDirection: 'row', gap: 10, alignItems: 'center' }}>
           <Icon set={icon.set} name={icon.name} size={20} color='gray' />
           <View>{icon.name}</View>
         </View>

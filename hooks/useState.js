@@ -20,6 +20,10 @@ const useState = initialVal => {
         if (!Array.isArray(val)) return
         set(prev => prev.map((item, i) => (i === index ? newVal : item)))
       },
+      push: newVal => {
+        if (!Array.isArray(val)) return
+        set(prev => [...prev, newVal])
+      },
     },
   }
 }

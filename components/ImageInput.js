@@ -3,7 +3,7 @@ import { Feather } from '@expo/vector-icons'
 import { ReactNativeFile } from 'apollo-upload-client'
 import { manipulateAsync } from 'expo-image-manipulator'
 import * as ImagePicker from 'expo-image-picker'
-import { Platform, Pressable, StyleSheet, View } from 'react-native'
+import { Platform, Pressable, StyleSheet, Text, View } from 'react-native'
 import useMutation from '../hooks/useMutation'
 import Image from './Image'
 import Spinner from './Spinner'
@@ -53,13 +53,11 @@ export default props => {
         resize = { resize: { height: MAX_HEIGHT } }
       }
     }
-    console.log('before')
     const manipResult = await manipulateAsync(
       uri,
       [resize].filter(item => item),
       { compress: 1 }
     )
-    console.log('after')
 
     return manipResult
   }
@@ -102,7 +100,8 @@ export default props => {
             }
           }}
         >
-          {!value.url ? <Feather name='image' size={40} color='gray' /> : null}
+          {props.label ? <Text>{props.label}</Text> : null}
+          <Feather name='image' size={40} color='gray' />
         </Pressable>
       )}
       {value.url ? <Image style={styles.image} src={value.url} /> : null}

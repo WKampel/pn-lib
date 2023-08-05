@@ -221,12 +221,12 @@ const Controls = ({ date, loading, prev, next, setView, view }) => (
 )
 
 const Event = ({ name, desc, startDate }) => {
-  const branding = useBranding()
+  const { colors } = useBranding('calendar')
   return (
-    <View style={branding?.calendar.event.style}>
-      <Text style={branding?.calendar.event.text.style}>{startDate}</Text>
-      <Text style={branding?.calendar.event.text.style}>{name}</Text>
-      <Text style={branding?.calendar.event.text.style}>{desc}</Text>
+    <View style={[styles.event, { backgroundColor: colors.primary }]}>
+      <Text style={[styles.eventText, styles.eventDate]}>{startDate}</Text>
+      <Text style={styles.eventText}>{name}</Text>
+      <Text style={styles.eventText}>{desc}</Text>
     </View>
   )
 }
@@ -296,5 +296,20 @@ const styles = StyleSheet.create({
   dayCell: {
     maxHeight: 'unset',
     width: '100%',
+  },
+  event: {
+    borderRadius: 3,
+    marginBottom: 2,
+    flexDirection: 'row',
+    padding: 5,
+    gap: 5,
+  },
+  eventText: {
+    fontSize: 10,
+    color: 'white',
+    textWrap: 'nowrap',
+  },
+  eventDate: {
+    fontWeight: 'bold',
   },
 })

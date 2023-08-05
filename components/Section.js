@@ -1,8 +1,12 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
 
-const Section = ({ children }) => {
-  return <View style={styles.section}>{children}</View>
+const Section = ({ children, onMouseEnter, onMouseLeave, style }) => {
+  return (
+    <View onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} style={[styles.section, style]}>
+      {children}
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({

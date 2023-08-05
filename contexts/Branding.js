@@ -21,7 +21,7 @@ export const useBranding = (componentName, variants = []) => {
 
 export const BrandingProvider = props => {
   const colors = {
-    primary: props.style?.colors.primary || '#69b4f5',
+    primary: props.style?.primaryColor || '#69b4f5',
     secondary: 'rgb(175, 175, 175)',
     danger: 'red',
     warning: 'yellow',
@@ -44,9 +44,9 @@ export const BrandingProvider = props => {
     textInput: {
       label: {
         fontSize: 12,
-        marginBottom: 5,
       },
       input: {
+        outline: 'none',
         backgroundColor: 'rgb(240, 242, 246)',
         borderWidth: 1,
         borderColor: 'rgb(220,220,220)',
@@ -56,6 +56,7 @@ export const BrandingProvider = props => {
         paddingLeft: 15,
         paddingRight: 5,
         ...(Platform.OS === 'web' && { outlineColor: colors.primary }),
+        borderStyle: 'solid',
       },
     },
     iconSelect: {
@@ -83,6 +84,20 @@ export const BrandingProvider = props => {
         fontSize: 13,
       },
     },
+    yesNoInput: {
+      container: {
+        height: 40,
+        borderWidth: 1,
+        borderColor: 'rgb(220,220,220)',
+        borderRadius: 5,
+        backgroundColor: 'white',
+      },
+    },
+    checkBox: {
+      borderWidth: 2,
+      borderColor: colors.primary,
+      borderRadius: 3,
+    },
   }
 
   const variantStyles = {
@@ -93,6 +108,11 @@ export const BrandingProvider = props => {
           borderRadius: 8,
         },
         text: {
+          fontSize: 10,
+        },
+      },
+      textInput: {
+        input: {
           fontSize: 10,
         },
       },
@@ -120,6 +140,9 @@ export const BrandingProvider = props => {
         },
       },
       iconSelect: {
+        borderRadius: 999,
+      },
+      checkBox: {
         borderRadius: 999,
       },
     },
@@ -157,6 +180,30 @@ export const BrandingProvider = props => {
       textInput: {
         input: {
           width: 150,
+        },
+      },
+      button: {
+        container: {
+          paddingHorizontal: 10,
+        },
+      },
+    },
+    focused: {
+      textInput: {
+        input: {
+          borderColor: colors.primary,
+        },
+      },
+    },
+    checked: {
+      checkBox: {
+        backgroundColor: colors.primary,
+      },
+    },
+    centered: {
+      textInput: {
+        input: {
+          paddingLeft: baseStyles.textInput.input.paddingRight,
         },
       },
     },

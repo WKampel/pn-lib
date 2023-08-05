@@ -2,6 +2,7 @@ import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import ColorPicker, { InputWidget, Swatches } from 'reanimated-color-picker'
 import { useBranding } from '../contexts/Branding'
+import BorderLabel from './BorderLabel'
 
 // const colors = [
 //   'rgb(169,207,84)',
@@ -123,41 +124,39 @@ const colors = [
 ]
 
 export default props => {
-  const branding = useBranding()
-
-  if (!props.state.val) {
-    props.state.set('#69b4f5')
-    return
-  }
+  const { brandingStyles } = useBranding('textInput', ['centered', 'small'])
 
   return (
-    <View style={[branding?.input.style, styles.input]}>
+    <View style={styles.container}>
       <ColorPicker
         style={styles.picker}
         value={props.state?.val}
         onComplete={e => props.state?.set && props.state.set(e.hex)}
         thumbAnimationDuration={100}
       >
+        <View>
+          <BorderLabel label={props.label} backgroundColor={brandingStyles.input.backgroundColor} />
+          <InputWidget
+            inputStyle={[brandingStyles.input, styles.inputWidget, { borderColor: props.state?.val }]}
+            formats={['HEX']}
+            inputTitleStyle={{ display: 'none' }}
+          />
+        </View>
         <Swatches style={styles.swatches} swatchStyle={styles.swatch} colors={colors} />
-        <InputWidget inputStyle={styles.inputWidget} formats={['HEX']} inputTitleStyle={{ display: 'none' }} />
       </ColorPicker>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-  input: {
-    flex: 'unset',
-    paddingLeft: 'unset',
-    width: 200,
+  container: {
+    height: 150,
+    alignSelf: 'flex-start',
   },
-  picker: {
-    flex: 1,
-    justifyContent: 'space-between',
-    width: '100%',
-  },
+  picker: {},
   swatches: {
-    justifyContent: 'flex-start',
+    height: 127,
+    width: 127,
   },
   swatch: {
     marginBottom: 0,
@@ -165,13 +164,13 @@ const styles = StyleSheet.create({
     marginLeft: 0,
     marginTop: 0,
     borderRadius: 0,
-    width: '14.28%',
-    height: 'auto',
+    height: '14.28%',
+    width: 'auto',
     aspectRatio: 1,
   },
   inputWidget: {
-    fontSize: 10,
-    marginTop: 5,
-    flex: 1,
+    marginBottom: 3,
+    height: 20,
+    width: 127,
   },
 })

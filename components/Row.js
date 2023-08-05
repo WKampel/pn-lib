@@ -1,7 +1,7 @@
 import { StyleSheet, View } from 'react-native'
 
-const Row = ({ children }) => {
-  return <View style={styles.row}>{children}</View>
+const Row = ({ children, style }) => {
+  return <View style={[styles.row, style]}>{children}</View>
 }
 
 export default Row

@@ -1,8 +1,8 @@
 import { View } from 'react-native'
 import Editor from '../../src/components/Editor'
-import Field from './Field'
 import ImageInput from './ImageInput'
 import PdfInput from './PdfInput'
+import Row from './Row'
 import Select from './Select'
 import TextInput from './TextInput'
 
@@ -22,6 +22,7 @@ const getEmbeddedYouTubeUrl = regularUrl => {
 const PageFieldInput = ({ field }) => {
   const type = field.val.type
   const size = field.val.size
+  const align = field.val.align
   const value = field.val.value
   const file = field.val.file
 
@@ -43,7 +44,7 @@ const PageFieldInput = ({ field }) => {
   const typeState = {
     val: type,
     set: val => {
-      field.set({ type: val })
+      field.set({ type: val, size: 'medium', align: 'center' })
     },
   }
 
@@ -54,8 +55,11 @@ const PageFieldInput = ({ field }) => {
     },
   }
 
-  if (!size && type === 'image') {
-    sizeState.set('medium')
+  const alignState = {
+    val: align,
+    set: val => {
+      field.set({ ...field.val, align: val })
+    },
   }
 
   let element = null
@@ -73,31 +77,26 @@ const PageFieldInput = ({ field }) => {
   }
 
   if (type === 'video') {
-    element = <TextInput placeholder='Link' state={valueState} />
+    element = <TextInput label='Link' state={valueState} />
   }
 
   return (
-    <Field>
-      {type ? (
-        <Field fieldChild label='Value'>
-          {element}
-        </Field>
-      ) : null}
+    <Row>
+      {type ? <View style={{ flex: 1 }}>{element}</View> : null}
 
-      <Field fieldChild>
-        <View style={{ flex: 1 }}>
-          <Field fieldChild label='Type'>
-            <Select state={typeState} options={['text', 'pdf', 'image', 'video']} />
-          </Field>
+      <View style={{ flex: 1, gap: 10 }}>
+        <Row>
+          <Select label='Type' state={typeState} options={['text', 'pdf', 'image', 'video']} />
+        </Row>
 
-          {type === 'image' ? (
-            <Field fieldChild label='Size'>
-              <Select state={sizeState} options={['small', 'medium', 'large']} />
-            </Field>
-          ) : null}
-        </View>
-      </Field>
-    </Field>
+        {type === 'image' ? (
+          <Row>
+            <Select label='Size' state={sizeState} options={['small', 'medium', 'large']} />
+            <Select label='Align' state={alignState} options={['left', 'center', 'right']} />
+          </Row>
+        ) : null}
+      </View>
+    </Row>
   )
 }
 

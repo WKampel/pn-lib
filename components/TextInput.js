@@ -1,10 +1,12 @@
-import { TextInput as ReactNativeTextInput, Text, View } from 'react-native'
+import { TextInput as ReactNativeTextInput, StyleSheet, View } from 'react-native'
 import { useBranding } from '../contexts/Branding'
+import useState from '../hooks/useState'
+import BorderLabel from './BorderLabel'
 
 const TextInput = ({
   password,
   multiline,
-  variants,
+  variants = [],
   state,
   email,
   onSubmit,
@@ -17,17 +19,29 @@ const TextInput = ({
   onBlur,
   onKeyPress,
 }) => {
-  variants = disabled ? ['disabled', ...[].concat(variants)] : variants
+  const focused = useState(false)
+  if (disabled) variants.push('disabled')
+  if (focused.val) variants.push('focused')
 
   const { brandingStyles } = useBranding('textInput', variants)
 
+  function handleFocus() {
+    if (onFocus) onFocus()
+    focused.set(true)
+  }
+
+  function handleBlur() {
+    if (onBlur) onBlur()
+    focused.set(false)
+  }
+
   return (
-    <View style={containerStyle}>
-      {label && <Text style={[brandingStyles.label]}>{label}</Text>}
+    <View style={[styles.container, containerStyle]}>
+      {label && <BorderLabel label={label} backgroundColor={brandingStyles.input.backgroundColor} color='gray' />}
       <ReactNativeTextInput
         multiline={multiline}
         secureTextEntry={password}
-        style={[brandingStyles.input, inputStyle]}
+        style={[brandingStyles.input, inputStyle, multiline && { paddingTop: 10 }]}
         value={state.val}
         onChangeText={state.set}
         placeholder={placeholder || label}
@@ -35,12 +49,18 @@ const TextInput = ({
         keyboardType={email ? 'email-address' : null}
         disabled={disabled}
         onSubmitEditing={onSubmit}
-        onFocus={onFocus}
-        onBlur={onBlur}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
         onKeyPress={onKeyPress}
       />
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+})
 
 export default TextInput

@@ -13,6 +13,7 @@ const PageFieldDisplay = ({ field }) => {
 
   const type = field.type
   const size = field.size
+  const align = field.align
   const value = field.value
   const file = field.file
 
@@ -20,6 +21,12 @@ const PageFieldDisplay = ({ field }) => {
     if (size === 'small') return '50%'
     if (size === 'medium') return '75%'
     return '100%'
+  }
+
+  function getImageAlignment() {
+    if (align === 'left') return 'flex-start'
+    if (align === 'right') return 'flex-end'
+    return 'center'
   }
 
   if (type === 'text') {
@@ -53,6 +60,7 @@ const PageFieldDisplay = ({ field }) => {
       <ImageAutoHeight
         style={{
           width: getImageWidth(),
+          alignSelf: getImageAlignment(),
         }}
         src={file?.url}
       />
