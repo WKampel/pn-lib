@@ -1,5 +1,6 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
+import { mobileStyles } from '../libs/utils'
 
 const Section = ({ children, onMouseEnter, onMouseLeave, style }) => {
   return (
@@ -18,6 +19,12 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 5,
     gap: 25,
+
+    ...mobileStyles({
+      backgroundColor: 'transparent',
+      padding: 0,
+      borderWidth: 0,
+    }),
   },
 })
 

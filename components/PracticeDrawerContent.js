@@ -1,8 +1,9 @@
-import { AntDesign } from '@expo/vector-icons'
+import { AntDesign, Feather } from '@expo/vector-icons'
 import { DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer'
 import { useNavigation } from '@react-navigation/native'
 import { StyleSheet, Text, View } from 'react-native'
 import Image from '../components/Image'
+import { useAuthToken } from '../contexts/AuthToken'
 import { useBranding } from '../contexts/Branding'
 import { useMe } from '../contexts/Me'
 import { usePractice } from '../contexts/Practice'
@@ -12,6 +13,26 @@ const PracticeDrawerContent = props => {
   const practice = usePractice()
   const me = useMe()
   const nav = useNavigation()
+  const { setToken } = useAuthToken()
+
+  const customItems = [
+    ...(props.customItems ? props.customItems : {}),
+    {
+      label: 'Switch Practice',
+      onPress: () => {
+        setActivePracticeUrl('')
+        nav.navigate('PracticesGroup')
+      },
+      icon: <AntDesign name='back' size={18} color='rgb(150, 150, 150)' />,
+      color: 'rgb(150,150,150)',
+    },
+    {
+      label: 'Sign Out',
+      onPress: () => setToken(null),
+      icon: <Feather name='log-out' size={18} color='rgb(150, 150, 150)' />,
+      color: 'rgb(150,150,150)',
+    },
+  ]
 
   return (
     <DrawerContentScrollView {...props} contentContainerStyle={{ paddingTop: 0, height: '100%' }}>
@@ -28,9 +49,9 @@ const PracticeDrawerContent = props => {
         </View>
       </View>
 
-      {props.hideDefaultItems ? null : <DrawerItemList {...props} />}
+      <DrawerItemList {...props} />
 
-      {props.customItems?.map((item, i) => {
+      {customItems?.map((item, i) => {
         const onPress = () => {
           if (item.onPress) item.onPress()
           if (item.linkTo) nav.navigate(item.linkTo)
@@ -43,7 +64,6 @@ const PracticeDrawerContent = props => {
             label={item.label}
             onPress={onPress}
             labelStyle={{ fontSize: 14 }}
-            // style={{ marginBottom: 0, marginTop: 0 }}
             focused={item.isFocused && item.isFocused(props.state.routes[props.state.index])}
             style={{ paddingLeft: 25, margin: 0 }}
             inactiveTintColor={item.color || 'rgb(85,85,85)'}

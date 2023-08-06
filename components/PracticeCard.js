@@ -5,8 +5,10 @@ const PracticeCard = ({ id, name, slogan, logoUrl, onPress, primaryColor = 'blac
   return (
     <TouchableOpacity onPress={onPress} style={[styles.card, { color: primaryColor }]}>
       {logoUrl ? <Image style={styles.logo} src={logoUrl} /> : <View style={styles.logo} />}
-      <Text style={[styles.name, { color: primaryColor }]}>{name}</Text>
-      <Text style={styles.slogan}>{slogan}</Text>
+      <View style={{ gap: 5, paddingTop: 10, flex: 1 }}>
+        <Text style={[styles.name, { color: primaryColor }]}>{name}</Text>
+        <Text style={styles.slogan}>{slogan}</Text>
+      </View>
     </TouchableOpacity>
   )
 }
@@ -14,21 +16,23 @@ const PracticeCard = ({ id, name, slogan, logoUrl, onPress, primaryColor = 'blac
 const styles = StyleSheet.create({
   card: {
     borderRadius: 15,
-    alignItems: 'center',
-    textAlign: 'center',
-    gap: 10,
-    width: 150,
     overflow: 'hidden',
-    backgroundColor: 'rgb(240,245,250)',
-    paddingBottom: 10,
+    borderWidth: 1,
+    borderColor: 'rgb(220,220,220)',
+    backgroundColor: 'white',
+    flexDirection: 'row',
+    height: 150,
+    gap: 15,
+    paddingRight: 10,
   },
   logo: {
-    width: '100%',
+    height: '100%',
     aspectRatio: 1,
   },
   name: {
     fontWeight: 'bold',
   },
+  slogan: {},
 })
 
 export default PracticeCard

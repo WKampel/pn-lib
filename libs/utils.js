@@ -1,3 +1,5 @@
+import { Platform } from 'react-native'
+
 export function deepMerge(obj1, obj2) {
   const output = { ...obj1 }
   if (isObject(obj1) && isObject(obj2)) {
@@ -15,4 +17,11 @@ export function deepMerge(obj1, obj2) {
 
 function isObject(item) {
   return item && typeof item === 'object' && !Array.isArray(item)
+}
+
+export function mobileStyles(styles) {
+  if (Platform.OS === 'android' || Platform.OS === 'ios') {
+    return styles
+  }
+  return {}
 }

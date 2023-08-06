@@ -2,7 +2,6 @@ import { createDrawerNavigator } from '@react-navigation/drawer'
 import { useWindowDimensions } from 'react-native'
 import { useBranding } from '../contexts/Branding'
 import Header from './Header'
-import PracticeDrawerContent from './PracticeDrawerContent'
 
 const ReactDrawer = createDrawerNavigator()
 
@@ -25,14 +24,7 @@ const Drawer = props => {
         drawerActiveBackgroundColor: 'white',
         drawerActiveTintColor: colors.primary,
       }}
-      drawerContent={_props => (
-        <PracticeDrawerContent
-          {..._props}
-          hideDefaultItems={props.hideDefaultItems}
-          customItems={props.customItems}
-          extraChildren={props.extraChildren}
-        />
-      )}
+      drawerContent={props.drawerContent}
     >
       {props.screens.map(screen => {
         let options = {}

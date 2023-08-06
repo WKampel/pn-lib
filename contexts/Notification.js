@@ -1,6 +1,7 @@
 import { AntDesign } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
-import { Pressable, StyleSheet, Text, View } from 'react-native'
+import { Platform, Pressable, StyleSheet, Text, View } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import uuid from 'react-native-uuid'
 import useState from '../hooks/useState'
 import { useBranding } from './Branding'
@@ -12,6 +13,8 @@ const Context = createContext()
 const useNotification = () => useContext(Context)
 
 const Provider = props => {
+  const insets = useSafeAreaInsets()
+
   const notifications = useState([])
   const DEFAULT_LIFESPAN = 15000
 
@@ -74,7 +77,7 @@ const Provider = props => {
       }}
     >
       {props.children}
-      <View style={styles.container} pointerEvents='box-none'>
+      <View style={[styles.container, { paddingTop: insets.top }]} pointerEvents='box-none'>
         {[...notifications.val].reverse().map(notif => (
           <Notification
             key={notif.id}
@@ -146,13 +149,14 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     justifyContent: 'flex-start',
     alignItems: 'flex-end',
-    padding: 25,
+    padding: Platform.OS === 'web' ? 25 : 0,
   },
   notification: {
     padding: 15,
     borderRadius: 10,
     backgroundColor: 'white',
-    width: 400,
+    maxWidth: 400,
+    width: '100%',
     shadowColor: 'black',
     shadowRadius: 8,
     elevation: 8,
