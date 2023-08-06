@@ -24,7 +24,7 @@ export default props => {
   const [cameraPermissionStatus, requestPermission] = ImagePicker.useCameraPermissions()
 
   const createFile = useMutation(CREATE_FILE, {
-    alertError: true,
+    displayError: true,
     onSuccess: data => {
       if (props.state) props.state.set(data.createFile)
       if (props.onChange) props.onChange(data.createFile)

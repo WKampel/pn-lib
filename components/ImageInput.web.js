@@ -5,7 +5,6 @@ import { View } from 'react-native'
 import useConfirm from '../hooks/useConfirm.js'
 import useModal from '../hooks/useModal.js'
 import Button from './Button.js'
-import Field from './Field.js'
 import ImageInput from './ImageInput.js'
 
 export default props => {
@@ -30,9 +29,7 @@ export default props => {
   const cropModal = useModal(
     (context, options) => (
       <>
-        <Field label=' '>
-          <Button onPress={options.close} text='Finish' />
-        </Field>
+        <Button onPress={options.close} text='Finish' />
         <View style={{ width: 500, height: 500 }}>
           <Cropper
             image={url.current}

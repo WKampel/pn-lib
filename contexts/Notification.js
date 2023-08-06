@@ -96,7 +96,7 @@ const Provider = props => {
 
 const Notification = props => {
   const nav = useNavigation()
-  const branding = useBranding()
+  const { colors } = useBranding('notification')
 
   const onPress = () => {
     if (props.onPress) props.onPress()
@@ -112,7 +112,7 @@ const Notification = props => {
       ]}
       onPress={onPress}
     >
-      {props.type === 'info' && <AntDesign name='infocirlceo' size={30} color={branding?.primaryColor} />}
+      {props.type === 'info' && <AntDesign name='infocirlceo' size={30} color={colors.primary} />}
       {props.type === 'warning' && <AntDesign name='warning' size={30} color='white' />}
       {props.type === 'error' && <AntDesign name='closecircleo' size={30} color='white' />}
 
@@ -120,7 +120,7 @@ const Notification = props => {
         <Text
           style={[
             styles.title,
-            { color: branding?.primaryColor },
+            { color: colors.primary },
             props.type === 'warning' && styles.warningNotificationTitle,
             props.type === 'error' && styles.errorNotificationTitle,
           ]}

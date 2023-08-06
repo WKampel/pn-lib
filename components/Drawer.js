@@ -8,7 +8,7 @@ const ReactDrawer = createDrawerNavigator()
 
 const Drawer = props => {
   const dimensions = useWindowDimensions()
-  const branding = useBranding()
+  const { colors } = useBranding('drawer')
 
   return (
     <ReactDrawer.Navigator
@@ -23,7 +23,7 @@ const Drawer = props => {
         },
         drawerItemStyle: { margin: 0, paddingLeft: 25 },
         drawerActiveBackgroundColor: 'white',
-        drawerActiveTintColor: branding?.primaryColor,
+        drawerActiveTintColor: colors.primary,
       }}
       drawerContent={_props => (
         <PracticeDrawerContent

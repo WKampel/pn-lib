@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import useState from '../hooks/useState'
-import Field from './Field'
+import PNRow from './Row'
 import TextInput from './TextInput'
 
 const useSearch = (rows, searchValue) => {
@@ -63,10 +63,10 @@ export default Table = props => {
 
   return (
     <>
-      <Field>
+      <PNRow style={{ marginBottom: 5 }}>
         {headerLeft}
         <TextInput containerStyle={styles.search} variants={['round']} placeholder='Search' state={search} />
-      </Field>
+      </PNRow>
       <View style={styles.table}>
         <Header cols={cols} />
         <ScrollView style={styles.body}>

@@ -5,6 +5,7 @@ import PdfInput from './PdfInput'
 import Row from './Row'
 import Select from './Select'
 import TextInput from './TextInput'
+import TrashButton from './TrashButton'
 
 const getEmbeddedYouTubeUrl = regularUrl => {
   // Regular YouTube URL format: https://www.youtube.com/watch?v=VIDEO_ID
@@ -19,13 +20,7 @@ const getEmbeddedYouTubeUrl = regularUrl => {
   return embeddedUrl
 }
 
-const PageFieldInput = ({ field }) => {
-  const type = field.val.type
-  const size = field.val.size
-  const align = field.val.align
-  const value = field.val.value
-  const file = field.val.file
-
+const PageFieldInput = ({ type, value, file, onDelete, size, align, setType, setSize, setAlign, setValue, setFile }) => {
   const valueState = {
     val: type === 'image' || type === 'pdf' ? file : value,
     set: val => {
@@ -34,32 +29,26 @@ const PageFieldInput = ({ field }) => {
       }
 
       if (type === 'image' || type === 'pdf') {
-        field.set({ ...field.val, file: val })
+        setFile(val)
       } else {
-        field.set({ ...field.val, value: val })
+        setValue(val)
       }
     },
   }
 
   const typeState = {
     val: type,
-    set: val => {
-      field.set({ type: val, size: 'medium', align: 'center' })
-    },
+    set: setType,
   }
 
   const sizeState = {
     val: size,
-    set: val => {
-      field.set({ ...field.val, size: val })
-    },
+    set: setSize,
   }
 
   const alignState = {
     val: align,
-    set: val => {
-      field.set({ ...field.val, align: val })
-    },
+    set: setAlign,
   }
 
   let element = null
@@ -87,6 +76,7 @@ const PageFieldInput = ({ field }) => {
       <View style={{ flex: 1, gap: 10 }}>
         <Row>
           <Select label='Type' state={typeState} options={['text', 'pdf', 'image', 'video']} />
+          {onDelete ? <TrashButton onPress={onDelete} style={{ margin: 'auto' }} /> : null}
         </Row>
 
         {type === 'image' ? (

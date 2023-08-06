@@ -50,9 +50,7 @@ const FormBuilderField = ({
 
 const styles = StyleSheet.create({
   deleteButton: {
-    position: 'absolute',
-    right: -23,
-    top: 5,
+    margin: 'auto',
   },
 })
 

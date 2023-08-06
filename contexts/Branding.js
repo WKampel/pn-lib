@@ -5,8 +5,8 @@ import { deepMerge } from '../libs/utils'
 const Context = createContext()
 
 export const useBranding = (componentName, variants = []) => {
-  if (!componentName) return null
   const { baseStyles, variantStyles, colors } = useContext(Context)
+  if (!componentName) return { colors }
 
   let componentStyles = baseStyles[componentName] || {}
 
@@ -98,6 +98,10 @@ export const BrandingProvider = props => {
       borderColor: colors.primary,
       borderRadius: 3,
     },
+    title: {
+      fontSize: 20,
+      fontWeight: 'bold',
+    },
   }
 
   const variantStyles = {
@@ -116,6 +120,9 @@ export const BrandingProvider = props => {
           fontSize: 10,
         },
       },
+      title: {
+        fontSize: 16,
+      },
     },
     big: {
       button: {
@@ -126,6 +133,9 @@ export const BrandingProvider = props => {
         text: {
           fontSize: 14,
         },
+      },
+      title: {
+        fontSize: 26,
       },
     },
     round: {

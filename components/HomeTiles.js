@@ -32,13 +32,13 @@ const HomeTiles = () => {
 
 const Tile = props => {
   const nav = useNavigation()
-  const branding = useBranding()
+  const { colors } = useBranding('tile')
 
   return (
     <Pressable onPress={() => nav.navigate(props.to)} style={styles.tileOuter}>
-      <View style={branding?.homeTile.style}>
+      <View style={[styles.homeTile, { backgroundColor: colors.primary }]}>
         <Icon val={props.icon} size={40} color='white' />
-        <Text style={branding?.homeTile.title.style}>{props.title}</Text>
+        <Text style={styles.title}>{props.title}</Text>
       </View>
     </Pressable>
   )
@@ -53,6 +53,21 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     flexDirection: 'row',
     textAlign: 'center',
+  },
+  homeTile: {
+    padding: 15,
+    borderRadius: 7,
+    alignItems: 'center',
+    height: 100,
+    overflow: 'hidden',
+  },
+  title: {
+    color: 'white',
+    textAlign: 'center',
+    marginTop: 10,
+    fontWeight: 'bold',
+    fontSize: 12,
+    textTransform: 'uppercase',
   },
 })
 

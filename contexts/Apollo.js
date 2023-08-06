@@ -10,7 +10,7 @@ const ApolloProvider = ({ children, token, setToken, app, practiceUrl }) => {
       headers: {
         ...headers,
         authorization: token ? `Bearer ${token}` : '',
-        practiceUrl,
+        ...(practiceUrl && { practiceUrl }),
         app,
       },
     }))
