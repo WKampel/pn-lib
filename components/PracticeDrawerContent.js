@@ -16,7 +16,7 @@ const PracticeDrawerContent = props => {
   const { setToken } = useAuthToken()
 
   const customItems = [
-    ...(props.customItems ? props.customItems : {}),
+    ...(props.customItems ? props.customItems : []),
     {
       label: 'Switch Practice',
       onPress: () => {

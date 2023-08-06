@@ -77,7 +77,7 @@ const Provider = props => {
       }}
     >
       {props.children}
-      <View style={[styles.container, { paddingTop: insets.top }]} pointerEvents='box-none'>
+      <View style={[styles.container, Platform.OS !== 'web' && { paddingTop: insets.top }]} pointerEvents='box-none'>
         {[...notifications.val].reverse().map(notif => (
           <Notification
             key={notif.id}
