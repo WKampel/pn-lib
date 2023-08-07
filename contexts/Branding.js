@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react'
 import { Platform } from 'react-native'
-import { deepMerge } from '../libs/utils'
+import { deepMerge, mobileStyles } from '../libs/utils'
 
 const Context = createContext()
 
@@ -57,6 +57,9 @@ export const BrandingProvider = props => {
         paddingRight: 5,
         ...(Platform.OS === 'web' && { outlineColor: colors.primary }),
         borderStyle: 'solid',
+        ...mobileStyles({
+          backgroundColor: 'white',
+        }),
       },
     },
     iconSelect: {
@@ -67,6 +70,9 @@ export const BrandingProvider = props => {
       fontSize: 12,
       height: 40,
       ...(Platform.OS === 'web' && { outlineColor: colors.primary }),
+      ...mobileStyles({
+        backgroundColor: 'white',
+      }),
     },
     barSwitcher: {
       container: {
