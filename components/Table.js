@@ -1,16 +1,10 @@
 import React, { useEffect } from 'react'
 import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
+import useSearch from '../hooks/useSearch'
 import useState from '../hooks/useState'
 import PNRow from './Row'
 import TextInput from './TextInput'
-
-const useSearch = (rows, searchValue) => {
-  return rows.filter(row => {
-    const lowerCaseSearchArray = searchValue.toLowerCase().split(' ')
-    return lowerCaseSearchArray.every(item => JSON.stringify(row)?.toLowerCase().includes(item))
-  })
-}
 
 const usePagination = (rows, page, perPage) => {
   const pageCount = Math.ceil(rows.length / perPage) || 0
