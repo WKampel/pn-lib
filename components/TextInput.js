@@ -25,8 +25,8 @@ const TextInput = ({
 
   const { brandingStyles } = useBranding('textInput', variants)
 
-  function handleFocus() {
-    if (onFocus) onFocus()
+  function handleFocus(e) {
+    if (onFocus) onFocus(e)
     focused.set(true)
   }
 

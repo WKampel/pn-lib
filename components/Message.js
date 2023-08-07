@@ -16,7 +16,7 @@ export const Conversation = props => {
     <FlatList
       inverted
       data={data}
-      style={styles.messages}
+      style={styles.conversation}
       ref={scrollViewRef}
       renderItem={({ item, index }) => <Message key={index} data={item} />}
     />
@@ -44,29 +44,25 @@ export const ComposeMessage = props => (
 )
 
 const Message = props => {
-  const branding = useBranding()
+  const { brandingStyles } = useBranding('message')
   return (
-    <View
-      style={[
-        branding?.message.style,
-        props.data?.fromMe ? branding?.message.mine.style : null,
-        props.data?.fromServer ? branding?.message.server.style : null,
-      ]}
-    >
+    <View style={[brandingStyles.container, styles.message, props.data?.fromMe && styles.myMessage, props.data?.fromServer && styles.serverMessage]}>
       <Text
         style={[
-          branding?.message.text.style,
-          props.data?.fromMe ? branding?.message.mine.text.style : null,
-          props.data?.fromServer ? branding?.message.server.text.style : null,
+          brandingStyles.text,
+          styles.messageText,
+          props.data?.fromMe && styles.myMessageText,
+          props.data?.fromServer && styles.serverMessageText,
         ]}
       >
         {props.data?.body}
       </Text>
       <Text
         style={[
-          branding?.message.text.style,
-          props.data?.fromMe ? branding?.message.mine.text.style : null,
-          props.data?.fromServer ? branding?.message.server.text.style : null,
+          brandingStyles.text,
+          styles.messageText,
+          props.data?.fromMe && styles.myMessageText,
+          props.data?.fromServer && styles.serverMessageText,
         ]}
       >
         {moment(props.data?.createdAt).format('ddd, MMM D YYYY, h:mm A')}
@@ -76,7 +72,7 @@ const Message = props => {
 }
 
 const styles = StyleSheet.create({
-  messages: {
+  conversation: {
     padding: 5,
   },
   composeMessageContainer: {
@@ -96,5 +92,28 @@ const styles = StyleSheet.create({
     width: 'auto',
     alignSelf: 'flex-end',
     flex: null,
+  },
+  message: {
+    alignSelf: 'flex-start',
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    maxWidth: '75%',
+    marginTop: 10,
+  },
+  myMessage: {
+    backgroundColor: 'rgb(255, 255, 255)',
+    alignSelf: 'flex-end',
+  },
+  serverMessage: {
+    backgroundColor: 'transparent',
+    alignSelf: 'center',
+  },
+  messageText: {},
+  myMessageText: {
+    color: 'black',
+  },
+  serverMessageText: {
+    color: 'gray',
+    textAlign: 'center',
   },
 })

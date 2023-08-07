@@ -102,6 +102,15 @@ export const BrandingProvider = props => {
       fontSize: 20,
       fontWeight: 'bold',
     },
+    message: {
+      container: {
+        backgroundColor: colors.primary,
+        borderRadius: 10,
+      },
+      text: {
+        color: 'white',
+      },
+    },
   }
 
   const variantStyles = {

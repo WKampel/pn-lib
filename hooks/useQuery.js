@@ -12,6 +12,7 @@ const useQuery = (query, variables, config) => {
   const { loading, error, data, refetch } = useQueryGraphQL(query, {
     variables,
     notifyOnNetworkStatusChange: true,
+    skip: config?.skip,
     onCompleted: data => {
       if (isFocused) {
         if (config?.onSuccess) config.onSuccess(data)
@@ -33,10 +34,10 @@ const useQuery = (query, variables, config) => {
   })
 
   useEffect(() => {
-    if (isFocused) {
+    if (isFocused && !config?.skip) {
       refetch()
     }
-  }, [isFocused])
+  }, [isFocused, config?.skip])
 
   return {
     loading,
