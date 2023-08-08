@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     justifyContent: 'flex-start',
     alignItems: 'flex-end',
-    padding: Platform.OS === 'web' ? 25 : 0,
+    padding: Platform.OS === 'web' ? 25 : 10,
   },
   notification: {
     padding: 15,
