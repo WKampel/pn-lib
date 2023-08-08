@@ -14,6 +14,7 @@ const useMutation = (query, config) => {
     },
     onError: e => {
       if (config?.alertError) alert(e?.message)
+      if (config?.onError) config?.onError(e)
 
       for (const _error of e?.graphQLErrors) {
         if (config?.displayError) {
