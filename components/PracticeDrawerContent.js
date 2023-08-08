@@ -17,14 +17,16 @@ const PracticeDrawerContent = props => {
 
   const customItems = [
     ...(props.customItems ? props.customItems : []),
-    {
-      label: 'Switch Practice',
-      onPress: () => {
-        nav.navigate('PracticesGroup')
-      },
-      icon: <AntDesign name='back' size={18} color='rgb(150, 150, 150)' />,
-      color: 'rgb(150,150,150)',
-    },
+    ...(props.switchPractice
+      ? [
+          {
+            label: 'Switch Practice',
+            onPress: props.switchPractice,
+            icon: <AntDesign name='back' size={18} color='rgb(150, 150, 150)' />,
+            color: 'rgb(150,150,150)',
+          },
+        ]
+      : []),
     {
       label: 'Sign Out',
       onPress: () => setToken(null),

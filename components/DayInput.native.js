@@ -15,7 +15,7 @@ const DayInput = props => {
         themeVariant='light'
         value={moment(props.state.val).toDate()}
         mode='date'
-        // onChange={onChange}
+        onChange={onChange}
       />
     </View>
   )

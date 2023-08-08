@@ -32,7 +32,7 @@ export const usePractice = () => useContext(Context)
 
 export const PracticeProvider = props => {
   const practice = useState({})
-  const { data, exec } = useQuery(
+  const { exec, error } = useQuery(
     GET_PRACTICE,
     {},
     {
@@ -48,6 +48,7 @@ export const PracticeProvider = props => {
         ...practice.val,
         refetch: exec,
         setPrimaryColor: color => practice.set(old => ({ ...old, branding: { ...old.branding, primaryColor: color } })),
+        invalid: error ? true : false,
       }}
     >
       {props.children}
