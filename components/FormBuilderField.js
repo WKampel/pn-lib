@@ -19,17 +19,21 @@ const FormBuilderField = ({
   deleteOption,
   deleteField = () => {},
 }) => {
-  const addOptionsModal = useModal(() => (
-    <>
-      {options?.map((option, i) => (
-        <Row>
-          <TextInput label={`Option ${i}`} state={{ val: option, set: val => setOption(i, val) }} />
-          {deleteOption ? <TrashButton onPress={deleteOption.bind(null, i)} /> : null}
-        </Row>
-      ))}
-      <Button text='Add Option' onPress={addOption} />
-    </>
-  ))
+  const addOptionsModal = useModal(
+    () => (
+      <>
+        {options?.map((option, i) => (
+          <Row>
+            <TextInput label={`Option ${i}`} state={{ val: option, set: val => setOption(i, val) }} />
+            {deleteOption ? <TrashButton onPress={deleteOption.bind(null, i)} /> : null}
+          </Row>
+        ))}
+        <Button text='Add Option' onPress={addOption} />
+      </>
+    ),
+    {},
+    { scroll: true }
+  )
 
   return (
     <>

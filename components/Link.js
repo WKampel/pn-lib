@@ -7,7 +7,7 @@ const Link = props => {
 
   if (props.external) {
     return (
-      <A style={{ color: colors.primary }} href={props.to} target={props.newTab ? '_blank' : null}>
+      <A download={props.download} style={{ color: colors.primary }} href={props.to} target={props.newTab ? '_blank' : null}>
         {props.children}
       </A>
     )
