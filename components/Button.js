@@ -1,11 +1,12 @@
 import { useNavigation } from '@react-navigation/native'
 import React from 'react'
-import { StyleSheet, Text, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { useBranding } from '../contexts/Branding'
 import usePlatformStyles from '../hooks/usePlatformStyles'
+import Icon from './Icon'
 import Spinner from './Spinner'
 
-const Button = ({ onPress, linkTo, variants, style, disabled, loading, icon, text }) => {
+const Button = ({ onPress, linkTo, variants, style, disabled, loading, icon, text, iconVal }) => {
   const nav = useNavigation()
 
   if (loading) disabled = true
@@ -27,10 +28,13 @@ const Button = ({ onPress, linkTo, variants, style, disabled, loading, icon, tex
       {loading ? (
         <Spinner />
       ) : (
-        <Text style={[platformStyles.text]}>
-          {icon}
-          {text}
-        </Text>
+        <View style={{ flexDirection: 'row', gap: 10, alignItems: 'center' }}>
+          {iconVal ? <Icon size={platformStyles.text.fontSize} val={iconVal} style={platformStyles.text} /> : null}
+          <Text style={platformStyles.text}>
+            {icon}
+            {text}
+          </Text>
+        </View>
       )}
     </TouchableOpacity>
   )

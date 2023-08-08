@@ -1,25 +1,14 @@
 import { AntDesign } from '@expo/vector-icons'
-import { useEffect } from 'react'
 import { Platform, Pressable, StyleSheet, Text, View } from 'react-native'
 import { useBranding } from '../contexts/Branding'
 
 export default ({ state, variants = [], label }) => {
-  const checked = value === true
+  const checked = state.val === true
   if (checked) variants.push('checked')
   const { brandingStyles } = useBranding('checkBox', variants)
 
-  const value = state.val
-
-  useEffect(() => {
-    if (value === undefined) {
-      state.set(false)
-    } else if (typeof value === 'string') {
-      state.set(value === 'true' ? true : false)
-    }
-  }, [value])
-
   return (
-    <Pressable style={styles.buttonContainer} onPress={state.set.bind(null, !value)}>
+    <Pressable style={styles.buttonContainer} onPress={state.set.bind(null, checked ? false : true)}>
       <View style={[styles.button, brandingStyles]}>{checked ? <AntDesign name='check' size={16} color='white' /> : null}</View>
       <Text style={styles.label}>{label}</Text>
     </Pressable>
@@ -34,8 +23,8 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   button: {
-    width: 20,
-    height: 20,
+    width: 25,
+    height: 25,
     justifyContent: 'center',
     alignItems: 'center',
     padding: 0,

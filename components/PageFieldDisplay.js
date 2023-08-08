@@ -41,7 +41,7 @@ const PageFieldDisplay = ({ field }) => {
     } else {
       return (
         <WebView
-          style={{ width: '100%', height: webViewHeight.val }}
+          style={{ width: '100%', height: webViewHeight.val, backgroundColor: 'transparent' }}
           source={{ html: value }}
           onMessage={onMessage}
           injectedJavaScript={injectedJavaScript}

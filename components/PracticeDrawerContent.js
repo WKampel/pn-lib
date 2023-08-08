@@ -20,7 +20,6 @@ const PracticeDrawerContent = props => {
     {
       label: 'Switch Practice',
       onPress: () => {
-        setActivePracticeUrl('')
         nav.navigate('PracticesGroup')
       },
       icon: <AntDesign name='back' size={18} color='rgb(150, 150, 150)' />,

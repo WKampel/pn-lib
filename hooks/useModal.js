@@ -11,11 +11,13 @@ const useModal = (jsx, containerStyle, options = {}) => {
   const openModal = _context => {
     context.set(_context)
     open.set(true)
+    console.log('open')
   }
 
   const closeModal = () => {
     context.set(null)
     open.set(false)
+
     if (options.onClose) options.onClose()
   }
 
@@ -39,7 +41,7 @@ const useModal = (jsx, containerStyle, options = {}) => {
     render: (
       <Popup onPressBackground={closeModal} visible={open.val}>
         <View style={[webStyles({ maxHeight: '75%' }), getVAlignStyle()]}>
-          <Section scroll={options.scroll} style={[containerStyle]}>
+          <Section scroll={options.scroll} style={containerStyle}>
             {typeof jsx === 'function' ? jsx(context.val, { close: closeModal }) : jsx}
           </Section>
         </View>
