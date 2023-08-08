@@ -100,8 +100,7 @@ export const BrandingProvider = props => {
       },
     },
     checkBox: {
-      borderWidth: 2,
-      borderColor: colors.primary,
+      backgroundColor: 'lightgray',
       borderRadius: 3,
     },
     title: {

@@ -25,3 +25,10 @@ export function mobileStyles(styles) {
   }
   return {}
 }
+
+export function webStyles(styles) {
+  if (Platform.OS === 'web') {
+    return styles
+  }
+  return {}
+}

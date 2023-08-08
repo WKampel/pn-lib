@@ -1,13 +1,22 @@
 import React from 'react'
-import { StyleSheet, View } from 'react-native'
+import { ScrollView, StyleSheet, View } from 'react-native'
 import { mobileStyles } from '../libs/utils'
 
-const Section = ({ children, onMouseEnter, onMouseLeave, style }) => {
-  return (
-    <View onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} style={[styles.section, style]}>
-      {children}
-    </View>
-  )
+const Section = ({ children, onMouseEnter, onMouseLeave, style, scroll }) => {
+  const props = { onMouseEnter, onMouseLeave }
+  if (scroll) {
+    return (
+      <ScrollView {...props} contentContainerStyle={[styles.section, style]}>
+        {children}
+      </ScrollView>
+    )
+  } else {
+    return (
+      <View {...props} style={[styles.section, style]}>
+        {children}
+      </View>
+    )
+  }
 }
 
 const styles = StyleSheet.create({
@@ -19,7 +28,6 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 5,
     gap: 25,
-
     ...mobileStyles({
       backgroundColor: 'transparent',
       padding: 0,

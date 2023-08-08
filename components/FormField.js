@@ -26,7 +26,7 @@ const FormField = ({ type, label, options, state, style }) => {
   }
   if (type == 'yesNo') return <YesNoInput label={label} state={state} />
   if (type == 'radio') return <Radio label={label} getLabel={i => i} getValue={i => i} options={options} state={state} />
-  if (type == 'dropdown') return <Select label={label} getLabel={i => i} getValue={i => i} options={options} state={state} />
+  if (type == 'dropdown') return <Select label={label} getLabel={i => i} getValue={i => i} options={['banana', 'orange', 'apple']} state={state} />
   if (type == 'date') return <DayInput label={label} state={state} />
   if (type == 'time') return <TimeInput label={label} state={state} />
   if (type == 'longtext') {

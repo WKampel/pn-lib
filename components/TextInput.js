@@ -1,6 +1,7 @@
-import { TextInput as ReactNativeTextInput, StyleSheet, View } from 'react-native'
+import { Pressable, TextInput as ReactNativeTextInput, StyleSheet } from 'react-native'
 import { useBranding } from '../contexts/Branding'
 import useState from '../hooks/useState'
+import { mobileStyles } from '../libs/utils'
 import BorderLabel from './BorderLabel'
 
 const TextInput = ({
@@ -18,6 +19,7 @@ const TextInput = ({
   onFocus,
   onBlur,
   onKeyPress,
+  onPress,
 }) => {
   const focused = useState(false)
   if (disabled) variants.push('disabled')
@@ -36,12 +38,12 @@ const TextInput = ({
   }
 
   return (
-    <View style={[styles.container, containerStyle]}>
+    <Pressable onPress={onPress} style={[styles.container, containerStyle]}>
       {label && <BorderLabel label={label} backgroundColor={brandingStyles.input.backgroundColor} color='gray' />}
       <ReactNativeTextInput
         multiline={multiline}
         secureTextEntry={password}
-        style={[brandingStyles.input, inputStyle, multiline && { paddingTop: 10 }]}
+        style={[brandingStyles.input, inputStyle, multiline && { paddingTop: 10 }, multiline && mobileStyles({ height: 'auto', paddingBottom: 10 })]}
         value={state.val}
         onChangeText={state.set}
         placeholder={placeholder || label}
@@ -52,14 +54,17 @@ const TextInput = ({
         onFocus={handleFocus}
         onBlur={handleBlur}
         onKeyPress={onKeyPress}
+        editable={disabled ? false : true}
+        selectTextOnFocus={disabled ? false : true}
+        onPressIn={onPress}
       />
-    </View>
+    </Pressable>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    width: '100%',
   },
 })
 

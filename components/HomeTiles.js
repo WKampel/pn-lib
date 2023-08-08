@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native'
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { useBranding } from '../contexts/Branding'
 import { usePractice } from '../contexts/Practice'
 import Icon from './Icon'
@@ -35,12 +35,12 @@ const Tile = props => {
   const { colors } = useBranding('tile')
 
   return (
-    <Pressable onPress={() => nav.navigate(props.to)} style={styles.tileOuter}>
+    <TouchableOpacity onPress={() => nav.navigate(props.to)} style={styles.tileOuter}>
       <View style={[styles.homeTile, { backgroundColor: colors.primary }]}>
         <Icon val={props.icon} size={40} color='white' />
         <Text style={styles.title}>{props.title}</Text>
       </View>
-    </Pressable>
+    </TouchableOpacity>
   )
 }
 

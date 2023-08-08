@@ -2,6 +2,7 @@ import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 import { useBranding } from '../contexts/Branding'
+import { mobileStyles } from '../libs/utils'
 import Icon from './Icon'
 
 const BarSwitcher = ({ items, active, variants }) => {
@@ -37,7 +38,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginBottom: 20,
   },
-  item: { flexDirection: 'row', gap: 5, alignItems: 'center' },
+  item: {
+    flexDirection: 'row',
+    gap: 5,
+    alignItems: 'center',
+    ...mobileStyles({
+      flex: 1,
+      justifyContent: 'center',
+    }),
+  },
 })
 
 export default BarSwitcher
