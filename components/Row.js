@@ -1,7 +1,8 @@
+import React from 'react'
 import { StyleSheet, View } from 'react-native'
 
 const Row = ({ children, style }) => {
-  return <View style={[styles.row, style]}>{children}</View>
+  return <View style={[styles.row, style]}>{React.Children.map(children, child => React.cloneElement(child, { insideRow: true }))}</View>
 }
 
 export default Row

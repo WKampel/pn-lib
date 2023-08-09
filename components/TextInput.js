@@ -1,4 +1,4 @@
-import { Pressable, TextInput as ReactNativeTextInput, StyleSheet } from 'react-native'
+import { Pressable, TextInput as ReactNativeTextInput } from 'react-native'
 import { useBranding } from '../contexts/Branding'
 import useState from '../hooks/useState'
 import { mobileStyles } from '../libs/utils'
@@ -20,6 +20,7 @@ const TextInput = ({
   onBlur,
   onKeyPress,
   onPress,
+  insideRow,
 }) => {
   const focused = useState(false)
   if (disabled) variants.push('disabled')
@@ -38,7 +39,7 @@ const TextInput = ({
   }
 
   return (
-    <Pressable onPress={onPress} style={[styles.container, containerStyle]}>
+    <Pressable onPress={onPress} style={[insideRow && { flex: 1 }, containerStyle]}>
       {label && <BorderLabel label={label} backgroundColor={brandingStyles.input.backgroundColor} color='gray' />}
       <ReactNativeTextInput
         multiline={multiline}
@@ -61,11 +62,5 @@ const TextInput = ({
     </Pressable>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-  },
-})
 
 export default TextInput
