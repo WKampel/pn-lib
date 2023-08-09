@@ -19,7 +19,7 @@ export const useSocketEvent = (type, callback, dependencies) => {
 export const SocketProvider = props => {
   const practice = usePractice()
   useEffect(() => {
-    const socket = io('http://192.168.8.22:3050', {
+    const socket = io(process.env.EXPO_PUBLIC_API_URL, {
       query: { token: props.token, app: props.app, practiceId: practice.id },
     })
 

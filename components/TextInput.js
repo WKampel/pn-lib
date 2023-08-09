@@ -39,7 +39,7 @@ const TextInput = ({
   }
 
   return (
-    <Pressable focusable={false} onPress={onPress} style={[insideRow && { flex: 1 }, containerStyle]}>
+    <Pressable tabIndex={-1} focusable={false} accessible={false} onPress={onPress} style={[insideRow && { flex: 1 }, containerStyle]}>
       {label && <BorderLabel label={label} backgroundColor={brandingStyles.input.backgroundColor} color='gray' />}
       <ReactNativeTextInput
         multiline={multiline}
