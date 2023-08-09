@@ -27,8 +27,8 @@ export const SocketProvider = props => {
       alert('error:' + e)
     })
 
-    socket.on('new message', data => {
-      DeviceEventEmitter.emit('socket event', { type: 'new message', data })
+    socket.onAny((event, ...args) => {
+      DeviceEventEmitter.emit('socket event', { type: event, data: args[0] })
     })
 
     return () => {
