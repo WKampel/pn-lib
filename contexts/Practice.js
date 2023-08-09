@@ -22,6 +22,7 @@ const GET_PRACTICE = gql`
       }
       sikkaOfficeId
       stripePaymentLink
+      subscribed
     }
   }
 `
@@ -32,7 +33,7 @@ export const usePractice = () => useContext(Context)
 
 export const PracticeProvider = props => {
   const practice = useState({})
-  const { exec, error } = useQuery(
+  const { exec, error, loading } = useQuery(
     GET_PRACTICE,
     {},
     {
@@ -49,6 +50,7 @@ export const PracticeProvider = props => {
         refetch: exec,
         setPrimaryColor: color => practice.set(old => ({ ...old, branding: { ...old.branding, primaryColor: color } })),
         invalid: error ? true : false,
+        loading: loading,
       }}
     >
       {props.children}
