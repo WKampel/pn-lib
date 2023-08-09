@@ -18,7 +18,7 @@ export const useSocketEvent = (type, callback, dependencies) => {
 export const SocketProvider = props => {
   useEffect(() => {
     const socket = io('http://192.168.8.22:3050', {
-      query: { token: props.token },
+      query: { token: props.token, app: props.app },
     })
 
     socket.on('error', e => {
