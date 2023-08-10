@@ -10,7 +10,7 @@ const useMutation = (query, config) => {
     onCompleted: data => {
       if (config?.onSuccess) config.onSuccess(data)
       if (config?.redirectOnSuccess) nav.navigate(config.redirectOnSuccess)
-      if (config?.displaySuccess) notify({ title: 'Success', lifeSpan: 3000 })
+      if (config?.displaySuccess) notify({ title: typeof config?.displaySuccess === 'string' ? config?.displaySuccess : 'Success', lifeSpan: 3000 })
     },
     onError: e => {
       if (config?.alertError) alert(e?.message)
