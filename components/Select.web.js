@@ -4,6 +4,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { Overlay } from '../contexts/Overlay'
 import useState from '../hooks/useState'
+import Icon from './Icon'
 import TextInput from './TextInput'
 
 export default props => {
@@ -30,10 +31,18 @@ export default props => {
     <View style={[styles.container, props.containerStyle]} ref={containerRef}>
       <TextInput
         containerStyle={{ flex: 'unset' }}
+        inputStyle={{ cursor: 'default' }}
         onFocus={e => isOpen.set(true)}
         state={{ set: () => {}, val: props.state.val }}
         label={props.label}
         placeholder={props.label || 'Select'}
+      />
+      <Icon
+        color='gray'
+        size={10}
+        style={{ position: 'absolute', right: 15, top: '50%', transform: [{ translateY: '-50%' }] }}
+        set='antdesign'
+        name='caretdown'
       />
       <Overlay
         visible={isOpen.val}

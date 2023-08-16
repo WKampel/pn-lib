@@ -39,7 +39,7 @@ const FormBuilderField = ({
     <>
       {addOptionsModal.render}
       <Row onMouseEnter={setActive.bind(null, true)} onMouseLeave={setActive.bind(null, false)}>
-        <TextInput containerStyle={{ flex: 1 }} label='Prompt' state={{ val: name, set: setName }} />
+        <TextInput containerStyle={{ flex: 1 }} label='Enter question' state={{ val: name, set: setName }} />
         <View style={{ flex: 1, flexDirection: 'row', gap: 10 }}>
           <FieldTypeSelect containerStyle={{ flex: 1 }} label='Type of Answer' state={{ val: type, set: setType }} />
           {['radio', 'dropdown'].includes(type) ? (

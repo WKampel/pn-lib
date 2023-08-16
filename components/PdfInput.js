@@ -30,7 +30,7 @@ const PdfInput = props => {
     let result = await DocumentPicker.getDocumentAsync({
       type: 'application/pdf',
     })
-    return result
+    return result.assets[0]
   }
 
   return (
