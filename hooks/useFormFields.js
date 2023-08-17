@@ -11,6 +11,10 @@ const useFormFields = () => {
     fields.array.update(fieldIndex, { ...fields.val[fieldIndex], name })
   }
 
+  function setFields(_fields) {
+    fields.set(_fields)
+  }
+
   function setType(fieldIndex, type) {
     fields.array.update(fieldIndex, { ...fields.val[fieldIndex], type })
   }
@@ -48,6 +52,7 @@ const useFormFields = () => {
     deleteOption,
     addField,
     deleteField,
+    setFields,
   }
 }
 
