@@ -1,7 +1,8 @@
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import FieldTypeSelect from '../../src/components/FieldTypeSelect'
 import useModal from '../hooks/useModal'
 import Button from './Button'
+import Icon from './Icon'
 import Row from './Row'
 import TextInput from './TextInput'
 import TrashButton from './TrashButton'
@@ -11,13 +12,15 @@ const FormBuilderField = ({
   name,
   type,
   options,
-  setActive = () => {},
-  setName = () => {},
-  setType = () => {},
-  setOption = () => {},
-  addOption = () => {},
+  setActive,
+  setName,
+  setType,
+  setOption,
+  addOption,
   deleteOption,
-  deleteField = () => {},
+  deleteField,
+  up,
+  down,
 }) => {
   const addOptionsModal = useModal(
     () => (
@@ -25,7 +28,7 @@ const FormBuilderField = ({
         {options?.map((option, i) => (
           <Row>
             <TextInput label={`Option ${i}`} state={{ val: option, set: val => setOption(i, val) }} />
-            {deleteOption ? <TrashButton onPress={deleteOption.bind(null, i)} /> : null}
+            <TrashButton onPress={deleteOption.bind(null, i)} />
           </Row>
         ))}
         <Button text='Add Option' onPress={addOption} />
@@ -45,7 +48,15 @@ const FormBuilderField = ({
           {['radio', 'dropdown'].includes(type) ? (
             <Button variants={['round', 'secondary', 'narrow']} text='Options' onPress={addOptionsModal.open} />
           ) : null}
-          {deleteOption ? <TrashButton onPress={deleteField} style={styles.deleteButton} /> : null}
+          <TrashButton onPress={deleteField} style={styles.deleteButton} />
+          <View style={{ justifyContent: 'center' }}>
+            <TouchableOpacity onPress={up}>
+              <Icon set='antdesign' name='up' />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={down}>
+              <Icon set='antdesign' name='down' />
+            </TouchableOpacity>
+          </View>
         </View>
       </Row>
     </>

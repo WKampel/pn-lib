@@ -1,10 +1,14 @@
+import uuid from 'react-native-uuid'
 import useState from './useState'
 
 const useFormFields = () => {
   const fields = useState([])
 
-  function addField() {
-    fields.array.push({ type: 'title' })
+  function addFieldToStart() {
+    fields.set(prev => [{ type: 'title', id: uuid.v4() }, ...prev])
+  }
+  function addFieldToEnd() {
+    fields.array.push({ type: 'title', id: uuid.v4() })
   }
 
   function setName(fieldIndex, name) {
@@ -12,7 +16,12 @@ const useFormFields = () => {
   }
 
   function setFields(_fields) {
-    fields.set(_fields)
+    fields.set(
+      _fields.map(field => ({
+        id: uuid.v4(),
+        ...field,
+      }))
+    )
   }
 
   function setType(fieldIndex, type) {
@@ -42,6 +51,26 @@ const useFormFields = () => {
     fields.set(prev => prev.filter((item, i) => i !== fieldIndex))
   }
 
+  function up(fieldIndex) {
+    if (fieldIndex <= 0) return
+
+    fields.set(prevFields => {
+      const newFields = [...prevFields]
+      ;[newFields[fieldIndex - 1], newFields[fieldIndex]] = [newFields[fieldIndex], newFields[fieldIndex - 1]]
+      return newFields
+    })
+  }
+
+  function down(fieldIndex) {
+    if (fieldIndex >= fields.val.length - 1) return
+
+    fields.set(prevFields => {
+      const newFields = [...prevFields]
+      ;[newFields[fieldIndex + 1], newFields[fieldIndex]] = [newFields[fieldIndex], newFields[fieldIndex + 1]]
+      return newFields
+    })
+  }
+
   return {
     fields: fields.val,
     setName,
@@ -50,9 +79,12 @@ const useFormFields = () => {
     setOption,
     addOption,
     deleteOption,
-    addField,
+    addFieldToStart,
+    addFieldToEnd,
     deleteField,
     setFields,
+    up,
+    down,
   }
 }
 
