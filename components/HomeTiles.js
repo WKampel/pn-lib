@@ -3,16 +3,16 @@ import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-nati
 import { useBranding } from '../contexts/Branding'
 import { usePractice } from '../contexts/Practice'
 import Icon from './Icon'
-import Image from './Image'
+import ImageAutoHeight from './ImageAutoHeight'
 
 const HomeTiles = () => {
   const practice = usePractice()
 
   return (
     <ScrollView>
-      <View style={{ alignItems: 'center', marginBottom: 15 }}>
-        <Text style={{ marginBottom: 5 }}>{practice.slogan}</Text>
-        <Image style={{ width: 50, height: 50 }} src={practice?.logo?.url} />
+      <View style={{ alignItems: 'center', marginBottom: 15, gap: 10 }}>
+        <ImageAutoHeight style={{ width: 200, borderRadius: 10 }} src={practice?.logo?.url} />
+        <Text>{practice.slogan}</Text>
       </View>
       <View style={styles.tiles}>
         <Tile to='Messages' icon='antdesign:message1' title='MESSAGES' />
