@@ -11,7 +11,7 @@ const HomeTiles = () => {
   return (
     <ScrollView>
       <View style={{ alignItems: 'center', marginBottom: 15, gap: 10 }}>
-        <ImageAutoHeight style={{ width: 200, borderRadius: 10 }} src={practice?.logo?.url} />
+        <ImageAutoHeight style={{ height: 100, borderRadius: 10 }} src={practice?.logo?.url} />
         <Text>{practice.slogan}</Text>
       </View>
       <View style={styles.tiles}>
