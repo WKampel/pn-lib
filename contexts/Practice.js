@@ -40,6 +40,9 @@ export const PracticeProvider = props => {
       onSuccess: ({ currentPractice }) => {
         practice.set(currentPractice)
       },
+      onError: () => {
+        if (props.onError) props.onError()
+      },
     }
   )
 

@@ -1,3 +1,4 @@
+import Slider from '@react-native-community/slider'
 import { SaveFormat, manipulateAsync } from 'expo-image-manipulator'
 import { useCallback, useRef, useState } from 'react'
 import Cropper from 'react-easy-crop'
@@ -30,12 +31,22 @@ export default props => {
     (context, options) => (
       <>
         <Button onPress={options.close} text='Finish' />
+        <Slider
+          style={{ width: '100%', height: 25 }}
+          minimumValue={0.1}
+          maximumValue={4}
+          onValueChange={setZoom}
+          value={zoom}
+          minimumTrackTintColor='gray'
+          maximumTrackTintColor='#000000'
+        />
         <View style={{ width: 500, height: 500 }}>
           <Cropper
             image={url.current}
             crop={crop}
             zoom={zoom}
             minZoom={0.1}
+            maxZoom={4}
             restrictPosition={false}
             aspect={props.aspect || 1}
             onCropChange={setCrop}

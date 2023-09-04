@@ -56,7 +56,7 @@ export default props => {
     const manipResult = await manipulateAsync(
       uri,
       [resize].filter(item => item),
-      { compress: 1 }
+      { compress: 1, format: 'png' }
     )
 
     return manipResult

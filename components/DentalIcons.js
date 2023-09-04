@@ -22,6 +22,8 @@ export const dentalset1 = {
   dentalserviceonline: require('../assets/dental-icons/set-1/dental-service-online.png'),
   gingivitis: require('../assets/dental-icons/set-1/gingivitis.png'),
   dentalservice: require('../assets/dental-icons/set-1/dental-service.png'),
+  toothcleaning: require('../assets/dental-icons/set-1/tooth-cleaning.png'),
+  hygienist: require('../assets/dental-icons/set-1/hygienist.png'),
 }
 
 export const dentalset2 = {

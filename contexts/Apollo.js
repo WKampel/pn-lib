@@ -36,7 +36,7 @@ const ApolloProvider = ({ children, app, practiceUrl }) => {
       link: from([authLink, errorLink, uploadLink]),
       cache: new InMemoryCache(),
     })
-  }, [token])
+  }, [token, practiceUrl])
 
   return <ApolloApolloProvider client={client}>{children}</ApolloApolloProvider>
 }

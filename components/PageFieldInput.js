@@ -8,9 +8,18 @@ import TextInput from './TextInput'
 import TrashButton from './TrashButton'
 
 const getEmbeddedYouTubeUrl = regularUrl => {
+  let videoId
+
   // Regular YouTube URL format: https://www.youtube.com/watch?v=VIDEO_ID
-  // and may contain additional parameters after the "v=" parameter (e.g., "&param1=value1&param2=value2")
-  const videoId = regularUrl.split('v=')?.[1]?.split('&')?.[0] // Extract the video ID and ignore the additional parameters
+  if (regularUrl.includes('youtube.com')) {
+    videoId = regularUrl.split('v=')?.[1]?.split('&')?.[0]
+  }
+
+  // Short YouTube URL format: https://youtu.be/VIDEO_ID
+  else if (regularUrl.includes('youtu.be')) {
+    videoId = regularUrl.split('youtu.be/')?.[1]?.split('?')?.[0]
+  }
+
   if (!videoId) {
     return regularUrl
   }
