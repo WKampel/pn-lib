@@ -1,7 +1,7 @@
 import { AntDesign, Feather } from '@expo/vector-icons'
 import { DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer'
 import { useNavigation } from '@react-navigation/native'
-import { StyleSheet, Text, View } from 'react-native'
+import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import Image from '../components/Image'
 import { useAuthToken } from '../contexts/AuthToken'
 import { useBranding } from '../contexts/Branding'
@@ -40,7 +40,7 @@ const PracticeDrawerContent = props => {
       <View style={[styles.header, { backgroundColor: colors.primary }]}>
         <View style={styles.nameLogoContainer}>
           <Image style={styles.logo} src={practice?.logo?.url} />
-          <View>
+          <View style={{ flex: 1 }}>
             <Text style={styles.practiceName}>{practice?.name}</Text>
             <Text style={styles.practiceSlogan}>{practice?.slogan}</Text>
             <Text style={styles.userName}>
@@ -50,28 +50,30 @@ const PracticeDrawerContent = props => {
         </View>
       </View>
 
-      <DrawerItemList {...props} />
+      <ScrollView>
+        <DrawerItemList {...props} />
 
-      {customItems?.map((item, i) => {
-        const onPress = () => {
-          if (item.onPress) item.onPress()
-          if (item.linkTo) nav.navigate(item.linkTo)
-        }
+        {customItems?.map((item, i) => {
+          const onPress = () => {
+            if (item.onPress) item.onPress()
+            if (item.linkTo) nav.navigate(item.linkTo)
+          }
 
-        return (
-          <DrawerItem
-            icon={() => item.icon}
-            key={i}
-            label={item.label}
-            onPress={onPress}
-            labelStyle={{ fontSize: 14 }}
-            focused={item.isFocused && item.isFocused(props.state.routes[props.state.index])}
-            style={{ paddingLeft: 25, margin: 0 }}
-            inactiveTintColor={item.color || 'rgb(85,85,85)'}
-          />
-        )
-      })}
-      {props.extraChildren}
+          return (
+            <DrawerItem
+              icon={() => item.icon}
+              key={i}
+              label={item.label}
+              onPress={onPress}
+              labelStyle={{ fontSize: 14 }}
+              focused={item.isFocused && item.isFocused(props.state.routes[props.state.index])}
+              style={{ paddingLeft: 25, margin: 0 }}
+              inactiveTintColor={item.color || 'rgb(85,85,85)'}
+            />
+          )
+        })}
+        {props.extraChildren}
+      </ScrollView>
     </DrawerContentScrollView>
   )
 }
