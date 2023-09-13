@@ -37,13 +37,9 @@ export default props => {
         label={props.label}
         placeholder={props.label || 'Select'}
       />
-      <Icon
-        color='gray'
-        size={10}
-        style={{ position: 'absolute', right: 15, top: '50%', transform: [{ translateY: '-50%' }] }}
-        set='antdesign'
-        name='caretdown'
-      />
+      <View pointerEvents='none' style={{ position: 'absolute', right: 15, top: '50%', transform: [{ translateY: '-50%' }] }}>
+        <Icon color='gray' size={10} set='antdesign' name='caretdown' />
+      </View>
       <Overlay
         visible={isOpen.val}
         relativeToRef={containerRef}
