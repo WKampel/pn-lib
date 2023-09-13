@@ -2,7 +2,7 @@ import Slider from '@react-native-community/slider'
 import { SaveFormat, manipulateAsync } from 'expo-image-manipulator'
 import { useCallback, useRef, useState } from 'react'
 import Cropper from 'react-easy-crop'
-import { View } from 'react-native'
+import { Image, View } from 'react-native'
 import useConfirm from '../hooks/useConfirm.js'
 import useModal from '../hooks/useModal.js'
 import Button from './Button.js'
@@ -21,6 +21,11 @@ export default props => {
   }, [])
 
   const transformUri = async uri => {
+    Image.getSize(uri, async (width, height) => {
+      const zoomLevel = width > height ? height / width : width / height
+
+      setZoom(zoomLevel)
+    })
     cropModal.open()
     url.current = uri
     await getConfirmation()

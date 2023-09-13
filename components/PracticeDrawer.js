@@ -1,13 +1,31 @@
 import Drawer from './Drawer'
 import PracticeDrawerContent from './PracticeDrawerContent'
 
-const PracticeDrawer = ({ customItems, extraChildren, screens, switchPractice }) => {
+const getScreensWithComp = screens => {
+  let result = []
+
+  for (const screen of screens) {
+    if (screen.comp) {
+      result.push(screen)
+    }
+
+    if (screen.screens) {
+      result = result.concat(getScreensWithComp(screen.screens))
+    }
+  }
+
+  return result
+}
+
+const PracticeDrawer = ({ extraChildren, screens, switchPractice }) => {
+  // Screens could contain folders/groups (if there is no comp property)
+
+  const screensWithoutFoldersAndFlattened = getScreensWithComp(screens)
+
   return (
     <Drawer
-      drawerContent={props => (
-        <PracticeDrawerContent {...props} switchPractice={switchPractice} customItems={customItems} extraChildren={extraChildren} />
-      )}
-      screens={screens}
+      drawerContent={props => <PracticeDrawerContent screens={screens} {...props} switchPractice={switchPractice} extraChildren={extraChildren} />}
+      screens={screensWithoutFoldersAndFlattened}
     />
   )
 }
