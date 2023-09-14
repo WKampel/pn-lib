@@ -50,7 +50,8 @@ const GroupContainer = ({ children, label, activeRouteName, screens }) => {
 }
 
 const PracticeDrawerContent = props => {
-  const activeRouteName = props.state.routes[props.state.index].name
+  const activeRoute = props.state.routes[props.state.index]
+  const activeRouteName = activeRoute?.name
 
   const { colors } = useBranding('sideNav')
   const practice = usePractice()
@@ -75,6 +76,8 @@ const PracticeDrawerContent = props => {
           if (screen.name) nav.navigate(screen.name)
         }
 
+        if (screen.hideNavLink) return undefined
+
         return (
           <DrawerItem
             style={{ color: screen.color }}
@@ -82,7 +85,7 @@ const PracticeDrawerContent = props => {
             icon={screen.icon}
             title={screen.title}
             onPress={onPress}
-            focused={activeRouteName === screen.name}
+            focused={screen.isFocused ? screen.isFocused(activeRoute) : activeRouteName === screen.name}
           />
         )
       }

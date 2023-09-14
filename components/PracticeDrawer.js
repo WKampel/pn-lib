@@ -17,14 +17,16 @@ const getScreensWithComp = screens => {
   return result
 }
 
-const PracticeDrawer = ({ extraChildren, screens, switchPractice }) => {
+const PracticeDrawer = ({ extraChildren, screens, switchPractice, customItems }) => {
   // Screens could contain folders/groups (if there is no comp property)
 
   const screensWithoutFoldersAndFlattened = getScreensWithComp(screens)
 
   return (
     <Drawer
-      drawerContent={props => <PracticeDrawerContent screens={screens} {...props} switchPractice={switchPractice} extraChildren={extraChildren} />}
+      drawerContent={props => (
+        <PracticeDrawerContent screens={screens} {...props} customItems={customItems} switchPractice={switchPractice} extraChildren={extraChildren} />
+      )}
       screens={screensWithoutFoldersAndFlattened}
     />
   )
