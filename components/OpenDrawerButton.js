@@ -1,11 +1,11 @@
 import { Ionicons } from '@expo/vector-icons'
 import { DrawerActions, useNavigation } from '@react-navigation/native'
-import { Pressable } from 'react-native'
+import { TouchableOpacity } from 'react-native'
 
 export default props => {
   const nav = useNavigation()
   return (
-    <Pressable
+    <TouchableOpacity
       style={[
         props.style,
         {
@@ -19,6 +19,6 @@ export default props => {
       onPress={() => nav.dispatch(DrawerActions.openDrawer())}
     >
       <Ionicons name='menu' size={24} color='black' />
-    </Pressable>
+    </TouchableOpacity>
   )
 }

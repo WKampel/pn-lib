@@ -116,6 +116,9 @@ export const BrandingProvider = props => {
         color: 'white',
       },
     },
+    section: {
+      gap: 25,
+    },
   }
 
   const variantStyles = {
@@ -229,6 +232,11 @@ export const BrandingProvider = props => {
         input: {
           paddingLeft: baseStyles.textInput.input.paddingRight,
         },
+      },
+    },
+    tight: {
+      section: {
+        gap: 10,
       },
     },
   }

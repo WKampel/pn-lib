@@ -2,13 +2,14 @@ import moment from 'moment'
 import { StyleSheet, Text, View } from 'react-native'
 import Title from '../components/Title'
 import { useBranding } from '../contexts/Branding'
+import GenderIcon from './GenderIcon'
 import Icon from './Icon'
 
 const ProfileCard = ({ name, gender, email, birthDay, phone, address, children }) => {
   const { colors } = useBranding()
   return (
     <View style={styles.card}>
-      <Icon set='materialcommunityicons' name={gender === 'f' ? 'face-woman-profile' : 'face-man-profile'} size={50} />
+      <GenderIcon size={50} gender={gender} />
       <View style={styles.infoContainer}>
         <Title style={{ color: colors.primary }} text={name} />
         <Info iconSet='materialicons' iconName='email' value={email} />

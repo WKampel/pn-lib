@@ -18,7 +18,7 @@ const HomeTiles = () => {
         <Tile to='Messages' icon='antdesign:message1' title='MESSAGES' />
         <Tile to='CheckIn' icon='antdesign:calendar' title='CHECK IN' />
         <Tile to='ContactUs' icon='antdesign:phone' title='CONTACT US' />
-        <Tile to='ServiceGroup' icon='antdesign:setting' title='SERVICES' />
+        <Tile to='ServiceGroup' icon='materialcommunityicons:tooth-outline' title='SERVICES' />
         <Tile to='FormGroup' icon='antdesign:form' title='FORMS' />
         <Tile to='AboutUs' icon='antdesign:infocirlceo' title='ABOUT US' />
         <Tile to='ProfileGroup' icon='antdesign:profile' title='PATIENT PROFILE' />

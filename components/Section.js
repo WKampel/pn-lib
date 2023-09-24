@@ -1,18 +1,21 @@
 import React from 'react'
 import { ScrollView, StyleSheet, View } from 'react-native'
+import { useBranding } from '../contexts/Branding'
 import { mobileStyles } from '../libs/utils'
 
-const Section = ({ children, onMouseEnter, onMouseLeave, style, scroll }) => {
+const Section = ({ children, onMouseEnter, onMouseLeave, style, scroll, variants }) => {
+  const { brandingStyles } = useBranding('section', variants)
+
   const props = { onMouseEnter, onMouseLeave }
   if (scroll) {
     return (
-      <ScrollView {...props} contentContainerStyle={[styles.section, style]}>
+      <ScrollView {...props} contentContainerStyle={[styles.section, brandingStyles, style]}>
         {children}
       </ScrollView>
     )
   } else {
     return (
-      <View {...props} style={[styles.section, style]}>
+      <View {...props} style={[styles.section, brandingStyles, style]}>
         {children}
       </View>
     )
@@ -27,7 +30,6 @@ const styles = StyleSheet.create({
     borderColor: 'rgb(220, 220, 220)',
     padding: 20,
     borderRadius: 5,
-    gap: 25,
     ...mobileStyles({
       backgroundColor: 'transparent',
       padding: 0,

@@ -1,14 +1,21 @@
 import React from 'react'
-import { Image, Pressable, StyleSheet } from 'react-native'
+import { Image, Pressable, StyleSheet, View } from 'react-native'
 
 export default props => {
   let source = props.src
   if (typeof props.src === 'string') source = { uri: props.src }
-  return (
-    <Pressable onPress={props.onPress} style={[props.style, !props.onPress && { cursor: 'normal' }]}>
-      {source ? <Image style={styles.image} source={source} resizeMode={props.fit || 'contain'} /> : null}
-    </Pressable>
-  )
+
+  const ImageComponent = <Image style={styles.image} source={source} resizeMode={props.fit || 'contain'} />
+
+  if (props.onPress) {
+    return (
+      <Pressable onPress={props.onPress} style={props.style}>
+        {ImageComponent}
+      </Pressable>
+    )
+  }
+
+  return <View style={[props.style]}>{ImageComponent}</View>
 }
 
 const styles = StyleSheet.create({
