@@ -1,50 +1,92 @@
-import { useNavigation } from '@react-navigation/native'
-import React from 'react'
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import { useBranding } from '../contexts/Branding'
-import usePlatformStyles from '../hooks/usePlatformStyles'
-import Icon from './Icon'
+import { cloneElement } from 'react'
+import { Pressable, Text } from 'react-native'
+import { styled } from '../libs/wakui'
+import { useParentStyle } from '../libs/wakui/styleProvider'
 import Spinner from './Spinner'
 
-const Button = ({ onPress, linkTo, variants, style, disabled, loading, icon, text, iconVal }) => {
-  const nav = useNavigation()
+const Button = styled(
+  ({ isFocused, isHovered, isPressed }) => ({
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    opacity: isPressed ? 1 : isHovered ? 0.75 : 0.5,
+    size: 'm',
+    style: 'primary',
+    variants: {
+      size: {
+        s: {
+          height: 30,
+          paddingHorizontal: 15,
+          fontSize: 9,
+          borderRadius: 9,
+          gap: 9,
+        },
+        m: {
+          height: 40,
+          paddingHorizontal: 20,
+          fontSize: 12,
+          borderRadius: 12,
+          gap: 12,
+        },
+        l: {
+          height: 50,
+          paddingHorizontal: 25,
+          fontSize: 15,
+          borderRadius: 15,
+          gap: 15,
+        },
+      },
 
-  if (loading) disabled = true
-  variants = disabled ? ['disabled', ...[].concat(variants)] : variants
-
-  const { brandingStyles } = useBranding('button', variants)
-
-  const platformStyles = usePlatformStyles(brandingStyles, {
-    web: { container: { alignSelf: 'flex-start' } },
-  })
-
-  function handlePress() {
-    if (onPress) onPress()
-    if (linkTo) nav.navigate(linkTo)
+      style: {
+        primary: {
+          color: 'black',
+          backgroundColor: '$color.primary',
+        },
+        secondary: {
+          borderWidth: 2,
+          backgroundColor: 'transparent',
+          borderColor: '$color.primary',
+          color: '$color.primary',
+        },
+      },
+    },
+  }),
+  ({ style, children, onMouseEnter, onMouseLeave, onPressIn, onPressOut, onPress, disabled, loading }) => {
+    return (
+      <Pressable
+        onPress={onPress}
+        onPressIn={onPressIn}
+        onPressOut={onPressOut}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        style={style}
+        disabled={disabled || loading}
+      >
+        {loading ? <Spinner /> : children}
+      </Pressable>
+    )
   }
+)
+
+Button.Text = props => {
+  const style = useParentStyle()
 
   return (
-    <TouchableOpacity activeOpacity={0.75} disabled={disabled} style={[styles.container, platformStyles.container, style]} onPress={handlePress}>
-      {loading ? (
-        <Spinner />
-      ) : (
-        <View style={{ flexDirection: 'row', gap: 10, alignItems: 'center' }}>
-          {iconVal ? <Icon size={platformStyles.text.fontSize} val={iconVal} style={platformStyles.text} /> : null}
-          <Text style={platformStyles.text}>
-            {icon}
-            {text}
-          </Text>
-        </View>
-      )}
-    </TouchableOpacity>
+    <Text
+      style={{
+        color: style.color,
+        fontSize: style.fontSize,
+      }}
+    >
+      {props.children}
+    </Text>
   )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-})
+Button.Icon = props => {
+  const style = useParentStyle()
+
+  return cloneElement(props.children, { color: style.color, size: style.fontSize })
+}
 
 export default Button

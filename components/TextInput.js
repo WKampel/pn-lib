@@ -1,64 +1,51 @@
-import { View, TextInput as ReactNativeTextInput } from 'react-native'
-import { useBranding } from '../contexts/Branding'
-import useState from '../hooks/useState'
-import { mobileStyles } from '../libs/utils'
-import BorderLabel from './BorderLabel'
+import { TextInput as ReactNativeTextInput } from 'react-native'
 
-const TextInput = ({
-  password,
-  multiline,
-  variants = [],
-  state,
-  email,
-  onSubmit,
-  label,
-  containerStyle,
-  inputStyle,
-  placeholder,
-  disabled,
-  onFocus,
-  onBlur,
-  onKeyPress,
-  onPress,
-  insideRow,
-}) => {
-  const focused = useState(false)
-  if (disabled) variants.push('disabled')
-  if (focused.val) variants.push('focused')
+import React from 'react'
+import { styled } from '../libs/wakui'
 
-  const { brandingStyles } = useBranding('textInput', variants)
-
-  function handleFocus(e) {
-    if (onFocus) onFocus(e)
-    focused.set(true)
-  }
-
-  function handleBlur() {
-    if (onBlur) onBlur()
-    focused.set(false)
-  }
-
-  return (
-    <View style={[insideRow && { flex: 1 }, containerStyle]}>
-      {label && <BorderLabel label={label} backgroundColor={brandingStyles.input.backgroundColor} color='gray' />}
+const TextInput = styled(
+  ({ isFocused, isHovered }) => ({
+    color: 'black',
+    size: 'm',
+    borderWidth: 1,
+    borderColor: isHovered ? 'black' : isFocused ? 'transparent' : 'rgb(200,200,200)',
+    outlineStyle: 'none',
+    outline: isFocused && 'primary',
+    backgroundColor: 'rgb(231 240 254)',
+    variants: {
+      size: {
+        s: {},
+        m: {
+          height: 40,
+          fontSize: 13,
+          borderRadius: 10,
+          paddingLeft: 15,
+        },
+        l: {},
+      },
+    },
+  }),
+  ({ style, password, email, onSubmit, disabled, onFocus, onBlur, onKeyPress, value, onChange, ph, onMouseEnter, onMouseLeave }) => {
+    return (
       <ReactNativeTextInput
-        multiline={multiline}
         secureTextEntry={password}
-        style={[brandingStyles.input, inputStyle, multiline && { paddingTop: 10 }, multiline && mobileStyles({ height: 'auto', paddingBottom: 10 })]}
-        value={state.val}
-        onChangeText={state.set}
-        placeholder={placeholder || label}
+        style={style}
+        value={value}
+        onChangeText={onChange}
+        placeholder={ph}
         placeholderTextColor='gray'
-        keyboardType={email ? 'email-address' : null}
+        keyboardType={email && 'email-address'}
         disabled={disabled}
         onSubmitEditing={onSubmit}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
+        onFocus={onFocus}
+        onBlur={onBlur}
         onKeyPress={onKeyPress}
         editable={disabled ? false : true}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
       />
-    </View>
-  )
-}
+    )
+  }
+)
 
 export default TextInput
