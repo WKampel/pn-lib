@@ -1,6 +1,8 @@
 import { createContext, useContext } from 'react'
 import { Platform } from 'react-native'
 import { deepMerge, mobileStyles } from '../libs/utils'
+import { WakuiProvider } from '../libs/wakui'
+import { adjustHue } from '../libs/wakui/utils'
 
 const Context = createContext()
 
@@ -241,138 +243,62 @@ export const BrandingProvider = props => {
     },
   }
 
-  return <Context.Provider value={{ baseStyles, variantStyles, colors }}>{props.children}</Context.Provider>
+  const primaryColor = props.style?.primaryColor || '#69b4f5'
+
+  const baseTintColor = '#F0F2F5'
+  const primaryLightTint = adjustHue(baseTintColor, primaryColor)
+
+  const wakuiConfig = {
+    tokens: {
+      color: {
+        snow: 'rgb(220, 220, 220)',
+        primary: primaryColor,
+        primaryLightTint,
+        danger: 'red',
+        primaryShiftedLightGray: '',
+      },
+    },
+    getVariants: ({ isHovered, isFocused, isPressed }) => ({
+      shadow: {
+        true: {
+          ...Platform.select({
+            ios: {
+              shadowOffset: {
+                width: 0,
+                height: 1,
+              },
+              shadowRadius: 2,
+              shadowOpacity: 0.2,
+              shadowColor: 'rgb(0,0,0)',
+            },
+            android: {
+              elevation: 3,
+            },
+            default: {
+              boxShadow: '0 1px 2px rgb(0,0,0,.2)',
+            },
+          }),
+        },
+      },
+      round: {
+        true: {
+          borderRadius: 999,
+        },
+      },
+      outline: {
+        primary: {
+          outlineColor: '$color.primary',
+          outlineStyle: 'solid',
+          outlineWidth: 2,
+          borderColor: 'transparent',
+        },
+      },
+    }),
+  }
+
+  return (
+    <Context.Provider value={{ baseStyles, variantStyles, colors }}>
+      <WakuiProvider config={wakuiConfig}>{props.children}</WakuiProvider>
+    </Context.Provider>
+  )
 }
-
-/*
-
-
-
-    input: {
-      style: {
-        borderWidth: 1,
-        borderColor: 'rgb(220,220,220)',
-        borderStyle: 'solid',
-        borderRadius: 5,
-        fontSize: 12,
-        height: 40,
-        paddingLeft: 15,
-        paddingRight: 5,
-        ...(Platform.OS === 'web' && { outlineColor: colors.primary }),
-      },
-      label: {
-        style: {
-          fontSize: 12,
-        },
-      },
-    },
-    link: {
-      style: {
-        color: colors.primary,
-      },
-    },
-    homeTile: {
-      style: {
-        padding: 15,
-        borderRadius: 7,
-        alignItems: 'center',
-        height: 100,
-        overflow: 'hidden',
-        backgroundColor: colors.primary,
-      },
-
-      title: {
-        style: {
-          color: 'white',
-          textAlign: 'center',
-          marginTop: 10,
-          fontWeight: 'bold',
-          fontSize: 12,
-          textTransform: 'uppercase',
-        },
-      },
-    },
-   
-    message: {
-      style: {
-        marginRight: 'auto',
-        backgroundColor: 'rgb(255, 255, 255)',
-        borderRadius: 10,
-        padding: 5,
-        paddingLeft: 10,
-        paddingRight: 10,
-        marginBottom: 10,
-        maxWidth: '75%',
-      },
-      text: {
-        style: {
-          color: 'black',
-        },
-      },
-      mine: {
-        style: {
-          marginLeft: 'auto',
-          marginRight: 0,
-          backgroundColor: colors.primary,
-        },
-        text: {
-          style: {
-            color: 'white',
-          },
-        },
-      },
-      server: {
-        style: {
-          marginLeft: 'auto',
-          marginRight: 'auto',
-          backgroundColor: 'transparent',
-          textAlign: 'center',
-        },
-        text: {
-          style: {
-            color: 'black',
-          },
-        },
-      },
-    },
-    profileCard: {
-      style: {
-        padding: 15,
-        paddingTop: 10,
-        paddingBottom: 10,
-        borderRadius: 10,
-        marginBottom: 15,
-        backgroundColor: colors.primary,
-      },
-      title: {
-        style: {
-          color: 'white',
-          fontWeight: 'bold',
-          fontSize: 16,
-        },
-      },
-      subtitle: {
-        style: {
-          color: 'rgb(220, 220, 220)',
-          fontSize: 13,
-        },
-      },
-    },
-    calendar: {
-      event: {
-        style: {
-          marginBottom: 2,
-          borderRadius: 3,
-          padding: 2,
-          textAlign: 'left',
-          backgroundColor: colors.primary,
-        },
-        text: {
-          style: {
-            color: 'white',
-            fontSize: 11,
-          },
-        },
-      },
-    },
-    */

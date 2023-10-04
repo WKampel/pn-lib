@@ -3,7 +3,20 @@ import { Pressable, Image as RNImage, View } from 'react-native'
 import { styled } from '../libs/wakui'
 
 const Image = styled(
-  () => {},
+  () => ({
+    variants: {
+      width: {
+        other: ({ value }) => ({
+          width: value,
+        }),
+      },
+      height: {
+        other: ({ value }) => ({
+          height: value,
+        }),
+      },
+    },
+  }),
   ({ style, src, onPress, fit }) => {
     let source = src
     if (typeof src === 'string') source = { uri: src }

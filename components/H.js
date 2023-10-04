@@ -4,8 +4,12 @@ import { styled } from '../libs/wakui'
 
 const H = styled(
   () => ({
-    color: 'black',
-    size: 'm',
+    style: {
+      color: 'black',
+    },
+    defaultVariants: {
+      size: 'm',
+    },
     variants: {
       size: {
         s: {

@@ -7,7 +7,7 @@ const useForm = initialState => {
     setForm(prev => ({ ...prev, [field]: value }))
   }
 
-  return [form, handleFieldChange, resetForm]
+  return [form, handleFieldChange, resetForm, setForm]
 }
 
 export default useForm

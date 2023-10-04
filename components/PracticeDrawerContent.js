@@ -118,7 +118,7 @@ const PracticeDrawerContent = props => {
     <DrawerContentScrollView {...props} contentContainerStyle={{ paddingTop: 0, height: '100%' }}>
       <View style={[styles.header, { backgroundColor: colors.primary }]}>
         <View style={styles.nameLogoContainer}>
-          <Image style={styles.logo} src={practice?.logo?.url} />
+          <Image width={50} height={50} src={practice?.logo?.url} />
           <View style={{ flex: 1 }}>
             <Text style={styles.practiceName}>{practice?.name}</Text>
             <Text style={styles.practiceSlogan}>{practice?.slogan}</Text>
@@ -149,6 +149,7 @@ const styles = StyleSheet.create({
   nameLogoContainer: {
     flexDirection: 'row',
     alignItems: 'flex-start',
+    gap: 15,
   },
   header: {
     paddingTop: 50,
@@ -177,11 +178,6 @@ const styles = StyleSheet.create({
     paddingRight: 15,
     marginTop: 10,
     alignSelf: 'flex-start',
-  },
-  logo: {
-    width: 50,
-    height: 50,
-    marginRight: 15,
   },
   groupContainer: {
     backgroundColor: 'rgb(240,243,245)',

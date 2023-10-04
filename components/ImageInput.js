@@ -1,10 +1,11 @@
 import { gql } from '@apollo/client'
-import { Feather } from '@expo/vector-icons'
-import { ReactNativeFile } from 'apollo-upload-client'
+import { AntDesign } from '@expo/vector-icons'
 import { manipulateAsync } from 'expo-image-manipulator'
 import * as ImagePicker from 'expo-image-picker'
-import { Platform, Pressable, StyleSheet, Text, View } from 'react-native'
+import React from 'react'
+import { Pressable, Text, View } from 'react-native'
 import useMutation from '../hooks/useMutation'
+import { styled } from '../libs/wakui'
 import Image from './Image'
 import Spinner from './Spinner'
 
@@ -20,133 +21,126 @@ const CREATE_FILE = gql`
 const MAX_WIDTH = 512
 const MAX_HEIGHT = 512
 
-export default props => {
-  const [cameraPermissionStatus, requestPermission] = ImagePicker.useCameraPermissions()
-
-  const createFile = useMutation(CREATE_FILE, {
-    displayError: true,
-    onSuccess: data => {
-      if (props.state) props.state.set(data.createFile)
-      if (props.onChange) props.onChange(data.createFile)
+const ImageInput = styled(
+  ({ isFocused, isHovered }) => ({
+    style: {
+      width: 150,
+      height: 150,
+      borderWidth: 1,
+      borderColor: isHovered ? 'black' : 'rgb(200,200,200)',
+      borderStyle: 'dashed',
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 10,
     },
-  })
+    defaultVariants: {
+      size: 'm',
+      outline: isFocused && 'primary',
+    },
+    labelStyle: {
+      fontSize: 20,
+      color: 'black',
+      alignItems: 'center',
+      justifyContent: 'center',
+      position: 'absolute',
+      left: 0,
+      top: 0,
+      width: '100%',
+      height: '100%',
+    },
+    imageStyle: {
+      height: '100%',
+      width: '100%',
+    },
+    variants: {
+      size: {
+        s: {},
+        m: {},
+        l: {},
+      },
+    },
+  }),
+  ({ style, labelStyle, imageStyle, label, onChange, value, camera, onFocus, onBlur, transformUri, onMouseEnter, onMouseLeave }) => {
+    const [cameraPermissionStatus, requestPermission] = ImagePicker.useCameraPermissions()
 
-  const value = props.state.val || {}
-
-  /* Trigger image select popup */
-  const pickImage = async () => {
-    await requestPermission()
-    let result = await ImagePicker[props.camera ? 'launchCameraAsync' : 'launchImageLibraryAsync']({
-      allowsEditing: false,
+    const createFile = useMutation(CREATE_FILE, {
+      displayError: true,
+      onSuccess: data => {
+        if (onChange) onChange(data.createFile)
+      },
     })
-    if (!result.canceled) return result.assets[0]
-  }
 
-  const compressImage = async (uri, result) => {
-    let resize = null
-    if (result.width > result.height) {
-      if (result.width > MAX_WIDTH) {
-        resize = { resize: { width: MAX_WIDTH } }
-      }
-    } else {
-      if (result.height > MAX_HEIGHT) {
-        resize = { resize: { height: MAX_HEIGHT } }
+    /* Trigger image select popup */
+    const pickImage = async () => {
+      await requestPermission()
+      let result = await ImagePicker[camera ? 'launchCameraAsync' : 'launchImageLibraryAsync']({
+        allowsEditing: false,
+      })
+      if (!result.canceled) return result.assets[0]
+    }
+
+    const compressImage = async (uri, result) => {
+      const dimension = result.width > result.height ? 'width' : 'height'
+      const maxValue = result.width > result.height ? MAX_WIDTH : MAX_HEIGHT
+      const resize = result[dimension] > maxValue ? { resize: { [dimension]: maxValue } } : null
+      return await manipulateAsync(
+        uri,
+        [resize].filter(item => item),
+        { compress: 1, format: 'png' }
+      )
+    }
+
+    const onPress = async () => {
+      let result = await pickImage()
+      if (result) {
+        let file = null
+
+        const compressedImage = await compressImage(result.uri, result)
+        result.uri = compressedImage.uri
+
+        if (transformUri) {
+          const transformed = await transformUri(result.uri, result)
+          result.uri = transformed
+        }
+
+        if (Platform.OS == 'web') {
+          const res = await fetch(result.uri)
+          const blob = await res.blob()
+          file = blob
+        } else {
+          file = new ReactNativeFile({
+            uri: result.uri,
+            type: 'image/' + result.uri.substring(result.uri.lastIndexOf('.') + 1),
+            name: result.uri.substring(result.uri.lastIndexOf('/') + 1, result.uri.length),
+          })
+        }
+
+        createFile.exec({ file })
       }
     }
-    const manipResult = await manipulateAsync(
-      uri,
-      [resize].filter(item => item),
-      { compress: 1, format: 'png' }
-    )
 
-    return manipResult
-  }
-
-  return (
-    <View style={[styles.container, props.style]}>
-      {createFile.loading ? (
-        <View style={styles.spinner}>
+    return (
+      <Pressable
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        disabled={createFile.loading}
+        style={style}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        onPress={onPress}
+      >
+        {createFile.loading ? (
           <Spinner />
-        </View>
-      ) : (
-        <Pressable
-          style={styles.button}
-          onPress={async () => {
-            let result = await pickImage()
-            if (result) {
-              let file = null
+        ) : (
+          <View style={labelStyle}>
+            <AntDesign name='cloudupload' size={labelStyle.fontSize} color={labelStyle.color} />
+            {label && <Text>{label}</Text>}
+          </View>
+        )}
+        {value.url ? <Image width={imageStyle.width} height={imageStyle.height} src={value.url} /> : null}
+      </Pressable>
+    )
+  }
+)
 
-              const compressedImage = await compressImage(result.uri, result)
-              result.uri = compressedImage.uri
-
-              if (props.transformUri) {
-                const transformed = await props.transformUri(result.uri, result)
-                result.uri = transformed
-              }
-
-              if (Platform.OS == 'web') {
-                const res = await fetch(result.uri)
-                const blob = await res.blob()
-                file = blob
-              } else {
-                file = new ReactNativeFile({
-                  uri: result.uri,
-                  type: 'image/' + result.uri.substring(result.uri.lastIndexOf('.') + 1),
-                  name: result.uri.substring(result.uri.lastIndexOf('/') + 1, result.uri.length),
-                })
-              }
-
-              createFile.exec({ file })
-            }
-          }}
-        >
-          {props.label ? <Text>{props.label}</Text> : null}
-          <Feather name='image' size={40} color='gray' />
-        </Pressable>
-      )}
-      {value.url ? <Image style={styles.image} src={value.url} /> : null}
-    </View>
-  )
-}
-
-const styles = StyleSheet.create({
-  container: {
-    overflow: 'hidden',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: 150,
-    height: 150,
-    position: 'relative',
-    borderRadius: 7,
-    cursor: 'pointer',
-    borderColor: 'lightgray',
-    borderWidth: 2,
-    borderStyle: 'dashed',
-  },
-  button: {
-    position: 'absolute',
-    left: 0,
-    top: 0,
-    width: '100%',
-    height: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    zIndex: 1,
-  },
-  spinner: {
-    position: 'absolute',
-    left: 0,
-    top: 0,
-    width: '100%',
-    height: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    zIndex: 1,
-    backgroundColor: 'black',
-    opacity: 0.75,
-  },
-  image: {
-    flex: 1,
-    width: '100%',
-  },
-})
+export default ImageInput

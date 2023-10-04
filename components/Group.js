@@ -3,17 +3,45 @@ import { styled } from '../libs/wakui'
 
 const Group = styled(
   () => ({
-    x: true,
+    defaultVariants: {
+      space: 'm',
+    },
     variants: {
       x: {
         true: {
           flexDirection: 'row',
         },
       },
-      y: {
-        true: {
-          flexDirection: 'column',
+      space: {
+        s: {
+          gap: 10,
         },
+        m: {
+          gap: 15,
+        },
+        l: {
+          gap: 20,
+        },
+      },
+      screen: {
+        true: {
+          padding: 15,
+        },
+      },
+      flex: {
+        other: ({ value }) => ({
+          flex: value,
+        }),
+      },
+      alignItems: {
+        other: ({ value }) => ({
+          alignItems: value,
+        }),
+      },
+      justifyContent: {
+        other: ({ value }) => ({
+          justifyContent: value,
+        }),
       },
     },
   }),

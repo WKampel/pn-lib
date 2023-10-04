@@ -1,21 +1,33 @@
 import { useContext, useMemo, useState } from 'react'
 import { WakuiContext } from './configProvider'
 import StyleProvider from './styleProvider'
-import { convertAliases, extractValidStyleProps, extractVariantStyles, mergeTokens, resolveStyleTokens } from './utils'
+import { applyVariantsToStyles, mergeVariants, resolveTokens } from './utils'
 
-export const styled = (getProps, Component) => {
-  return passedProps => {
+export const styled = (getComponentProps, Component) => {
+  return ({ children, ...passedProps }) => {
     const [isFocused, setIsFocused] = useState(false)
     const [isHovered, setIsHovered] = useState(false)
     const [isPressed, setIsPressed] = useState(false)
 
+    // Get global wakui variables
+    const { tokens, getVariants: getGlobalVariants } = useContext(WakuiContext)
+
     const {
-      tokens: componentTokens = {},
+      style,
+      defaultVariants = {},
       variants: componentVariants = {},
-      ...componentProps
+      ...otherStyles
     } = useMemo(() => {
-      return getProps({ isFocused, isHovered, isPressed }) || {}
-    }, [getProps, isFocused, isHovered, isPressed])
+      return getComponentProps({ isFocused, isHovered, isPressed }) || {}
+    }, [getComponentProps, isFocused, isHovered, isPressed])
+
+    const variants = useMemo(
+      () => resolveTokens(mergeVariants(getGlobalVariants({ isPressed, isFocused, isHovered }), componentVariants), tokens),
+      [getGlobalVariants, componentVariants, tokens, isPressed, isFocused, isHovered]
+    )
+    const styles = useMemo(() => resolveTokens({ style, ...otherStyles }, tokens), [style, otherStyles, tokens])
+    const appliedVariants = useMemo(() => resolveTokens({ ...defaultVariants, ...passedProps }, tokens), [passedProps, defaultVariants, tokens])
+    const stylesWithVariants = useMemo(() => applyVariantsToStyles(styles, variants, appliedVariants), [styles, variants, appliedVariants])
 
     function handleOnFocus() {
       if (passedProps.onFocus) passedProps.onFocus()
@@ -45,37 +57,11 @@ export const styled = (getProps, Component) => {
       setIsPressed(false)
     }
 
-    // Get global wakui variables
-    const { tokens: globalTokens, styleAliases, variants: globalVariants } = useContext(WakuiContext)
-
-    // Merge global variants with component variants
-    const variants = useMemo(() => ({ ...globalVariants, ...componentVariants }), [globalVariants, componentProps, passedProps])
-
-    // Deep merge global tokens with component tokens
-    const tokens = useMemo(() => mergeTokens(globalTokens, componentTokens), [globalTokens, componentTokens])
-
-    // Merge component and passed props and get styles
-    const variantStyles = useMemo(
-      () => extractVariantStyles({ ...componentProps, ...passedProps }, variants),
-      [componentProps, passedProps, variants]
-    )
-
-    // Merge component props, variant styles, and passed props
-    const mergedProps = { ...componentProps, ...variantStyles, ...passedProps }
-
-    // Convert aliases
-    const aliasedStyles = useMemo(() => convertAliases(mergedProps, styleAliases), [mergedProps, styleAliases])
-
-    // Remove invalid style properties (componentProps and passedProps might contain some)
-    const validStyles = useMemo(() => extractValidStyleProps(aliasedStyles), [aliasedStyles])
-
-    // Replace tokens with values
-    const style = useMemo(() => resolveStyleTokens(validStyles, tokens), [validStyles])
-
     return (
       <Component
+        {...defaultVariants}
         {...passedProps}
-        style={style}
+        {...stylesWithVariants}
         onFocus={handleOnFocus}
         onBlur={handleOnBlur}
         onMouseEnter={handleOnMouseEnter}
@@ -86,7 +72,7 @@ export const styled = (getProps, Component) => {
         isHovered={isHovered}
         isPressed={isPressed}
       >
-        <StyleProvider style={style}>{passedProps.children}</StyleProvider>
+        <StyleProvider style={style}>{children}</StyleProvider>
       </Component>
     )
   }

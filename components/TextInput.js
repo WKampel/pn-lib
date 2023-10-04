@@ -1,49 +1,118 @@
-import { TextInput as ReactNativeTextInput } from 'react-native'
-
-import React from 'react'
+import React, { useRef } from 'react'
+import { TextInput as ReactNativeTextInput, Text, TouchableWithoutFeedback, View } from 'react-native'
 import { styled } from '../libs/wakui'
 
 const TextInput = styled(
   ({ isFocused, isHovered }) => ({
-    color: 'black',
-    size: 'm',
-    borderWidth: 1,
-    borderColor: isHovered ? 'black' : isFocused ? 'transparent' : 'rgb(200,200,200)',
-    outlineStyle: 'none',
-    outline: isFocused && 'primary',
-    backgroundColor: 'rgb(231 240 254)',
+    style: {
+      cursor: 'text',
+      borderWidth: 1,
+      borderColor: isHovered ? 'black' : isFocused ? 'transparent' : 'rgb(200,200,200)',
+      justifyContent: 'center',
+      backgroundColor: '$color.primaryLightTint',
+    },
+    defaultVariants: {
+      size: 'm',
+      outline: isFocused && 'primary',
+    },
+    inputStyle: {
+      backgroundColor: 'transparent',
+      outlineStyle: 'none',
+    },
+    labelStyle: {},
     variants: {
       size: {
-        s: {},
-        m: {
+        xs: {
+          height: 30,
+          borderRadius: 2,
+          paddingLeft: 7,
+
+          labelStyle: {
+            fontSize: 7,
+          },
+          inputStyle: {
+            fontSize: 10,
+          },
+        },
+        s: {
           height: 40,
-          fontSize: 13,
-          borderRadius: 10,
+          borderRadius: 3,
+          paddingLeft: 10,
+
+          labelStyle: {
+            fontSize: 9,
+          },
+          inputStyle: {
+            fontSize: 13,
+          },
+        },
+        m: {
+          height: 55,
+          borderRadius: 5,
           paddingLeft: 15,
+
+          labelStyle: {
+            fontSize: 12,
+          },
+          inputStyle: {
+            fontSize: 14,
+          },
         },
         l: {},
       },
+      flex: {
+        other: ({ value }) => ({
+          flex: value,
+        }),
+      },
     },
   }),
-  ({ style, password, email, onSubmit, disabled, onFocus, onBlur, onKeyPress, value, onChange, ph, onMouseEnter, onMouseLeave }) => {
+  ({
+    style,
+    inputStyle,
+    labelStyle,
+    password,
+    email,
+    onSubmit,
+    disabled,
+    onFocus,
+    onBlur,
+    onKeyPress,
+    value,
+    onChange,
+    ph,
+    onMouseEnter,
+    onMouseLeave,
+    label,
+  }) => {
+    const inputRef = useRef(null)
+    const placeholder = ph || label
     return (
-      <ReactNativeTextInput
-        secureTextEntry={password}
-        style={style}
-        value={value}
-        onChangeText={onChange}
-        placeholder={ph}
-        placeholderTextColor='gray'
-        keyboardType={email && 'email-address'}
-        disabled={disabled}
-        onSubmitEditing={onSubmit}
-        onFocus={onFocus}
-        onBlur={onBlur}
-        onKeyPress={onKeyPress}
-        editable={disabled ? false : true}
-        onMouseEnter={onMouseEnter}
-        onMouseLeave={onMouseLeave}
-      />
+      <TouchableWithoutFeedback focusable={false} onPressIn={() => inputRef.current?.focus()}>
+        <View style={style} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+          {label && value && (
+            <Text pointerEvents='none' style={labelStyle}>
+              {label}
+            </Text>
+          )}
+          <ReactNativeTextInput
+            ref={inputRef}
+            secureTextEntry={password}
+            style={inputStyle}
+            value={value}
+            onChangeText={onChange}
+            placeholder={placeholder}
+            placeholderTextColor='gray'
+            keyboardType={email && 'email-address'}
+            disabled={disabled}
+            onSubmitEditing={onSubmit}
+            onFocus={onFocus}
+            onBlur={onBlur}
+            onKeyPress={onKeyPress}
+            editable={disabled ? false : true}
+          />
+        </View>
+      </TouchableWithoutFeedback>
     )
   }
 )

@@ -6,13 +6,20 @@ import Spinner from './Spinner'
 
 const Button = styled(
   ({ isFocused, isHovered, isPressed }) => ({
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
-    opacity: isPressed ? 1 : isHovered ? 0.75 : 0.5,
-    size: 'm',
-    style: 'primary',
+    style: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      flexDirection: 'row',
+      opacity: isPressed ? 1 : isHovered ? 0.75 : 0.5,
+    },
+    defaultVariants: {
+      size: 'm',
+      theme: 'primary',
+    },
     variants: {
+      alignSelf: {
+        other: ({ value }) => ({ alignSelf: value }),
+      },
       size: {
         s: {
           height: 30,
@@ -36,8 +43,7 @@ const Button = styled(
           gap: 15,
         },
       },
-
-      style: {
+      theme: {
         primary: {
           color: 'black',
           backgroundColor: '$color.primary',
