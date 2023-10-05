@@ -1,4 +1,4 @@
-import { createContext, useContext } from 'react'
+import { createContext, useContext, useMemo } from 'react'
 import { Platform } from 'react-native'
 import { deepMerge, mobileStyles } from '../libs/utils'
 import { WakuiProvider } from '../libs/wakui'
@@ -248,62 +248,40 @@ export const BrandingProvider = props => {
   const baseTintColor = '#F0F2F5'
   const primaryLightTint = adjustHue(baseTintColor, primaryColor)
 
-  const wakuiConfig = {
-    tokens: {
-      color: {
-        snow: 'rgb(220, 220, 220)',
-        primary: primaryColor,
-        primaryLightTint,
-        danger: 'red',
-        primaryShiftedLightGray: '',
-      },
-    },
-    getVariants: ({ isHovered, isFocused, isPressed }) => ({
-      shadow: {
-        true: {
-          ...Platform.select({
-            ios: {
-              shadowOffset: {
-                width: 0,
-                height: 1,
-              },
-              shadowRadius: 2,
-              shadowOpacity: 0.2,
-              shadowColor: 'rgb(0,0,0)',
-            },
-            android: {
-              elevation: 3,
-            },
-            default: {
-              boxShadow: '0 1px 2px rgb(0,0,0,.2)',
-            },
-          }),
-        },
-      },
-      round: {
-        true: {
-          borderRadius: 999,
-        },
-      },
-      outline: {
-        primary: {
-          outlineColor: '$color.primary',
-          outlineStyle: 'solid',
-          outlineWidth: 2,
-          borderColor: 'transparent',
-        },
-      },
-      hoverPressOpacity: {
-        true: {
-          opacity: isPressed ? 0.7 : isHovered ? 0.85 : 1,
-        },
-      },
-    }),
+  const palette = {
+    // Primary
+    primaryLight: 'lightblue',
+    primary: 'blue',
+    primaryDark: 'darkBlue',
+
+    // Secondary
+    secondaryLight: 'lightgray',
+    secondary: 'gray',
+    secondaryDark: 'darkgray',
+
+    // Danger
+    dangerLight: 'lightred',
+    danger: 'red',
+    dangerDark: 'darkred',
+
+    // Generic
+    black: 'black',
+    white: 'white',
+    snow: 'rgb(220,220,220)',
+    clear: 'transparent',
+  }
+
+  const tokens = useMemo(() => tokens(palette), [palette])
+  const variants = useMemo(() => variants(tokens), [tokens])
+
+  const config = {
+    tokens,
+    variants,
   }
 
   return (
     <Context.Provider value={{ baseStyles, variantStyles, colors }}>
-      <WakuiProvider config={wakuiConfig}>{props.children}</WakuiProvider>
+      <WakuiProvider config={config}>{props.children}</WakuiProvider>
     </Context.Provider>
   )
 }
