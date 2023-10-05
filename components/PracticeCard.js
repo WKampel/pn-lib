@@ -1,16 +1,12 @@
-import { Pressable, Text, View } from 'react-native'
+import { Text, TouchableOpacity, View } from 'react-native'
 import { styled } from '../libs/wakui'
 import Card from './Card'
 import Group from './Group'
 import Image from './Image'
 
 const PracticeCard = styled(
-  ({ isHovered }) => ({
-    style: {
-      color: 'black',
-      flexDirection: 'row',
-      marginLeft: isHovered ? 10 : 0,
-    },
+  () => ({
+    style: {},
     defaultVariants: {
       size: 'm',
     },
@@ -37,16 +33,16 @@ const PracticeCard = styled(
       },
     },
   }),
-  ({ style, imageStyle, children, onPress, onPressIn, onPressOut, onMouseEnter, onMouseLeave, logoUrl, size }) => {
+  ({ style, imageStyle, children, onPress, logoUrl, size }) => {
     return (
-      <Pressable onHoverIn={onMouseEnter} onHoverOut={onMouseLeave} onPressIn={onPressIn} onPressOut={onPressOut} onPress={onPress}>
-        <Card size={size}>
+      <TouchableOpacity onPress={onPress}>
+        <Card hoverPressOpacity={true} size={size}>
           <Group x>
             <Image width={imageStyle.width} height={imageStyle.height} src={logoUrl} />
             {children}
           </Group>
         </Card>
-      </Pressable>
+      </TouchableOpacity>
     )
   }
 )
@@ -59,13 +55,6 @@ PracticeCard.Body = styled(
       color: '$color.primary',
     },
     sloganStyle: {},
-    variants: {
-      size: {
-        s: {},
-        m: {},
-        l: {},
-      },
-    },
   }),
   ({ style, children, name, slogan, nameStyle, sloganStyle }) => {
     return (

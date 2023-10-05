@@ -15,6 +15,11 @@ const Image = styled(
           height: value,
         }),
       },
+      aspectRatio: {
+        other: ({ value }) => ({
+          aspectRatio: value,
+        }),
+      },
     },
   }),
   ({ style, src, onPress, fit }) => {

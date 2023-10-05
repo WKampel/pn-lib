@@ -293,6 +293,11 @@ export const BrandingProvider = props => {
           borderColor: 'transparent',
         },
       },
+      hoverPressOpacity: {
+        true: {
+          opacity: isPressed ? 0.7 : isHovered ? 0.85 : 1,
+        },
+      },
     }),
   }
 

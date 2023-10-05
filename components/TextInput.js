@@ -19,12 +19,14 @@ const TextInput = styled(
       backgroundColor: 'transparent',
       outlineStyle: 'none',
     },
-    labelStyle: {},
+    labelStyle: {
+      color: 'gray',
+    },
     variants: {
       size: {
         xs: {
           height: 30,
-          borderRadius: 2,
+          borderRadius: 3,
           paddingLeft: 7,
 
           labelStyle: {
@@ -36,7 +38,7 @@ const TextInput = styled(
         },
         s: {
           height: 40,
-          borderRadius: 3,
+          borderRadius: 4,
           paddingLeft: 10,
 
           labelStyle: {
@@ -47,7 +49,7 @@ const TextInput = styled(
           },
         },
         m: {
-          height: 55,
+          height: 50,
           borderRadius: 5,
           paddingLeft: 15,
 

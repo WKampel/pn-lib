@@ -22,7 +22,7 @@ const ColorPicker = styled(
       height: '100%',
     },
     sliderStyle: {
-      width: 10,
+      width: 15,
     },
     variants: {
       size: {

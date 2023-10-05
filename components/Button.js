@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native'
 import { cloneElement } from 'react'
 import { Pressable, Text } from 'react-native'
 import { styled } from '../libs/wakui'
@@ -10,11 +11,11 @@ const Button = styled(
       justifyContent: 'center',
       alignItems: 'center',
       flexDirection: 'row',
-      opacity: isPressed ? 1 : isHovered ? 0.75 : 0.5,
     },
     defaultVariants: {
       size: 'm',
       theme: 'primary',
+      hoverPressOpacity: true,
     },
     variants: {
       alignSelf: {
@@ -57,7 +58,14 @@ const Button = styled(
       },
     },
   }),
-  ({ style, children, onMouseEnter, onMouseLeave, onPressIn, onPressOut, onPress, disabled, loading }) => {
+  ({ style, children, onMouseEnter, onMouseLeave, onPressIn, onPressOut, onPress: onPressProp, disabled, loading, linkTo }) => {
+    const nav = useNavigation()
+
+    const onPress = () => {
+      if (onPressProp) onPressProp()
+      if (linkTo) nav.navigate(linkTo)
+    }
+
     return (
       <Pressable
         onPress={onPress}
