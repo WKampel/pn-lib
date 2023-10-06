@@ -22,45 +22,8 @@ const MAX_WIDTH = 512
 const MAX_HEIGHT = 512
 
 const ImageInput = styled(
-  ({ isFocused, isHovered }) => ({
-    style: {
-      width: 150,
-      height: 150,
-      borderWidth: 1,
-      borderColor: isHovered ? 'black' : 'rgb(200,200,200)',
-      borderStyle: 'dashed',
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: 10,
-    },
-    defaultVariants: {
-      size: 'm',
-      outline: isFocused && 'primary',
-    },
-    labelStyle: {
-      fontSize: 20,
-      color: 'black',
-      alignItems: 'center',
-      justifyContent: 'center',
-      position: 'absolute',
-      left: 0,
-      top: 0,
-      width: '100%',
-      height: '100%',
-    },
-    imageStyle: {
-      height: '100%',
-      width: '100%',
-    },
-    variants: {
-      size: {
-        s: {},
-        m: {},
-        l: {},
-      },
-    },
-  }),
-  ({ style, labelStyle, imageStyle, label, onChange, value, camera, onFocus, onBlur, transformUri, onMouseEnter, onMouseLeave }) => {
+  'imageInput',
+  ({ style, label, onChange, value, camera, onFocus, onBlur, transformUri, onMouseEnter, onMouseLeave, onPressIn, onPressOut }) => {
     const [cameraPermissionStatus, requestPermission] = ImagePicker.useCameraPermissions()
 
     const createFile = useMutation(CREATE_FILE, {
@@ -123,6 +86,8 @@ const ImageInput = styled(
       <Pressable
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
+        onPressIn={onPressIn}
+        onPressOut={onPressOut}
         disabled={createFile.loading}
         style={style}
         onFocus={onFocus}
@@ -132,12 +97,12 @@ const ImageInput = styled(
         {createFile.loading ? (
           <Spinner />
         ) : (
-          <View style={labelStyle}>
-            <AntDesign name='cloudupload' size={labelStyle.fontSize} color={labelStyle.color} />
-            {label && <Text>{label}</Text>}
+          <View style={style.labelContainerStyle}>
+            <AntDesign name='cloudupload' size={style.labelStyle.fontSize} color={style.labelStyle.color} />
+            {label && <Text style={style.labelStyle}>{label}</Text>}
           </View>
         )}
-        {value.url ? <Image width={imageStyle.width} height={imageStyle.height} src={value.url} /> : null}
+        {value.url ? <Image style={style.imageStyle} src={value.url} /> : null}
       </Pressable>
     )
   }

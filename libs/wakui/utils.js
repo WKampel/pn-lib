@@ -195,7 +195,7 @@ export function colorToRgb(color) {
   }
 }
 
-export function adjustHue(color1, color2) {
+export function copyHue(color1, color2) {
   const rgb1 = colorToRgb(color1)
   const rgb2 = colorToRgb(color2)
 
@@ -205,7 +205,7 @@ export function adjustHue(color1, color2) {
   return hslToRgb(h2, s1, l1)
 }
 
-export function adjustSaturation(color1, color2) {
+export function copySaturation(color1, color2) {
   const rgb1 = colorToRgb(color1)
   const rgb2 = colorToRgb(color2)
 
@@ -215,7 +215,7 @@ export function adjustSaturation(color1, color2) {
   return hslToRgb(h1, s2, l1)
 }
 
-export function adjustLightness(color1, color2) {
+export function copyBrightness(color1, color2) {
   const rgb1 = colorToRgb(color1)
   const rgb2 = colorToRgb(color2)
 
@@ -223,4 +223,24 @@ export function adjustLightness(color1, color2) {
   const [, , l2] = rgbToHsl(...rgb2)
 
   return hslToRgb(h1, s1, l2)
+}
+
+export function adjustSaturation(color, amount) {
+  const rgb = colorToRgb(color)
+  const [h, s, l] = rgbToHsl(...rgb)
+
+  // Ensure the new saturation value stays within the range [0, 100]
+  const newSaturation = Math.min(100, Math.max(0, s + amount))
+
+  return hslToRgb(h, newSaturation, l)
+}
+
+export function adjustBrightness(color, amount) {
+  const rgb = colorToRgb(color)
+  const [h, s, l] = rgbToHsl(...rgb)
+
+  // Ensure the new brightness value stays within the range [0, 100]
+  const newBrightness = Math.min(100, Math.max(0, l + amount))
+
+  return hslToRgb(h, s, newBrightness)
 }

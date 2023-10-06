@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import StyleProvider from './styleProvider'
+import useVariants from './useVariants'
 
 /**
  * Separate variants from props based on '$' prefix
@@ -11,39 +11,62 @@ const separateVariantsAndProps = props => {
   return Object.keys(props).reduce(
     (acc, key) => {
       if (key.startsWith('$')) {
-        acc.appliedVariants.push(key.substring(1))
+        acc.appliedVariants[key.substring(1)] = true
         acc.spreadableVariants[key] = props[key]
       } else {
         acc.props[key] = props[key]
       }
       return acc
     },
-    { appliedVariants: [], spreadableVariants: {}, props: {} }
+    { appliedVariants: {}, spreadableVariants: {}, props: {} }
   )
 }
 
-const getVariantStyles = (appliedVariants, componentConfigVariants, stateSuffix = '') => {
-  const variantKeys = appliedVariants.map(variant => `${variant}${stateSuffix}`)
-  return variantKeys.reduce((acc, variant) => ({ ...acc, ...componentConfigVariants[variant] }), {})
+const getObjectKeysInOrder = obj => Reflect.ownKeys(obj)
+
+const getVariantStyles = (appliedVariants, allVariantsObject, states = {}) => {
+  const regExp = new RegExp(`(${Object.keys(states).join('|')})$`)
+  return getObjectKeysInOrder(allVariantsObject).reduce((acc, key) => {
+    const baseKey = key.replace(regExp, '')
+    const stateSuffix = key.slice(baseKey.length)
+
+    if (appliedVariants[baseKey] && (!stateSuffix || states[stateSuffix])) {
+      Object.assign(acc, allVariantsObject[key])
+    }
+
+    return acc
+  }, {})
 }
 
-const styled = (name, Component) => {
-  return allProps => {
+const styled = (name, middleware, Component) => {
+  if (!Component) {
+    Component = middleware
+    middleware = undefined
+  }
+
+  return rawProps => {
+    // Middleware allows for modification of props. This is useful if you want to add variants based on the state of a component. For instance, if disabled={true} is passed to a button, you can use middleware to add the $middleware varaint automatically. This prevents having to pass both disabled={true} and $disabled by the caller.
+    const allProps = useMemo(() => (middleware ? middleware(rawProps) : rawProps), [rawProps, middleware])
+
     const [isFocused, setIsFocused] = useState(false)
     const [isHovered, setIsHovered] = useState(false)
     const [isPressed, setIsPressed] = useState(false)
 
     const { appliedVariants, spreadableVariants, props } = useMemo(() => separateVariantsAndProps(allProps), [allProps])
-    const componentConfigVariants = useMemo(() => useVariants(name), [name])
+    const componentConfigVariants = useVariants(name)
 
     const style = useMemo(() => {
-      const baseStyle = getVariantStyles(appliedVariants, componentConfigVariants)
-      const focusedStyle = isFocused ? getVariantStyles(appliedVariants, componentConfigVariants, 'Focused') : {}
-      const hoveredStyle = isHovered ? getVariantStyles(appliedVariants, componentConfigVariants, 'Hovered') : {}
-      const pressedStyle = isPressed ? getVariantStyles(appliedVariants, componentConfigVariants, 'Pressed') : {}
+      const states = {
+        Hovered: isHovered,
+        Focused: isFocused,
+        Pressed: isPressed,
+      }
 
-      return { ...baseStyle, ...focusedStyle, ...hoveredStyle, ...pressedStyle, ...(props.style ?? {}) }
-    }, [appliedVariants, componentConfigVariants, isFocused, isHovered, isPressed])
+      return {
+        ...getVariantStyles({ ...appliedVariants, base: true }, componentConfigVariants, states), // All styles
+        ...(allProps.style || {}), // Style overrides
+      }
+    }, [appliedVariants, componentConfigVariants, isHovered, isFocused, isPressed, allProps.style])
 
     const handleOnMouseEnter = () => {
       if (props.onMouseEnter) props.onMouseEnter()
@@ -79,7 +102,7 @@ const styled = (name, Component) => {
       <Component
         {...props}
         style={style}
-        spreadableVariants={spreadableVariants}
+        variants={spreadableVariants}
         onFocus={handleOnFocus}
         onBlur={handleOnBlur}
         onMouseEnter={handleOnMouseEnter}
@@ -90,7 +113,7 @@ const styled = (name, Component) => {
         isHovered={isHovered}
         isPressed={isPressed}
       >
-        <StyleProvider style={style}>{props.children}</StyleProvider>
+        {props.children}
       </Component>
     )
   }

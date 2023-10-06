@@ -1,9 +1,9 @@
 import { useContext } from 'react'
-import WakuiProvider from './configProvider'
+import { WakuiContext } from './configProvider'
 
 const useVariants = compName => {
-  const { variants } = useContext(WakuiProvider)
-  return variants[compName] || {}
+  const { variants } = useContext(WakuiContext)
+  return variants?.[compName] || {}
 }
 
 export default useVariants

@@ -1,8 +1,10 @@
 import { createContext, useContext, useMemo } from 'react'
 import { Platform } from 'react-native'
+import generateTokens from '../config/tokens'
+import generateVariants from '../config/variants'
 import { deepMerge, mobileStyles } from '../libs/utils'
 import { WakuiProvider } from '../libs/wakui'
-import { adjustHue } from '../libs/wakui/utils'
+import { adjustBrightness, adjustSaturation, copyHue } from '../libs/wakui/utils'
 
 const Context = createContext()
 
@@ -243,21 +245,39 @@ export const BrandingProvider = props => {
     },
   }
 
-  const primaryColor = props.style?.primaryColor || '#69b4f5'
+  const primary = props.style?.primaryColor || '#69b4f5'
 
-  const baseTintColor = '#F0F2F5'
-  const primaryLightTint = adjustHue(baseTintColor, primaryColor)
+  const brightnessAdjustment = 20
+  const saturationAdjustment = 20
+
+  // This makes sure brightness is adjusted before saturation. The order matters; the output changes based on the order.
+  const adjustColor = (color, brightnessAmount, saturationAmount) => {
+    const tempColor = adjustBrightness(color, brightnessAmount)
+    return adjustSaturation(tempColor, saturationAmount)
+  }
 
   const palette = {
     // Primary
-    primaryLight: 'lightblue',
-    primary: 'blue',
-    primaryDark: 'darkBlue',
+    primaryLight: adjustBrightness(primary, brightnessAdjustment),
+    primary,
+    primaryDark: adjustBrightness(primary, -brightnessAdjustment),
+
+    // Saturated
+    primarySaturatedLight: adjustColor(primary, brightnessAdjustment, saturationAdjustment),
+    primarySaturated: adjustSaturation(primary, saturationAdjustment),
+    primarySaturatedDark: adjustColor(primary, -brightnessAdjustment, saturationAdjustment),
+
+    // Desaturated
+    primaryDesaturatedLight: adjustColor(primary, brightnessAdjustment, -saturationAdjustment),
+    primaryDesaturated: adjustSaturation(primary, -saturationAdjustment),
+    primaryDesaturatedDark: adjustColor(primary, -brightnessAdjustment, -saturationAdjustment),
+
+    snowPrimaryTint: copyHue('#F0F2F5', primary),
 
     // Secondary
-    secondaryLight: 'lightgray',
-    secondary: 'gray',
-    secondaryDark: 'darkgray',
+    secondaryLight: 'rgb(220,220,220)',
+    secondary: 'rgb(200,200,200)',
+    secondaryDark: 'rgb(180,180,180)',
 
     // Danger
     dangerLight: 'lightred',
@@ -267,12 +287,14 @@ export const BrandingProvider = props => {
     // Generic
     black: 'black',
     white: 'white',
-    snow: 'rgb(220,220,220)',
+    snowLight: 'rgb(245,245,245)',
+    snow: 'rgb(240,240,240)',
+    snowDark: 'rgb(235,235,235)',
     clear: 'transparent',
   }
 
-  const tokens = useMemo(() => tokens(palette), [palette])
-  const variants = useMemo(() => variants(tokens), [tokens])
+  const tokens = useMemo(() => generateTokens(palette), [palette])
+  const variants = useMemo(() => generateVariants(tokens), [tokens])
 
   const config = {
     tokens,

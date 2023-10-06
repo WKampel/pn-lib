@@ -1,18 +1,44 @@
-export default buttonVariants = ({ color, fontSize, space }) => ({
-  s: {
-    padding: space.s,
-    fontSize: fontSize.s,
-  },
-  m: {
-    padding: space.m,
+export default buttonVariants = ({ color, fontSize, space, inputHeight }) => ({
+  base: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+
+    // Medium
+    height: inputHeight.m,
+    paddingHorizontal: space.m,
     fontSize: fontSize.m,
+    borderRadius: 10,
+
+    // Solid primary
+    backgroundColor: color.buttonSolidPrimaryBackground,
+    color: color.buttonSolidPrimaryText,
+
+    opacity: 0.7,
+  },
+  baseHovered: {
+    opacity: 0.85,
+  },
+  basePressed: {
+    opacity: 1,
+  },
+  s: {
+    paddingHorizontal: space.s,
+    height: inputHeight.s,
+    fontSize: fontSize.s,
+    borderRadius: 8,
   },
   l: {
-    padding: space.l,
+    paddingHorizontal: space.l,
+    height: inputHeight.l,
     fontSize: fontSize.l,
+    borderRadius: 12,
   },
   round: {
     borderRadius: 999,
+  },
+  iconFirst: {
+    flexDirection: 'row-reverse',
   },
   ghostPrimary: {
     backgroundColor: color.buttonGhostBackground,
@@ -35,10 +61,6 @@ export default buttonVariants = ({ color, fontSize, space }) => ({
     textColor: color.buttonGhostDangerText,
     borderWidth: 2,
   },
-  solidPrimary: {
-    backgroundColor: color.buttonSolidPrimaryBackground,
-    textColor: color.buttonSolidPrimaryText,
-  },
   solidSecondary: {
     backgroundColor: color.buttonSolidSecondaryBackground,
     textColor: color.buttonSolidSecondaryText,
@@ -46,5 +68,8 @@ export default buttonVariants = ({ color, fontSize, space }) => ({
   solidDanger: {
     backgroundColor: color.buttonSolidDangerBackground,
     textColor: color.buttonSolidDangerText,
+  },
+  disabled: {
+    backgroundColor: 'gray',
   },
 })

@@ -3,32 +3,20 @@ export default buttonColors = palette => ({
   buttonGhostBackground: palette.clear,
 
   // Primary ghost button
-  buttonGhostPrimaryBorder: palette.primaryLight,
-  buttonGhostPrimaryBorderHover: palette.primary,
-  buttonGhostPrimaryBorderPress: palette.primaryDark,
+  buttonGhostPrimaryBorder: palette.primary,
 
   // Secondary ghost button
-  buttonGhostSecondaryBorder: palette.secondaryLight,
-  buttonGhostSecondaryBorderHover: palette.secondary,
-  buttonGhostSecondaryBorderPress: palette.secondaryDark,
+  buttonGhostSecondaryBorder: palette.secondary,
 
   // Danger ghost button
-  buttonGhostDangerBorder: palette.dangerLight,
-  buttonGhostDangerBorderHover: palette.danger,
-  buttonGhostDangerBorderPress: palette.dangerDark,
+  buttonGhostDangerBorder: palette.danger,
 
   // Primary solid button
-  buttonSolidPrimaryBackground: palette.primaryLight,
-  buttonSolidPrimaryBackgroundHover: palette.primary,
-  buttonSolidPrimaryBackgroundPress: palette.primaryDark,
+  buttonSolidPrimaryBackground: palette.primary,
 
   // Secondary solid button
-  buttonSolidSecondaryBackground: palette.secondaryLight,
-  buttonSolidSecondaryBackgroundHover: palette.secondary,
-  buttonSolidSecondaryBackgroundPress: palette.secondaryDark,
+  buttonSolidSecondaryBackground: palette.secondary,
 
   // Danger solid button
-  buttonSolidDangerBackground: palette.dangerLight,
-  buttonSolidDangerBackgroundHover: palette.danger,
-  buttonSolidDangerBackgroundPress: palette.dangerDark,
+  buttonSolidDangerBackground: palette.danger,
 })

@@ -5,8 +5,8 @@ import Cropper from 'react-easy-crop'
 import { Image, View } from 'react-native'
 import useConfirm from '../hooks/useConfirm.js'
 import useModal from '../hooks/useModal.js'
-import Button from './Button.js'
-import ImageInput from './ImageInput.js'
+import Button from './Button'
+import ImageInput from './ImageInput.jsx'
 
 export default props => {
   const { confirm, getConfirmation } = useConfirm()
