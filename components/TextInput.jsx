@@ -1,6 +1,7 @@
 import React, { useRef } from 'react'
-import { TextInput as ReactNativeTextInput, Text, TouchableWithoutFeedback, View } from 'react-native'
+import { TextInput as ReactNativeTextInput, TouchableWithoutFeedback, View } from 'react-native'
 import { styled } from '../libs/wakui'
+import Label from './Label'
 
 const TextInput = styled(
   'textInput',
@@ -9,19 +10,11 @@ const TextInput = styled(
     return (
       <TouchableWithoutFeedback focusable={false} onPressIn={() => inputRef.current?.focus()}>
         <View style={style} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-          {label && value && (
-            <Text pointerEvents='none' style={{ color: style.labelColor, fontSize: style.labelFontSize }}>
-              {label}
-            </Text>
-          )}
+          {label && value && <Label>{label}</Label>}
           <ReactNativeTextInput
             ref={inputRef}
             secureTextEntry={password}
-            style={{
-              outlineStyle: style.inputOutlineStyle,
-              fontSize: style.inputFontSize,
-              backgroundColor: style.inputBackgroundColor,
-            }}
+            style={style.inputStyle}
             value={value}
             onChangeText={onChange}
             placeholder={label}

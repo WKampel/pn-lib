@@ -1,0 +1,11 @@
+{
+  "$button-base-color-background": "$color-ui-primary",
+  "$button-base-color-text": "black",
+  "$button-base-opacity-background-disabled": 0.5,
+  "$button-base-opacity-background-hovered": 0.85,
+  "$button-base-opacity-background-pressed": 0.7,
+  "$button-base-radius": "$radius-s",
+  "$button-base-size-height": "$size-l",
+  "$button-base-spacing-padding-horizontal": "$spacing-m",
+  "$button-small-size-height": "$height-s"
+}

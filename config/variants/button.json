@@ -1,0 +1,21 @@
+{
+  "base": {
+    "@disabled": {
+      "opacity": "$button-base-opacity-background-disabled"
+    },
+    "@hovered": {
+      "opacity": "$button-base-opacity-background-hovered"
+    },
+    "@pressed": {
+      "opacity": "$button-base-opacity-background-pressed"
+    },
+    "alignItems": "center",
+    "backgroundColor": "$button-base-color-background",
+    "borderRadius": "$button-base-radius",
+    "color": "$button-base-color-text",
+    "flexDirection": "row",
+    "height": "$button-base-size-height",
+    "justifyContent": "center",
+    "paddingHorizontal": "$button-base-spacing-padding-horizontal"
+  }
+}

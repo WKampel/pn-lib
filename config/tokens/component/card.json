@@ -1,0 +1,5 @@
+{
+  "$card-base-color-background": "white",
+  "$card-base-radius": "$radius-l",
+  "$card-base-spacing-padding": "$spacing-l"
+}

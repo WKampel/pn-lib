@@ -1,46 +1,21 @@
-/**
- * Resolves tokens in an object using a token object.
- *
- * @param {Object} object - The object with potential tokens.
- * @param {Object} tokens - The token object for resolving style tokens.
- * @returns {Object} - A new object with tokens resolved to actual values.
- */
-export const resolveTokens = (object, tokens) => {
-  if (!object || !tokens) return object
+export const resolveTokenReferences = (obj, tokensSource) => {
+  const resolvedTokens = {}
 
-  const resolveTokensRecursively = obj => {
-    const result = Array.isArray(obj) ? [] : {}
-    for (let key in obj) {
-      if (Object.prototype.hasOwnProperty.call(obj, key)) {
-        const value = obj[key]
-        if (typeof value === 'string' && value.startsWith('$')) {
-          const [tokenType, tokenKey] = value.slice(1).split('.')
-          result[key] = tokens[tokenType]?.[tokenKey] || value
-        } else if (typeof value === 'object' && !Array.isArray(value)) {
-          result[key] = resolveTokensRecursively(value)
-        } else {
-          result[key] = value
-        }
-      }
+  for (const key in obj) {
+    if (typeof obj[key] === 'string' && obj[key].startsWith('$')) {
+      // If the value is a string that starts with '$', assume it's a token reference
+      const tokenKey = obj[key] // Keep the '$' prefix
+      resolvedTokens[key] = tokensSource[tokenKey] || obj[key] // Resolve the token reference
+    } else if (typeof obj[key] === 'object' && !Array.isArray(obj[key])) {
+      // If the value is an object (but not an array), recursively resolve token references
+      resolvedTokens[key] = resolveTokenReferences(obj[key], tokensSource)
+    } else {
+      // Otherwise, keep the value unchanged
+      resolvedTokens[key] = obj[key]
     }
-    return result
   }
 
-  return resolveTokensRecursively(object)
-}
-
-/**
- * Merges two sets of variants together, selectively overriding properties of the first set with those of the second set.
- *
- * This function calls `deepMerge` on the two sets of variants, ensuring that
- * the properties of the second set override those of the first set without discarding other properties.
- *
- * @param {Object} variants1 - The first set of variants.
- * @param {Object} variants2 - The second set of variants, whose properties will override those of the first set.
- * @returns {Object} - The merged set of variants.
- */
-export function mergeVariants(variants1, variants2) {
-  return deepMerge(variants1, variants2)
+  return resolvedTokens
 }
 
 /**

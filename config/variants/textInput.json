@@ -1,0 +1,22 @@
+{
+  "base": {
+    "@disabled": {
+      "backgroundColor": "$textInput-base-color-background-disabled"
+    },
+    "@focused": {
+      "borderColor": "$text-input-base-color-border-focused"
+    },
+    "@hovered": {
+      "borderColor": "$text-input-base-color-border-hovered"
+    },
+    "border-radius": "$text-input-base-radius",
+    "borderColor": "$text-input-base-color-border",
+    "borderWidth": 1,
+    "height": "$text-input-base-size-height",
+    "inputStyle": {
+      "outline": "none"
+    },
+    "justifyContent": "center",
+    "paddingHorizontal": "$text-input-base-spacing-padding-horizontal"
+  }
+}

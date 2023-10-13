@@ -8,7 +8,10 @@ const Card = styled('card', ({ style, children, onPress, onPressIn, onPressOut, 
       tabIndex={onPress ? 0 : -1}
       focusable={onPress ? true : false}
       onPress={onPress}
-      style={style}
+      style={{
+        ...style,
+        cursor: onPress ? 'pointer' : 'default',
+      }}
       onPressIn={onPressIn}
       onPressOut={onPressOut}
       onMouseEnter={onMouseEnter}

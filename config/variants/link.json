@@ -1,0 +1,6 @@
+{
+  "base": {
+    "color": "$link-base-color-text",
+    "fontSize": "$link-base-font-size"
+  }
+}

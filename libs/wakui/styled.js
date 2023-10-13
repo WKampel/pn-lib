@@ -1,12 +1,26 @@
 import { useMemo, useState } from 'react'
-import useVariants from './useVariants'
+import { useComponentVariants } from './themeProvider'
 
-/**
- * Separate variants from props based on '$' prefix
- *
- * @param {Object} props
- * @returns Object
- */
+function deepDeleteKeys(obj, keysToDelete) {
+  const objClone = JSON.parse(JSON.stringify(obj))
+
+  function deleteKeys(obj) {
+    for (const key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        if (keysToDelete.includes(key)) {
+          delete obj[key]
+        } else if (typeof obj[key] === 'object' && obj[key] !== null) {
+          deleteKeys(obj[key])
+        }
+      }
+    }
+  }
+
+  deleteKeys(objClone)
+
+  return objClone
+}
+
 const separateVariantsAndProps = props => {
   return Object.keys(props).reduce(
     (acc, key) => {
@@ -23,80 +37,125 @@ const separateVariantsAndProps = props => {
 }
 
 const getObjectKeysInOrder = obj => Reflect.ownKeys(obj)
+const stripOrderPrefix = key => key.replace(/^\(\-?\d+\)/, '')
 
-const getVariantStyles = (appliedVariants, allVariantsObject, states = {}) => {
-  const regExp = new RegExp(`(${Object.keys(states).join('|')})$`)
-  return getObjectKeysInOrder(allVariantsObject).reduce((acc, key) => {
-    const baseKey = key.replace(regExp, '')
-    const stateSuffix = key.slice(baseKey.length)
-
-    if (appliedVariants[baseKey] && (!stateSuffix || states[stateSuffix])) {
-      Object.assign(acc, allVariantsObject[key])
-    }
-
-    return acc
-  }, {})
+const processKeys = (keys, callback) => {
+  getObjectKeysInOrder(keys).forEach(key => {
+    const sanitizedKey = stripOrderPrefix(key)
+    callback(sanitizedKey, key)
+  })
 }
 
-const styled = (name, middleware, Component) => {
-  if (!Component) {
-    Component = middleware
-    middleware = undefined
-  }
+const getStylesOfVariant = (variant = {}, states = {}) => {
+  const stateStyles = {}
+  processKeys(variant, (key, originalKey) => {
+    states[key] && Object.assign(stateStyles, variant[originalKey])
+  })
+  return { ...variant, ...stateStyles }
+}
 
-  return rawProps => {
-    // Middleware allows for modification of props. This is useful if you want to add variants based on the state of a component. For instance, if disabled={true} is passed to a button, you can use middleware to add the $middleware varaint automatically. This prevents having to pass both disabled={true} and $disabled by the caller.
-    const allProps = useMemo(() => (middleware ? middleware(rawProps) : rawProps), [rawProps, middleware])
+const getStylesOfAppliedVariants = (appliedVariants, allVariants, states) => {
+  const appliedStyles = {}
+  processKeys(allVariants, (key, originalKey) => {
+    if (key in appliedVariants) Object.assign(appliedStyles, getStylesOfVariant(allVariants[originalKey], states))
+  })
+  return appliedStyles
+}
 
+const styled = (name, Component) => {
+  return allProps => {
     const [isFocused, setIsFocused] = useState(false)
     const [isHovered, setIsHovered] = useState(false)
     const [isPressed, setIsPressed] = useState(false)
 
     const { appliedVariants, spreadableVariants, props } = useMemo(() => separateVariantsAndProps(allProps), [allProps])
-    const componentConfigVariants = useVariants(name)
+    const componentConfigVariants = useComponentVariants(name)
+
+    const states = {
+      '@hovered': isHovered,
+      '@focused': isFocused,
+      '@pressed': isPressed,
+      '@disabled': allProps.disabled,
+    }
 
     const style = useMemo(() => {
-      const states = {
-        Hovered: isHovered,
-        Focused: isFocused,
-        Pressed: isPressed,
+      const mergedStyles = {
+        ...getStylesOfVariant(componentConfigVariants.base, states),
+        ...getStylesOfAppliedVariants(appliedVariants, componentConfigVariants, states),
+        ...(allProps.style || {}),
       }
 
-      return {
-        ...getVariantStyles({ ...appliedVariants, base: true }, componentConfigVariants, states), // All styles
-        ...(allProps.style || {}), // Style overrides
+      return mergedStyles
+    }, [appliedVariants, componentConfigVariants, states, allProps.style])
+
+    const style2 = useMemo(() => {
+      let styles = { ...componentConfigVariants } // start with all variants
+
+      const unappliedVariantNames = Object.keys(styles).filter(variantName => !appliedVariants[variantName] && variantName !== 'base')
+      const unappliedStateNames = Object.keys(states).filter(stateName => !states[stateName])
+      const unappliedPlatformNames = ['web', 'ios', 'android'].filter(item => Platform.OS !== item)
+
+      const keysToDelete = [...unappliedVariantNames, ...unappliedStateNames, ...unappliedPlatformNames]
+
+      styles = deepDeleteKeys(styles, keysToDelete)
+      const obj = {
+        borderWidth: 2,
+        fontSize: 19,
+        zIndex: 5,
+        obj: {
+          fontSize: 10,
+          color: 'blue',
+          sub: {
+            fontSize: 9,
+          },
+        },
+        someStyles: {
+          backgroundColor: 'yellow',
+          stuff: {
+            borderWidth: 9,
+            moreStyles: {
+              color: 'pink',
+            },
+          },
+        },
+        level1: {
+          level2: {
+            level3: {
+              zIndex: 9,
+            },
+          },
+        },
       }
-    }, [appliedVariants, componentConfigVariants, isHovered, isFocused, isPressed, allProps.style])
 
-    const handleOnMouseEnter = () => {
-      if (props.onMouseEnter) props.onMouseEnter()
-      setIsHovered(true)
+      const obj = {
+        borderWidth: 2,
+        color: 'blue',
+        fontSize: 9,
+        someStyles: {
+          backgroundColor: 'yellow',
+          borderWidth: 9,
+          moreStyles: {
+            color: 'pink',
+          },
+        },
+        zIndex: 9,
+      }
+      return styles
+    }, [componentConfigVariants, allProps, states])
+
+    console.log(style2)
+
+    const createEventHandler = (handlerFromProps, stateUpdater) => () => {
+      handlerFromProps && handlerFromProps()
+      stateUpdater()
     }
 
-    const handleOnMouseLeave = () => {
-      if (props.onMouseLeave) props.onMouseLeave()
-      setIsHovered(false)
-    }
-
-    const handleOnFocus = () => {
-      if (props.onFocus) props.onFocus()
-      setIsFocused(true)
-    }
-
-    const handleOnBlur = () => {
-      if (props.onBlur) props.onBlur()
-      setIsFocused(false)
-    }
-
-    const handleOnPressIn = () => {
-      if (props.onPressIn) props.onPressIn()
-      setIsPressed(true)
-    }
-
-    const handleOnPressOut = () => {
-      if (props.onPressOut) props.onPressOut()
-      setIsPressed(false)
-    }
+    const handleOnMouseEnter = createEventHandler(allProps.onMouseEnter, setIsHovered.bind(null, true))
+    const handleOnMouseLeave = createEventHandler(allProps.onMouseLeave, setIsHovered.bind(null, false))
+    const handleOnFocus = createEventHandler(allProps.onFocus, setIsFocused.bind(null, true))
+    const handleOnBlur = createEventHandler(allProps.onBlur, setIsFocused.bind(null, false))
+    const handleOnPressIn = createEventHandler(allProps.onPressIn, setIsPressed.bind(null, true))
+    const handleOnPressOut = createEventHandler(allProps.onPressOut, setIsPressed.bind(null, false))
 
     return (
       <Component
@@ -113,7 +172,7 @@ const styled = (name, middleware, Component) => {
         isHovered={isHovered}
         isPressed={isPressed}
       >
-        {props.children}
+        {allProps.children}
       </Component>
     )
   }

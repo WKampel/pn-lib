@@ -1,10 +1,6 @@
-import { createContext, useContext, useMemo } from 'react'
+import { createContext, useContext } from 'react'
 import { Platform } from 'react-native'
-import generateTokens from '../config/tokens'
-import generateVariants from '../config/variants'
 import { deepMerge, mobileStyles } from '../libs/utils'
-import { WakuiProvider } from '../libs/wakui'
-import { adjustBrightness, adjustSaturation, copyHue } from '../libs/wakui/utils'
 
 const Context = createContext()
 
@@ -245,65 +241,5 @@ export const BrandingProvider = props => {
     },
   }
 
-  const primary = props.style?.primaryColor || '#69b4f5'
-
-  const brightnessAdjustment = 20
-  const saturationAdjustment = 20
-
-  // This makes sure brightness is adjusted before saturation. The order matters; the output changes based on the order.
-  const adjustColor = (color, brightnessAmount, saturationAmount) => {
-    const tempColor = adjustBrightness(color, brightnessAmount)
-    return adjustSaturation(tempColor, saturationAmount)
-  }
-
-  const palette = {
-    // Primary
-    primaryLight: adjustBrightness(primary, brightnessAdjustment),
-    primary,
-    primaryDark: adjustBrightness(primary, -brightnessAdjustment),
-
-    // Saturated
-    primarySaturatedLight: adjustColor(primary, brightnessAdjustment, saturationAdjustment),
-    primarySaturated: adjustSaturation(primary, saturationAdjustment),
-    primarySaturatedDark: adjustColor(primary, -brightnessAdjustment, saturationAdjustment),
-
-    // Desaturated
-    primaryDesaturatedLight: adjustColor(primary, brightnessAdjustment, -saturationAdjustment),
-    primaryDesaturated: adjustSaturation(primary, -saturationAdjustment),
-    primaryDesaturatedDark: adjustColor(primary, -brightnessAdjustment, -saturationAdjustment),
-
-    snowPrimaryTint: copyHue('#F0F2F5', primary),
-
-    // Secondary
-    secondaryLight: 'rgb(220,220,220)',
-    secondary: 'rgb(200,200,200)',
-    secondaryDark: 'rgb(180,180,180)',
-
-    // Danger
-    dangerLight: 'lightred',
-    danger: 'red',
-    dangerDark: 'darkred',
-
-    // Generic
-    black: 'black',
-    white: 'white',
-    snowLight: 'rgb(245,245,245)',
-    snow: 'rgb(240,240,240)',
-    snowDark: 'rgb(235,235,235)',
-    clear: 'transparent',
-  }
-
-  const tokens = useMemo(() => generateTokens(palette), [palette])
-  const variants = useMemo(() => generateVariants(tokens), [tokens])
-
-  const config = {
-    tokens,
-    variants,
-  }
-
-  return (
-    <Context.Provider value={{ baseStyles, variantStyles, colors }}>
-      <WakuiProvider config={config}>{props.children}</WakuiProvider>
-    </Context.Provider>
-  )
+  return <Context.Provider value={{ baseStyles, variantStyles, colors }}>{props.children}</Context.Provider>
 }

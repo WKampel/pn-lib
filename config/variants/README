@@ -1,0 +1,33 @@
+# JSON Stylesheet Guidelines
+
+## Ordering Variants and states
+
+Base styles always come first. Variants are applied based on the order that they are declared in the JSON.
+If you have a JSON formatter which sorts your JSON alphabetically, you can put (order) before key names so they sort in the order you want. The paranthesis and contained text will be filtered out. For instance: '(1)primary' or '(2)@hover' will sort with primary first (1 comes before 2) and will evaluate to the variants 'primary' and '@hover' in code.
+
+## State Management
+
+- **@hovered**: Styles applied when element is hovered.
+- **@pressed**: Styles applied when element is pressed.
+- **@disabled**: Styles applied when element is disabled.
+
+Example:
+
+```json
+{
+  "(1)primary": {},
+  "base": {
+    "(1)@disabled": {
+      "opacity": "0.5"
+    },
+    "(2)@pressed": {
+      "opacity": "0.7"
+    },
+    "(3)@hovered": {
+      "opacity": "0.9"
+    },
+    "alignItems": "center"
+  },
+  "(2)secondary": {}
+}
+```
