@@ -1,0 +1,18 @@
+{
+  "base": {
+    "gap": 5,
+    "height": 200,
+    "panelStyle": {
+      "flex": 1,
+      "height": "100%"
+    },
+    "pickerStyle": {
+      "flex": 1,
+      "flexDirection": "row",
+      "gap": 5,
+      "width": "100%"
+    },
+    "sliderStyle": {},
+    "width": 200
+  }
+}

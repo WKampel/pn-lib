@@ -1,27 +1,14 @@
-import useState from './useState'
+import { useState } from 'react'
 
 const usePageFields = () => {
-  const fields = useState([])
+  const [fields, setFields] = useState([])
 
-  function setFields(_fields) {
-    fields.set(_fields)
+  function updateFieldProp(fieldId, propName, value) {
+    setFields(prev => prev.map(item => (item.id === fieldId ? { ...item, [propName]: value } : item)))
   }
 
-  function addField() {
-    fields.array.push({})
-  }
-
-  function deleteField(fieldIndex) {
-    fields.set(prev => prev.filter((item, i) => i !== fieldIndex))
-  }
-
-  function setType(fieldIndex, type) {
-    fields.array.update(fieldIndex, { ...fields.val[fieldIndex], type, size: 'medium', align: 'center' })
-  }
-
-  function setValue(fieldIndex, value) {
-    fields.array.update(fieldIndex, { ...fields.val[fieldIndex], value })
-  }
+  const setType = (fieldId, type) => updateFieldProp(fieldId, 'type', type)
+  const setValue = (fieldId, value) => updateFieldProp(fieldId, 'value', value)
 
   function setFile(fieldIndex, file) {
     fields.array.update(fieldIndex, { ...fields.val[fieldIndex], file })

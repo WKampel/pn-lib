@@ -4,5 +4,7 @@
   "$text-input-base-color-border-hovered": "$color-border-on-surface-intense",
   "$text-input-base-radius": "$radius-xs",
   "$text-input-base-size-height": "$size-l",
-  "$text-input-base-spacing-padding-horizontal": "$spacing-s"
+  "$text-input-base-spacing-padding-horizontal": "$spacing-s",
+  "$text-input-s-font-size": "$font-size-s",
+  "$text-input-s-size-height": "$size-m"
 }

@@ -1,7 +1,7 @@
 {
   "base": {
     "@disabled": {
-      "backgroundColor": "$textInput-base-color-background-disabled"
+      "backgroundColor": "$text-input-base-color-background-disabled"
     },
     "@focused": {
       "borderColor": "$text-input-base-color-border-focused"
@@ -9,8 +9,8 @@
     "@hovered": {
       "borderColor": "$text-input-base-color-border-hovered"
     },
-    "border-radius": "$text-input-base-radius",
     "borderColor": "$text-input-base-color-border",
+    "borderRadius": "$text-input-base-radius",
     "borderWidth": 1,
     "height": "$text-input-base-size-height",
     "inputStyle": {
@@ -18,5 +18,11 @@
     },
     "justifyContent": "center",
     "paddingHorizontal": "$text-input-base-spacing-padding-horizontal"
+  },
+  "s": {
+    "height": "$text-input-s-size-height",
+    "inputStyle": {
+      "fontSize": "$text-input-s-font-size"
+    }
   }
 }

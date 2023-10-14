@@ -1,5 +1,8 @@
 {
   "base": {
     "gap": "$group-base-gap"
+  },
+  "x": {
+    "flexDirection": "row"
   }
 }

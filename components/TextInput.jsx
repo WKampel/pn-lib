@@ -5,12 +5,12 @@ import Label from './Label'
 
 const TextInput = styled(
   'textInput',
-  ({ style, password, email, onSubmit, disabled, onFocus, onBlur, onKeyPress, value, onChange, onMouseEnter, onMouseLeave, label }) => {
+  ({ style, password, email, onSubmit, disabled, onFocus, onBlur, onKeyPress, value, onChange, onMouseEnter, onMouseLeave, label, variants }) => {
     const inputRef = useRef(null)
     return (
       <TouchableWithoutFeedback focusable={false} onPressIn={() => inputRef.current?.focus()}>
         <View style={style} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-          {label && value && <Label>{label}</Label>}
+          {label && value && <Label {...variants}>{label}</Label>}
           <ReactNativeTextInput
             ref={inputRef}
             secureTextEntry={password}

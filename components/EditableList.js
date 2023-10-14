@@ -5,9 +5,9 @@ import { styled } from '../libs/wakui'
 import Button from './Button'
 import Group from './Group'
 
-const EditableList = styled('editableList', ({ style, onChange, value, getItemChildren }) => {
-  const addFieldBefore = () => onChange(prev => [{ id: uuid.v4() }, ...prev])
-  const addFieldAfter = () => onChange(prev => [...prev, { id: uuid.v4() }])
+const EditableList = styled('editableList', ({ style, onChange, value, getItemChild }) => {
+  const addFieldBefore = () => onChange([{ id: uuid.v4() }, ...value])
+  const addFieldAfter = () => onChange([...value, { id: uuid.v4() }])
 
   const moveItem = (id, direction) => {
     const index = value.findIndex(item => item.id === id)
@@ -19,7 +19,7 @@ const EditableList = styled('editableList', ({ style, onChange, value, getItemCh
     onChange(copy)
   }
 
-  const deleteItem = id => onChange(prev => prev.filter(item => item.id !== id))
+  const deleteItem = id => onChange(value.filter(item => item.id !== id))
 
   return (
     <View style={style}>
@@ -32,7 +32,7 @@ const EditableList = styled('editableList', ({ style, onChange, value, getItemCh
           onDown={() => moveItem(item.id, 1)}
           onDelete={() => deleteItem(item.id)}
         >
-          {getItemChildren(item)}
+          {getItemChild(item)}
         </ListItem>
       ))}
       <Button text='Add Field' onPress={addFieldAfter} />
@@ -46,13 +46,13 @@ const ListItem = ({ style, onUp, onDown, onDelete, children }) => {
       <Group $x>
         <Group style={{ flex: 1 }}>{children}</Group>
         <Button onPress={onDelete} $danger icon={<MaterialIcons name='delete' />} />
-        <UpDownButtons onUp={onUp} onDown={onDown} />
+        <OrderButtons onUp={onUp} onDown={onDown} />
       </Group>
     </View>
   )
 }
 
-const UpDownButtons = ({ onUp, onDown }) => {
+const OrderButtons = ({ onUp, onDown }) => {
   return (
     <Group style={{ gap: 0 }}>
       <Button $round style={{ height: 25, paddingHorizontal: 0 }} onPress={onUp} icon={<Ionicons name='chevron-up' size={24} color='black' />} />

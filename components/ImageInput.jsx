@@ -94,15 +94,18 @@ const ImageInput = styled(
         onBlur={onBlur}
         onPress={onPress}
       >
-        {createFile.loading ? (
-          <Spinner />
-        ) : (
-          <View style={style.labelContainerStyle}>
-            <AntDesign name='cloudupload' size={style.labelStyle.fontSize} color={style.labelStyle.color} />
-            {label && <Text style={style.labelStyle}>{label}</Text>}
-          </View>
-        )}
         {value.url ? <Image style={style.imageStyle} src={value.url} /> : null}
+
+        <View style={style.labelContainerStyle}>
+          {createFile.loading ? (
+            <Spinner />
+          ) : (
+            <>
+              <AntDesign name='cloudupload' size={style.labelStyle.fontSize} color={style.labelStyle.color} />
+              {label && <Text style={style.labelStyle}>{label}</Text>}
+            </>
+          )}
+        </View>
       </Pressable>
     )
   }

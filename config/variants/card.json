@@ -1,9 +1,17 @@
 {
   "base": {
+    "...shadow": "$shadow-normal",
     "backgroundColor": "$card-base-color-background",
     "borderRadius": "$card-base-radius",
     "cursor": "pointer",
-    "padding": "$card-base-spacing-padding",
-    "shadow": "$shadow-normal"
+    "padding": "$card-base-spacing-padding"
+  },
+  "interactive": {
+    "@hovered": {
+      "opacity": 0.85
+    },
+    "@pressed": {
+      "opacity": 0.7
+    }
   }
 }

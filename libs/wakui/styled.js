@@ -1,65 +1,69 @@
 import { useMemo, useState } from 'react'
+import { Platform } from 'react-native'
 import { useComponentVariants } from './themeProvider'
+import { deepFilterKeys, deepMerge } from './utils'
 
-function deepDeleteKeys(obj, keysToDelete) {
-  const objClone = JSON.parse(JSON.stringify(obj))
-
-  function deleteKeys(obj) {
-    for (const key in obj) {
-      if (obj.hasOwnProperty(key)) {
-        if (keysToDelete.includes(key)) {
-          delete obj[key]
-        } else if (typeof obj[key] === 'object' && obj[key] !== null) {
-          deleteKeys(obj[key])
-        }
-      }
-    }
-  }
-
-  deleteKeys(objClone)
-
-  return objClone
-}
-
-const separateVariantsAndProps = props => {
-  return Object.keys(props).reduce(
+const separateVariantsAndProps = props =>
+  Object.keys(props).reduce(
     (acc, key) => {
       if (key.startsWith('$')) {
-        acc.appliedVariants[key.substring(1)] = true
-        acc.spreadableVariants[key] = props[key]
+        if (props[key]) {
+          acc.appliedVariants.push(key.substring(1))
+          acc.spreadableVariants[key] = props[key]
+        }
       } else {
         acc.props[key] = props[key]
       }
       return acc
     },
-    { appliedVariants: {}, spreadableVariants: {}, props: {} }
+    { appliedVariants: [], spreadableVariants: {}, props: {} }
   )
+
+const processPlatformSpecificStyles = (styleObject, currentPlatform) => {
+  const keepKey = key => key.startsWith(`(${currentPlatform})`) || !key.match(/^\((web|android|ios)\)/)
+
+  const relevantStyles = deepFilterKeys(styleObject, keepKey)
+
+  // Remove remaining (web) / (android) / (ios) from the object
+  return JSON.parse(JSON.stringify(relevantStyles).replace(/\((web|android|ios)\)/g, ''))
 }
 
-const getObjectKeysInOrder = obj => Reflect.ownKeys(obj)
-const stripOrderPrefix = key => key.replace(/^\(\-?\d+\)/, '')
+const getStylesFromVariant = (variant, states) => {
+  if (!variant) return
+  const { ['@hovered']: hoveredStyle, ['@pressed']: pressedStyle, ['@focused']: focusedStyle, ['@disabled']: disabledStyle, ...style } = variant
 
-const processKeys = (keys, callback) => {
-  getObjectKeysInOrder(keys).forEach(key => {
-    const sanitizedKey = stripOrderPrefix(key)
-    callback(sanitizedKey, key)
-  })
+  const baseStyle = evaluateStyleProps(style)
+
+  const stateStyles = [
+    states.hovered && evaluateStyleProps(hoveredStyle),
+    states.pressed && evaluateStyleProps(pressedStyle),
+    states.focused && evaluateStyleProps(focusedStyle),
+    states.disabled && evaluateStyleProps(disabledStyle),
+  ]
+
+  // Use deepMerge to combine baseStyle and stateStyles
+  return stateStyles.reduce((acc, stateStyle) => deepMerge(acc, stateStyle || {}), baseStyle)
 }
 
-const getStylesOfVariant = (variant = {}, states = {}) => {
-  const stateStyles = {}
-  processKeys(variant, (key, originalKey) => {
-    states[key] && Object.assign(stateStyles, variant[originalKey])
-  })
-  return { ...variant, ...stateStyles }
+const evaluateStyleProps = style => {
+  if (!style) return
+  let styleCopy = JSON.parse(JSON.stringify(style))
+
+  styleCopy = processPlatformSpecificStyles(styleCopy, Platform.OS)
+  styleCopy = spreadDesignatedKeys(styleCopy)
+
+  return styleCopy
 }
 
-const getStylesOfAppliedVariants = (appliedVariants, allVariants, states) => {
-  const appliedStyles = {}
-  processKeys(allVariants, (key, originalKey) => {
-    if (key in appliedVariants) Object.assign(appliedStyles, getStylesOfVariant(allVariants[originalKey], states))
-  })
-  return appliedStyles
+const spreadDesignatedKeys = style => {
+  const result = { ...style }
+  for (let [key, value] of Object.entries(style)) {
+    if (key.startsWith('...')) {
+      Object.assign(result, value)
+      delete result[key]
+    }
+  }
+  return result
 }
 
 const styled = (name, Component) => {
@@ -69,81 +73,27 @@ const styled = (name, Component) => {
     const [isPressed, setIsPressed] = useState(false)
 
     const { appliedVariants, spreadableVariants, props } = useMemo(() => separateVariantsAndProps(allProps), [allProps])
-    const componentConfigVariants = useComponentVariants(name)
+    const { base, ...other } = useComponentVariants(name)
 
     const states = {
-      '@hovered': isHovered,
-      '@focused': isFocused,
-      '@pressed': isPressed,
-      '@disabled': allProps.disabled,
+      hovered: isHovered,
+      focused: isFocused,
+      pressed: isPressed,
+      disabled: allProps.disabled,
     }
 
     const style = useMemo(() => {
-      const mergedStyles = {
-        ...getStylesOfVariant(componentConfigVariants.base, states),
-        ...getStylesOfAppliedVariants(appliedVariants, componentConfigVariants, states),
-        ...(allProps.style || {}),
-      }
+      let styles = { ...getStylesFromVariant(base, states) }
 
-      return mergedStyles
-    }, [appliedVariants, componentConfigVariants, states, allProps.style])
+      // Add variants
+      appliedVariants.forEach(variant => {
+        styles = deepMerge(styles, getStylesFromVariant(other[variant], states))
+      })
 
-    const style2 = useMemo(() => {
-      let styles = { ...componentConfigVariants } // start with all variants
+      Object.assign(styles, allProps.style || {})
 
-      const unappliedVariantNames = Object.keys(styles).filter(variantName => !appliedVariants[variantName] && variantName !== 'base')
-      const unappliedStateNames = Object.keys(states).filter(stateName => !states[stateName])
-      const unappliedPlatformNames = ['web', 'ios', 'android'].filter(item => Platform.OS !== item)
-
-      const keysToDelete = [...unappliedVariantNames, ...unappliedStateNames, ...unappliedPlatformNames]
-
-      styles = deepDeleteKeys(styles, keysToDelete)
-      const obj = {
-        borderWidth: 2,
-        fontSize: 19,
-        zIndex: 5,
-        obj: {
-          fontSize: 10,
-          color: 'blue',
-          sub: {
-            fontSize: 9,
-          },
-        },
-        someStyles: {
-          backgroundColor: 'yellow',
-          stuff: {
-            borderWidth: 9,
-            moreStyles: {
-              color: 'pink',
-            },
-          },
-        },
-        level1: {
-          level2: {
-            level3: {
-              zIndex: 9,
-            },
-          },
-        },
-      }
-
-      const obj = {
-        borderWidth: 2,
-        color: 'blue',
-        fontSize: 9,
-        someStyles: {
-          backgroundColor: 'yellow',
-          borderWidth: 9,
-          moreStyles: {
-            color: 'pink',
-          },
-        },
-        zIndex: 9,
-      }
       return styles
-    }, [componentConfigVariants, allProps, states])
-
-    console.log(style2)
+    }, [other, base, allProps, states])
 
     const createEventHandler = (handlerFromProps, stateUpdater) => () => {
       handlerFromProps && handlerFromProps()

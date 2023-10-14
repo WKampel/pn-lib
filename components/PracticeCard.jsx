@@ -5,8 +5,9 @@ import Group from './Group'
 import Image from './Image'
 
 const PracticeCard = styled('practiceCard', ({ style, variants, name, slogan, children, onPress, logoUrl }) => {
+  console.log('styhlecard', style)
   return (
-    <Card onPress={onPress} {...variants}>
+    <Card $interactive={onPress ? true : false} onPress={onPress} {...variants}>
       <Group $x>
         <Image style={{ width: style.logoSize, height: style.logoSize, borderRadius: style.logoBorderRadius }} src={logoUrl} />
         <View>

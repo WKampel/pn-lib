@@ -1,0 +1,5 @@
+{
+  "base": {
+    "padding": "$screen-base-spacing-padding"
+  }
+}

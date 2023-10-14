@@ -1,0 +1,16 @@
+{
+  "base": {
+    "menuStyle": {
+      "backgroundColor": "white",
+      "borderRadius": 10,
+      "maxHeight": 300,
+      "overflow": "scroll",
+      "width": 300
+    },
+    "optionStyle": {
+      "height": 30,
+      "justifyContent": "center",
+      "paddingLeft": 10
+    }
+  }
+}

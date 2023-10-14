@@ -1,3 +1,17 @@
+export const deepFilterKeys = (obj, predicate) => {
+  return Object.fromEntries(
+    Object.entries(obj)
+      .filter(([key, value]) => predicate(key, value))
+      .map(([key, value]) => {
+        if (typeof value === 'object' && value !== null) {
+          return [key, deepFilterKeys(value, predicate)]
+        } else {
+          return [key, value]
+        }
+      })
+  )
+}
+
 export const resolveTokenReferences = (obj, tokensSource) => {
   const resolvedTokens = {}
 

@@ -1,0 +1,9 @@
+{
+  "base": {
+    "color": "$label-base-color-text",
+    "fontSize": "$label-base-font-size"
+  },
+  "xs": {
+    "fontSize": "$label-xs-font-size"
+  }
+}

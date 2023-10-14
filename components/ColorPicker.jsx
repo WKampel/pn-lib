@@ -23,11 +23,11 @@ const ColorPicker = styled('colorPicker', ({ style, value, onChange, onMouseEnte
 
   return (
     <View onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} style={style}>
-      <TextInput onChange={handleInputChange} value={inputValue} $xs label={label || 'Color'} />
+      <TextInput onChange={handleInputChange} value={inputValue} $s label={label || 'Color'} />
 
       <ReanimatedColorPicker style={style.pickerStyle} value={value} onComplete={e => onChange(e.hex)} thumbAnimationDuration={100} thumbSize={8}>
         <Panel1 style={style.panelStyle} />
-        <HueSlider sliderThickness={style.sliderStyle.width} vertical={true} />
+        <HueSlider sliderThickness={style.sliderStyle?.width} vertical={true} />
       </ReanimatedColorPicker>
     </View>
   )

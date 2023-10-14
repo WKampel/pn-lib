@@ -1,19 +1,13 @@
 {
   "$shadow-normal": {
-    "android": {
-      "elevation": 3
+    "(android)elevation": 3,
+    "(ios)shadowColor": "rgb(0,0,0)",
+    "(ios)shadowOffset": {
+      "height": 1,
+      "width": 0
     },
-    "ios": {
-      "shadowColor": "rgb(0,0,0)",
-      "shadowOffset": {
-        "height": 1,
-        "width": 0
-      },
-      "shadowOpacity": 0.2,
-      "shadowRadius": 2
-    },
-    "web": {
-      "boxShadow": "0 1px 2px rgb(0,0,0,.2)"
-    }
+    "(ios)shadowOpacity": 0.2,
+    "(ios)shadowRadius": 2,
+    "(web)boxShadow": "0 1px 2px rgb(0,0,0,.2)"
   }
 }
