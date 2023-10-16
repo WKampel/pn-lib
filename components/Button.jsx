@@ -26,7 +26,7 @@ const Button = styled('button', ({ style, text, icon, onMouseEnter, onMouseLeave
         <Spinner />
       ) : (
         <>
-          {text && <Text style={{ color: style.color, fontSize: style.fontSize }}>{text}</Text>}
+          {text && <Text style={{ color: style.color, fontSize: style.fontSize, fontWeight: style.fontWeight }}>{text}</Text>}
           {icon && cloneElement(icon, { color: style.color, size: style.fontSize })}
         </>
       )}

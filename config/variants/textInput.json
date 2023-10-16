@@ -19,6 +19,9 @@
     "justifyContent": "center",
     "paddingHorizontal": "$text-input-base-spacing-padding-horizontal"
   },
+  "round": {
+    "borderRadius": "$radius-round"
+  },
   "s": {
     "height": "$text-input-s-size-height",
     "inputStyle": {

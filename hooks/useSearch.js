@@ -1,6 +1,6 @@
 const useSearch = (rows, searchValue) => {
   return rows.filter(row => {
-    const lowerCaseSearchArray = searchValue.toLowerCase().split(' ')
+    const lowerCaseSearchArray = searchValue?.toLowerCase().split(' ')
     return lowerCaseSearchArray.every(item => JSON.stringify(row)?.toLowerCase().includes(item))
   })
 }

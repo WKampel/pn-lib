@@ -26,6 +26,7 @@ const Form = ({ name, desc, fields, responses = {} }) => {
           <FormField
             key={field.id}
             type={field.type}
+            required={field.required}
             label={field.name}
             options={field.options}
             state={{ val: responses.val?.[field.id], set: val => responses?.set && responses?.set({ ...responses.val, [field.id]: val }) }}

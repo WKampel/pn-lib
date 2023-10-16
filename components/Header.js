@@ -6,7 +6,7 @@ const Header = props => {
   const dimensions = useWindowDimensions()
 
   return (
-    <View style={[styles.header, dimensions.width < 900 && styles.mobileHeader]}>
+    <View style={[styles.header, dimensions.width < 900 ? styles.mobileHeader : styles.webHeader]}>
       {props.options?.back ? <BackButton to={props.options?.back} /> : null}
       <Text style={styles.title}>{props.options?.title || props.route.name}</Text>
       {dimensions.width < 900 ? <OpenDrawerButton /> : <View />}

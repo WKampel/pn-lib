@@ -1,20 +1,15 @@
 import React from 'react'
-import { Switch as ReactNativeSwitch, StyleSheet, Text, View } from 'react-native'
+import { Switch as ReactNativeSwitch, View } from 'react-native'
+import { styled } from '../libs/wakui'
+import Label from './Label'
 
-const Switch = props => {
+const Switch = styled('switch', ({ style, label, onChange, value }) => {
   return (
-    <View style={styles.container}>
-      <ReactNativeSwitch onValueChange={props.state.set} value={props.state.val} />
-      {props.label ? <Text>{props.label}</Text> : null}
+    <View style={style}>
+      <ReactNativeSwitch onValueChange={onChange} value={value} />
+      <Label>{label}</Label>
     </View>
   )
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    gap: 10,
-  },
 })
 
 export default Switch

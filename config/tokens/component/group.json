@@ -1,3 +1,4 @@
 {
-  "$group-base-gap": "$spacing-l"
+  "$group-base-gap": "$spacing-l",
+  "$group-compact-gap": "$spacing-s"
 }

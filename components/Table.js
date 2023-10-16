@@ -1,10 +1,22 @@
 import React, { useEffect } from 'react'
 import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
-import useSearch from '../hooks/useSearch'
 import useState from '../hooks/useState'
 import PNRow from './Row'
 import TextInput from './TextInput'
+
+const useTableSearch = (rows, searchValue, cols) => {
+  if (!searchValue) return rows
+  const lowerCaseSearchArray = searchValue?.toLowerCase().split(' ')
+  return rows.filter(row => {
+    const found = cols.find(col => {
+      const cell = ('' + col.getCell(row))?.toLowerCase()
+      return lowerCaseSearchArray.every(item => cell.includes(item))
+    })
+
+    return found ? true : false
+  })
+}
 
 const usePagination = (rows, page, perPage) => {
   const pageCount = Math.ceil(rows.length / perPage) || 0
@@ -16,7 +28,7 @@ const usePagination = (rows, page, perPage) => {
 const Header = ({ cols }) => (
   <View style={[styles.row, styles.headerRow]}>
     {cols.map((col, colIndex) => (
-      <View style={styles.header} key={colIndex}>
+      <View style={[styles.header, col.width && { width: col.width, flex: 'unset' }]} key={colIndex}>
         <Text style={styles.headerText}>{col.label || ''}</Text>
       </View>
     ))}
@@ -34,7 +46,7 @@ const Row = ({ row, cols, onPress = () => {}, rowIndex }) => {
   return (
     <Pressable onPress={onPress} style={[styles.row, rowIndex % 2 === 0 && styles.evenRow]}>
       {cols.map((col, colIndex) => (
-        <View style={styles.data} key={colIndex}>
+        <View style={[styles.data, col.width && { width: col.width, flex: 'unset' }]} key={colIndex}>
           <Text>{col.getCell(row)}</Text>
         </View>
       ))}
@@ -48,7 +60,7 @@ export default Table = props => {
   const search = useState('')
   const { rows: rowsProp, cols = [], onRowPress, headerLeft, loading } = props
 
-  const rows = useSearch(rowsProp || [], search.val)
+  const rows = useTableSearch(rowsProp || [], search.val, cols)
   const { pageCount, slicedRows } = usePagination(rows, page.val, 100)
 
   useEffect(() => {
@@ -56,10 +68,10 @@ export default Table = props => {
   }, [pageCount])
 
   return (
-    <>
+    <View>
       <PNRow style={{ marginBottom: 5 }}>
         {headerLeft}
-        <TextInput containerStyle={styles.search} variants={['round']} placeholder='Search' state={search} />
+        <TextInput style={styles.search} $round label='Search' value={search.val} onChange={search.set} />
       </PNRow>
       <View style={styles.table}>
         <Header cols={cols} />
@@ -74,7 +86,7 @@ export default Table = props => {
         </ScrollView>
         <PageBar page={page} pageCount={pageCount} />
       </View>
-    </>
+    </View>
   )
 }
 
@@ -150,5 +162,6 @@ const styles = StyleSheet.create({
   search: {
     marginLeft: 'auto',
     maxWidth: 300,
+    flex: 1,
   },
 })

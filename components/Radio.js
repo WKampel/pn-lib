@@ -1,22 +1,30 @@
-import { Text, View } from 'react-native'
+import { View } from 'react-native'
+import { styled } from '../libs/wakui'
 import CheckBox from './CheckBox'
+import Label from './Label'
 
-export default props => {
-  return (
-    <View>
-      {props.label ? <Text style={{ marginBottom: 5 }}>{props.label}</Text> : null}
-      {props.options?.map((option, i) => {
-        const value = props.getValue(option)
-        const selected = props.state.val === value
-        return (
-          <CheckBox
-            key={value}
-            variants={['round']}
-            state={{ val: selected, set: props.state.set.bind(null, value) }}
-            label={props.getLabel(option, i)}
-          />
-        )
-      })}
-    </View>
-  )
-}
+const Radio = styled(
+  'radio',
+  ({
+    style,
+    label,
+    value,
+    onChange,
+    options = [],
+    getValue = option => (option ? option.value : ''),
+    getLabel = option => (option ? option.label : ''),
+  } = {}) => {
+    return (
+      <View style={style}>
+        {label && <Label>{label}</Label>}
+        {options.map((option, i) => {
+          const selected = value === getValue(option)
+          const label = getLabel(option, i)
+          return <CheckBox key={i} $round value={selected} onChange={onChange?.bind(null, getValue(option))} label={label} />
+        })}
+      </View>
+    )
+  }
+)
+
+export default Radio

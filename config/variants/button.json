@@ -17,5 +17,27 @@
     "height": "$button-base-size-height",
     "justifyContent": "center",
     "paddingHorizontal": "$button-base-spacing-padding-horizontal"
+  },
+  "icon": {
+    "backgroundColor": "transparent",
+    "fontSize": 20,
+    "height": "auto",
+    "paddingHorizontal": 0
+  },
+  "icon": {
+    "backgroundColor": "transparent",
+    "fontSize": 20,
+    "height": "auto",
+    "paddingHorizontal": 0
+  },
+  "secondary": {
+    "backgroundColor": "$button-secondary-color-background",
+    "borderColor": "$button-secondary-color-border",
+    "borderWidth": 2,
+    "color": "$button-secondary-color-text",
+    "fontWeight": "$button-secondary-weight-text"
+  },
+  "small": {
+    "height": "$button-small-size-height"
   }
 }

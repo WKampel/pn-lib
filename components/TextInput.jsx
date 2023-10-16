@@ -5,7 +5,23 @@ import Label from './Label'
 
 const TextInput = styled(
   'textInput',
-  ({ style, password, email, onSubmit, disabled, onFocus, onBlur, onKeyPress, value, onChange, onMouseEnter, onMouseLeave, label, variants }) => {
+  ({
+    style,
+    password,
+    email,
+    onSubmit,
+    disabled,
+    onFocus,
+    onBlur,
+    onKeyPress,
+    value,
+    onChange,
+    onMouseEnter,
+    onMouseLeave,
+    label,
+    variants,
+    multiline,
+  }) => {
     const inputRef = useRef(null)
     return (
       <TouchableWithoutFeedback focusable={false} onPressIn={() => inputRef.current?.focus()}>
@@ -26,6 +42,7 @@ const TextInput = styled(
             onBlur={onBlur}
             onKeyPress={onKeyPress}
             editable={disabled ? false : true}
+            multiline={multiline}
           />
         </View>
       </TouchableWithoutFeedback>

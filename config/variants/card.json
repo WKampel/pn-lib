@@ -1,8 +1,9 @@
 {
   "base": {
-    "...shadow": "$shadow-normal",
     "backgroundColor": "$card-base-color-background",
+    "borderColor": "$color-border-on-surface",
     "borderRadius": "$card-base-radius",
+    "borderWidth": 1,
     "cursor": "pointer",
     "padding": "$card-base-spacing-padding"
   },

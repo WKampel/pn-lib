@@ -1,41 +1,23 @@
 import React from 'react'
-import { Pressable, StyleSheet, Text, View } from 'react-native'
-import { useBranding } from '../contexts/Branding'
-import BorderLabel from './BorderLabel'
+import { Pressable, Text, View } from 'react-native'
+import { styled } from '../libs/wakui'
+import Label from './Label'
 
-export default props => {
-  const { brandingStyles } = useBranding('yesNoInput')
-
+const YesNoInput = styled('yesNoInput', ({ style, label, value, onChange }) => {
   return (
-    <View>
-      {props.label && <BorderLabel label={props.label} backgroundColor={brandingStyles.container.backgroundColor} color='gray' />}
+    <View style={style}>
+      {label && <Label>{label}</Label>}
 
-      <View style={[styles.yesNoInput, brandingStyles.container]}>
-        <Pressable style={[styles.option, props.state?.val === 'yes' ? styles.selected : {}]} onPress={() => props.state?.set('yes')}>
-          <Text style={styles.optionText}>Yes</Text>
+      <View style={style.buttonContainerStyle}>
+        <Pressable style={[style.optionStyle, value === 'yes' && style.selectedOptionStyle]} onPress={() => onChange && onChange('yes')}>
+          <Text style={style.optionText}>Yes</Text>
         </Pressable>
-        <Pressable style={[styles.option, props.state?.val === 'no' ? styles.selected : {}]} onPress={() => props.state?.set('no')}>
-          <Text style={styles.optionText}>No</Text>
+        <Pressable style={[style.optionStyle, value === 'no' && style.selectedOptionStyle]} onPress={() => onChange && onChange('no')}>
+          <Text style={style.optionText}>No</Text>
         </Pressable>
       </View>
     </View>
   )
-}
-
-const styles = StyleSheet.create({
-  yesNoInput: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  option: {
-    flex: 1,
-    paddingHorizontal: 10,
-    height: '100%',
-    justifyContent: 'center',
-  },
-  selected: {
-    backgroundColor: 'rgb(220,220,220)',
-  },
-  optionText: { fontSize: 12, textAlign: 'center', textWrap: 'nowrap' },
-  label: {},
 })
+
+export default YesNoInput

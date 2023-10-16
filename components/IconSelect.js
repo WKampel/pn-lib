@@ -1,6 +1,5 @@
 import { AntDesign, Entypo, Feather, Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
-import { View } from 'react-native'
-import useState from '../hooks/useState'
+import { Text, View } from 'react-native'
 import { dentalset1, dentalset2, dentalset3, dentalset4, dentalset5, dentalset6 } from './DentalIcons'
 import Icon from './Icon'
 import Select from './Select.web'
@@ -20,29 +19,25 @@ const icons = {
   entypo: Object.keys(Entypo.glyphMap),
 }
 
-export default props => {
-  const search = useState('')
-
+export default ({ filter, label, onChange, value, ...other }) => {
   const allIcons = Object.keys(icons)
     ?.flatMap(set => icons[set].map(name => ({ set, name })))
-    .filter(item => (props.filter ? props.filter(item) : true))
-
-  const filteredIcons = allIcons.filter(
-    item => item.set.toLowerCase().includes(search.val.toLowerCase()) || item.name.toLowerCase().includes(search.val.toLowerCase())
-  )
+    .filter(item => (filter ? filter(item) : true))
 
   return (
     <Select
-      label={props.label}
+      {...other}
+      label={label}
       getValue={icon => icon.set + ':' + icon.name}
       getLabel={icon => (
         <View style={{ flexDirection: 'row', gap: 10, alignItems: 'center' }}>
           <Icon set={icon.set} name={icon.name} size={20} color='gray' />
-          <View>{icon.name}</View>
+          <Text>{icon.name}</Text>
         </View>
       )}
-      state={props.state}
-      options={filteredIcons}
+      onChange={onChange}
+      value={value}
+      options={allIcons}
     />
   )
 }

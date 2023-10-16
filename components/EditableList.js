@@ -1,9 +1,10 @@
-import { Ionicons, MaterialIcons } from '@expo/vector-icons'
+import { MaterialIcons } from '@expo/vector-icons'
 import { View } from 'react-native'
 import uuid from 'react-native-uuid'
 import { styled } from '../libs/wakui'
 import Button from './Button'
 import Group from './Group'
+import OrderButtons from './OrderButtons'
 
 const EditableList = styled('editableList', ({ style, onChange, value, getItemChild }) => {
   const addFieldBefore = () => onChange([{ id: uuid.v4() }, ...value])
@@ -22,8 +23,8 @@ const EditableList = styled('editableList', ({ style, onChange, value, getItemCh
   const deleteItem = id => onChange(value.filter(item => item.id !== id))
 
   return (
-    <View style={style}>
-      <Button text='Add Field' onPress={addFieldBefore} />
+    <Group style={style}>
+      <Button style={{ marginRight: 'auto' }} $small $secondary text='Add Field' onPress={addFieldBefore} />
       {value.map(item => (
         <ListItem
           key={item.id}
@@ -35,29 +36,20 @@ const EditableList = styled('editableList', ({ style, onChange, value, getItemCh
           {getItemChild(item)}
         </ListItem>
       ))}
-      <Button text='Add Field' onPress={addFieldAfter} />
-    </View>
+      {value?.length > 0 && <Button style={{ marginRight: 'auto' }} $small $secondary text='Add Field' onPress={addFieldAfter} />}
+    </Group>
   )
 })
 
 const ListItem = ({ style, onUp, onDown, onDelete, children }) => {
   return (
     <View style={style}>
-      <Group $x>
-        <Group style={{ flex: 1 }}>{children}</Group>
-        <Button onPress={onDelete} $danger icon={<MaterialIcons name='delete' />} />
+      <Group $compact $x>
+        {children}
+        <Button $danger $icon onPress={onDelete} icon={<MaterialIcons name='delete' />} />
         <OrderButtons onUp={onUp} onDown={onDown} />
       </Group>
     </View>
-  )
-}
-
-const OrderButtons = ({ onUp, onDown }) => {
-  return (
-    <Group style={{ gap: 0 }}>
-      <Button $round style={{ height: 25, paddingHorizontal: 0 }} onPress={onUp} icon={<Ionicons name='chevron-up' size={24} color='black' />} />
-      <Button $round style={{ height: 25, paddingHorizontal: 0 }} onPress={onDown} icon={<Ionicons name='chevron-down' size={24} color='black' />} />
-    </Group>
   )
 }
 

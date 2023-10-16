@@ -3,11 +3,11 @@ import useState from './useStateNew'
 const useForm = initialState => {
   const [form, setForm, resetForm] = useState(initialState)
 
-  const handleFieldChange = field => value => {
+  const onChangeField = field => value => {
     setForm(prev => ({ ...prev, [field]: value }))
   }
 
-  return [form, handleFieldChange, resetForm, setForm]
+  return { form, onChangeField, resetForm, setForm }
 }
 
 export default useForm

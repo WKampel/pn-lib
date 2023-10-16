@@ -7,5 +7,9 @@
   "$button-base-radius": "$radius-s",
   "$button-base-size-height": "$size-l",
   "$button-base-spacing-padding-horizontal": "$spacing-m",
-  "$button-small-size-height": "$height-s"
+  "$button-secondary-color-background": "transparent",
+  "$button-secondary-color-border": "$color-ui-primary",
+  "$button-secondary-color-text": "$color-ui-primary",
+  "$button-secondary-weight-text": "$weight-heavy",
+  "$button-small-size-height": "$size-m"
 }

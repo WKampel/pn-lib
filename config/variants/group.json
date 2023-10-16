@@ -2,6 +2,9 @@
   "base": {
     "gap": "$group-base-gap"
   },
+  "compact": {
+    "gap": "$group-compact-gap"
+  },
   "x": {
     "flexDirection": "row"
   }

@@ -9,6 +9,11 @@ export const useComponentVariants = compName => {
   return variants?.[compName] || {}
 }
 
+export const useTokens = () => {
+  const { tokens } = useContext(ThemeContext)
+  return tokens || {}
+}
+
 const ThemeProvider = ({ theme, children }) => {
   const rawTokens = useRawTokens()
   const rawVariants = useRawVariants()
