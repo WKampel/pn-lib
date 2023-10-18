@@ -23,6 +23,7 @@ const TextInput = styled(
     multiline,
   }) => {
     const inputRef = useRef(null)
+
     return (
       <TouchableWithoutFeedback focusable={false} onPressIn={() => inputRef.current?.focus()}>
         <View style={style} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>

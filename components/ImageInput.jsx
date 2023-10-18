@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client'
-import { AntDesign } from '@expo/vector-icons'
+import { Entypo } from '@expo/vector-icons'
 import { manipulateAsync } from 'expo-image-manipulator'
 import * as ImagePicker from 'expo-image-picker'
 import React from 'react'
@@ -22,8 +22,21 @@ const MAX_WIDTH = 512
 const MAX_HEIGHT = 512
 
 const ImageInput = styled(
-  'imageInput',
-  ({ style, label, onChange, value, camera, onFocus, onBlur, transformUri, onMouseEnter, onMouseLeave, onPressIn, onPressOut }) => {
+  'fileInput',
+  ({
+    style,
+    label = 'Upload Image',
+    onChange,
+    value = {},
+    camera,
+    onFocus,
+    onBlur,
+    transformUri,
+    onMouseEnter,
+    onMouseLeave,
+    onPressIn,
+    onPressOut,
+  }) => {
     const [cameraPermissionStatus, requestPermission] = ImagePicker.useCameraPermissions()
 
     const createFile = useMutation(CREATE_FILE, {
@@ -89,20 +102,20 @@ const ImageInput = styled(
         onPressIn={onPressIn}
         onPressOut={onPressOut}
         disabled={createFile.loading}
-        style={style}
+        style={[style, { width: 200, height: 200 }]}
         onFocus={onFocus}
         onBlur={onBlur}
         onPress={onPress}
       >
-        {value.url ? <Image style={style.imageStyle} src={value.url} /> : null}
+        {value?.url ? <Image style={{ width: '100%', height: '100%' }} src={value?.url} /> : null}
 
         <View style={style.labelContainerStyle}>
           {createFile.loading ? (
             <Spinner />
           ) : (
             <>
-              <AntDesign name='cloudupload' size={style.labelStyle.fontSize} color={style.labelStyle.color} />
-              {label && <Text style={style.labelStyle}>{label}</Text>}
+              <Entypo name='image' size={style.iconStyle.fontSize} color={style.labelStyle.color} />
+              <Text style={style.labelStyle}>{label}</Text>
             </>
           )}
         </View>

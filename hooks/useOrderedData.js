@@ -1,13 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
-function useOrderedData(initialData, loading, idKey = 'id') {
+function useOrderedData(initialData, idKey = 'id') {
   const [orderedData, setOrderedData] = useState(initialData)
-
-  useEffect(() => {
-    if (!loading && initialData) {
-      setOrderedData(initialData)
-    }
-  }, [loading, initialData])
 
   const moveUp = item => {
     const index = orderedData.findIndex(_item => _item[idKey] === item[idKey])
@@ -37,7 +31,7 @@ function useOrderedData(initialData, loading, idKey = 'id') {
     setOrderedData(newData)
   }
 
-  return { orderedData, moveUp, moveDown, resetOrder }
+  return { orderedData, moveUp, moveDown, resetOrder, setOrderedData }
 }
 
 export default useOrderedData

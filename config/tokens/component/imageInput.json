@@ -1,7 +1,0 @@
-{
-  "$image-input-base-color-border": "$color-border-on-surface",
-  "$image-input-base-color-border-focused": "$color-ui-primary",
-  "$image-input-base-color-border-hovered": "$color-border-on-surface-intense",
-  "$image-input-base-radius": 10,
-  "$image-input-base-size": 200
-}

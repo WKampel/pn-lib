@@ -3,6 +3,7 @@ import { useNavigation } from '@react-navigation/native'
 import { useNotification } from '../contexts/Notification'
 
 const useMutation = (query, config) => {
+  if (!query) return
   const nav = useNavigation()
   const { notify } = useNotification()
 
@@ -22,9 +23,10 @@ const useMutation = (query, config) => {
         }
       }
     },
+    refetchQueries: config?.refetchQueries,
   })
 
-  const exec = variables => runMutation({ variables })
+  const exec = variables => runMutation({ variables: variables || config?.variables })
 
   return {
     loading,

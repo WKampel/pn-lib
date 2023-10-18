@@ -20,7 +20,7 @@ const iconSets = {
 const Icon = ({ val, set: propSet, name: propName, style, size, color }) => {
   let [set, name] = val ? val.split(':') : [propSet, propName]
 
-  const IconComponent = iconSets[set.toLowerCase()]
+  const IconComponent = iconSets[set?.toLowerCase()]
 
   if (!IconComponent) {
     console.error(`Icon set ${set} not found`)

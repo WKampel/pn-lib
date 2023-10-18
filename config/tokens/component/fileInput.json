@@ -1,0 +1,7 @@
+{
+  "$file-input-base-color-border": "$color-border-on-surface",
+  "$file-input-base-color-border-focused": "$color-ui-primary",
+  "$file-input-base-color-border-hovered": "$color-border-on-surface-intense",
+  "$file-input-base-radius": 10,
+  "$file-input-base-size": 200
+}

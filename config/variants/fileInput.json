@@ -1,0 +1,43 @@
+{
+  "base": {
+    "@disabled": {
+      "backgroundColor": "$file-input-base-color-background-disabled"
+    },
+    "@focused": {
+      "borderColor": "$file-input-base-color-border-focused"
+    },
+    "@hovered": {
+      "borderColor": "$file-input-base-color-border-hovered",
+      "labelContainerStyle": {
+        "opacity": 0.5
+      }
+    },
+    "alignItems": "center",
+    "borderColor": "$file-input-base-color-border",
+    "borderRadius": "$file-input-base-radius",
+    "borderStyle": "dashed",
+    "borderWidth": 2,
+    "iconStyle": {
+      "fontSize": 50
+    },
+    "justifyContent": "center",
+    "labelContainerStyle": {
+      "alignItems": "center",
+      "backgroundColor": "black",
+      "flexDirection": "row",
+      "gap": 10,
+      "left": 10,
+      "opacity": 0.85,
+      "padding": 10,
+      "pointerEvents": "none",
+      "position": "absolute",
+      "top": 10
+    },
+    "labelStyle": {
+      "color": "white",
+      "fontSize": 15
+    },
+    "outline": "none",
+    "padding": 10
+  }
+}

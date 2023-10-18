@@ -23,6 +23,13 @@ export const Overlay = ({ visible, relativeToRef, close, children }) => {
   const { setOverlay } = useOverlay()
 
   useEffect(() => {
+    // Unmount
+    return () => {
+      setOverlay(undefined)
+    }
+  }, [])
+
+  useEffect(() => {
     if (visible) {
       relativeToRef.current.measureInWindow((x, y, width, height) => {
         setOverlay(
