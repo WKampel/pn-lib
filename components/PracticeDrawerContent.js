@@ -118,7 +118,7 @@ const PracticeDrawerContent = props => {
     <DrawerContentScrollView {...props} contentContainerStyle={{ paddingTop: 0, height: '100%' }}>
       <View style={[styles.header, { backgroundColor: colors.primary }]}>
         <View style={styles.nameLogoContainer}>
-          <Image width={50} height={50} src={practice?.logo?.url} />
+          <Image style={{ width: 50, height: 50 }} src={practice?.logo?.url} />
           <View style={{ flex: 1 }}>
             <Text style={styles.practiceName}>{practice?.name}</Text>
             <Text style={styles.practiceSlogan}>{practice?.slogan}</Text>
