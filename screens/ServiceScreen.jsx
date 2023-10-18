@@ -1,4 +1,5 @@
 import { gql } from '@apollo/client'
+import { useNavigation } from '@react-navigation/native'
 import { ScrollView, Text, View } from 'react-native'
 import Button from '../components/Button'
 import Group from '../components/Group'
@@ -19,6 +20,7 @@ const GET_SERVICE = gql`
 `
 
 const ServiceScreen = ({ id, data: propData }) => {
+  const nav = useNavigation()
   const { data: queryData } = useQuery(GET_SERVICE, { id })
 
   const service = propData || queryData?.service || {}
@@ -35,7 +37,12 @@ const ServiceScreen = ({ id, data: propData }) => {
       </ScrollView>
 
       <View style={{ marginTop: 'auto' }}>
-        <Button text='Schedule Appointment' linkTo='Appointments' />
+        <Button
+          text='Schedule Appointment'
+          onPress={() => {
+            nav.navigate('Appointments', { screen: 'Request Appointment' })
+          }}
+        />
       </View>
     </Screen>
   )

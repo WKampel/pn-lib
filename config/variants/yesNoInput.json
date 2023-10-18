@@ -18,6 +18,12 @@
       "outline": "none"
     },
     "justifyContent": "center",
-    "paddingHorizontal": "$yes-no-input-base-spacing-padding-horizontal"
+    "optionStyle": {
+      "padding": 10
+    },
+    "paddingHorizontal": "$yes-no-input-base-spacing-padding-horizontal",
+    "selectedOptionStyle": {
+      "backgroundColor": "$color-ui-primary"
+    }
   }
 }

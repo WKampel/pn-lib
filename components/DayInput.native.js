@@ -4,19 +4,13 @@ import { Text, View } from 'react-native'
 
 const DayInput = props => {
   const onChange = (e, date) => {
-    props.state.set(date)
+    if (props.onChange) props.onChange(date)
   }
 
   return (
     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
       <Text>{props.label}</Text>
-      <DateTimePicker
-        style={{ padding: 0, margin: 0 }}
-        themeVariant='light'
-        value={moment(props.state.val).toDate()}
-        mode='date'
-        onChange={onChange}
-      />
+      <DateTimePicker style={{ padding: 0, margin: 0 }} themeVariant='light' value={moment(props.value).toDate()} mode='date' onChange={onChange} />
     </View>
   )
 }

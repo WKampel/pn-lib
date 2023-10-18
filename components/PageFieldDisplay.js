@@ -68,7 +68,7 @@ const PageFieldDisplay = ({ field }) => {
   }
 
   if (type === 'video') {
-    return <WebView source={{ uri: value }} style={{ flex: 1 }} />
+    return <WebView source={{ uri: value }} style={{ width: '100%', aspectRatio: 1.78 }} />
   }
 }
 

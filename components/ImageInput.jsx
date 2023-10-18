@@ -1,5 +1,6 @@
 import { gql } from '@apollo/client'
 import { Entypo } from '@expo/vector-icons'
+import { ReactNativeFile } from 'apollo-upload-client'
 import { manipulateAsync } from 'expo-image-manipulator'
 import * as ImagePicker from 'expo-image-picker'
 import React from 'react'

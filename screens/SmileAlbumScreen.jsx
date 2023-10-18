@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client'
 import React from 'react'
-import { ScrollView, StyleSheet, View } from 'react-native'
+import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import H from '../components/H'
 import Image from '../components/Image'
 import Screen from '../components/Screen'
@@ -35,7 +35,7 @@ const SmileAlbumScreen = ({ id, data: propData }) => {
   return (
     <Screen>
       <H>{data.name}</H>
-      <H>{data.desc}</H>
+      <Text>{data.desc}</Text>
 
       <ScrollView style={styles.images}>
         {data.items?.map((item, i) => (

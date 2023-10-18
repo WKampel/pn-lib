@@ -3,7 +3,7 @@ import { usePractice } from '../contexts/Practice'
 import FormField from './FormField'
 import Section from './Section'
 
-const Form = ({ name, desc, fields, responses = {} }) => {
+const Form = ({ setResponses, name, desc, fields, responses = {} }) => {
   const practice = usePractice()
 
   return (
@@ -27,7 +27,8 @@ const Form = ({ name, desc, fields, responses = {} }) => {
           required={field.required}
           label={field.name}
           options={field.options}
-          state={{ val: responses.val?.[field.id], set: val => responses?.set && responses?.set({ ...responses.val, [field.id]: val }) }}
+          onChange={val => setResponses && setResponses({ ...responses, [field.id]: val })}
+          value={responses[field.id]}
         />
       ))}
     </Section>
