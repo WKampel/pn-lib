@@ -1,7 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native'
 import { usePractice } from '../contexts/Practice'
 import FormField from './FormField'
-import Row from './Row'
 import Section from './Section'
 
 const Form = ({ name, desc, fields, responses = {} }) => {
@@ -22,16 +21,14 @@ const Form = ({ name, desc, fields, responses = {} }) => {
       </View>
 
       {fields?.map((field, i) => (
-        <Row>
-          <FormField
-            key={field.id}
-            type={field.type}
-            required={field.required}
-            label={field.name}
-            options={field.options}
-            state={{ val: responses.val?.[field.id], set: val => responses?.set && responses?.set({ ...responses.val, [field.id]: val }) }}
-          />
-        </Row>
+        <FormField
+          key={field.id}
+          type={field.type}
+          required={field.required}
+          label={field.name}
+          options={field.options}
+          state={{ val: responses.val?.[field.id], set: val => responses?.set && responses?.set({ ...responses.val, [field.id]: val }) }}
+        />
       ))}
     </Section>
   )

@@ -23,6 +23,7 @@ export default ({ filter, label, onChange, value, ...other }) => {
   const allIcons = Object.keys(icons)
     ?.flatMap(set => icons[set].map(name => ({ set, name })))
     .filter(item => (filter ? filter(item) : true))
+    .sort((a, b) => a.name?.localeCompare(b.name))
 
   return (
     <Select

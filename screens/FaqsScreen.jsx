@@ -1,6 +1,7 @@
 import { gql } from '@apollo/client'
 import { ScrollView, Text } from 'react-native'
 import Group from '../components/Group'
+import H from '../components/H'
 import Screen from '../components/Screen'
 import useQuery from '../hooks/useQuery'
 
@@ -24,7 +25,7 @@ const FaqsScreen = ({}) => {
         <Group>
           {faqs.map(faq => (
             <Group>
-              <Text>{faq.question}</Text>
+              <H>{faq.question}</H>
               <Text>{faq.answer}</Text>
             </Group>
           ))}

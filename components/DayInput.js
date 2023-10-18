@@ -1,43 +1,35 @@
 import moment from 'moment'
-import { createElement, useEffect } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { createElement, useEffect, useState } from 'react'
+import { View } from 'react-native'
 import { useBranding } from '../contexts/Branding'
-import useState from '../hooks/useState'
-import BorderLabel from './BorderLabel'
+import { styled } from '../libs/wakui'
 
-const DayInput = ({ state, label }) => {
+const DayInput = styled('textInput', ({ style, value, onChange, label }) => {
   const { brandingStyles } = useBranding('textInput')
-  const date = useState('')
+  const [date, setDate] = useState('')
 
   useEffect(() => {
-    if (moment(date.val).isValid()) {
-      if (state?.set) state.set(moment(date.val).toDate())
+    if (moment(date).isValid()) {
+      if (onChange) onChange(moment(date).toDate())
     }
-  }, [date.val])
+  }, [date])
 
   useEffect(() => {
-    if (moment(state?.val).isValid()) {
-      date.set(moment(state?.val).format('YYYY-MM-DD'))
+    if (moment(value).isValid()) {
+      setDate(moment(value).format('YYYY-MM-DD'))
     }
-  }, [state?.val])
+  }, [value])
 
   return (
     <View style={{ flex: 1 }}>
-      {label && <BorderLabel label={label} backgroundColor={brandingStyles.input.backgroundColor} color='gray' />}
       {createElement('input', {
         type: 'date',
-        style: { ...brandingStyles.input, ...styles.input },
-        value: date.val,
-        onChange: e => date.set(e.target.value),
+        style: { ...style, borderStyle: 'solid', boxSizing: 'border-box', paddingHorizontal: 15 },
+        value: date,
+        onChange: e => setDate(e.target.value),
       })}
     </View>
   )
-}
+})
 
 export default DayInput
-
-const styles = StyleSheet.create({
-  input: {
-    boxSizing: 'border-box',
-  },
-})

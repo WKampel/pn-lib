@@ -1,7 +1,8 @@
-import { Text, View } from 'react-native'
+import { View } from 'react-native'
 import { styled } from '../libs/wakui'
 import Card from './Card'
 import Group from './Group'
+import H from './H'
 import Icon from './Icon'
 
 const ServiceCard = styled('serviceCard', ({ style, variants, icon, name, desc, onPress }) => {
@@ -10,8 +11,7 @@ const ServiceCard = styled('serviceCard', ({ style, variants, icon, name, desc, 
       <Group $x>
         <Icon val={icon} size={style.iconSize} />
         <View>
-          <Text>{name}</Text>
-          <Text>{desc}</Text>
+          <H>{name}</H>
         </View>
       </Group>
     </Card>

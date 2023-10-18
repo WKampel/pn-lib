@@ -206,16 +206,16 @@ const DayView = ({ date, getEventStartDate, getEventId, events, onChangeVisibleD
 const Controls = ({ date, loading, prev, next, setView, view }) => (
   <View style={styles.controls}>
     <View style={styles.controlsChild}>
-      <Button icon={<Icon set='ionicons' name='chevron-back' size={20} />} style={styles.controlButton} onPress={prev} />
-      <Button icon={<Icon set='ionicons' name='chevron-forward' size={20} />} style={styles.controlButton} onPress={next} />
+      <Button icon={<Icon set='ionicons' name='chevron-back' size={20} />} onPress={prev} />
+      <Button icon={<Icon set='ionicons' name='chevron-forward' size={20} />} onPress={next} />
     </View>
     <View style={[styles.controlsChild, styles.controlsMonth]}>
       <Text style={styles.controlsMonthText}>{moment(date).format('MMM YYYY')}</Text> {loading ? <Spinner color='black' /> : null}
     </View>
     <View style={styles.controlsChild}>
-      <Button text='Month' style={[styles.controlButton, view === 'month' ? styles.activeViewButton : {}]} onPress={setView.bind(null, 'month')} />
-      <Button text='Week' style={[styles.controlButton, view === 'week' ? styles.activeViewButton : {}]} onPress={setView.bind(null, 'week')} />
-      <Button text='Day' style={[styles.controlButton, view === 'day' ? styles.activeViewButton : {}]} onPress={setView.bind(null, 'day')} />
+      <Button text='Month' onPress={setView.bind(null, 'month')} />
+      <Button text='Week' onPress={setView.bind(null, 'week')} />
+      <Button text='Day' onPress={setView.bind(null, 'day')} />
     </View>
   </View>
 )

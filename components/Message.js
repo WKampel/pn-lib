@@ -1,7 +1,7 @@
 import { Feather } from '@expo/vector-icons'
 import moment from 'moment'
 import { useRef } from 'react'
-import { Platform, StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
 import { useBranding } from '../contexts/Branding'
 import Button from './Button'
@@ -25,16 +25,9 @@ export const Conversation = props => {
 
 export const ComposeMessage = props => (
   <View style={styles.composeMessageContainer}>
-    <TextInput
-      textInputStyle={[Platform.OS === 'web' ? { paddingTop: 10, paddingBottom: 10 } : null]}
-      placeholder='Message...'
-      state={props.state}
-      autoHeight={true}
-      multiline={true}
-      containerStyle={styles.sendMessageInput}
-    />
+    <TextInput style={{ flex: 1 }} label='Message...' onChange={props.onChange} value={props.value} multiline={true} />
     <Button
-      disabled={!props.state?.val?.trim().length}
+      disabled={!props.value?.trim().length}
       loading={props.loading}
       onPress={props.onSubmit}
       style={styles.sendMessageButton}
@@ -92,6 +85,7 @@ const styles = StyleSheet.create({
     width: 'auto',
     alignSelf: 'flex-end',
     flex: null,
+    marginBottom: 'auto',
   },
   message: {
     alignSelf: 'flex-start',

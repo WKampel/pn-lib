@@ -1,6 +1,8 @@
 import { gql } from '@apollo/client'
-import { Text, View } from 'react-native'
+import { ScrollView, Text, View } from 'react-native'
 import Button from '../components/Button'
+import Group from '../components/Group'
+import H from '../components/H'
 import Icon from '../components/Icon'
 import Screen from '../components/Screen'
 import useQuery from '../hooks/useQuery'
@@ -23,15 +25,14 @@ const ServiceScreen = ({ id, data: propData }) => {
 
   return (
     <Screen>
-      <View style={styles.service}>
-        <View style={styles.icon}>
-          <Icon val={service.icon} size={80} />
-        </View>
-        <View>
-          <Text style={styles.name}>{service?.name}</Text>
-        </View>
-      </View>
-      <Text>{service?.desc}</Text>
+      <Group $x>
+        <Icon val={service.icon} size={80} />
+        <H>{service.name}</H>
+      </Group>
+
+      <ScrollView>
+        <Text>{service.desc}</Text>
+      </ScrollView>
 
       <View style={{ marginTop: 'auto' }}>
         <Button text='Schedule Appointment' linkTo='Appointments' />
