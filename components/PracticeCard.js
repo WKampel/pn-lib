@@ -7,7 +7,7 @@ const PracticeCard = ({ name, slogan, children, logoUrl, onPress }) => {
   const styles = useStyles(styleConfig)
 
   return (
-    <TouchableCard style={styles.practiceCard} onPress={onPress}>
+    <TouchableCard style={styles.practiceCard} onPress={onPress} hideBorderOnMobile={false}>
       <Image style={styles.icon} source={logoUrl} />
 
       <View style={styles.body}>

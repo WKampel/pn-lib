@@ -2,10 +2,10 @@ import useIsMobile from '../hooks/useIsMobile'
 import useStyles from '../hooks/useStyles'
 import OptionalScroll from './OptionalScroll'
 
-const Card = ({ children, style, scroll = false }) => {
+const Card = ({ children, style, scroll = false, hideBorderOnMobile = true }) => {
   const mobile = useIsMobile()
 
-  const styles = useStyles(styleConfig, { mobile })
+  const styles = useStyles(styleConfig, { hiddenBorder: hideBorderOnMobile && mobile })
 
   return (
     <OptionalScroll scroll={scroll} scrollViewStyle={styles.scrollView} containerStyle={[styles.container, style]}>
@@ -28,7 +28,7 @@ const styleConfig = {
       flexGrow: 0,
     },
   },
-  mobile: {
+  hiddenBorder: {
     true: {
       container: {
         borderWidth: 0,
