@@ -30,8 +30,8 @@ const Notification = ({ title, body, onPress: onPressProp, onDelete, linkTo, typ
       <AntDesign name={getIconName()} size={30} color='white' />
 
       <View style={{ flex: 1 }}>
-        <Text style={styles.title}>{title}</Text>
-        <Text style={styles.body}>{body}</Text>
+        {title ? <Text style={styles.title}>{title}</Text> : null}
+        {body ? <Text style={styles.body}>{body}</Text> : null}
       </View>
 
       <Pressable onPress={onDelete}>

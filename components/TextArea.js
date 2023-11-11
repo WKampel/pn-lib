@@ -47,6 +47,7 @@ const styleConfig = {
       },
       borderRadius: '$radius-xs',
       paddingHorizontal: '$spacing-s',
+      minHeight: '$size-m',
     },
     input: {
       fontSize: '$font-size-xs',

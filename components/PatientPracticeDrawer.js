@@ -14,7 +14,7 @@ const PatientPracticeDrawer = props => {
     }))
     .concat({
       label: 'Contact Us',
-      to: 'contact-us',
+      to: 'ContactUs',
     })
 
   return <PracticeDrawer items={items} {...props} />
