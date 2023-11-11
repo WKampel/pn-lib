@@ -9,12 +9,19 @@ const PatientFaqsScreen = ({ data: propData }) => {
   const { data } = useQuery(GET_ALL_FAQS)
   const faqs = propData || data?.allFaqs || []
 
+  const mockFaqs = [
+    { question: 'What do we do?', answer: 'Nothing reallt, We just make sure that you are taken acre of and whatnot.' },
+    { question: 'What do we do?', answer: 'Nothing reallt, We just make sure that you are taken acre of and whatnot.' },
+    { question: 'What do we do?', answer: 'Nothing reallt, We just make sure that you are taken acre of and whatnot.' },
+    { question: 'What do we do?', answer: 'Nothing reallt, We just make sure that you are taken acre of and whatnot.' },
+  ]
+
   return (
     <Screen>
       <ScrollView>
         <Group>
           <Accordion
-            items={faqs.map(faq => ({
+            items={mockFaqs.map(faq => ({
               title: faq.question,
               body: faq.answer,
             }))}
