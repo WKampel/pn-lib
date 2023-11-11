@@ -1,5 +1,5 @@
-import { ScrollView } from 'react-native'
 import Accordion from '../components/Accordion'
+import Card from '../components/Card'
 import Group from '../components/Group'
 import Screen from '../components/Screen'
 import useQuery from '../hooks/useQuery'
@@ -14,11 +14,27 @@ const PatientFaqsScreen = ({ data: propData }) => {
     { question: 'What do we do?', answer: 'Nothing reallt, We just make sure that you are taken acre of and whatnot.' },
     { question: 'What do we do?', answer: 'Nothing reallt, We just make sure that you are taken acre of and whatnot.' },
     { question: 'What do we do?', answer: 'Nothing reallt, We just make sure that you are taken acre of and whatnot.' },
+    { question: 'What do we do?', answer: 'Nothing reallt, We just make sure that you are taken acre of and whatnot.' },
+    { question: 'What do we do?', answer: 'Nothing reallt, We just make sure that you are taken acre of and whatnot.' },
+    { question: 'What do we do?', answer: 'Nothing reallt, We just make sure that you are taken acre of and whatnot.' },
+    { question: 'What do we do?', answer: 'Nothing reallt, We just make sure that you are taken acre of and whatnot.' },
+    { question: 'What do we do?', answer: 'Nothing reallt, We just make sure that you are taken acre of and whatnot.' },
+    { question: 'What do we do?', answer: 'Nothing reallt, We just make sure that you are taken acre of and whatnot.' },
+    { question: 'What do we do?', answer: 'Nothing reallt, We just make sure that you are taken acre of and whatnot.' },
+    { question: 'What do we do?', answer: 'Nothing reallt, We just make sure that you are taken acre of and whatnot.' },
+    { question: 'What do we do?', answer: 'Nothing reallt, We just make sure that you are taken acre of and whatnot.' },
+    { question: 'What do we do?', answer: 'Nothing reallt, We just make sure that you are taken acre of and whatnot.' },
+    { question: 'What do we do?', answer: 'Nothing reallt, We just make sure that you are taken acre of and whatnot.' },
+    { question: 'What do we do?', answer: 'Nothing reallt, We just make sure that you are taken acre of and whatnot.' },
+    { question: 'What do we do?', answer: 'Nothing reallt, We just make sure that you are taken acre of and whatnot.' },
+    { question: 'What do we do?', answer: 'Nothing reallt, We just make sure that you are taken acre of and whatnot.' },
+    { question: 'What do we do?', answer: 'Nothing reallt, We just make sure that you are taken acre of and whatnot.' },
+    { question: 'What do we do?', answer: 'Nothing reallt, We just make sure that you are taken acre of and whatnot.' },
   ]
 
   return (
     <Screen>
-      <ScrollView>
+      <Card scroll>
         <Group>
           <Accordion
             items={mockFaqs.map(faq => ({
@@ -27,7 +43,7 @@ const PatientFaqsScreen = ({ data: propData }) => {
             }))}
           />
         </Group>
-      </ScrollView>
+      </Card>
     </Screen>
   )
 }
