@@ -1,5 +1,6 @@
 import { AntDesign } from '@expo/vector-icons'
 import { Text, View } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import useMe from '../../hooks/useMe'
 import usePractice from '../../hooks/usePractice'
 import useStyles from '../../hooks/useStyles'
@@ -7,11 +8,12 @@ import Image from '../Image'
 
 const PracticeDrawerHeader = () => {
   const practice = usePractice()
+  const insets = useSafeAreaInsets()
 
   const styles = useStyles(styleConfig)
 
   return (
-    <View style={styles.header}>
+    <View style={[styles.header, { paddingTop: insets.top }]}>
       <Image contentFit='contain' style={styles.logo} source={practice?.logo?.url} />
       <View style={styles.content}>
         <Text style={styles.practiceName}>{practice?.name}</Text>
