@@ -5,7 +5,7 @@ import OptionalScroll from './OptionalScroll'
 const Card = ({ children, style, scroll = false, hideBorderOnMobile = true }) => {
   const mobile = useIsMobile()
 
-  const styles = useStyles(styleConfig, { hiddenBorder: hideBorderOnMobile && mobile })
+  const styles = useStyles(styleConfig, { hiddenBorder: hideBorderOnMobile && mobile, mobile })
 
   return (
     <OptionalScroll scroll={scroll} scrollViewStyle={styles.scrollView} containerStyle={[styles.container, style]}>
@@ -32,6 +32,14 @@ const styleConfig = {
     true: {
       container: {
         borderWidth: 0,
+      },
+    },
+  },
+  mobile: {
+    true: {
+      scrollView: {
+        padding: '$spacing-s',
+        gap: '$spacing-s',
       },
     },
   },

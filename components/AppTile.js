@@ -1,18 +1,16 @@
 import { useNavigation } from '@react-navigation/native'
 import { cloneElement } from 'react'
-import { Text, TouchableOpacity, View } from 'react-native'
+import { Text, TouchableOpacity } from 'react-native'
 import useStyles from '../hooks/useStyles'
 
-const AppTile = ({ to, title, icon }) => {
+const AppTile = ({ to, title, icon, style }) => {
   const nav = useNavigation()
   const styles = useStyles(styleConfig)
 
   return (
-    <TouchableOpacity onPress={() => nav.navigate(to)} style={styles.appTile}>
-      <View style={styles.homeTile}>
-        {icon && cloneElement(icon, { size: styles.icon.size, color: styles.icon.color })}
-        <Text style={styles.title}>{title}</Text>
-      </View>
+    <TouchableOpacity onPress={() => nav.navigate(to)} style={[styles.appTile, style]}>
+      {icon && cloneElement(icon, { size: styles.icon.size, color: styles.icon.color })}
+      <Text style={styles.title}>{title}</Text>
     </TouchableOpacity>
   )
 }
@@ -20,17 +18,12 @@ const AppTile = ({ to, title, icon }) => {
 const styleConfig = {
   base: {
     appTile: {
-      width: '50%',
-      padding: '$spacing-xs',
-    },
-    homeTile: {
-      padding: '$spacing-m',
       borderRadius: '$radius-xs',
       alignItems: 'center',
-      height: 100,
-      overflow: 'hidden',
+      justifyContent: 'center',
       backgroundColor: '$color-ui-primary',
       gap: '$spacing-s',
+      flex: 1,
     },
     title: {
       color: '$color-text-on-primary',
@@ -40,7 +33,7 @@ const styleConfig = {
       textTransform: 'uppercase',
     },
     icon: {
-      size: 40,
+      size: '$size-m',
       color: '$color-text-on-primary',
     },
   },
