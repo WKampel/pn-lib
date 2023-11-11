@@ -11,7 +11,7 @@ const PracticeCard = ({ name, slogan, children, logoUrl, onPress }) => {
       <Image style={styles.icon} source={logoUrl} />
 
       <View style={styles.body}>
-        <View>
+        <View style={{ flexShrink: 1 }}>
           <Text>{name}</Text>
           <Text>{slogan}</Text>
         </View>
@@ -34,6 +34,7 @@ const styleConfig = {
     },
     body: {
       gap: '$spacing-s',
+      flex: 1,
     },
   },
 }
