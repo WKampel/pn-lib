@@ -4,6 +4,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import useMe from '../../hooks/useMe'
 import usePractice from '../../hooks/usePractice'
 import useStyles from '../../hooks/useStyles'
+import mobileStyles from '../../utils/mobileStyles'
 import Image from '../Image'
 
 const PracticeDrawerHeader = () => {
@@ -13,7 +14,7 @@ const PracticeDrawerHeader = () => {
   const styles = useStyles(styleConfig)
 
   return (
-    <View style={[styles.header, { paddingTop: insets.top }]}>
+    <View style={[styles.header, mobileStyles({ paddingTop: insets.top })]}>
       <Image contentFit='contain' style={styles.logo} source={practice?.logo?.url} />
       <View style={styles.content}>
         <Text style={styles.practiceName}>{practice?.name}</Text>
