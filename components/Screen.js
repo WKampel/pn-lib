@@ -1,11 +1,11 @@
-import { Platform, View } from 'react-native'
-import useIsPhoneEmulator from '../hooks/useIsPhoneEmulator'
+import { View } from 'react-native'
+import useIsMobile from '../hooks/useIsMobile'
 import useStyles from '../hooks/useStyles'
 
 const Screen = ({ children, style }) => {
-  const isPhoneEmulator = useIsPhoneEmulator()
+  const mobile = useIsMobile()
 
-  const styles = useStyles(styleConfig, { OS: Platform.OS, phone: Platform.OS === 'mobile' || isPhoneEmulator })
+  const styles = useStyles(styleConfig, { mobile })
 
   return <View style={[styles, style]}>{children}</View>
 }
@@ -18,7 +18,7 @@ const styleConfig = {
     padding: '$spacing-l',
     maxWidth: 1300,
   },
-  phone: {
+  mobile: {
     true: {
       padding: 0,
       maxWidth: 'unset',

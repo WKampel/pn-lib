@@ -1,11 +1,11 @@
-import useIsPhoneEmulator from '../hooks/useIsPhoneEmulator'
+import useIsMobile from '../hooks/useIsMobile'
 import useStyles from '../hooks/useStyles'
 import OptionalScroll from './OptionalScroll'
 
 const Card = ({ children, style, scroll = false }) => {
-  const isPhoneEmulator = useIsPhoneEmulator()
+  const mobile = useIsMobile()
 
-  const styles = useStyles(styleConfig, { phone: Platform.OS === 'mobile' || isPhoneEmulator })
+  const styles = useStyles(styleConfig, { mobile })
 
   return (
     <OptionalScroll scroll={scroll} scrollViewStyle={styles.scrollView} containerStyle={[styles.container, style]}>
@@ -28,7 +28,7 @@ const styleConfig = {
       flexGrow: 0,
     },
   },
-  phone: {
+  mobile: {
     true: {
       container: {
         borderWidth: 0,
