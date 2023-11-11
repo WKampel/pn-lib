@@ -1,12 +1,11 @@
 import { useNavigation } from '@react-navigation/native'
 import React from 'react'
-import { Pressable, StyleSheet, Text, View } from 'react-native'
-import { useBranding } from '../contexts/Branding'
-import { mobileStyles } from '../libs/utils'
-import Icon from './Icon'
+import { View } from 'react-native'
+import useStyles from '../hooks/useStyles'
+import Button from './Button'
 
-const BarSwitcher = ({ items, active, variants }) => {
-  const { brandingStyles, colors } = useBranding('barSwitcher', variants)
+const BarSwitcher = ({ style, items, active }) => {
+  const styles = useStyles(styleConfig)
   const nav = useNavigation()
 
   const onPress = item => {
@@ -16,37 +15,25 @@ const BarSwitcher = ({ items, active, variants }) => {
   }
 
   return (
-    <View style={[brandingStyles.container, styles.barSwitcher]}>
+    <View style={[styles.barSwitcher, style]}>
       {items.map(item => (
-        <Pressable
-          key={item.name}
-          onPress={() => onPress(item)}
-          style={[brandingStyles.item, styles.item, active === item.name && { borderColor: colors.primary, opacity: 1 }]}
-        >
-          {item.icon ? (
-            <Icon color={brandingStyles.text.color} set={item.icon.set} name={item.icon.name} size={brandingStyles.text.fontSize} />
-          ) : null}
-          <Text style={brandingStyles.text}>{item.name}</Text>
-        </Pressable>
+        <Item key={item.name} activated={active === item.name} name={item.name} icon={item.icon} onPress={() => onPress(item)} />
       ))}
     </View>
   )
 }
 
-const styles = StyleSheet.create({
-  barSwitcher: {
-    flexDirection: 'row',
-    marginBottom: 20,
+const Item = ({ icon, name, activated, onPress }) => {
+  return <Button size='s' kind={activated ? 'primary' : 'secondary'} text={name} icon={icon} onPress={onPress} />
+}
+const styleConfig = {
+  base: {
+    barSwitcher: {
+      flexDirection: 'row',
+      gap: '$spacing-s',
+      overflow: 'hidden',
+    },
   },
-  item: {
-    flexDirection: 'row',
-    gap: 5,
-    alignItems: 'center',
-    ...mobileStyles({
-      flex: 1,
-      justifyContent: 'center',
-    }),
-  },
-})
+}
 
 export default BarSwitcher

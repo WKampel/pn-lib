@@ -1,30 +1,41 @@
-import { StyleSheet, Text, View, useWindowDimensions } from 'react-native'
-import BackButton from './BackButton'
+import { Text, View, useWindowDimensions } from 'react-native'
+import useStyles from '../hooks/useStyles'
+import Button from './Button'
 import OpenDrawerButton from './OpenDrawerButton'
 
-const Header = props => {
+const Header = ({ options, route }) => {
   const dimensions = useWindowDimensions()
+  const isMobile = dimensions.width < 900
+  const styles = useStyles(styleConfig, [isMobile && 'mobile'])
 
   return (
-    <View style={[styles.header, dimensions.width < 900 ? styles.mobileHeader : styles.webHeader]}>
-      {props.options?.back ? <BackButton to={props.options?.back} /> : null}
-      <Text style={styles.title}>{props.options?.title || props.route.name}</Text>
-      {dimensions.width < 900 ? <OpenDrawerButton /> : <View />}
+    <View style={styles.header}>
+      {options?.back ? <Button size='s' kind='secondary' to={options?.back} text='Back' /> : null}
+      <Text style={styles.title}>{options?.title || route.name}</Text>
+      {isMobile ? <OpenDrawerButton /> : <View />}
     </View>
   )
 }
 
 export default Header
 
-const styles = StyleSheet.create({
-  header: {
-    padding: 15,
+const styleConfig = {
+  base: {
+    header: {
+      flexDirection: 'row',
+      gap: '$spacing-m',
+      padding: '$spacing-l',
+      paddingBottom: 0,
+      alignItems: 'center',
+    },
+    title: {
+      fontSize: '$font-size-l',
+      fontWeight: '$weight-semi-heavy',
+    },
   },
-  mobileHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+  mobile: {
+    header: {
+      justifyContent: 'space-between',
+    },
   },
-  title: {
-    fontSize: 22,
-  },
-})
+}

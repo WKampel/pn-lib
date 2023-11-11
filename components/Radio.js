@@ -1,30 +1,35 @@
-import { View } from 'react-native'
-import { styled } from '../libs/wakui'
+import { Text, View } from 'react-native'
+import useStyles from '../hooks/useStyles'
 import CheckBox from './CheckBox'
-import Label from './Label'
 
-const Radio = styled(
-  'radio',
-  ({
-    style,
-    label,
-    value,
-    onChange,
-    options = [],
-    getValue = option => (option ? option.value : ''),
-    getLabel = option => (option ? option.label : ''),
-  } = {}) => {
-    return (
-      <View style={style}>
-        {label && <Label>{label}</Label>}
-        {options.map((option, i) => {
-          const selected = value === getValue(option)
-          const label = getLabel(option, i)
-          return <CheckBox key={i} $round value={selected} onChange={onChange?.bind(null, getValue(option))} label={label} />
-        })}
-      </View>
-    )
-  }
-)
+const Radio = ({
+  label,
+  value: valueProp,
+  onChange,
+  options = [],
+  getValue = option => (option ? option.value : ''),
+  getLabel = option => (option ? option.label : ''),
+} = {}) => {
+  const styles = useStyles(styleConfig)
+  return (
+    <View style={styles.container}>
+      {label && <Text style={styles.label}>{label}</Text>}
+      {options.map((option, i) => {
+        const selected = valueProp === getValue(option)
+        const label = getLabel(option, i)
+        const value = getValue(option)
+        return <CheckBox key={i} round value={selected} onChange={() => onChange(value)} label={label} />
+      })}
+    </View>
+  )
+}
+
+const styleConfig = {
+  base: {
+    container: {
+      gap: '$spacing-s',
+    },
+  },
+}
 
 export default Radio

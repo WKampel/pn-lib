@@ -1,37 +1,60 @@
-import { useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
-function useOrderedData(initialData, idKey = 'id') {
-  const [orderedData, setOrderedData] = useState(initialData)
+function useOrderedData(initialValue, idKey = 'id') {
+  const [originalData, setOriginalData] = useState(initialValue || [])
+  const [orderedData, setOrderedData] = useState(initialValue || [])
+  const [modified, setModified] = useState(false)
 
-  const moveUp = item => {
-    const index = orderedData.findIndex(_item => _item[idKey] === item[idKey])
-    if (index === -1) return
-    if (index > 0) {
-      const updatedData = [...orderedData]
-      const temp = updatedData[index - 1]
-      updatedData[index - 1] = updatedData[index]
-      updatedData[index] = temp
-      setOrderedData(updatedData)
-    }
-  }
+  useEffect(() => {
+    setModified(JSON.stringify(originalData) !== JSON.stringify(orderedData))
+  }, [originalData, orderedData])
 
-  const moveDown = item => {
-    const index = orderedData.findIndex(_item => _item[idKey] === item[idKey])
-    if (index === -1) return
-    if (index < orderedData.length - 1) {
-      const updatedData = [...orderedData]
-      const temp = updatedData[index + 1]
-      updatedData[index + 1] = updatedData[index]
-      updatedData[index] = temp
-      setOrderedData(updatedData)
-    }
-  }
+  const move = useCallback(
+    (index, direction) => {
+      setOrderedData(currentData => {
+        const newIndex = index + direction
+        // Check if the new index is within the array bounds
+        if (newIndex < 0 || newIndex >= currentData.length) return currentData
 
-  const resetOrder = newData => {
-    setOrderedData(newData)
-  }
+        // Create a new array for immutability
+        const updatedData = [...currentData]
+        // Swap the elements using destructuring assignment
+        ;[updatedData[index], updatedData[newIndex]] = [updatedData[newIndex], updatedData[index]]
+        return updatedData
+      })
+    },
+    [setOrderedData]
+  )
 
-  return { orderedData, moveUp, moveDown, resetOrder, setOrderedData }
+  const moveUp = useCallback(
+    item => {
+      const index = orderedData.findIndex(_item => _item[idKey] === item[idKey])
+      if (index > 0) {
+        move(index, -1)
+      }
+    },
+    [orderedData, idKey, move]
+  )
+
+  const moveDown = useCallback(
+    item => {
+      const index = orderedData.findIndex(_item => _item[idKey] === item[idKey])
+      if (index !== -1 && index < orderedData.length - 1) {
+        move(index, 1)
+      }
+    },
+    [orderedData, idKey, move]
+  )
+
+  const setData = useCallback(
+    data => {
+      setOriginalData(data)
+      setOrderedData(data)
+    },
+    [setOriginalData, setOrderedData]
+  )
+
+  return { orderedData, moveUp, moveDown, setData, modified }
 }
 
 export default useOrderedData

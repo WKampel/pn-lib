@@ -1,5 +1,0 @@
-{
-  "$label-base-color-text": "$color-text-on-surface-subtle",
-  "$label-base-font-size": "$font-size-s",
-  "$label-xs-font-size": "$font-size-xs"
-}

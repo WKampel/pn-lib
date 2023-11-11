@@ -1,11 +1,8 @@
 import moment from 'moment'
 import { createElement, useEffect, useState } from 'react'
-import { StyleSheet, View } from 'react-native'
-import { useBranding } from '../contexts/Branding'
-import BorderLabel from './BorderLabel'
+import { View } from 'react-native'
 
-const TimeInput = ({ onChange, value, label }) => {
-  const { brandingStyles } = useBranding('textInput')
+const TimeInput = ({ style, value, onChange, label }) => {
   const [time, setTime] = useState('')
 
   useEffect(() => {
@@ -22,11 +19,10 @@ const TimeInput = ({ onChange, value, label }) => {
 
   return (
     <View style={{ flex: 1 }}>
-      {label && <BorderLabel label={label} backgroundColor={brandingStyles.input.backgroundColor} color='gray' />}
       {createElement('input', {
         type: 'time',
-        style: { ...brandingStyles.input, ...styles.input },
-        value: time,
+        style: { ...style, borderStyle: 'solid', boxSizing: 'border-box', paddingHorizontal: 15 },
+        value: date,
         onChange: e => setTime(e.target.value),
       })}
     </View>
@@ -34,9 +30,3 @@ const TimeInput = ({ onChange, value, label }) => {
 }
 
 export default TimeInput
-
-const styles = StyleSheet.create({
-  input: {
-    boxSizing: 'border-box',
-  },
-})

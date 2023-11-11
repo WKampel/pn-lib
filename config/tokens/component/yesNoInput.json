@@ -1,8 +1,0 @@
-{
-  "$yes-no-input-base-color-border": "$color-border-on-surface",
-  "$yes-no-input-base-color-border-focused": "$color-ui-primary",
-  "$yes-no-input-base-color-border-hovered": "$color-border-on-surface-intense",
-  "$yes-no-input-base-radius": "$radius-xs",
-  "$yes-no-input-base-size-height": "$size-l",
-  "$yes-no-input-base-spacing-padding-horizontal": "$spacing-s"
-}

@@ -1,48 +1,53 @@
-import { useQuery as useQueryGraphQL } from '@apollo/client'
+import { useQuery as apolloUseQuery } from '@apollo/client'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { useEffect } from 'react'
-import { useNotification } from '../contexts/Notification'
+import useNotification from './useNotification'
 
-const useQuery = (query, variables, config) => {
+const useQuery = (query, config = {}) => {
   const nav = useNavigation()
   const isFocused = useIsFocused()
-
   const { notify } = useNotification()
+  const { variables, skip, redirectOnSuccess, onSuccess, onError, displayError } = config
 
-  const { loading, error, data, refetch } = useQueryGraphQL(query, {
-    variables,
+  const { loading, error, data, refetch, called } = apolloUseQuery(query, {
     notifyOnNetworkStatusChange: true,
-    skip: config?.skip,
+    variables,
+    fetchPolicy: 'cache-and-network',
+    skip,
     onCompleted: data => {
-      if (isFocused) {
-        if (config?.onSuccess) config.onSuccess(data)
-        if (config?.redirectOnSuccess) nav.navigate(options.redirectOnSuccess)
+      try {
+        // on success
+        if (onSuccess) onSuccess(data)
+
+        // redirect on success
+        if (redirectOnSuccess) nav.navigate(redirectOnSuccess)
+      } catch (e) {
+        console.log('Error:', e)
       }
     },
     onError: e => {
-      if (isFocused) {
-        if (config?.alertError) alert(e?.message)
-        if (config?.onError) config.onError()
+      // on error
+      if (onError) onError()
 
-        for (const _error of e?.graphQLErrors) {
-          if (config?.displayError) {
-            notify({ title: _error.extensions?.code, body: _error.message, type: 'error' })
-          }
+      // display error
+      if (displayError) {
+        for (const e of e?.graphQLErrors) {
+          notify({ title: e.extensions?.code, body: e.message, type: 'error' })
         }
       }
     },
   })
 
   useEffect(() => {
-    if (isFocused && !config?.skip) {
+    if (isFocused && !skip && !loading) {
       refetch()
     }
-  }, [isFocused, config?.skip])
+  }, [isFocused, skip])
 
   return {
     loading,
     error,
-    data: data,
+    data,
     exec: refetch,
   }
 }

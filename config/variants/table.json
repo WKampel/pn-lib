@@ -1,6 +1,0 @@
-{
-  "base": {
-    "fontSize": "$h-base-size-font",
-    "fontWeight": "$h-base-font-weight"
-  }
-}

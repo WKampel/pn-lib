@@ -1,8 +1,0 @@
-{
-  "$editor-base-color-border": "$color-border-on-surface",
-  "$editor-base-color-border-focused": "$color-ui-primary",
-  "$editor-base-color-border-hovered": "$color-border-on-surface-intense",
-  "$editor-base-radius": "$radius-xs",
-  "$editor-base-size-height": "$size-l",
-  "$editor-base-spacing-padding-horizontal": "$spacing-s"
-}

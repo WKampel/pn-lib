@@ -1,8 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import * as SecureStore from 'expo-secure-store'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Platform } from 'react-native'
-import useState from './useState'
 
 const getItem = async key => {
   const value = Platform.OS === 'web' ? await AsyncStorage.getItem(key) : await SecureStore.getItemAsync(key)
@@ -15,22 +14,23 @@ const saveItem = async (key, value) => {
 }
 
 const useStorage = key => {
-  const item = useState(undefined)
+  const [item, setItem] = useState(undefined)
 
   useEffect(() => {
     getItem(key).then(val => {
-      item.set(val || null)
+      setItem(val || null)
     })
   }, [])
 
-  return {
-    val: item.val,
-    set: val => {
+  return [
+    item,
+    val => {
       if (!val) val = ''
       saveItem(key, val)
-      item.set(val)
+      setItem(val)
     },
-  }
+    item === undefined, // Loading
+  ]
 }
 
 export default useStorage

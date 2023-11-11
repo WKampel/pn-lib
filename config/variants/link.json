@@ -1,9 +1,0 @@
-{
-  "base": {
-    "alignItems": "center",
-    "color": "$link-base-color-text",
-    "display": "flex",
-    "fontSize": "$link-base-font-size",
-    "gap": 10
-  }
-}

@@ -138,25 +138,25 @@ export const dentalset6 = {
 }
 
 export const DentalSet1 = props => {
-  return <Image style={{ width: props.size, height: props.size }} src={dentalset1[props.name]} />
+  return <Image style={{ width: props.size, height: props.size }} source={dentalset1[props.name]} />
 }
 
 export const DentalSet2 = props => {
-  return <Image style={{ width: props.size, height: props.size }} src={dentalset2[props.name]} />
+  return <Image style={{ width: props.size, height: props.size }} source={dentalset2[props.name]} />
 }
 
 export const DentalSet3 = props => {
-  return <Image style={{ width: props.size, height: props.size }} src={dentalset3[props.name]} />
+  return <Image style={{ width: props.size, height: props.size }} source={dentalset3[props.name]} />
 }
 
 export const DentalSet4 = props => {
-  return <Image style={{ width: props.size, height: props.size }} src={dentalset4[props.name]} />
+  return <Image style={{ width: props.size, height: props.size }} source={dentalset4[props.name]} />
 }
 
 export const DentalSet5 = props => {
-  return <Image style={{ width: props.size, height: props.size }} src={dentalset5[props.name]} />
+  return <Image style={{ width: props.size, height: props.size }} source={dentalset5[props.name]} />
 }
 
 export const DentalSet6 = props => {
-  return <Image style={{ width: props.size, height: props.size }} src={dentalset6[props.name]} />
+  return <Image style={{ width: props.size, height: props.size }} source={dentalset6[props.name]} />
 }

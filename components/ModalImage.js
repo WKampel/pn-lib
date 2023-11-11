@@ -1,24 +1,26 @@
-import React from 'react'
-import useModal from '../hooks/useModal'
+import { useState } from 'react'
+import { TouchableOpacity } from 'react-native'
 import Image from './Image'
+import Modal from './Modal'
 
-export default ({ src, style }) => {
-  const modal = useModal(
-    <>
-      <Image
-        style={{
-          width: 500,
-          height: 500,
-        }}
-        src={src}
-      />
-    </>
-  )
-
+const ModalImage = ({ source, style }) => {
+  const [modalOpen, setModalOpen] = useState(false)
   return (
     <>
-      {modal.render}
-      <Image onPress={modal.open} style={style} src={src} />
+      <Modal size='auto' isOpen={modalOpen} onClose={() => setModalOpen(false)}>
+        <Image
+          style={{
+            width: 500,
+            height: 500,
+          }}
+          source={source}
+        />
+      </Modal>
+      <TouchableOpacity style={style} onPress={() => setModalOpen(true)}>
+        <Image style={{ width: '100%', height: '100%' }} source={source} />
+      </TouchableOpacity>
     </>
   )
 }
+
+export default ModalImage

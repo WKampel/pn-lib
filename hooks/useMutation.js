@@ -1,38 +1,50 @@
 import { useMutation as useMutationGraphQL } from '@apollo/client'
 import { useNavigation } from '@react-navigation/native'
-import { useNotification } from '../contexts/Notification'
+import useNotification from './useNotification'
 
-const useMutation = (query, config) => {
-  if (!query) return
+const useMutation = (query, { onSuccess, redirectOnSuccess, displaySuccess, onError, displayError = true, refetchQueries, variables } = {}) => {
   const nav = useNavigation()
   const { notify } = useNotification()
 
   const [runMutation, { loading, error, data }] = useMutationGraphQL(query, {
+    variables,
     onCompleted: data => {
-      if (config?.onSuccess) config.onSuccess(data)
-      if (config?.redirectOnSuccess) nav.navigate(config.redirectOnSuccess)
-      if (config?.displaySuccess) notify({ title: typeof config?.displaySuccess === 'string' ? config?.displaySuccess : 'Success', lifeSpan: 3000 })
+      try {
+        // on success
+        if (onSuccess) onSuccess(data)
+
+        // redirect on success
+        if (redirectOnSuccess) nav.navigate(redirectOnSuccess)
+
+        // display success
+        if (displaySuccess) {
+          const title = typeof displaySuccess === 'string' ? displaySuccess : 'Success'
+          notify({ title, lifeSpan: 3000 })
+        }
+      } catch (e) {
+        console.log('Error:', e)
+      }
     },
     onError: e => {
-      if (config?.alertError) alert(e?.message)
-      if (config?.onError) config?.onError(e)
+      // on error
+      if (onError) onError(e)
 
-      for (const _error of e?.graphQLErrors) {
-        if (config?.displayError) {
-          notify({ title: _error.extensions?.code, body: _error.message, type: 'error' })
+      // display error
+      if (displayError && e?.graphQLErrors) {
+        for (const error of e.graphQLErrors) {
+          notify({ body: error.message, type: 'error' })
         }
       }
     },
-    refetchQueries: config?.refetchQueries,
+    refetchQueries,
   })
-
-  const exec = variables => runMutation({ variables: variables || config?.variables })
 
   return {
     loading,
     error,
+    errorField: error?.graphQLErrors?.[0]?.extensions?.field,
     data,
-    exec,
+    exec: runMutation,
   }
 }
 

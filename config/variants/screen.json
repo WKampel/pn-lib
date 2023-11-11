@@ -1,7 +1,0 @@
-{
-  "base": {
-    "flex": 1,
-    "maxWidth": 1300,
-    "padding": "$screen-base-spacing-padding"
-  }
-}
