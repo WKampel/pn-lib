@@ -67,7 +67,7 @@ const styleConfig = {
     },
     tiles: {
       flex: 1,
-      gap: '$spacing-xs',
+      gap: '$spacing-s',
     },
     slogan: {
       textAlign: 'center',
@@ -76,7 +76,7 @@ const styleConfig = {
     row: {
       flexDirection: 'row',
       flex: 1,
-      gap: '$spacing-xs',
+      gap: '$spacing-s',
     },
   },
 }
