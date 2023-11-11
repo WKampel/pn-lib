@@ -1,6 +1,6 @@
-import { ScrollView, Text } from 'react-native'
-import Group from '../components/Group'
-import Link from '../components/Link'
+import { Text } from 'react-native'
+import A from '../components/A'
+import Card from '../components/Card'
 import RegularIcon from '../components/RegularIcon'
 import Screen from '../components/Screen'
 import useQuery from '../hooks/useQuery'
@@ -12,16 +12,14 @@ const PatientReviewLinksScreen = ({ data: propData }) => {
 
   return (
     <Screen>
-      <ScrollView>
-        <Group>
-          <Text>We'd love to hear from you. Leave a review by clicking on the review source below. It will redirect you to that platform!</Text>
-          {reviewLinks.map(link => (
-            <Link key={link.id} to={link.link || ''}>
-              <RegularIcon identifier={link.icon} /> {link.name}
-            </Link>
-          ))}
-        </Group>
-      </ScrollView>
+      <Card scroll>
+        <Text>We'd love to hear from you. Leave a review by clicking on the review source below. It will redirect you to that platform!</Text>
+        {reviewLinks.map(link => (
+          <A key={link.id} href={link.link || ''}>
+            <RegularIcon identifier={link.icon} /> {link.name}
+          </A>
+        ))}
+      </Card>
     </Screen>
   )
 }
