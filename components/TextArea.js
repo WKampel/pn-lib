@@ -11,7 +11,7 @@ const TextArea = ({ containerStyle, disabled, onKeyPress, value, onChange, label
 
   const adjustTextInputSize = evt => {
     const el = evt?.target || evt?.nativeEvent?.target
-    if (el) {
+    if (el && el.style) {
       el.style.height = 0
       const newHeight = el.offsetHeight - el.clientHeight + el.scrollHeight
       el.style.height = `${newHeight}px`
