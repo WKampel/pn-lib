@@ -92,8 +92,6 @@ const styleConfig = {
     secondary: {
       button: {
         backgroundColor: '$color-ui-secondary',
-        borderWidth: 1,
-        borderColor: '$color-border-on-surface-semi-intense',
       },
       text: {
         color: '$color-text-on-surface',

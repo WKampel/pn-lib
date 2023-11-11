@@ -2,7 +2,7 @@
   "$color-bg": "white",
   "$color-bg-surface": "white",
   "$color-bg-surface-alternate": "whitesmoke",
-  "$color-bg-surface-disabled": "rgb(150,150,150)",
+  "$color-bg-surface-disabled": "rgb(220, 220, 220)",
   "$color-bg-surface-emphasis": "rgb(220, 220, 220)",
   "$color-bg-surface-inverse": "#36304a",
   "$color-border-on-surface": "rgb(230, 230, 230)",

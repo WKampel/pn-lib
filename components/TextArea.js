@@ -1,22 +1,12 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import { TextInput as ReactNativeTextInput, Text, TouchableWithoutFeedback, View } from 'react-native'
 import useInteractive from '../hooks/useInteractive'
 import useStyles from '../hooks/useStyles'
 
-const TextArea = ({ containerStyle, disabled, onKeyPress, value, onChange, label, placeholder }) => {
+const TextArea = ({ containerStyle, disabled, onKeyPress, value, onChange, label, placeholder, onChangeRaw, onLayout }) => {
   const inputRef = useRef(null)
   const { hovered, focused, pressed, onMouseEnter, onMouseLeave, onFocus, onBlur } = useInteractive()
   const styles = useStyles(styleConfig, {}, { hovered, focused, pressed })
-  const [height, setHeight] = useState()
-
-  const adjustTextInputSize = evt => {
-    const el = evt?.target || evt?.nativeEvent?.target
-    if (el && el.style) {
-      el.style.height = 0
-      const newHeight = el.offsetHeight - el.clientHeight + el.scrollHeight
-      el.style.height = `${newHeight}px`
-    }
-  }
 
   return (
     <TouchableWithoutFeedback focusable={false} onPressIn={() => inputRef.current?.focus()}>
@@ -26,8 +16,8 @@ const TextArea = ({ containerStyle, disabled, onKeyPress, value, onChange, label
           ref={inputRef}
           value={value}
           onChangeText={onChange}
-          onChange={adjustTextInputSize}
-          onLayout={adjustTextInputSize}
+          onChange={onChangeRaw}
+          onLayout={onLayout}
           placeholder={placeholder || label}
           placeholderTextColor='gray'
           disabled={disabled}
@@ -36,8 +26,7 @@ const TextArea = ({ containerStyle, disabled, onKeyPress, value, onChange, label
           onKeyPress={onKeyPress}
           editable={disabled ? false : true}
           multiline={true}
-          style={[styles.input, { height }]}
-          // onContentSizeChange={event => setHeight(event.nativeEvent.contentSize.height)}
+          style={styles.input}
         />
       </View>
     </TouchableWithoutFeedback>
