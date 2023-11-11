@@ -46,7 +46,7 @@ const styleConfig = {
         borderColor: '$color-ui-primary',
       },
       borderRadius: '$radius-xs',
-      padding: '$spacing-s',
+      paddingHorizontal: '$spacing-s',
     },
     input: {
       fontSize: '$font-size-xs',
