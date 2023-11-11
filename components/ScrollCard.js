@@ -1,4 +1,4 @@
-import { ScrollView } from 'react-native'
+import { Platform, ScrollView } from 'react-native'
 import useStyles from '../hooks/useStyles'
 
 const ScrollCard = ({ children, style }) => {
@@ -18,7 +18,7 @@ const styleConfig = {
       gap: '$spacing-l',
     },
     container: {
-      borderWidth: 1,
+      borderWidth: Platform.OS === 'web' && 1,
       borderColor: '$color-border-on-surface',
       borderRadius: '$radius-s',
       backgroundColor: '$color-bg-surface',

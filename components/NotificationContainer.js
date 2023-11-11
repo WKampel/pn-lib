@@ -1,4 +1,4 @@
-import { ScrollView } from 'react-native'
+import { Platform, ScrollView } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import useStyles from '../hooks/useStyles'
 
@@ -16,7 +16,7 @@ const NotificationContainer = ({ children }) => {
 const styleConfig = {
   base: {
     right: 0,
-    position: 'fixed',
+    position: Platform.OS === 'web' ? 'fixed' : 'absolute',
     width: '100%',
     maxHeight: '100%',
     maxWidth: 450,
