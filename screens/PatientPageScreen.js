@@ -8,11 +8,10 @@ import Card from '../components/Card'
 const PatientPageScreen = ({ data = {} }) => {
   // const { data: queryData } = useQuery(GET_PAGE, { variables: { id, name }, displayError: true })
   // const data = propData || queryData?.page || {}
-  const insets = useSafeAreaInsets()
 
   return (
     <Screen>
-      <Card style={{ paddingBottom: insets.bottom }} scroll>
+      <Card scroll style={{ flexGrow: 1 }}>
         {data?.fields?.map(field => (
           <PageField key={field.id} field={field} />
         ))}

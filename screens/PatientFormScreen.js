@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Text, View } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import Button from '../components/Button'
 import Card from '../components/Card'
 import FormField from '../components/FormField'
@@ -15,6 +16,8 @@ const PatientFormScreen = ({ id, data, onSubmit }) => {
   const [responses, setResponses] = useState({})
 
   const styles = useStyles(styleConfig)
+
+  const insets = useSafeAreaInsets()
 
   useEffect(() => {
     setFields(data.fields)

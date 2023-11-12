@@ -1,6 +1,6 @@
 {
   "$color-danger": "rgb(220, 80, 80)",
-  "$color-info": "#69b4f5",
+  "$color-info": "#739ec9",
   "$color-success": "#84c973",
   "$font-size-l": 20,
   "$font-size-m": 17,

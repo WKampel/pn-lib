@@ -18,7 +18,7 @@
   "$color-text-on-surface": "black",
   "$color-text-on-surface-inverse": "white",
   "$color-text-on-surface-subtle": "darkgray",
-  "$color-ui-primary": "#69b4f5",
+  "$color-ui-primary": "#739ec9",
   "$color-ui-secondary": "rgb(230, 230, 230)",
   "$opacity-hovered": ".85",
   "$opacity-pressed": ".7"
