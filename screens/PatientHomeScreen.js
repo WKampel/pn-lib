@@ -1,4 +1,4 @@
-import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons'
+import { AntDesign, Entypo, MaterialCommunityIcons } from '@expo/vector-icons'
 import { Text, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import AppTile from '../components/AppTile'
@@ -29,7 +29,7 @@ const PatientHomeScreen = () => {
           </Row>
 
           <Row>
-            <AppTile to='ContactUs' icon={<AntDesign name='phone' />} title='CONTACT US' />
+            <AppTile to='Announcements' icon={<Entypo name='megaphone' />} title='ANNOUNCEMENTS' />
             <AppTile to='Services' icon={<MaterialCommunityIcons name='tooth-outline' />} title='SERVICES' />
           </Row>
 

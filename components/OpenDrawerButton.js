@@ -4,7 +4,9 @@ import useDrawer from '../hooks/useDrawer'
 import useStyles from '../hooks/useStyles'
 
 const OpenDrawerButton = () => {
-  const { setOpen } = useDrawer()
+  const drawer = useDrawer()
+  if (drawer === undefined) return <></>
+  const { setOpen } = drawer
   const styles = useStyles(styleConfig)
 
   return (

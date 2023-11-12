@@ -47,6 +47,7 @@ const styleConfig = {
     },
     content: {
       gap: '$spacing-xs',
+      flex: 1,
     },
     logo: {
       width: 50,

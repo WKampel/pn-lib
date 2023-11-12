@@ -28,7 +28,7 @@ const Patient = ({ gender, firstName, lastName }) => {
   )
 }
 
-const AppointmentCard = ({ desc, startDate, patient, onPress }) => {
+const AppointmentCard = ({ desc, startDate, patient, onPress, children }) => {
   const styles = useStyles(styleConfig)
 
   return (
@@ -36,6 +36,7 @@ const AppointmentCard = ({ desc, startDate, patient, onPress }) => {
       <Group style={{ flex: 1 }} spacing='xs'>
         <Text style={styles.date}>{formatDateDisplay(startDate)}</Text>
         <Text style={styles.desc}>{desc}</Text>
+        {children}
       </Group>
       <Patient gender={patient?.gender} firstName={patient?.firstName} lastName={patient?.lastName} />
     </TouchableCard>
