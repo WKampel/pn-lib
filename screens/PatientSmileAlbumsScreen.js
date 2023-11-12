@@ -1,6 +1,5 @@
 import { useNavigation } from '@react-navigation/native'
-import { ScrollView } from 'react-native'
-import Group from '../components/Group'
+import Card from '../components/Card'
 import Screen from '../components/Screen'
 import SmileAlbumCard from '../components/SmileAlbumCard'
 import useQuery from '../hooks/useQuery'
@@ -14,13 +13,11 @@ const SmileAlbumsScreen = ({}) => {
 
   return (
     <Screen>
-      <ScrollView>
-        <Group>
-          {smileAlbums.map(smileAlbum => (
-            <SmileAlbumCard name={smileAlbum.name} desc={smileAlbum.desc} icon={smileAlbum.icon} onPress={() => nav.navigate('ViewSmileAlbum', { id: smileAlbum.id })} />
-          ))}
-        </Group>
-      </ScrollView>
+      <Card scroll style={{ flexGrow: 1 }}>
+        {smileAlbums.map(smileAlbum => (
+          <SmileAlbumCard name={smileAlbum.name} desc={smileAlbum.desc} icon={smileAlbum.icon} onPress={() => nav.navigate('SmileAlbum', { id: smileAlbum.id })} />
+        ))}
+      </Card>
     </Screen>
   )
 }

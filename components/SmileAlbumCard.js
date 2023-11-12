@@ -6,7 +6,7 @@ const SmileAlbumCard = ({ name, onPress }) => {
   const styles = useStyles(styleConfig)
 
   return (
-    <TouchableCard style={styles.practiceCard} onPress={onPress}>
+    <TouchableCard hideBorderOnMobile={false} style={styles.practiceCard} onPress={onPress}>
       <Text>{name}</Text>
     </TouchableCard>
   )
