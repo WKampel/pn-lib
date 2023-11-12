@@ -13,7 +13,7 @@ import Spinner from './Spinner'
 const MAX_WIDTH = 512
 const MAX_HEIGHT = 512
 
-const ImageInput = ({ label = 'Upload Image', onChange, value = {}, camera, transformUri }) => {
+const ImageInput = ({ style, label = 'Upload Image', onChange, value = {}, camera, transformUri }) => {
   const [cameraPermissionStatus, requestPermission] = ImagePicker.useCameraPermissions()
 
   const { hovered, interactiveEvents } = useInteractive()
@@ -80,7 +80,7 @@ const ImageInput = ({ label = 'Upload Image', onChange, value = {}, camera, tran
   }
 
   return (
-    <TouchableOpacity {...interactiveEvents} disabled={createFile.loading} style={styles.imageInput} onPress={onPress}>
+    <TouchableOpacity {...interactiveEvents} disabled={createFile.loading} style={[styles.imageInput, style]} onPress={onPress}>
       <View>{createFile.loading ? <Spinner /> : <Button size='s' kind='secondary' text={label} onPress={onPress} />}</View>
 
       {value?.url && <Image style={styles.image} source={value?.url} />}
@@ -92,6 +92,7 @@ const styleConfig = {
   base: {
     imageInput: {
       width: 200,
+      aspectRatio: 1,
       borderWidth: 1,
       borderColor: '$color-border-on-surface',
       borderStyle: 'dashed',
@@ -104,7 +105,7 @@ const styleConfig = {
     },
     image: {
       width: '100%',
-      aspectRatio: 1,
+      flex: 1,
       borderRadius: '$radius-s',
     },
   },

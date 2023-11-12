@@ -9,7 +9,7 @@ const Option = ({ type, value, onChange }) => {
 
   return (
     <TouchableOpacity style={styles.option} onPress={() => onChange(type)}>
-      <Text style={styles.text}>Yes</Text>
+      <Text style={styles.text}>{type === 'yes' ? 'Yes' : 'No'}</Text>
     </TouchableOpacity>
   )
 }
