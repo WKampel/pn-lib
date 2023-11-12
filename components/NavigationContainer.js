@@ -11,7 +11,7 @@ const theme = {
   },
 }
 
-const NavigationContainer = ({ linking, children }) => {
+const NavigationContainer = ({ linking, children, initialState }) => {
   const navRef = useNavigationContainerRef()
   const [currentRoute, setCurrentRoute] = useState(null)
 
@@ -20,6 +20,7 @@ const NavigationContainer = ({ linking, children }) => {
       theme={theme}
       ref={navRef}
       linking={linking}
+      initialState={initialState}
       onStateChange={() => {
         setCurrentRoute(navRef.getCurrentRoute())
       }}
