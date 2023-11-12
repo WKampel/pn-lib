@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Text, View } from 'react-native'
 import Button from '../components/Button'
+import Card from '../components/Card'
 import FormField from '../components/FormField'
 import Group from '../components/Group'
 import Screen from '../components/Screen'
