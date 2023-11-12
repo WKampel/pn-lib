@@ -17,7 +17,7 @@ const Message = ({ body, createdAt, from }) => {
   return (
     <View style={styles.message}>
       <Text style={styles.text}>{body}</Text>
-      <Text style={styles.text}>{moment(createdAt).format('ddd, MMM D YYYY, h:mm A')}</Text>
+      {createdAt ? <Text style={styles.text}>{moment(createdAt).format('ddd, MMM D YYYY, h:mm A')}</Text> : null}
     </View>
   )
 }
