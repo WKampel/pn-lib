@@ -1,4 +1,4 @@
-import FieldTypes from '../../../components/forms/FormForm/FieldTypes'
+import FieldTypes from '../../config/FieldTypes'
 import FormFieldDate from './fieldTypes/FormFieldDate'
 import FormFieldLongText from './fieldTypes/FormFieldLongText'
 import FormFieldRadio from './fieldTypes/FormFieldRadio'
