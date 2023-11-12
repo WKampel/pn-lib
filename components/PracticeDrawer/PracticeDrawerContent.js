@@ -28,9 +28,15 @@ const PracticeDrawerContent = ({ switchPractice, items = [] }) => {
           if (item.to) nav.navigate(item.to)
         }
 
-        const isFocused = item.to === currentRoute?.name || item.owns?.includes(currentRoute?.name)
+        let isFocused
+        if (item.getIsFocused) {
+          isFocused = item.getIsFocused(currentRoute)
+        } else {
+          // Check name of route or if route is owned by this item
+          isFocused = item.to === currentRoute?.name || item.owns?.includes(currentRoute?.name)
+        }
 
-        return <PracticeDrawerItem key={i} icon={item.icon} label={item.label} onPress={onPress} style={{ color: item.color }} isFocused={isFocused} />
+        return <PracticeDrawerItem key={i} icon={item.icon} label={item.label} onPress={onPress} color={item.color} isFocused={isFocused} />
       }
     })
   }
@@ -39,14 +45,16 @@ const PracticeDrawerContent = ({ switchPractice, items = [] }) => {
   const switchPracticeItem = {
     label: 'Switch Practice',
     onPress: switchPractice,
-    icon: <AntDesign name='back' size={18} color='rgb(150, 150, 150)' />,
+    icon: <AntDesign name='back' />,
+    color: 'rgb(175,175,175)',
   }
 
   // Sign out item
   const signOutItem = {
     label: 'Sign Out',
     onPress: () => setToken(null),
-    icon: <Feather name='log-out' size={18} color='rgb(150, 150, 150)' />,
+    icon: <Feather name='log-out' />,
+    color: 'rgb(175,175,175)',
   }
 
   // Children

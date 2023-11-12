@@ -17,9 +17,9 @@ const PatientHomeScreen = () => {
   return (
     <Screen style={{ paddingBottom: insets.bottom }}>
       <Card style={{ flexGrow: 1 }}>
-        <Group style={{ alignItems: 'center' }}>
+        <Group spacing='xs' style={{ alignItems: 'center', marginBottom: 10 }}>
           <Image style={styles.logo} source={practice?.logo?.url} />
-          <Text style={styles.slogan}>{practice.slogan} askfj asdkfj asdkjf adskfj asdkjf asdkjfasdkj faskd j</Text>
+          <Text style={styles.slogan}>{practice.slogan}</Text>
         </Group>
 
         <View style={styles.tiles}>
@@ -30,16 +30,16 @@ const PatientHomeScreen = () => {
 
           <Row>
             <AppTile to='ContactUs' icon={<AntDesign name='phone' />} title='CONTACT US' />
-            <AppTile to='ServiceGroup' icon={<MaterialCommunityIcons name='tooth-outline' />} title='SERVICES' />
+            <AppTile to='Services' icon={<MaterialCommunityIcons name='tooth-outline' />} title='SERVICES' />
           </Row>
 
           <Row>
-            <AppTile to='FormGroup' icon={<AntDesign name='form' />} title='FORMS' />
+            <AppTile to='Forms' icon={<AntDesign name='form' />} title='FORMS' />
             <AppTile to='AboutUs' icon={<AntDesign name='infocirlceo' />} title='ABOUT US' />
           </Row>
 
           <Row>
-            <AppTile to='ProfileGroup' icon={<AntDesign name='profile' />} title='PATIENT PROFILE' />
+            <AppTile to='Profile' icon={<AntDesign name='profile' />} title='PATIENT PROFILE' />
             <AppTile to='Review' icon={<AntDesign name='staro' />} title='REVIEW' />
           </Row>
 
@@ -71,7 +71,7 @@ const styleConfig = {
     },
     slogan: {
       textAlign: 'center',
-      fontSize: '$font-size-xs',
+      fontSize: '$font-size-s',
     },
     row: {
       flexDirection: 'row',

@@ -1,5 +1,7 @@
+import { useEffect } from 'react'
 import { useWindowDimensions } from 'react-native'
 import { Drawer } from 'react-native-drawer-layout'
+import useCurrentRoute from '../../hooks/useCurrentRoute'
 import useDrawer from '../../hooks/useDrawer'
 import DrawerProvider from '../../providers/DrawerProvider'
 import PracticeDrawerContent from './PracticeDrawerContent'
@@ -15,6 +17,11 @@ const PracticeDrawer = props => {
 const Inner = ({ switchPractice, items, children }) => {
   const dimensions = useWindowDimensions()
   const { open, setOpen } = useDrawer()
+
+  const route = useCurrentRoute()
+
+  // Close drawer when route changes
+  useEffect(() => setOpen(false), [route])
 
   return (
     <Drawer

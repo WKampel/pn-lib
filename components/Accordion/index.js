@@ -25,9 +25,7 @@ const Accordion = ({ items }) => {
 
 const styleConfig = {
   base: {
-    accordion: {
-      gap: '$spacing-xl',
-    },
+    accordion: {},
   },
 }
 

@@ -2,13 +2,13 @@ import { cloneElement } from 'react'
 import { Text, TouchableOpacity } from 'react-native'
 import useStyles from '../../hooks/useStyles'
 
-const PracticeDrawerItem = ({ icon, label, onPress, isFocused }) => {
+const PracticeDrawerItem = ({ icon, label, onPress, isFocused, color }) => {
   const styles = useStyles(styleConfig, {}, { activated: isFocused })
 
   return (
     <TouchableOpacity style={styles.drawerItem} focusable={false} onPress={onPress}>
-      {icon && cloneElement(icon, { size: styles.label.fontSize, color: styles.label.color })}
-      <Text style={styles.label}>{label}</Text>
+      {icon && cloneElement(icon, { size: styles.label.fontSize, color: color || styles.label.color })}
+      <Text style={[styles.label, color && { color }]}>{label}</Text>
     </TouchableOpacity>
   )
 }

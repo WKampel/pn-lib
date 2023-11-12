@@ -22,13 +22,12 @@ const AccordionItem = ({ title, body, isOpen, setIsOpen }) => {
 
 const styleConfig = {
   base: {
-    item: {
-      gap: '$spacing-s',
-    },
+    item: {},
     header: {
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
+      minHeight: '$size-m',
     },
     title: {
       fontSize: '$font-size-l',
@@ -41,7 +40,8 @@ const styleConfig = {
     },
     body: {
       paddingLeft: '$spacing-s',
-      fontSize: '$font-size-l',
+      fontSize: '$font-size-m',
+      marginBottom: '$spacing-m',
     },
   },
 }

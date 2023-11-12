@@ -1,6 +1,5 @@
 import { useNavigation } from '@react-navigation/native'
-import { ScrollView } from 'react-native'
-import Group from '../components/Group'
+import Card from '../components/Card'
 import Screen from '../components/Screen'
 import ServiceCard from '../components/ServiceCard'
 import useQuery from '../hooks/useQuery'
@@ -14,13 +13,11 @@ const PatientServicesScreen = ({}) => {
 
   return (
     <Screen>
-      <ScrollView>
-        <Group>
-          {services.map(service => (
-            <ServiceCard key={service.id} name={service.name} icon={service.icon} onPress={() => nav.navigate('ViewService', { id: service.id })} />
-          ))}
-        </Group>
-      </ScrollView>
+      <Card scroll>
+        {services.map(service => (
+          <ServiceCard key={service.id} name={service.name} icon={service.icon} onPress={() => nav.navigate('Service', { id: service.id })} />
+        ))}
+      </Card>
     </Screen>
   )
 }

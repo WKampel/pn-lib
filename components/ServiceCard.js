@@ -7,9 +7,9 @@ const ServiceCard = ({ name, icon, onPress }) => {
   const styles = useStyles(styleConfig)
 
   return (
-    <TouchableCard style={styles.practiceCard} onPress={onPress}>
+    <TouchableCard hideBorderOnMobile={false} style={styles.practiceCard} onPress={onPress}>
       <DentalIcon identifier={icon} size={styles.icon.size} />
-      <Text>{name}</Text>
+      <Text style={styles.name}>{name}</Text>
     </TouchableCard>
   )
 }
@@ -19,9 +19,13 @@ const styleConfig = {
     practiceCard: {
       flexDirection: 'row',
       gap: '$spacing-l',
+      alignItems: 'center',
     },
     icon: {
-      size: 25,
+      size: '$size-m',
+    },
+    name: {
+      fontSize: '$font-size-m',
     },
   },
 }
