@@ -6,7 +6,7 @@ import useStyles from '../hooks/useStyles'
 const A = ({ style, children, href, newTab, download }) => {
   const { hovered, pressed, interactiveEvents } = useInteractive()
   const styles = useStyles(styleConfig, [], { hovered, pressed })
-
+  const test = ''
   return (
     <ExpoA {...interactiveEvents} style={[styles, style]} download={download} href={href} target={newTab && '_blank'}>
       {children}
