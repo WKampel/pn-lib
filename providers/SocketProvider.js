@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react'
+import { useFocusEffect } from '@react-navigation/native'
+import React, { useCallback, useState } from 'react'
 import { DeviceEventEmitter } from 'react-native'
 import io from 'socket.io-client'
 import SocketContext from '../contexts/SocketContext'
@@ -8,26 +9,29 @@ const SocketProvider = ({ token, children }) => {
   const [socket, setSocket] = useState(null)
   const practice = usePractice()
 
-  useEffect(() => {
-    const socket = io(process.env.EXPO_PUBLIC_API_URL, {
-      query: { token, app: process.env.EXPO_PUBLIC_APP, practiceId: practice.id },
-    })
+  useFocusEffect(
+    useCallback(() => {
+      const newSocket = io(process.env.EXPO_PUBLIC_API_URL, {
+        query: { token, app: process.env.EXPO_PUBLIC_APP, practiceId: practice.id },
+      })
 
-    setSocket(socket)
+      setSocket(newSocket)
 
-    socket.on('error', e => {
-      console.error('Socket error:' + e)
-    })
+      newSocket.on('error', e => {
+        console.error('Socket error:', e)
+      })
 
-    socket.onAny((event, ...args) => {
-      DeviceEventEmitter.emit('socket event', { type: event, data: args[0] })
-    })
+      newSocket.onAny((event, ...args) => {
+        DeviceEventEmitter.emit('socket event', { type: event, data: args[0] })
+      })
 
-    return () => {
-      socket?.off('error')
-      socket?.offAny()
-    }
-  }, [token, process.env.EXPO_PUBLIC_APP, practice?.id])
+      return () => {
+        newSocket.off('error')
+        newSocket.offAny()
+        newSocket.disconnect()
+      }
+    }, [token, practice.id])
+  )
 
   return <SocketContext.Provider value={{ socket }}>{children}</SocketContext.Provider>
 }
