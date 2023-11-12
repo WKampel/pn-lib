@@ -38,7 +38,7 @@ const styleConfig = {
     server: {
       message: {
         backgroundColor: 'transparent',
-        margin: 'auto',
+        alignSelf: 'center',
       },
       text: {
         color: '$color-text-on-surface',

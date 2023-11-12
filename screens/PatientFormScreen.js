@@ -41,7 +41,7 @@ const PatientFormScreen = ({ id, data, onSubmit }) => {
           ))}
         </Group>
 
-        <Button text='Submit' onPress={onSubmit} />
+        <Button text='Submit' onPress={() => onSubmit(responses)} />
       </Card>
     </Screen>
   )
