@@ -1,23 +1,25 @@
 import { useFocusEffect } from '@react-navigation/native'
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useRef } from 'react'
 import { DeviceEventEmitter } from 'react-native'
 import io from 'socket.io-client'
 import SocketContext from '../contexts/SocketContext'
 import usePractice from '../hooks/usePractice'
 
 const SocketProvider = ({ token, children }) => {
-  const [socket, setSocket] = useState(null)
+  const socketRef = useRef(null)
   const practice = usePractice()
 
   useFocusEffect(
     useCallback(() => {
       if (!practice.id) return
 
+      console.log('ONNING SOCKET')
+
       const newSocket = io(process.env.EXPO_PUBLIC_API_URL, {
         query: { token, app: process.env.EXPO_PUBLIC_APP, practiceId: practice.id },
       })
 
-      setSocket(newSocket)
+      socketRef.current = newSocket
 
       newSocket.on('error', e => {
         console.error('Socket error:', e)
@@ -31,11 +33,13 @@ const SocketProvider = ({ token, children }) => {
         newSocket.off('error')
         newSocket.offAny()
         newSocket.disconnect()
+
+        console.log('OFF SOCKET')
       }
     }, [token, practice.id])
   )
 
-  return <SocketContext.Provider value={{ socket }}>{children}</SocketContext.Provider>
+  return <SocketContext.Provider value={{ socket: socketRef.current }}>{children}</SocketContext.Provider>
 }
 
 export default SocketProvider
