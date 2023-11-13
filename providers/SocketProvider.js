@@ -11,6 +11,8 @@ const SocketProvider = ({ token, children }) => {
 
   useFocusEffect(
     useCallback(() => {
+      if (!practice.id) return
+
       const newSocket = io(process.env.EXPO_PUBLIC_API_URL, {
         query: { token, app: process.env.EXPO_PUBLIC_APP, practiceId: practice.id },
       })
