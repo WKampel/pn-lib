@@ -25,13 +25,13 @@ const useQuery = (query, config = {}) => {
         console.log('Error:', e)
       }
     },
-    onError: e => {
+    onError: err => {
       // on error
       if (onError) onError()
 
       // display error
       if (displayError) {
-        for (const e of e?.graphQLErrors) {
+        for (const e of err?.graphQLErrors) {
           notify({ title: e.extensions?.code, body: e.message, type: 'error' })
         }
       }
