@@ -24,7 +24,6 @@ const SocketProvider = ({ token, children }) => {
       })
 
       newSocket.onAny((event, ...args) => {
-        console.log('Received event')
         DeviceEventEmitter.emit('socket event', { type: event, data: args[0] })
       })
 
