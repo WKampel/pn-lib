@@ -29,7 +29,7 @@ const PatientHomeScreen = () => {
           </Row>
 
           <Row>
-            <AppTile to='Announcements' icon={<Entypo name='megaphone' />} title='ANNOUNCEMENTS' />
+            <AppTile to='AnnouncementPromotion' icon={<Entypo name='megaphone' />} title='ANNOUNCEMENTS' />
             <AppTile to='Services' icon={<MaterialCommunityIcons name='tooth-outline' />} title='SERVICES' />
           </Row>
 
