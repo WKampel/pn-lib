@@ -8,7 +8,7 @@ const PromotionCard = ({ name, imageUrl, onPress }) => {
 
   return (
     <TouchableCard hideBorderOnMobile={false} style={styles.practiceCard} onPress={onPress}>
-      <Image source={imageUrl} style={styles.image} />
+      {imageUrl && <Image source={imageUrl} style={styles.image} />}
       <Text style={styles.name}>{name}</Text>
     </TouchableCard>
   )

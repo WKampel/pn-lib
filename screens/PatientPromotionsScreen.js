@@ -15,7 +15,7 @@ const PatientPromotionsScreen = ({}) => {
     <Screen>
       <Card scroll>
         {promotions.map(promotion => (
-          <PromotionCard key={promotion.id} name={promotion.name} imageUrl={promotion.image?.url} onPress={() => nav.navigate('Promotion', { id: promotion.id })} />
+          <PromotionCard key={promotion.id} name={promotion.name} onPress={() => nav.navigate('Promotion', { id: promotion.id })} />
         ))}
       </Card>
     </Screen>
