@@ -40,7 +40,7 @@ const styleConfig = {
       paddingRight: 10,
     },
     title: {
-      fontSize: '$font-size-m',
+      fontSize: '$font-size-l',
       flex: 1,
       textAlign: 'center',
     },
