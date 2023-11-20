@@ -4,7 +4,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import AppTile from '../components/AppTile'
 import Card from '../components/Card'
 import Group from '../components/Group'
-import Image from '../components/Image'
+import ImageAutoHeight from '../components/ImageAutoHeight'
 import Screen from '../components/Screen'
 import usePractice from '../hooks/usePractice'
 import useStyles from '../hooks/useStyles'
@@ -18,7 +18,7 @@ const PatientHomeScreen = () => {
     <Screen style={{ paddingBottom: insets.bottom }}>
       <Card style={{ flexGrow: 1 }}>
         <Group spacing='xs' style={{ alignItems: 'center', marginBottom: 10 }}>
-          <Image style={styles.logo} source={practice?.logo?.url} />
+          <ImageAutoHeight style={styles.logo} src={practice?.logo?.url} />
           <Text style={styles.slogan}>{practice.slogan}</Text>
         </Group>
 
@@ -61,8 +61,7 @@ const Row = ({ children }) => {
 const styleConfig = {
   base: {
     logo: {
-      width: 100,
-      height: 100,
+      height: 125,
       borderRadius: '$radius-m',
     },
     tiles: {
