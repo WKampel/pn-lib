@@ -3,11 +3,8 @@ import { setContext } from '@apollo/client/link/context'
 import { onError } from '@apollo/client/link/error'
 import { createUploadLink } from 'apollo-upload-client'
 import { useMemo } from 'react'
-import useAuthToken from '../hooks/useAuthToken'
 
-const ApolloProvider = ({ children, practiceUrl }) => {
-  const { token, setToken } = useAuthToken()
-
+const ApolloProvider = ({ children, practiceUrl, token, setToken }) => {
   const client = useMemo(() => {
     const authLink = setContext((_, { headers }) => ({
       headers: {
@@ -19,10 +16,7 @@ const ApolloProvider = ({ children, practiceUrl }) => {
     }))
 
     const errorLink = onError(({ graphQLErrors, networkError }) => {
-      if (graphQLErrors)
-        graphQLErrors.forEach(({ message, locations, path }) =>
-          console.log(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`)
-        )
+      if (graphQLErrors) graphQLErrors.forEach(({ message, locations, path }) => console.log(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`))
       if (networkError) {
         const { statusCode } = networkError
         if (statusCode === 401) setToken && setToken(null)
