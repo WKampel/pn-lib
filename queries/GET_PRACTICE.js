@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client'
 
-const GET_CURRENT_PRACTICE = gql`
-  query GET_CURRENT_PRACTICE {
-    currentPractice {
+const GET_PRACTICE = gql`
+  query GET_PRACTICE($url: String!) {
+    practice(url: $url) {
       id
       email
       slogan
@@ -14,9 +14,7 @@ const GET_CURRENT_PRACTICE = gql`
         id
         url
       }
-      branding {
-        primaryColor
-      }
+      primaryColor
       sikkaOfficeId
       stripePaymentLink
       subscribed
@@ -24,4 +22,4 @@ const GET_CURRENT_PRACTICE = gql`
   }
 `
 
-export default GET_CURRENT_PRACTICE
+export default GET_PRACTICE

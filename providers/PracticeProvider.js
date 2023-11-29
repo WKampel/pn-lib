@@ -1,15 +1,18 @@
 import { useMemo, useState } from 'react'
 import PracticeContext from '../contexts/PracticeContext'
 import useQuery from '../hooks/useQuery'
-import GET_CURRENT_PRACTICE from '../queries/GET_CURRENT_PRACTICE'
+import GET_PRACTICE from '../queries/GET_PRACTICE'
 import ThemeProvider from './ThemeProvider'
 
-const PracticeProvider = ({ onError, children }) => {
+const PracticeProvider = ({ onError, children, practiceUrl }) => {
   const [practice, setPractice] = useState({})
 
-  const { error, loading } = useQuery(GET_CURRENT_PRACTICE, {
-    onSuccess: ({ currentPractice }) => {
-      setPractice(currentPractice)
+  const { error, loading } = useQuery(GET_PRACTICE, {
+    variables: {
+      url: practiceUrl,
+    },
+    onSuccess: ({ practice }) => {
+      setPractice(practice)
     },
     onError: () => {
       if (onError) onError()

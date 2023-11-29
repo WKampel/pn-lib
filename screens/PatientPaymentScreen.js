@@ -3,7 +3,7 @@ import Button from '../components/Button'
 import Card from '../components/Card'
 import Screen from '../components/Screen'
 import useQuery from '../hooks/useQuery'
-import GET_CURRENT_PRACTICE from '../queries/GET_CURRENT_PRACTICE'
+import GET_CURRENT_PRACTICE from '../queries/GET_PRACTICE'
 
 const PatientPaymentScreen = () => {
   const getPractice = useQuery(GET_CURRENT_PRACTICE)
