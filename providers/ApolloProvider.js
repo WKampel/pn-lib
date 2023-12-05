@@ -4,13 +4,12 @@ import { onError } from '@apollo/client/link/error'
 import { createUploadLink } from 'apollo-upload-client'
 import { useMemo } from 'react'
 
-const ApolloProvider = ({ children, practiceUrl, token, setToken }) => {
+const ApolloProvider = ({ children, token, setToken }) => {
   const client = useMemo(() => {
     const authLink = setContext((_, { headers }) => ({
       headers: {
         ...headers,
         authorization: token ? `Bearer ${token}` : '',
-        ...(practiceUrl && { practiceUrl }),
         app: process.env.EXPO_PUBLIC_APP,
       },
     }))
@@ -30,7 +29,7 @@ const ApolloProvider = ({ children, practiceUrl, token, setToken }) => {
       link: from([authLink, errorLink, uploadLink]),
       cache: new InMemoryCache(),
     })
-  }, [token, practiceUrl])
+  }, [token])
 
   return <ApolloApolloProvider client={client}>{children}</ApolloApolloProvider>
 }

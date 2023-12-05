@@ -13,7 +13,7 @@ const theme = {
 
 const NavigationContainer = ({ linking, children, initialState }) => {
   const navRef = useNavigationContainerRef()
-  const [currentRoute, setCurrentRoute] = useState(null)
+  const [currentRoute, setCurrentRoute] = useState(navRef.getCurrentRoute())
 
   return (
     <ReactNativeNavigationContainer
@@ -22,6 +22,9 @@ const NavigationContainer = ({ linking, children, initialState }) => {
       linking={linking}
       initialState={initialState}
       onStateChange={() => {
+        setCurrentRoute(navRef.getCurrentRoute())
+      }}
+      onReady={() => {
         setCurrentRoute(navRef.getCurrentRoute())
       }}
     >

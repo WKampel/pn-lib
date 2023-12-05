@@ -1,10 +1,10 @@
 import { useEffect } from 'react'
 import useMutation from './useMutation'
 import useOrderedData from './useOrderedData'
-import useQuery from './useQuery'
+import { usePracticeQuery } from './usePracticeQuery'
 
 const useManageOrderedData = (GET_QUERY, ORDER_MUTATION, getQueryDataKey, refetchQueries) => {
-  const { loading, data } = useQuery(GET_QUERY)
+  const { loading, data } = usePracticeQuery(GET_QUERY)
 
   useEffect(() => {
     if (data?.[getQueryDataKey]) {

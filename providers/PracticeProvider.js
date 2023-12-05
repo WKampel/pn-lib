@@ -20,7 +20,7 @@ const PracticeProvider = ({ onError, children, practiceUrl }) => {
   })
 
   const theme = {
-    '$color-ui-primary': practice.branding?.primaryColor,
+    '$color-ui-primary': practice.primaryColor,
   }
 
   const value = useMemo(

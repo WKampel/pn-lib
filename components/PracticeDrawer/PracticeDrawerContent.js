@@ -60,7 +60,7 @@ const PracticeDrawerContent = ({ switchPractice, items = [] }) => {
   // Children
   const children = useMemo(() => {
     return generateChildren([...items, switchPracticeItem, signOutItem])
-  })
+  }, [items, switchPracticeItem, signOutItem, currentRoute])
 
   return (
     <>
