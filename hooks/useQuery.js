@@ -9,7 +9,7 @@ const useQuery = (query, config = {}) => {
   const { notify } = useNotification()
   const { variables, skip, redirectOnSuccess, onSuccess, onError, displayError } = config
 
-  const { loading, error, data, refetch, called } = apolloUseQuery(query, {
+  const { loading, error, data, refetch } = apolloUseQuery(query, {
     notifyOnNetworkStatusChange: true,
     variables,
     fetchPolicy: 'cache-and-network',

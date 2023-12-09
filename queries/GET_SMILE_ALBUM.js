@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client'
 
 const GET_SMILE_ALBUM = gql`
-  query GET_SMILE_ALBUM($id: Int) {
+  query GET_SMILE_ALBUM($id: ID) {
     smileAlbum(id: $id) {
       id
       name

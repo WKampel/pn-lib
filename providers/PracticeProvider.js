@@ -7,7 +7,7 @@ import ThemeProvider from './ThemeProvider'
 const PracticeProvider = ({ onError, children, practiceUrl }) => {
   const [practice, setPractice] = useState({})
 
-  const { error, loading } = useQuery(GET_PRACTICE, {
+  const { error, loading, exec } = useQuery(GET_PRACTICE, {
     variables: {
       url: practiceUrl,
     },
@@ -28,6 +28,7 @@ const PracticeProvider = ({ onError, children, practiceUrl }) => {
       ...practice,
       invalid: error ? true : false,
       loading,
+      refetch: exec,
     }),
     [practice, error, loading]
   )

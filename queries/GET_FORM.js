@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client'
 
 const GET_FORM = gql`
-  query GET_FORM($id: Int) {
+  query GET_FORM($id: ID) {
     form(id: $id) {
       id
       name

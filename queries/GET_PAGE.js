@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client'
 
 const GET_PAGE = gql`
-  query GET_PAGE($id: Int, $name: String) {
+  query GET_PAGE($id: ID, $name: String) {
     page(id: $id, name: $name) {
       id
       name

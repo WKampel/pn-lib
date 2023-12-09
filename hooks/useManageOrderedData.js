@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
-import useMutation from './useMutation'
 import useOrderedData from './useOrderedData'
+import { usePracticeMutation } from './usePracticeMutation'
 import { usePracticeQuery } from './usePracticeQuery'
 
 const useManageOrderedData = (GET_QUERY, ORDER_MUTATION, getQueryDataKey, refetchQueries) => {
@@ -14,7 +14,7 @@ const useManageOrderedData = (GET_QUERY, ORDER_MUTATION, getQueryDataKey, refetc
 
   const { orderedData, moveUp, moveDown, setData, modified } = useOrderedData(data?.[getQueryDataKey])
 
-  const orderData = useMutation(ORDER_MUTATION, {
+  const orderData = usePracticeMutation(ORDER_MUTATION, {
     variables: { ids: orderedData?.map(item => item.id) },
     refetchQueries,
   })

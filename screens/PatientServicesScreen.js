@@ -2,11 +2,11 @@ import { useNavigation } from '@react-navigation/native'
 import Card from '../components/Card'
 import Screen from '../components/Screen'
 import ServiceCard from '../components/ServiceCard'
-import useQuery from '../hooks/useQuery'
+import { usePracticeQuery } from '../hooks/usePracticeQuery'
 import GET_ACTIVE_SERVICES from '../queries/GET_ACTIVE_SERVICES'
 
 const PatientServicesScreen = ({}) => {
-  const { data } = useQuery(GET_ACTIVE_SERVICES)
+  const { data } = usePracticeQuery(GET_ACTIVE_SERVICES)
   const services = data?.activeServices || []
 
   const nav = useNavigation()
