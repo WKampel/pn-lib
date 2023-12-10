@@ -4,6 +4,7 @@ import * as ImagePicker from 'expo-image-picker'
 import { TouchableOpacity, View } from 'react-native'
 import useInteractive from '../hooks/useInteractive'
 import useMutation from '../hooks/useMutation'
+import usePractice from '../hooks/usePractice'
 import useStyles from '../hooks/useStyles'
 import CREATE_FILE from '../mutations/CREATE_FILE'
 import Button from './Button'
@@ -16,12 +17,13 @@ const MAX_HEIGHT = 512
 const ImageInput = ({ style, label = 'Upload Image', onChange, value = {}, camera, transformUri }) => {
   const [cameraPermissionStatus, requestPermission] = ImagePicker.useCameraPermissions()
 
+  const practice = usePractice()
+
   const { hovered, interactiveEvents } = useInteractive()
   const styles = useStyles(styleConfig, {}, { hovered })
 
   // Create file mutation
   const createFile = useMutation(CREATE_FILE, {
-    displayError: true,
     onSuccess: ({ createFile }) => {
       if (onChange) onChange(createFile)
     },
@@ -75,7 +77,7 @@ const ImageInput = ({ style, label = 'Upload Image', onChange, value = {}, camer
         })
       }
 
-      createFile.exec({ variables: { file } })
+      createFile.exec({ variables: { file, practiceId: practice.id } })
     }
   }
 
