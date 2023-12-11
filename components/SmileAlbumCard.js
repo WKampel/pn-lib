@@ -17,6 +17,7 @@ const styleConfig = {
     practiceCard: {
       flexDirection: 'row',
       gap: '$spacing-l',
+      justifyContent: 'center',
     },
   },
 }

@@ -18,7 +18,9 @@ const Header = ({ options, route }) => {
       ]}
     >
       <View style={[styles.item, styles.headerLeft]}>{options?.back ? <BackButton to={options?.back} /> : null}</View>
-      <Text style={styles.title}>{options?.title || route.name}</Text>
+      <Text style={styles.title} numberOfLines={1} ellipsizeMode='tail'>
+        {options?.title || route.name}
+      </Text>
       <View style={[styles.item, styles.headerRight]}>
         <OpenDrawerButton />
       </View>
@@ -40,12 +42,12 @@ const styleConfig = {
       paddingRight: 10,
     },
     title: {
-      fontSize: '$font-size-l',
+      fontSize: '$font-size-m',
       flex: 1,
       textAlign: 'center',
     },
     item: {
-      flex: 1,
+      flex: 0.5,
     },
     headerLeft: {
       alignItems: 'flex-start',

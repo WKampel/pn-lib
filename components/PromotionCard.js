@@ -26,6 +26,7 @@ const styleConfig = {
     name: {
       fontSize: '$font-size-m',
       flex: 1,
+      textAlign: 'center',
     },
   },
 }
