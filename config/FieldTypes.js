@@ -8,6 +8,7 @@ const FieldTypes = {
   DATE: 'date',
   TIME: 'time',
   LONG_TEXT: 'longtext',
+  SIGNATURE: 'signature',
 }
 
 export default FieldTypes

@@ -3,6 +3,7 @@ import FormFieldDate from './fieldTypes/FormFieldDate'
 import FormFieldLongText from './fieldTypes/FormFieldLongText'
 import FormFieldRadio from './fieldTypes/FormFieldRadio'
 import FormFieldSelect from './fieldTypes/FormFieldSelect'
+import FormFieldSignature from './fieldTypes/FormFieldSignature'
 import FormFieldTextArea from './fieldTypes/FormFieldTextArea'
 import FormFieldTextInput from './fieldTypes/FormFieldTextInput'
 import FormFieldTime from './fieldTypes/FormFieldTime'
@@ -19,6 +20,7 @@ const fieldComponents = {
   [FieldTypes.DATE]: FormFieldDate,
   [FieldTypes.TIME]: FormFieldTime,
   [FieldTypes.LONG_TEXT]: FormFieldLongText,
+  [FieldTypes.SIGNATURE]: FormFieldSignature,
 }
 
 const FormField = ({ type, required, name, ...otherProps }) => {

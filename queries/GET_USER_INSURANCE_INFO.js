@@ -11,6 +11,14 @@ const GET_USER_INSURANCE_INFO = gql`
         id
         url
       }
+      frontPhoto2 {
+        id
+        url
+      }
+      backPhoto2 {
+        id
+        url
+      }
     }
   }
 `
