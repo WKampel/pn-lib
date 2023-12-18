@@ -5,11 +5,11 @@ import H from '../components/H'
 import ImageAutoHeight from '../components/ImageAutoHeight'
 import Pdf from '../components/Pdf'
 import Screen from '../components/Screen'
-import useQuery from '../hooks/useQuery'
+import { usePracticeQuery } from '../hooks/usePracticeQuery'
 import GET_PROMOTION from '../queries/GET_PROMOTION'
 
 const PatientPromotionScreen = ({ id, data: propData }) => {
-  const { data: queryData } = useQuery(GET_PROMOTION, { variables: { id } })
+  const { data: queryData } = usePracticeQuery(GET_PROMOTION, { variables: { id } })
 
   const promotion = propData || queryData?.promotion || {}
 

@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client'
 
 const GET_ACTIVE_SERVICES = gql`
-  query GET_ACTIVE_SERVICES($practiceId: Int!) {
+  query GET_ACTIVE_SERVICES($practiceId: ID!) {
     activeServices(practiceId: $practiceId) {
       id
       name

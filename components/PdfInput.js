@@ -2,7 +2,7 @@ import { ReactNativeFile } from 'apollo-upload-client'
 import * as DocumentPicker from 'expo-document-picker'
 import { TouchableOpacity, View } from 'react-native'
 import useInteractive from '../hooks/useInteractive'
-import useMutation from '../hooks/useMutation'
+import { usePracticeMutation } from '../hooks/usePracticeMutation'
 import useStyles from '../hooks/useStyles'
 import CREATE_FILE from '../mutations/CREATE_FILE'
 import Button from './Button'
@@ -14,7 +14,7 @@ const PdfInput = ({ label = 'Upload Pdf', onChange, value = {} }) => {
   const styles = useStyles(styleConfig, {}, { hovered })
 
   // Create file mutation
-  const createFile = useMutation(CREATE_FILE, {
+  const createFile = usePracticeMutation(CREATE_FILE, {
     onSuccess: ({ createFile }) => {
       if (onChange) onChange(createFile)
     },
