@@ -6,7 +6,7 @@ import PracticeDrawer from './PracticeDrawer'
 const PatientPracticeDrawer = props => {
   const { data } = useQuery(GET_ACTIVE_PAGES)
 
-  const activePages = data?.activeCustomPages || []
+  const activePages = data?.activePages || []
 
   const pageItems = activePages.map(page => ({
     label: page.name,

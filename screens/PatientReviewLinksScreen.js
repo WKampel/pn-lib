@@ -4,12 +4,12 @@ import Card from '../components/Card'
 import RegularIcon from '../components/RegularIcon'
 import Screen from '../components/Screen'
 import TouchableCard from '../components/TouchableCard'
-import useQuery from '../hooks/useQuery'
+import { usePracticeQuery } from '../hooks/usePracticeQuery'
 import useStyles from '../hooks/useStyles'
 import GET_ALL_REVIEW_LINKS from '../queries/GET_ALL_REVIEW_LINKS'
 
 const PatientReviewLinksScreen = ({ data: propData }) => {
-  const { data } = useQuery(GET_ALL_REVIEW_LINKS)
+  const { data } = usePracticeQuery(GET_ALL_REVIEW_LINKS)
   const reviewLinks = propData || data?.allReviewLinks || []
 
   const styles = useStyles(styleConfig)

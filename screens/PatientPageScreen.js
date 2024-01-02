@@ -8,8 +8,8 @@ const PatientPageScreen = ({ data = {} }) => {
   return (
     <Screen>
       <Card scroll style={{ flexGrow: 1 }}>
-        {data?.fields?.map(field => (
-          <PageField key={field.id} field={field} />
+        {data?.items?.map(item => (
+          <PageField key={item.id} field={item} />
         ))}
       </Card>
     </Screen>

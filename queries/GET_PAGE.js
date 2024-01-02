@@ -1,12 +1,12 @@
 import { gql } from '@apollo/client'
 
 const GET_PAGE = gql`
-  query GET_PAGE($id: ID, $name: String) {
-    page(id: $id, name: $name) {
+  query GET_PAGE($id: ID!, $practiceId: ID!) {
+    page(id: $id, practiceId: $practiceId) {
       id
       name
       active
-      fields {
+      items {
         id
         type
         value

@@ -3,14 +3,14 @@ import ImageAutoHeight from '../../components/ImageAutoHeight'
 
 const PageFieldImage = ({ file, size, align }) => {
   const sizeValue = useMemo(() => {
-    if (size === 'small') return '50%'
-    if (size === 'medium') return '75%'
+    if (size === 'SMALL') return '50%'
+    if (size === 'MEDIUM') return '75%'
     return '100%'
   }, [size])
 
   const alignValue = useMemo(() => {
-    if (align === 'left') return 'flex-start'
-    if (align === 'right') return 'flex-end'
+    if (align === 'LEFT') return 'flex-start'
+    if (align === 'RIGHT') return 'flex-end'
     return 'center'
   }, [align])
 
