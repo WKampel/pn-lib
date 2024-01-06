@@ -1,13 +1,13 @@
 const FieldTypes = {
-  TITLE: 'title',
-  TEXT_INPUT: 'textinput',
-  TEXT_AREA: 'textarea',
-  YES_NO: 'yesNo',
-  RADIO: 'radio',
-  DROPDOWN: 'dropdown',
-  DATE: 'date',
-  TIME: 'time',
-  LONG_TEXT: 'longtext',
+  TITLE: 'TITLE',
+  TEXT_INPUT: 'TEXT_INPUT',
+  TEXT_AREA: 'TEXT_AREA',
+  YES_NO: 'YES_NO',
+  RADIO: 'RADIO',
+  DROPDOWN: 'DROPDOWN',
+  DATE: 'DATE',
+  TIME: 'TIME',
+  LONG_TEXT: 'LONG_TEXT',
 }
 
 export default FieldTypes

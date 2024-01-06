@@ -1,12 +1,11 @@
 import { gql } from '@apollo/client'
 
 const GET_ABOUT_US_PAGE = gql`
-  query GET_ABOUT_US_PAGE {
-    aboutUsPage {
+  query GET_ABOUT_US_PAGE($practiceId: ID!) {
+    aboutUsPage(practiceId: $practiceId) {
       id
       name
-      active
-      fields {
+      items {
         id
         type
         value

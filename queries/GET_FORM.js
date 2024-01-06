@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client'
 
 const GET_FORM = gql`
-  query GET_FORM($id: ID) {
-    form(id: $id) {
+  query GET_FORM($id: ID!, $practiceId: ID!) {
+    form(id: $id, practiceId: $practiceId) {
       id
       name
       desc
@@ -11,10 +11,7 @@ const GET_FORM = gql`
         name
         type
         required
-        options {
-          id
-          value
-        }
+        options
       }
     }
   }

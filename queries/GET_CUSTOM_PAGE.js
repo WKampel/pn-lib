@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client'
 
-const GET_PAGE = gql`
-  query GET_PAGE($id: ID!, $practiceId: ID!) {
-    page(id: $id, practiceId: $practiceId) {
+const GET_CUSTOM_PAGE = gql`
+  query GET_CUSTOM_PAGE($id: ID!, $practiceId: ID!) {
+    customPage(id: $id, practiceId: $practiceId) {
       id
       name
       active
@@ -21,4 +21,4 @@ const GET_PAGE = gql`
   }
 `
 
-export default GET_PAGE
+export default GET_CUSTOM_PAGE
