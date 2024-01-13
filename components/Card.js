@@ -2,13 +2,13 @@ import useIsMobile from '../hooks/useIsMobile'
 import useStyles from '../hooks/useStyles'
 import OptionalScroll from './OptionalScroll'
 
-const Card = ({ children, style, scroll = false, hideBorderOnMobile = true }) => {
+const Card = ({ children, style, scrollViewStyle, scroll = false, hideBorderOnMobile = true }) => {
   const mobile = useIsMobile()
 
   const styles = useStyles(styleConfig, { hiddenBorder: hideBorderOnMobile && mobile, mobile })
 
   return (
-    <OptionalScroll scroll={scroll} scrollViewStyle={styles.scrollView} containerStyle={[styles.container, style]}>
+    <OptionalScroll scroll={scroll} scrollViewStyle={[styles.scrollView, scrollViewStyle]} containerStyle={[styles.container, style]}>
       {children}
     </OptionalScroll>
   )

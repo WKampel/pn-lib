@@ -2,12 +2,11 @@ import { Linking, Text } from 'react-native'
 import Button from '../components/Button'
 import Card from '../components/Card'
 import Screen from '../components/Screen'
-import useQuery from '../hooks/useQuery'
-import GET_CURRENT_PRACTICE from '../queries/GET_PRACTICE'
+import usePractice from '../hooks/usePractice'
 
 const PatientPaymentScreen = () => {
-  const getPractice = useQuery(GET_CURRENT_PRACTICE)
-  const stripePaymentLink = getPractice.data?.currentPractice?.stripePaymentLink
+  const practice = usePractice()
+  const stripePaymentLink = practice?.stripePaymentLink
 
   return (
     <Screen>
