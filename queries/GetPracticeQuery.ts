@@ -1,7 +1,7 @@
-import { gql } from '@apollo/client'
+import { graphql } from '../../gql'
 
-const GET_PRACTICE = gql`
-  query GET_PRACTICE($url: String!) {
+export const GetPractice = graphql(`
+  query GetPractice($url: String!) {
     practice(url: $url) {
       id
       email
@@ -20,6 +20,4 @@ const GET_PRACTICE = gql`
       subscribed
     }
   }
-`
-
-export default GET_PRACTICE
+`)

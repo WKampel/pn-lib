@@ -1,5 +1,5 @@
 import { Text, TouchableOpacity, View } from 'react-native'
-import { useTokens } from '../hooks/useTokens'
+import { useTheme } from '../hooks/useTheme'
 
 export type SwitchProps = {
   disabled?: boolean
@@ -10,7 +10,7 @@ export type SwitchProps = {
 }
 
 export const Switch = ({ disabled = false, value, label, size = 'm', onChange }: SwitchProps) => {
-  const tokens = useTokens()
+  const tokens = useTheme()
 
   return (
     <TouchableOpacity

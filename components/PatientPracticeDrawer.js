@@ -1,10 +1,10 @@
 import { AntDesign, Entypo } from '@expo/vector-icons'
 import { usePracticeQuery } from '../hooks/usePracticeQuery'
-import GET_ACTIVE_CUSTOM_PAGES from '../queries/GET_ACTIVE_CUSTOM_PAGES'
+import { GetActiveCustomPages } from '../queries/GetActiveCustomPagesQuery'
 import PracticeDrawer from './PracticeDrawer'
 
 const PatientPracticeDrawer = props => {
-  const { data } = usePracticeQuery(GET_ACTIVE_CUSTOM_PAGES)
+  const { data } = usePracticeQuery(GetActiveCustomPages)
 
   const activePages = data?.activeCustomPages || []
 

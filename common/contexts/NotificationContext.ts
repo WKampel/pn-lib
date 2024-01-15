@@ -1,15 +1,5 @@
 import { createContext } from 'react'
-import { NotificationType } from '../types/NotificationType'
-
-type NotifyParams = {
-  id: string
-  title: string
-  body: string
-  type: NotificationType
-  linkTo?: string
-  onPress?: () => void
-  lifeSpan?: number
-}
+import { NotifyParams } from '../types/NotifyParams'
 
 type NotificationContextType = {
   notify: (params: NotifyParams) => void

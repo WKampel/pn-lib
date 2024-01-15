@@ -1,4 +1,4 @@
-import { useTokens } from '../../hooks/useTokens'
+import { useTheme } from '../../hooks/useTheme'
 import { BaseButton, BaseButtonProps } from './BaseButton'
 
 export type SolidButtonProps = BaseButtonProps & {
@@ -6,7 +6,7 @@ export type SolidButtonProps = BaseButtonProps & {
 }
 
 export const SolidButton = (props: SolidButtonProps) => {
-  const tokens = useTokens()
+  const tokens = useTheme()
 
   const commonContainerStyle = { padding: tokens.spacing_s, borderRadius: tokens.radius_s }
 

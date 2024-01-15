@@ -1,6 +1,6 @@
 import { ScrollView, Text } from 'react-native'
 import { PageType } from '../../contentManagement/types/PageType'
-import tokens from '../config/tokens.json'
+import { useTheme } from '../common/hooks/useTheme'
 import { PageHtmlRenderer } from '../contentManagement/components/PageHtmlRenderer'
 import { PagePdfRenderer } from '../contentManagement/components/PagePdfRenderer'
 
@@ -11,6 +11,7 @@ type PatientPageScreenProps = {
 }
 
 export const PatientPageScreen = (props: PatientPageScreenProps) => {
+  const tokens = useTheme()
   const { html, pdfUrl, type } = props
   if (type === 'HTML') {
     if (!html) {

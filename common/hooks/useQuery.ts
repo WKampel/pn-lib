@@ -13,11 +13,11 @@ export type UseQueryConfig<TData, TVariables> = {
   displayError?: boolean
 }
 
-export const useQuery = <TData = any, TVariables = any>(query: DocumentNode, config: UseQueryConfig<TData, TVariables> = { variables: {} as TVariables }) => {
+export const useQuery = <TData, TVariables>(query: DocumentNode, config?: UseQueryConfig<TData, TVariables>) => {
   const nav = useNav()
   const isFocused = useIsFocused()
   const { notify } = useNotification()
-  const { variables, skip, redirectOnSuccess, onSuccess, onError, displayError } = config
+  const { variables, skip, redirectOnSuccess, onSuccess, onError, displayError } = config || {}
 
   const { loading, error, data, refetch } = apolloUseQuery<TData>(query, {
     notifyOnNetworkStatusChange: true,

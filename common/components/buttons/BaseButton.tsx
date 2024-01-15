@@ -1,5 +1,5 @@
 import { cloneElement } from 'react'
-import { ActivityIndicator, Text, TouchableOpacity } from 'react-native'
+import { ActivityIndicator, Text, TextStyle, TouchableOpacity, ViewStyle } from 'react-native'
 import { useNav } from '../../hooks/useNav'
 
 export type BaseButtonProps = {
@@ -15,14 +15,14 @@ export type BaseButtonProps = {
 }
 
 type BaseButtonContainerStyles = {
-  backgroundColor: string
-  padding: number
-  borderRadius: number
+  backgroundColor: ViewStyle['backgroundColor']
+  padding: ViewStyle['padding']
+  borderRadius: ViewStyle['borderRadius']
 }
 
 type BaseButtonTextStyles = {
-  color?: string
-  fontSize?: number
+  color?: TextStyle['color']
+  fontSize?: TextStyle['fontSize']
 }
 
 export const BaseButton = ({ size = 'm', onPress, to, loading, disabled, containerStyle, textStyle, text, icon }: BaseButtonProps) => {

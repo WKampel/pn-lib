@@ -4,10 +4,7 @@ import { UseMutationConfig, useMutation } from './useMutation'
 
 type PracticeVariables<TVariables extends object> = TVariables & { practiceId?: number }
 
-export const usePracticeMutation = <TData = any, TVariables extends object = {}>(
-  query: DocumentNode,
-  config: UseMutationConfig<TData, Omit<TVariables, 'practiceId'>> = { variables: {} as Omit<TVariables, 'practiceId'> }
-) => {
+export const usePracticeMutation = <TData, TVariables extends object = {}>(query: DocumentNode, config: UseMutationConfig<TData, Omit<TVariables, 'practiceId'>>) => {
   const practice = usePractice()
 
   // Include practiceId in variables if it's defined

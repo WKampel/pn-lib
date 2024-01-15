@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
+import { areObjectsEqual } from '../utils/areObjectsEqual'
 
 function useOrderedData(initialValue, idKey = 'id') {
   const [originalData, setOriginalData] = useState(initialValue || [])
@@ -6,7 +7,7 @@ function useOrderedData(initialValue, idKey = 'id') {
   const [modified, setModified] = useState(false)
 
   useEffect(() => {
-    setModified(JSON.stringify(originalData) !== JSON.stringify(orderedData))
+    setModified(!areObjectsEqual(originalData, orderedData))
   }, [originalData, orderedData])
 
   const move = useCallback(

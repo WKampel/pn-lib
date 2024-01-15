@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import PracticeContext from '../contexts/PracticeContext'
 import useQuery from '../hooks/useQuery'
-import GET_PRACTICE from '../queries/GET_PRACTICE'
+import GET_PRACTICE from '../queries/GetPracticeQuery'
 import ThemeProvider from './ThemeProvider'
 
 const PracticeProvider = ({ onError, children, practiceUrl }) => {

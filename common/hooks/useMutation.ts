@@ -15,7 +15,7 @@ export type UseMutationConfig<TData, TVariables> = {
 
 type OperationNames = typeof namedOperations.Query
 
-export const useMutation = <TData = any, TVariables = any>(query: DocumentNode, config: UseMutationConfig<TData, TVariables> = { variables: {} as TVariables }) => {
+export const useMutation = <TData, TVariables>(query: DocumentNode, config: UseMutationConfig<TData, TVariables>) => {
   const nav = useNav()
   const { notify } = useNotification()
 

@@ -1,5 +1,5 @@
 import { TextInput as ReactNativeTextInput } from 'react-native'
-import { useTokens } from '../hooks/useTokens'
+import { useTheme } from '../hooks/useTheme'
 
 export type TextInputProps = {
   disabled?: boolean
@@ -18,8 +18,9 @@ export type TextInputProps = {
   textStyle?: TextInputTextStyles
 }
 
-type TextInputContainerStyles = {
-  flex: number
+export type TextInputContainerStyles = {
+  flex?: number
+  maxWidth?: number
 }
 
 type TextInputTextStyles = {}
@@ -40,7 +41,7 @@ export const TextInput = ({
   containerStyle,
   textStyle,
 }: TextInputProps) => {
-  const tokens = useTokens()
+  const tokens = useTheme()
 
   return (
     <ReactNativeTextInput
