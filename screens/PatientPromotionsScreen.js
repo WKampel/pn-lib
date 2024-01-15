@@ -3,7 +3,7 @@ import Card from '../components/Card'
 import PromotionCard from '../components/PromotionCard'
 import Screen from '../components/Screen'
 import { usePracticeQuery } from '../hooks/usePracticeQuery'
-import GET_ACTIVE_PROMOTIONS from '../queries/GET_ACTIVE_PROMOTIONS'
+import GET_ACTIVE_PROMOTIONS from '../queries/GetActivePromotionsQuery'
 
 const PatientPromotionsScreen = ({}) => {
   const { data } = usePracticeQuery(GET_ACTIVE_PROMOTIONS)

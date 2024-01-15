@@ -3,7 +3,7 @@ import Card from '../components/Card'
 import Screen from '../components/Screen'
 import ServiceCard from '../components/ServiceCard'
 import { usePracticeQuery } from '../hooks/usePracticeQuery'
-import GET_ACTIVE_SERVICES from '../queries/GET_ACTIVE_SERVICES'
+import GET_ACTIVE_SERVICES from '../queries/GetActiveServicesQuery'
 
 const PatientServicesScreen = ({}) => {
   const { data } = usePracticeQuery(GET_ACTIVE_SERVICES)
