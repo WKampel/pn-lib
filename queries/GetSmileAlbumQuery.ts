@@ -1,7 +1,7 @@
-import { gql } from '@apollo/client'
+import { graphql } from '../../gql'
 
-const GET_SMILE_ALBUM = gql`
-  query GET_SMILE_ALBUM($id: ID!, $practiceId: ID!) {
+export const GetSmileAlbum = graphql(`
+  query GetSmileAlbum($id: ID!, $practiceId: ID!) {
     smileAlbum(id: $id, practiceId: $practiceId) {
       id
       name
@@ -19,6 +19,4 @@ const GET_SMILE_ALBUM = gql`
       }
     }
   }
-`
-
-export default GET_SMILE_ALBUM
+`)

@@ -5,7 +5,7 @@ import H from '../components/H'
 import Image from '../components/Image'
 import Screen from '../components/Screen'
 import useQuery from '../hooks/useQuery'
-import GET_SMILE_ALBUM from '../queries/GET_SMILE_ALBUM'
+import GET_SMILE_ALBUM from '../queries/GetSmileAlbumQuery'
 
 const SmileAlbumScreen = ({ id, data: propData }) => {
   const { data: queryData } = useQuery(GET_SMILE_ALBUM, { variables: { id } })

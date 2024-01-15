@@ -1,7 +1,7 @@
-import { gql } from '@apollo/client'
+import { graphql } from '../../gql'
 
-const GET_PROMOTION = gql`
-  query GET_PROMOTION($id: ID!, $practiceId: ID!) {
+export const GetPromotion = graphql(`
+  query GetPromotion($id: ID!, $practiceId: ID!) {
     promotion(id: $id, practiceId: $practiceId) {
       id
       name
@@ -17,6 +17,4 @@ const GET_PROMOTION = gql`
       active
     }
   }
-`
-
-export default GET_PROMOTION
+`)

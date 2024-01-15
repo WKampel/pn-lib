@@ -59,6 +59,12 @@ export const useMutation = <TData, TVariables>(query: DocumentNode, config: UseM
     error,
     errorField: error?.graphQLErrors?.[0]?.extensions?.field,
     data,
-    exec: runMutation,
+    exec: (options?: { variables: Partial<TVariables> }) => {
+      if (options) {
+        runMutation({ variables: { ...config.variables, ...options.variables } })
+      } else {
+        runMutation()
+      }
+    },
   }
 }

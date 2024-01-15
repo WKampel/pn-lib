@@ -6,7 +6,7 @@ import ImageAutoHeight from '../components/ImageAutoHeight'
 import Pdf from '../components/Pdf'
 import Screen from '../components/Screen'
 import { usePracticeQuery } from '../hooks/usePracticeQuery'
-import GET_PROMOTION from '../queries/GET_PROMOTION'
+import GET_PROMOTION from '../queries/GetPromotionQuery'
 
 const PatientPromotionScreen = ({ id, data: propData }) => {
   const { data: queryData } = usePracticeQuery(GET_PROMOTION, { variables: { id } })

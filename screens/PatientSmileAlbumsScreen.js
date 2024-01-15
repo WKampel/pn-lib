@@ -3,7 +3,7 @@ import Card from '../components/Card'
 import Screen from '../components/Screen'
 import SmileAlbumCard from '../components/SmileAlbumCard'
 import useQuery from '../hooks/useQuery'
-import GET_ALL_SMILE_ALBUMS from '../queries/GET_ALL_SMILE_ALBUMS'
+import GET_ALL_SMILE_ALBUMS from '../queries/GetAllSmileAlbumsQuery'
 
 const SmileAlbumsScreen = ({}) => {
   const { data } = useQuery(GET_ALL_SMILE_ALBUMS)

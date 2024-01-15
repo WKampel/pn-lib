@@ -1,6 +1,6 @@
+import GET_ME from '../../queries/GetAdminMeQuery'
 import MeContext from '../contexts/MeContext'
 import useQuery from '../hooks/useQuery'
-import GET_ME from '../queries/GET_ME'
 
 const MeProvider = ({ children }) => {
   const { data, exec } = useQuery(GET_ME)

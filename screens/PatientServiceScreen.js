@@ -7,7 +7,7 @@ import Group from '../components/Group'
 import H from '../components/H'
 import Screen from '../components/Screen'
 import useQuery from '../hooks/useQuery'
-import GET_SERVICE from '../queries/GET_SERVICE'
+import GET_SERVICE from '../queries/GetServiceQuery'
 
 const PatientServiceScreen = ({ id, data: propData }) => {
   const nav = useNavigation()

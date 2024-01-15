@@ -1,7 +1,7 @@
-import { gql } from '@apollo/client'
+import { graphql } from '../../gql'
 
-const GET_PATIENT_FORM = gql`
-  query GET_PATIENT_FORM($id: ID) {
+export const GetPatientForm = graphql(`
+  query GetPatientForm($id: ID) {
     patientForm(id: $id) {
       id
       form {
@@ -28,6 +28,4 @@ const GET_PATIENT_FORM = gql`
       }
     }
   }
-`
-
-export default GET_PATIENT_FORM
+`)

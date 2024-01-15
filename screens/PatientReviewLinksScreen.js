@@ -6,7 +6,7 @@ import Screen from '../components/Screen'
 import TouchableCard from '../components/TouchableCard'
 import { usePracticeQuery } from '../hooks/usePracticeQuery'
 import useStyles from '../hooks/useStyles'
-import GET_ALL_REVIEW_LINKS from '../queries/GET_ALL_REVIEW_LINKS'
+import GET_ALL_REVIEW_LINKS from '../queries/GetAllReviewLinksQuery'
 
 const PatientReviewLinksScreen = ({ data: propData }) => {
   const { data } = usePracticeQuery(GET_ALL_REVIEW_LINKS)

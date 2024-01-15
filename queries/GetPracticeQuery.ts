@@ -1,5 +1,6 @@
 import { graphql } from '../../gql'
 
+
 export const GetPractice = graphql(`
   query GetPractice($url: String!) {
     practice(url: $url) {
@@ -20,4 +21,4 @@ export const GetPractice = graphql(`
       subscribed
     }
   }
-`)
+`))

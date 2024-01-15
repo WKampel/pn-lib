@@ -2,7 +2,7 @@ import Accordion from '../components/Accordion'
 import Card from '../components/Card'
 import Screen from '../components/Screen'
 import useQuery from '../hooks/useQuery'
-import GET_ALL_FAQS from '../queries/GET_ALL_FAQS'
+import GET_ALL_FAQS from '../queries/GetAllFaqsQuery'
 
 const PatientFaqsScreen = ({ data: propData }) => {
   const { data } = useQuery(GET_ALL_FAQS)
