@@ -1,35 +1,37 @@
 import { TextStyle } from 'react-native'
 
+type Defined<T> = Exclude<T, undefined>
+
 export const tokens: {
-  color_danger: TextStyle['color']
-  color_info: TextStyle['color']
-  color_success: TextStyle['color']
-  font_size_l: TextStyle['fontSize']
-  font_size_m: TextStyle['fontSize']
-  font_size_s: TextStyle['fontSize']
-  font_size_xl: TextStyle['fontSize']
-  font_size_xs: TextStyle['fontSize']
-  font_size_xxs: TextStyle['fontSize']
-  radius_l: TextStyle['borderRadius']
-  radius_m: TextStyle['borderRadius']
-  radius_round: TextStyle['borderRadius']
-  radius_s: TextStyle['borderRadius']
-  radius_sharp: TextStyle['borderRadius']
-  radius_xs: TextStyle['borderRadius']
+  color_danger: Defined<TextStyle['color']>
+  color_info: Defined<TextStyle['color']>
+  color_success: Defined<TextStyle['color']>
+  font_size_l: Defined<TextStyle['fontSize']>
+  font_size_m: Defined<TextStyle['fontSize']>
+  font_size_s: Defined<TextStyle['fontSize']>
+  font_size_xl: Defined<TextStyle['fontSize']>
+  font_size_xs: Defined<TextStyle['fontSize']>
+  font_size_xxs: Defined<TextStyle['fontSize']>
+  radius_l: Defined<TextStyle['borderRadius']>
+  radius_m: Defined<TextStyle['borderRadius']>
+  radius_round: Defined<TextStyle['borderRadius']>
+  radius_s: Defined<TextStyle['borderRadius']>
+  radius_sharp: Defined<TextStyle['borderRadius']>
+  radius_xs: Defined<TextStyle['borderRadius']>
   size_l: number
   size_m: number
   size_s: number
   size_xl: number
   size_xs: number
-  spacing_l: TextStyle['letterSpacing']
-  spacing_m: TextStyle['letterSpacing']
-  spacing_s: TextStyle['letterSpacing']
-  spacing_xl: TextStyle['letterSpacing']
-  spacing_xs: TextStyle['letterSpacing']
-  spacing_xxs: TextStyle['letterSpacing']
-  weight_heavy: TextStyle['fontWeight']
-  weight_light: TextStyle['fontWeight']
-  weight_semi_heavy: TextStyle['fontWeight']
+  spacing_l: Defined<TextStyle['letterSpacing']>
+  spacing_m: Defined<TextStyle['letterSpacing']>
+  spacing_s: Defined<TextStyle['letterSpacing']>
+  spacing_xl: Defined<TextStyle['letterSpacing']>
+  spacing_xs: Defined<TextStyle['letterSpacing']>
+  spacing_xxs: Defined<TextStyle['letterSpacing']>
+  weight_heavy: Defined<TextStyle['fontWeight']>
+  weight_light: Defined<TextStyle['fontWeight']>
+  weight_semi_heavy: Defined<TextStyle['fontWeight']>
 } = {
   color_danger: 'rgb(220, 80, 80)',
   color_info: '#739ec9',

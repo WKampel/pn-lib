@@ -8,7 +8,7 @@ import { ReactNode, useMemo } from 'react'
 type ApolloProviderProps = {
   children: ReactNode
   token: string | null
-  setToken: (token: string | null) => void
+  setToken?: (token: string | null) => void
 }
 
 export const ApolloProvider = ({ children, token, setToken }: ApolloProviderProps) => {

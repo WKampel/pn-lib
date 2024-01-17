@@ -16,7 +16,7 @@ type CustomStackProps = {
   }>
 }
 
-export const Stack: React.FC<CustomStackProps> = ({ screens, screenOptions }) => {
+export const Stack = ({ screens, screenOptions }: CustomStackProps) => {
   return (
     <RNStack.Navigator screenOptions={screenOptions}>
       {screens.map(({ name, component, options }) => (

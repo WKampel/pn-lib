@@ -1,29 +1,31 @@
 import { TextStyle, ViewStyle } from 'react-native'
 
+type Defined<T> = Exclude<T, undefined>
+
 export const theme: {
-  color_bg: ViewStyle['backgroundColor']
-  color_bg_surface: ViewStyle['backgroundColor']
-  color_bg_surface_alternate: ViewStyle['backgroundColor']
-  color_bg_surface_disabled: ViewStyle['backgroundColor']
-  color_bg_surface_emphasis: ViewStyle['backgroundColor']
-  color_bg_surface_inverse: ViewStyle['backgroundColor']
-  color_border_on_surface: ViewStyle['borderColor']
-  color_border_on_surface_intense: ViewStyle['borderColor']
-  color_border_on_surface_semi_intense: ViewStyle['borderColor']
-  color_border_on_surface_subtle: ViewStyle['borderColor']
-  color_text_on_bg: TextStyle['color']
-  color_text_on_bg_subtle: TextStyle['color']
-  color_text_on_primary: TextStyle['color']
-  color_text_on_primary_subtle: TextStyle['color']
-  color_text_on_secondary: TextStyle['color']
-  color_text_on_secondary_subtle: TextStyle['color']
-  color_text_on_surface: TextStyle['color']
-  color_text_on_surface_inverse: TextStyle['color']
-  color_text_on_surface_subtle: TextStyle['color']
-  color_ui_primary: ViewStyle['backgroundColor']
-  color_ui_secondary: ViewStyle['backgroundColor']
-  opacity_hovered: ViewStyle['opacity']
-  opacity_pressed: ViewStyle['opacity']
+  color_bg: Defined<ViewStyle['backgroundColor']>
+  color_bg_surface: Defined<ViewStyle['backgroundColor']>
+  color_bg_surface_alternate: Defined<ViewStyle['backgroundColor']>
+  color_bg_surface_disabled: Defined<ViewStyle['backgroundColor']>
+  color_bg_surface_emphasis: Defined<ViewStyle['backgroundColor']>
+  color_bg_surface_inverse: Defined<ViewStyle['backgroundColor']>
+  color_border_on_surface: Defined<ViewStyle['borderColor']>
+  color_border_on_surface_intense: Defined<ViewStyle['borderColor']>
+  color_border_on_surface_semi_intense: Defined<ViewStyle['borderColor']>
+  color_border_on_surface_subtle: Defined<ViewStyle['borderColor']>
+  color_text_on_bg: Defined<TextStyle['color']>
+  color_text_on_bg_subtle: Defined<TextStyle['color']>
+  color_text_on_primary: Defined<TextStyle['color']>
+  color_text_on_primary_subtle: Defined<TextStyle['color']>
+  color_text_on_secondary: Defined<TextStyle['color']>
+  color_text_on_secondary_subtle: Defined<TextStyle['color']>
+  color_text_on_surface: Defined<TextStyle['color']>
+  color_text_on_surface_inverse: Defined<TextStyle['color']>
+  color_text_on_surface_subtle: Defined<TextStyle['color']>
+  color_ui_primary: Defined<ViewStyle['backgroundColor']>
+  color_ui_secondary: Defined<ViewStyle['backgroundColor']>
+  opacity_hovered: Defined<ViewStyle['opacity']>
+  opacity_pressed: Defined<ViewStyle['opacity']>
 } = {
   color_bg: 'white',
   color_bg_surface: 'white',

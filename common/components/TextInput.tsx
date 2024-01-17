@@ -1,4 +1,4 @@
-import { TextInput as ReactNativeTextInput } from 'react-native'
+import { NativeSyntheticEvent, TextInput as ReactNativeTextInput, TextInputKeyPressEventData } from 'react-native'
 import { useTheme } from '../hooks/useTheme'
 
 export type TextInputProps = {
@@ -13,7 +13,7 @@ export type TextInputProps = {
   onSubmit?: () => void
   onFocus?: () => void
   onBlur?: () => void
-  onKeyPress?: () => void
+  onKeyPress?: (e: NativeSyntheticEvent<TextInputKeyPressEventData>) => void
   containerStyle?: TextInputContainerStyles
   textStyle?: TextInputTextStyles
 }

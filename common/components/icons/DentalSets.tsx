@@ -1,4 +1,4 @@
-import Image from './Image'
+import { Image } from '../Image'
 
 export const dentalset1 = {
   anesthesia: require('../assets/dental-icons/set-1/anesthesia.png'),

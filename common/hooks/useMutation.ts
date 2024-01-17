@@ -61,9 +61,9 @@ export const useMutation = <TData, TVariables>(query: DocumentNode, config: UseM
     data,
     exec: (options?: { variables: Partial<TVariables> }) => {
       if (options) {
-        runMutation({ variables: { ...config.variables, ...options.variables } })
+        return runMutation({ variables: { ...config.variables, ...options.variables } })
       } else {
-        runMutation()
+        return runMutation()
       }
     },
   }
