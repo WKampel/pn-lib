@@ -9,6 +9,7 @@ export const GetActivePromotions = graphql(`
       image {
         url
       }
+      type
     }
   }
 `)

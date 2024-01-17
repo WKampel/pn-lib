@@ -1,7 +1,9 @@
 import { ApolloError, DocumentNode, MutationHookOptions, useMutation as useMutationGraphQL } from '@apollo/client'
 import { namedOperations } from '../../../gql/graphql'
-import useNotification from '../../hooks/useNotification'
 import { useNav } from './useNav'
+import { useNotification } from './useNotification'
+
+type ValidationErrorMessage = string
 
 export type UseMutationConfig<TData, TVariables> = {
   onSuccess?: (data: TData) => void
@@ -11,6 +13,7 @@ export type UseMutationConfig<TData, TVariables> = {
   displayError?: boolean
   refetchQueries?: Array<keyof OperationNames>
   variables: TVariables
+  validate?: (data: TVariables) => ValidationErrorMessage | boolean
 }
 
 type OperationNames = typeof namedOperations.Query
@@ -34,7 +37,7 @@ export const useMutation = <TData, TVariables>(query: DocumentNode, config: UseM
         // display success
         if (config.displaySuccess) {
           const title = typeof config.displaySuccess === 'string' ? config.displaySuccess : 'Success'
-          notify({ title, lifeSpan: 3000 })
+          notify({ title, body: '', type: 'INFO', lifeSpan: 3000 })
         }
       } catch (e) {
         console.log('Error:', e)
@@ -47,7 +50,7 @@ export const useMutation = <TData, TVariables>(query: DocumentNode, config: UseM
       // display error
       if (displayError && e?.graphQLErrors) {
         for (const error of e.graphQLErrors) {
-          notify({ body: error.message, type: 'error' })
+          notify({ title: '', body: error.message, type: 'ERROR' })
         }
       }
     },
@@ -60,10 +63,16 @@ export const useMutation = <TData, TVariables>(query: DocumentNode, config: UseM
     errorField: error?.graphQLErrors?.[0]?.extensions?.field,
     data,
     exec: (options?: { variables: Partial<TVariables> }) => {
+      const variables = { ...config.variables, ...options?.variables }
       if (options) {
-        return runMutation({ variables: { ...config.variables, ...options.variables } })
-      } else {
-        return runMutation()
+        if (config.validate) {
+          const validateResult = config.validate(variables)
+          if (typeof validateResult === 'string') {
+            notify({ type: 'ERROR', body: validateResult, title: '' })
+            return
+          }
+        }
+        return runMutation({ variables })
       }
     },
   }

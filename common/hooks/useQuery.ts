@@ -13,7 +13,7 @@ export type UseQueryConfig<TData, TVariables> = {
   displayError?: boolean
 }
 
-export const useQuery = <TData, TVariables>(query: DocumentNode, config?: UseQueryConfig<TData, TVariables>) => {
+export const useQuery = <TData, TVariables>(query: DocumentNode, config: UseQueryConfig<TData, TVariables>) => {
   const nav = useNav()
   const isFocused = useIsFocused()
   const { notify } = useNotification()

@@ -1,18 +1,12 @@
 import { ScrollView, Text } from 'react-native'
-import { PageType } from '../../contentManagement/types/PageType'
+import { Page } from '../../gql/graphql'
 import { useTheme } from '../common/hooks/useTheme'
 import { PageHtmlRenderer } from '../contentManagement/components/PageHtmlRenderer'
 import { PagePdfRenderer } from '../contentManagement/components/PagePdfRenderer'
 
-type PatientPageScreenProps = {
-  html?: string
-  pdfUrl?: string
-  type: PageType
-}
-
-export const PatientPageScreen = (props: PatientPageScreenProps) => {
+export const PatientPageScreen = ({ data }: { data: Omit<Page, 'id'> }) => {
   const tokens = useTheme()
-  const { html, pdfUrl, type } = props
+  const { html, pdf, type } = data
   if (type === 'HTML') {
     if (!html) {
       return <Text></Text>
@@ -23,10 +17,10 @@ export const PatientPageScreen = (props: PatientPageScreenProps) => {
       </ScrollView>
     )
   } else if (type === 'PDF') {
-    if (!pdfUrl) {
+    if (!pdf?.url) {
       return <Text></Text>
     }
-    return <PagePdfRenderer src={pdfUrl} />
+    return <PagePdfRenderer src={pdf.url} />
   } else {
     return <Text>No page type</Text>
   }

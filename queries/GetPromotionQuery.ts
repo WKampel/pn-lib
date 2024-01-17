@@ -15,6 +15,7 @@ export const GetPromotion = graphql(`
         url
       }
       active
+      type
     }
   }
 `)
