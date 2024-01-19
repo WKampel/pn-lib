@@ -1,11 +1,11 @@
 import { AntDesign, Entypo, Feather, Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
-import { ExpoVectorSet, IconMap } from '../types/IconMap'
+import { ExpoVectorSet, IconSet } from '../types/IconSet'
 
-const generateSetIcons = (set: ExpoVectorSet, setName: string): IconMap => {
-  return Object.keys(set.glyphMap).reduce((acc, name) => ({ ...acc, [`${setName}:${name}`]: { name, label: name, set } }), {} as IconMap)
+const generateSetIcons = (set: ExpoVectorSet, setName: string): IconSet => {
+  return Object.keys(set.glyphMap).reduce((acc, name) => ({ ...acc, [`${setName}:${name}`]: { name, label: name, set } }), {} as IconSet)
 }
 
-export const reviewLinkIcons: IconMap = {
+export const reviewLinkIconSet: IconSet = {
   ...generateSetIcons(AntDesign, 'antdesign'),
   ...generateSetIcons(Entypo, 'entypo'),
   ...generateSetIcons(Feather, 'feather'),

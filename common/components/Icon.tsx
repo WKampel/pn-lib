@@ -1,9 +1,9 @@
-import { Text } from 'react-native'
-import { IconMap } from '../types/IconMap'
+import { ColorValue, Text } from 'react-native'
+import { IconSet } from '../types/IconSet'
 import { Image } from './Image'
 
-export const Icon = ({ id, icons, color, size }: { id: keyof IconMap; icons: IconMap; color?: string; size?: number }) => {
-  const icon = icons[id]
+export const Icon = ({ id, set, color, size }: { id: keyof IconSet; set: IconSet; color?: ColorValue; size?: number }) => {
+  const icon = set[id]
   if (icon) {
     if (icon.type === 'expo-vector') {
       const IconComponent = icon.set

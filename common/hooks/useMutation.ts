@@ -1,13 +1,13 @@
 import { ApolloError, DocumentNode, MutationHookOptions, useMutation as useMutationGraphQL } from '@apollo/client'
 import { namedOperations } from '../../../gql/graphql'
-import { useNav } from './useNav'
+import { NavAction, useNav } from './useNav'
 import { useNotification } from './useNotification'
 
 type ValidationErrorMessage = string
 
 export type UseMutationConfig<TData, TVariables> = {
   onSuccess?: (data: TData) => void
-  redirectOnSuccess?: string
+  redirectOnSuccess?: NavAction
   displaySuccess?: boolean | string
   onError?: (error: ApolloError) => void
   displayError?: boolean
@@ -32,7 +32,7 @@ export const useMutation = <TData, TVariables>(query: DocumentNode, config: UseM
         if (config.onSuccess) config.onSuccess(data)
 
         // redirect on success
-        if (config.redirectOnSuccess) nav.navigate(config.redirectOnSuccess)
+        if (config.redirectOnSuccess) nav.navigate(...config.redirectOnSuccess)
 
         // display success
         if (config.displaySuccess) {

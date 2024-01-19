@@ -1,10 +1,14 @@
 import { AntDesign } from '@expo/vector-icons'
 import React, { cloneElement, isValidElement, useEffect, useRef, useState } from 'react'
-import { FlatList, NativeSyntheticEvent, Pressable, Text, TextInputKeyPressEventData, View } from 'react-native'
+import { ColorValue, FlatList, NativeSyntheticEvent, Pressable, Text, TextInputKeyPressEventData, View } from 'react-native'
 import { useTheme } from '../hooks/useTheme'
 import { Overlay } from './Overlay'
 import { TextInput } from './TextInput'
-import { BaseIconProps } from './icons/BaseIcon'
+
+type LabelIconProps = {
+  color: ColorValue
+  size: number
+}
 
 export type SelectProps<TOption> = {
   value: any
@@ -13,7 +17,7 @@ export type SelectProps<TOption> = {
   label: string
   getLabel: (option: TOption) => string
   getValue: (option: TOption) => string
-  getLabelIcon?: (option: TOption) => React.ReactElement<BaseIconProps>
+  getLabelIcon?: (option: TOption) => React.ReactElement<LabelIconProps>
 }
 
 export const Select = <TOption extends any>({ value, onChange, options, label = 'Select', getLabel, getValue, getLabelIcon }: SelectProps<TOption>) => {

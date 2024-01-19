@@ -16,4 +16,4 @@ export type Icon = {
     }
 )
 
-export type IconMap = Record<string, Icon>
+export type IconSet = Record<string, Icon>

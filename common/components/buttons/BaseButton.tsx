@@ -25,12 +25,11 @@ type BaseButtonTextStyles = {
   fontSize?: TextStyle['fontSize']
 }
 
-export const BaseButton = ({ size = 'm', onPress, to, loading, disabled, containerStyle, textStyle, text, icon }: BaseButtonProps) => {
+export const BaseButton = ({ size = 'm', onPress, loading, disabled, containerStyle, textStyle, text, icon }: BaseButtonProps) => {
   const nav = useNav()
 
   const handlePress = () => {
     if (onPress) onPress()
-    if (to) nav.navigate(to)
   }
 
   return (

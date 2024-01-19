@@ -1,13 +1,13 @@
 import { ApolloError, DocumentNode, QueryHookOptions, useQuery as apolloUseQuery } from '@apollo/client'
 import { useIsFocused } from '@react-navigation/native'
 import { useEffect } from 'react'
-import { useNav } from './useNav'
+import { NavAction, useNav } from './useNav'
 import { useNotification } from './useNotification'
 
 export type UseQueryConfig<TData, TVariables> = {
   variables: TVariables
   skip?: boolean
-  redirectOnSuccess?: string
+  redirectOnSuccess?: NavAction
   onSuccess?: (data: TData) => void
   onError?: () => void
   displayError?: boolean
@@ -30,7 +30,7 @@ export const useQuery = <TData, TVariables>(query: DocumentNode, config: UseQuer
         if (onSuccess) onSuccess(data)
 
         // redirect on success
-        if (redirectOnSuccess) nav.navigate(redirectOnSuccess)
+        if (redirectOnSuccess) nav.navigate(...redirectOnSuccess)
       } catch (e) {
         console.log('Error:', e)
       }

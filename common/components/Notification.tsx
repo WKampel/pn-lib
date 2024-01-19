@@ -1,6 +1,5 @@
 import { AntDesign } from '@expo/vector-icons'
 import { Pressable, Text, TouchableOpacity, View } from 'react-native'
-import { useNav } from '../hooks/useNav'
 import { useTheme } from '../hooks/useTheme'
 import { NotificationType } from '../types/NotificationType'
 
@@ -19,8 +18,7 @@ const iconMap = {
 } as const
 
 export const Notification = (props: NotificationProps) => {
-  const nav = useNav()
-  const { title, body, linkTo, type, onPress, onDelete } = props
+  const { title, body, type, onPress, onDelete } = props
   const tokens = useTheme()
 
   const bgColorMap = {
@@ -30,7 +28,6 @@ export const Notification = (props: NotificationProps) => {
 
   const handlePress = () => {
     if (onPress) onPress()
-    if (linkTo) nav.navigate(linkTo)
   }
 
   return (

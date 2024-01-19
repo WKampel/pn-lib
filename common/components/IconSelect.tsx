@@ -1,5 +1,5 @@
 import React from 'react'
-import { IconMap } from '../types/IconMap'
+import { IconSet } from '../types/IconSet'
 import { Icon } from './Icon'
 import { Select } from './Select.web'
 
@@ -7,7 +7,7 @@ export type IconSelectProps = {
   onChange: (value: string) => void
   value: string
   label?: string
-  set: IconMap
+  set: IconSet
 }
 
 export const IconSelect = ({ onChange, value, label, set }: IconSelectProps) => {
@@ -17,7 +17,7 @@ export const IconSelect = ({ onChange, value, label, set }: IconSelectProps) => 
       label={label || 'Select Icon'}
       getValue={icon => icon.value}
       getLabel={icon => icon.label}
-      getLabelIcon={icon => <Icon id={icon.value} icons={set} />}
+      getLabelIcon={icon => <Icon id={icon.value} set={set} />}
       onChange={onChange}
       value={value}
       options={options}
