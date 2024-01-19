@@ -1,11 +1,12 @@
 import { AntDesign } from '@expo/vector-icons'
+import { ReactNode } from 'react'
 import { Pressable, Text, TouchableOpacity, View } from 'react-native'
 import { useTheme } from '../hooks/useTheme'
 import { NotificationType } from '../types/NotificationType'
 
 type NotificationProps = {
   title: string
-  body: string
+  body: ReactNode | string
   linkTo?: string
   type: NotificationType
   onPress?: () => void

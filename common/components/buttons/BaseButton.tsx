@@ -3,7 +3,6 @@ import { ActivityIndicator, Text, TextStyle, TouchableOpacity, ViewStyle } from 
 import { useNav } from '../../hooks/useNav'
 
 export type BaseButtonProps = {
-  to?: string
   onPress?: () => void
   text?: string
   icon?: React.ReactElement

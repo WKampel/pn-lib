@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { DeviceEventEmitter } from 'react-native'
 
-export const useSocketEvent = (type: string, callback: (data: any) => void, dependencies = []) => {
+export const useSocketEvent = (type: string, callback: (data: any) => void, dependencies: Array<any> = []) => {
   // Use a ref to track the latest callback
   const callbackRef = useRef(callback)
 

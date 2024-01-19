@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { ReactNode, useState } from 'react'
 import uuid from 'react-native-uuid'
 import { useNotification } from './useNotification'
 import { useScreenBlur } from './useScreenBlur'
@@ -6,7 +6,7 @@ import { useScreenFocus } from './useScreenFocus'
 
 type ScreenNotificationParams = {
   title: string
-  body: string
+  body: ReactNode | string
 }
 
 export const useScreenNotification = (params: ScreenNotificationParams) => {

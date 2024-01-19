@@ -1,3 +1,4 @@
+import { ReactNode } from 'react'
 import { NotificationType } from './NotificationType'
 
 // Params for notify function
@@ -6,7 +7,7 @@ import { NotificationType } from './NotificationType'
 export type NotifyParams = {
   id?: string
   title: string
-  body: string
+  body: ReactNode | string
   type: NotificationType
   linkTo?: string
   lifeSpan?: number

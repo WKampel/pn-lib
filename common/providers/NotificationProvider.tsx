@@ -11,7 +11,7 @@ const DEFAULT_LIFESPAN = 15000
 type Notification = {
   id: string
   title: string
-  body: string
+  body: ReactNode | string
   linkTo?: string
   createdAt: Date
   timeout: NodeJS.Timeout

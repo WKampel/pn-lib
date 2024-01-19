@@ -13,7 +13,7 @@ export type UseMutationConfig<TData, TVariables> = {
   displayError?: boolean
   refetchQueries?: Array<keyof OperationNames>
   variables: TVariables
-  validate?: (data: TVariables) => ValidationErrorMessage | boolean
+  validate?: (variables: TVariables) => ValidationErrorMessage | boolean
 }
 
 type OperationNames = typeof namedOperations.Query
