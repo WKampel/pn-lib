@@ -1,0 +1,36 @@
+import { cloneElement, isValidElement } from 'react'
+import { Text, TouchableOpacity } from 'react-native'
+import { useNav } from '../hooks/useNav'
+import { useTheme } from '../hooks/useTheme'
+
+export const AppTile = ({ onPress, title, icon }: { onPress: () => void; icon: ReactNode; title: string }) => {
+  const nav = useNav()
+  const tokens = useTheme()
+
+  return (
+    <TouchableOpacity
+      onPress={onPress}
+      style={{
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: tokens.color_ui_primary,
+        borderRadius: tokens.radius_xs,
+        gap: tokens.spacing_s,
+        flex: 1,
+      }}
+    >
+      {isValidElement(icon) ? cloneElement(icon, { size: tokens.size_m, color: tokens.color_text_on_primary }) : null}
+      <Text
+        style={{
+          color: tokens.color_text_on_primary,
+          textAlign: 'center',
+          fontWeight: tokens.weight_heavy,
+          fontSize: tokens.font_size_s,
+          textTransform: 'uppercase',
+        }}
+      >
+        {title}
+      </Text>
+    </TouchableOpacity>
+  )
+}

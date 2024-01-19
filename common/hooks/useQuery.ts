@@ -1,8 +1,8 @@
 import { ApolloError, DocumentNode, QueryHookOptions, useQuery as apolloUseQuery } from '@apollo/client'
 import { useIsFocused } from '@react-navigation/native'
 import { useEffect } from 'react'
-import useNotification from '../../hooks/useNotification'
 import { useNav } from './useNav'
+import { useNotification } from './useNotification'
 
 export type UseQueryConfig<TData, TVariables> = {
   variables: TVariables
@@ -42,7 +42,7 @@ export const useQuery = <TData, TVariables>(query: DocumentNode, config: UseQuer
       // display error
       if (displayError) {
         for (const e of err.graphQLErrors) {
-          notify({ title: e.extensions?.code, body: e.message, type: 'error' })
+          notify({ title: e.extensions?.code, body: e.message, type: 'ERROR' })
         }
       }
     },

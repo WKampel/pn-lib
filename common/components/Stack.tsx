@@ -1,16 +1,17 @@
 import { createNativeStackNavigator, NativeStackNavigationOptions } from '@react-navigation/native-stack'
 import React from 'react'
+import { RootStackParamList } from '../../../config/linking'
 
 type CustomStackNavigationOptions = NativeStackNavigationOptions & {
   back?: string
 }
 
-const RNStack = createNativeStackNavigator()
+const RNStack = createNativeStackNavigator<RootStackParamList>()
 
 type CustomStackProps = {
   screenOptions: NativeStackNavigationOptions
   screens: Array<{
-    name: string
+    name: keyof RootStackParamList
     component: React.ComponentType<any>
     options?: CustomStackNavigationOptions
   }>

@@ -1,5 +1,5 @@
 import { DocumentNode } from '@apollo/client'
-import usePractice from '../../hooks/usePractice'
+import { usePractice } from './usePractice'
 import { useQuery, UseQueryConfig } from './useQuery'
 
 type PracticeVariables<TVariables extends object> = TVariables & { practiceId?: number }
@@ -8,12 +8,12 @@ export const usePracticeQuery = <TData, TVariables extends object = {}>(query: D
   const practice = usePractice()
 
   // Include practiceId in variables if it's defined
-  const variables: PracticeVariables<TVariables> = { ...(config.variables || {}), practiceId: practice.id } as PracticeVariables<TVariables>
+  const variables: PracticeVariables<TVariables> = { ...(config.variables || {}), practiceId: practice.data?.id } as PracticeVariables<TVariables>
 
   const queryResult = useQuery<TData, PracticeVariables<TVariables>>(query, {
     ...config,
     variables,
-    skip: config.skip || practice.loading || !practice.id,
+    skip: config.skip || practice?.loading || !practice.data?.id,
   })
 
   return queryResult

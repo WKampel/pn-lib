@@ -1,6 +1,8 @@
 import { AntDesign, Entypo, MaterialCommunityIcons } from '@expo/vector-icons'
+import { ReactNode } from 'react'
 import { Text, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { useTheme } from '../common/hooks/useTheme'
 import AppTile from '../components/AppTile'
 import Card from '../components/Card'
 import Group from '../components/Group'
@@ -9,7 +11,7 @@ import Screen from '../components/Screen'
 import usePractice from '../hooks/usePractice'
 import useStyles from '../hooks/useStyles'
 
-const PatientHomeScreen = () => {
+export const PatientHomeScreen = () => {
   const styles = useStyles(styleConfig)
   const practice = usePractice()
   const insets = useSafeAreaInsets()
@@ -53,9 +55,19 @@ const PatientHomeScreen = () => {
   )
 }
 
-const Row = ({ children }) => {
-  const styles = useStyles(styleConfig)
-  return <View style={styles.row}>{children}</View>
+const Row = ({ children }: { children: ReactNode }) => {
+  const tokens = useTheme()
+  return (
+    <View
+      style={{
+        flexDirection: 'row',
+        flex: 1,
+        gap: tokens.spacing_s,
+      }}
+    >
+      {children}
+    </View>
+  )
 }
 
 const styleConfig = {
@@ -72,12 +84,6 @@ const styleConfig = {
       textAlign: 'center',
       fontSize: '$font-size-s',
     },
-    row: {
-      flexDirection: 'row',
-      flex: 1,
-      gap: '$spacing-s',
-    },
+    row: {},
   },
 }
-
-export default PatientHomeScreen

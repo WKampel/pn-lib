@@ -1,6 +1,6 @@
 import { DocumentNode } from '@apollo/client'
-import usePractice from '../../hooks/usePractice'
 import { UseMutationConfig, useMutation } from './useMutation'
+import { usePractice } from './usePractice'
 
 type PracticeVariables<TVariables extends object> = TVariables & { practiceId?: number }
 
@@ -8,7 +8,7 @@ export const usePracticeMutation = <TData, TVariables extends object = {}>(query
   const practice = usePractice()
 
   // Include practiceId in variables if it's defined
-  const variables: PracticeVariables<TVariables> = { ...config.variables, practiceId: practice.id } as PracticeVariables<TVariables>
+  const variables: PracticeVariables<TVariables> = { ...config.variables, practiceId: practice.data?.id } as PracticeVariables<TVariables>
 
   const mutationResult = useMutation<TData, PracticeVariables<TVariables>>(query, {
     ...config,

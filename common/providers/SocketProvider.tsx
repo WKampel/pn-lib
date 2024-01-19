@@ -14,11 +14,11 @@ export const SocketProvider = ({ token, children }: { token: string | null; chil
 
   useFocusEffect(
     useCallback(() => {
-      if (!practice?.id) return
+      if (!practice.data?.id) return
       if (!API_URL) throw new Error('API_URL is not defined')
 
       const newSocket = io(API_URL, {
-        query: { token, app: APP, practiceId: practice.id },
+        query: { token, app: APP, practiceId: practice.data?.id },
       })
 
       setSocket(newSocket)
@@ -36,7 +36,7 @@ export const SocketProvider = ({ token, children }: { token: string | null; chil
         newSocket.offAny()
         newSocket.disconnect()
       }
-    }, [token, practice?.id])
+    }, [token, practice.data?.id])
   )
 
   return <SocketContext.Provider value={socket}>{children}</SocketContext.Provider>

@@ -21,15 +21,15 @@ export const PracticeProvider = ({ onError, children, practiceUrl }: { onError: 
   })
 
   const value = useMemo(() => {
-    if (!practice) return undefined
-    return { ...practice, invalid: error ? true : false, loading, refetch: exec }
+    if (!practice) return { invalid: error ? true : false, loading, refetch: exec }
+    return { data: practice, invalid: error ? true : false, loading, refetch: exec }
   }, [practice, error, loading])
 
   return (
     <PracticeContext.Provider value={value}>
       <ThemeProvider
         override={{
-          color_ui_primary: value?.primaryColor || undefined,
+          color_ui_primary: value?.data?.primaryColor || undefined,
         }}
       >
         {children}

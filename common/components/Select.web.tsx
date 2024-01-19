@@ -13,7 +13,7 @@ export type SelectProps<TOption> = {
   label: string
   getLabel: (option: TOption) => string
   getValue: (option: TOption) => string
-  getLabelIcon?: (option: any) => React.ReactElement<BaseIconProps>
+  getLabelIcon?: (option: TOption) => React.ReactElement<BaseIconProps>
 }
 
 export const Select = <TOption extends any>({ value, onChange, options, label = 'Select', getLabel, getValue, getLabelIcon }: SelectProps<TOption>) => {
