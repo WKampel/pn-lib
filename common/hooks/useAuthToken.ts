@@ -8,6 +8,5 @@ export const useAuthToken = () => {
     throw new Error('useAuthToken must be used within a AuthTokenContext.Provider')
   }
 
-  const { token, setToken, loading } = context
-  return { token, setToken, loading }
+  return context
 }

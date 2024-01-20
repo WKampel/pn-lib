@@ -1,6 +1,5 @@
 import { cloneElement } from 'react'
 import { ActivityIndicator, Text, TextStyle, TouchableOpacity, ViewStyle } from 'react-native'
-import { useNav } from '../../hooks/useNav'
 
 export type BaseButtonProps = {
   onPress?: () => void
@@ -25,8 +24,6 @@ type BaseButtonTextStyles = {
 }
 
 export const BaseButton = ({ size = 'm', onPress, loading, disabled, containerStyle, textStyle, text, icon }: BaseButtonProps) => {
-  const nav = useNav()
-
   const handlePress = () => {
     if (onPress) onPress()
   }

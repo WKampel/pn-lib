@@ -1,7 +1,7 @@
 import { DefaultTheme, LinkingOptions, NavigationContainer as ReactNativeNavigationContainer, Theme, useNavigationContainerRef } from '@react-navigation/native'
 import { ReactNode, useState } from 'react'
 import 'react-native-gesture-handler' /* Necessary for production (https://reactnavigation.org/docs/drawer-navigator/) */
-import { CurrentRouteProvider } from '../providers/CurrentRouteProvider'
+import { CurrentRouteProvider } from '../../core/providers/CurrentRouteProvider'
 
 const theme: Theme = {
   ...DefaultTheme,

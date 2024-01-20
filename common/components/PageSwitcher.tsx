@@ -1,13 +1,12 @@
 import React from 'react'
 import { View } from 'react-native'
-import { NavAction, useNav } from '../hooks/useNav'
 import { useTheme } from '../hooks/useTheme'
 import { SolidButton } from './buttons/SolidButton'
 
 type PageSwitcherItem = {
   name: string
   icon?: React.ReactElement
-  to?: NavAction
+  onPress: () => void
 }
 
 type PageSwitcherProps = {
@@ -16,11 +15,9 @@ type PageSwitcherProps = {
 }
 
 export const PageSwitcher = ({ items, active }: PageSwitcherProps) => {
-  const nav = useNav()
-
   const onPress = (item: PageSwitcherItem) => {
     if (active !== item.name) {
-      if (item.to) nav.navigate(...item.to)
+      item.onPress()
     }
   }
 

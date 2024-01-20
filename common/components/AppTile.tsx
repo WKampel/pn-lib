@@ -1,17 +1,13 @@
 import { ReactElement, cloneElement, isValidElement } from 'react'
 import { ColorValue, Text, TouchableOpacity } from 'react-native'
-import { NavAction, useNav } from '../hooks/useNav'
 import { useTheme } from '../hooks/useTheme'
 
-export const AppTile = ({ title, icon, to }: { icon: ReactElement<{ size: number; color: ColorValue }>; title: string; to?: NavAction }) => {
+export const AppTile = ({ title, icon, onPress }: { icon: ReactElement<{ size: number; color: ColorValue }>; title: string; onPress?: () => void }) => {
   const tokens = useTheme()
-  const nav = useNav()
 
   return (
     <TouchableOpacity
-      onPress={() => {
-        if (to) nav.navigate(...to)
-      }}
+      onPress={onPress}
       style={{
         alignItems: 'center',
         justifyContent: 'center',
