@@ -13,11 +13,13 @@ export function SegmentedControl<T extends string>(props: SegmentedControlProps<
     <View
       style={{
         flexDirection: 'row',
-        borderWidth: 1,
         borderRadius: tokens.radius_xs,
-        backgroundColor: tokens.color_ui_secondary,
-        padding: tokens.spacing_xxs,
-        borderColor: tokens.color_border_on_surface_intense,
+        height: tokens.size_m,
+        gap: 1,
+        backgroundColor: tokens.color_ui_primary,
+        borderColor: tokens.color_ui_primary,
+        borderWidth: 1,
+        overflow: 'hidden',
       }}
     >
       {props.options.map(option => {
@@ -25,17 +27,21 @@ export function SegmentedControl<T extends string>(props: SegmentedControlProps<
         return (
           <TouchableOpacity
             style={{
+              height: '100%',
               justifyContent: 'center',
-              height: tokens.size_s,
-              paddingHorizontal: tokens.spacing_s,
-              borderWidth: active ? 1 : undefined,
-              backgroundColor: active ? 'white' : undefined,
-              borderRadius: tokens.radius_xs,
-              borderColor: tokens.color_border_on_surface_intense,
+              paddingHorizontal: tokens.spacing_m,
+              backgroundColor: active ? tokens.color_ui_primary : 'white',
             }}
             onPress={() => props.onChange(option)}
           >
-            <Text>{option}</Text>
+            <Text
+              style={{
+                color: active ? 'white' : tokens.color_ui_primary,
+                fontWeight: tokens.weight_semi_heavy,
+              }}
+            >
+              {option}
+            </Text>
           </TouchableOpacity>
         )
       })}

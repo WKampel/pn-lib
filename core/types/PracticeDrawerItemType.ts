@@ -1,11 +1,11 @@
 export type PracticeDrawerItemType =
   | {
-      type?: 'group'
+      type: 'group'
       label: string
       items: PracticeDrawerItemType[]
     }
   | {
-      type?: 'item'
+      type: 'item'
       label: string
       icon: JSX.Element
       active: boolean

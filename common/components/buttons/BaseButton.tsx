@@ -1,5 +1,6 @@
 import { cloneElement } from 'react'
 import { ActivityIndicator, Text, TextStyle, TouchableOpacity, ViewStyle } from 'react-native'
+import { useTheme } from '../../hooks/useTheme'
 
 export type BaseButtonProps = {
   onPress?: () => void
@@ -28,8 +29,27 @@ export const BaseButton = ({ size = 'm', onPress, loading, disabled, containerSt
     if (onPress) onPress()
   }
 
+  const tokens = useTheme()
+
+  const heightMap = {
+    s: tokens.size_s,
+    m: tokens.size_m,
+    l: tokens.size_l,
+  }
+
   return (
-    <TouchableOpacity disabled={disabled || loading} onPress={handlePress} style={containerStyle}>
+    <TouchableOpacity
+      disabled={disabled || loading}
+      onPress={handlePress}
+      style={[
+        {
+          height: heightMap[size],
+          alignItems: 'center',
+          justifyContent: 'center',
+        },
+        containerStyle,
+      ]}
+    >
       {loading ? (
         <ActivityIndicator color={textStyle?.color} />
       ) : (

@@ -28,7 +28,6 @@ export const PracticeDrawerHeader = () => {
     >
       {practice.data?.logo?.url ? (
         <Image
-          contentFit='contain'
           style={{
             width: 50,
             height: 50,

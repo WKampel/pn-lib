@@ -10,6 +10,7 @@ export const tokens: {
   font_size_m: Defined<TextStyle['fontSize']>
   font_size_s: Defined<TextStyle['fontSize']>
   font_size_xl: Defined<TextStyle['fontSize']>
+  font_size_xxl: Defined<TextStyle['fontSize']>
   font_size_xs: Defined<TextStyle['fontSize']>
   font_size_xxs: Defined<TextStyle['fontSize']>
   radius_l: Defined<TextStyle['borderRadius']>
@@ -40,6 +41,7 @@ export const tokens: {
   font_size_m: 17,
   font_size_s: 14,
   font_size_xl: 23,
+  font_size_xxl: 30,
   font_size_xs: 12,
   font_size_xxs: 10,
   radius_l: 14,

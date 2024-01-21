@@ -7,12 +7,24 @@ export const Service = ({ icon, name, onPress }: { icon?: string | null; name: s
   const tokens = useTheme()
 
   return (
-    <TouchableOpacity style={{ gap: tokens.spacing_m, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }} onPress={onPress}>
-      {icon ? <Icon set={serviceIconSet} size={tokens.font_size_m} color={tokens.color_ui_primary} id={icon} /> : null}
+    <TouchableOpacity
+      style={{
+        gap: tokens.spacing_m,
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderRadius: tokens.radius_s,
+        borderWidth: 1,
+        borderColor: tokens.color_border_on_surface,
+        padding: tokens.spacing_s,
+      }}
+      onPress={onPress}
+    >
+      {icon ? <Icon set={serviceIconSet} size={30} color={tokens.color_ui_primary} id={icon} /> : null}
 
       <Text
         style={{
           color: tokens.color_ui_primary,
+          fontSize: tokens.font_size_l,
         }}
       >
         {name}

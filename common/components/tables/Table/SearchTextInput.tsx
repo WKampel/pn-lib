@@ -1,18 +1,12 @@
-import { TextInput, TextInputContainerStyles } from '../../TextInput'
+import { TextInput, TextInputProps } from '../../TextInput'
 
-export const SearchTextInput = ({
-  style,
-  totalRowCount,
-  value,
-  onChange,
-}: {
-  style?: TextInputContainerStyles
+type SearchTextInputProps = TextInputProps & {
   totalRowCount: number
-  value: string
-  onChange: (value: string) => void
-}) => {
+}
+
+export const SearchTextInput = ({ totalRowCount, ...other }: Omit<SearchTextInputProps, 'label'>) => {
   const rowLabel = totalRowCount === 1 ? 'row' : 'rows'
   const label = `Search ${totalRowCount} ${rowLabel}`
 
-  return <TextInput containerStyle={style} label={label} value={value} onChange={onChange} />
+  return <TextInput {...other} label={label} />
 }

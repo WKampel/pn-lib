@@ -6,7 +6,6 @@ import { OpenDrawerButton } from './OpenDrawerButton'
 type HeaderProps = {
   options?: {
     title?: string
-    back?: string
   }
   route: {
     name: string
@@ -25,12 +24,14 @@ export const Header = ({ options, route, handleBackTo }: HeaderProps) => {
         flexDirection: 'row',
         gap: tokens.spacing_m,
         padding: tokens.spacing_l,
-        paddingBottom: 0,
         alignItems: 'center',
         justifyContent: isMobile ? 'space-between' : undefined,
+        backgroundColor: tokens.color_bg_surface_alt,
+        borderBottomWidth: 1,
+        borderColor: tokens.color_border_on_surface,
       }}
     >
-      {options?.back ? <SolidButton size='s' variant='secondary' onPress={handleBackTo} text='Back' /> : null}
+      {handleBackTo ? <SolidButton size='s' variant='secondary' onPress={handleBackTo} text='Back' /> : null}
       <Text
         style={{
           fontSize: tokens.font_size_l,

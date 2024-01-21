@@ -1,29 +1,32 @@
-import { ScrollView, Text, View } from 'react-native'
+import { ScrollView, View } from 'react-native'
 import { Service as GqlService } from '../../gql/graphql'
+import { H } from '../common/components/H'
+import { Icon } from '../common/components/Icon'
 import { Screen } from '../common/components/Screen'
 import { SolidButton } from '../common/components/buttons/SolidButton'
-import { DentalIcon } from '../common/components/icons/DentalIcon'
-import { useNav } from '../common/hooks/useNav'
+import { serviceIconSet } from '../common/config/serviceIconSet'
 import { useTheme } from '../common/hooks/useTheme'
+import { PageHtmlRenderer } from '../contentManagement/components/PageHtmlRenderer'
 
-export const PatientServiceScreen = ({ data }: { data: Omit<GqlService, 'id'> }) => {
+export const PatientServiceScreen = ({ data, onPressScheduleAppointment }: { data: Omit<GqlService, 'id'>; onPressScheduleAppointment?: () => void }) => {
   const tokens = useTheme()
-  const nav = useNav()
 
   return (
     <Screen>
-      <ScrollView style={{ flex: 1, gap: tokens.spacing_l }}>
-        <View style={{ flexDirection: 'row' }}>
-          {data.icon ? <DentalIcon id={data.icon} size={80} /> : null}
-          <Text>{data.name}</Text>
+      <View style={{ gap: tokens.spacing_xl, flex: 1 }}>
+        <View style={{ flexDirection: 'row', alignSelf: 'center', alignItems: 'center', justifyContent: 'center', gap: tokens.spacing_l }}>
+          {data.icon ? <Icon set={serviceIconSet} id={data.icon} size={40} /> : null}
+          <H>{data.name}</H>
         </View>
 
-        <Text>{data.desc}</Text>
+        <ScrollView contentContainerStyle={{ paddingHorizontal: tokens.spacing_s }} style={{ flex: 1 }}>
+          {data.desc ? <PageHtmlRenderer html={data.desc} /> : null}
+        </ScrollView>
 
-        <View style={{ marginTop: 'auto' }}>
-          <SolidButton text='Schedule Appointment' onPress={() => nav.navigate('RequestAppointment')} />
+        <View style={{ paddingHorizontal: tokens.spacing_s }}>
+          <SolidButton text='Schedule Appointment' onPress={onPressScheduleAppointment} />
         </View>
-      </ScrollView>
+      </View>
     </Screen>
   )
 }

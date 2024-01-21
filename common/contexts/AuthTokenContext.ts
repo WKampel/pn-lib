@@ -1,7 +1,7 @@
 import { createContext } from 'react'
 
 type AuthTokenContextType = {
-  token: string | null
+  token: string | undefined | null
   loading: boolean
   setToken: (token: string | null) => void
 }

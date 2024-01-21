@@ -8,9 +8,10 @@ export type IconSelectProps = {
   value: string
   label?: string
   set: IconSet
+  flex?: boolean | number
 }
 
-export const IconSelect = ({ onChange, value, label, set }: IconSelectProps) => {
+export const IconSelect = ({ onChange, value, label, set, flex }: IconSelectProps) => {
   const options = Object.keys(set).map(key => ({ label: set[key].label, value: key }))
   return (
     <Select
@@ -21,6 +22,7 @@ export const IconSelect = ({ onChange, value, label, set }: IconSelectProps) => 
       onChange={onChange}
       value={value}
       options={options}
+      flex={flex}
     />
   )
 }

@@ -4,14 +4,16 @@ import { onError } from '@apollo/client/link/error'
 // @ts-ignore
 import { createUploadLink } from 'apollo-upload-client'
 import { ReactNode, useMemo } from 'react'
+import { useNotification } from '../hooks/useNotification'
 
 type ApolloProviderProps = {
   children: ReactNode
-  token: string | null
+  token: string | undefined | null
   setToken?: (token: string | null) => void
 }
 
 export const ApolloProvider = ({ children, token, setToken }: ApolloProviderProps) => {
+  const { notify } = useNotification()
   const client = useMemo(() => {
     const authLink = setContext((_, { headers }) => ({
       headers: {
@@ -27,6 +29,7 @@ export const ApolloProvider = ({ children, token, setToken }: ApolloProviderProp
         const { statusCode } = networkError as any
         if (statusCode === 401) setToken?.(null)
         console.log(`[Network error]: ${networkError}`)
+        notify({ title: 'Network error', body: 'Please check your internet connection and try again', type: 'ERROR' })
       }
     })
 

@@ -1,13 +1,11 @@
 import { ApolloError, DocumentNode, MutationHookOptions, useMutation as useMutationGraphQL } from '@apollo/client'
 import { namedOperations } from '../../../gql/graphql'
-import { NavAction, useNav } from './useNav'
 import { useNotification } from './useNotification'
 
 type ValidationErrorMessage = string
 
 export type UseMutationConfig<TData, TVariables> = {
   onSuccess?: (data: TData) => void
-  redirectOnSuccess?: NavAction
   displaySuccess?: boolean | string
   onError?: (error: ApolloError) => void
   displayError?: boolean
@@ -19,7 +17,6 @@ export type UseMutationConfig<TData, TVariables> = {
 type OperationNames = typeof namedOperations.Query
 
 export const useMutation = <TData, TVariables>(query: DocumentNode, config: UseMutationConfig<TData, TVariables>) => {
-  const nav = useNav()
   const { notify } = useNotification()
 
   const displayError = config.displayError !== undefined ? config.displayError : true
@@ -30,9 +27,6 @@ export const useMutation = <TData, TVariables>(query: DocumentNode, config: UseM
       try {
         // on success
         if (config.onSuccess) config.onSuccess(data)
-
-        // redirect on success
-        if (config.redirectOnSuccess) nav.navigate(...config.redirectOnSuccess)
 
         // display success
         if (config.displaySuccess) {
@@ -64,16 +58,16 @@ export const useMutation = <TData, TVariables>(query: DocumentNode, config: UseM
     data,
     exec: (options?: { variables: Partial<TVariables> }) => {
       const variables = { ...config.variables, ...options?.variables }
-      if (options) {
-        if (config.validate) {
-          const validateResult = config.validate(variables)
-          if (typeof validateResult === 'string') {
-            notify({ type: 'ERROR', body: validateResult, title: '' })
-            return
-          }
+
+      if (config.validate) {
+        const validateResult = config.validate(variables)
+        if (typeof validateResult === 'string') {
+          notify({ type: 'ERROR', body: validateResult, title: '' })
+          return
         }
-        return runMutation({ variables })
       }
+
+      return runMutation({ variables })
     },
   }
 }

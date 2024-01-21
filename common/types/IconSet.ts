@@ -6,12 +6,12 @@ export type Icon = {
   label: string
 } & (
   | {
-      type?: 'expo-vector'
+      type: 'expo-vector'
       name: string
       set: ExpoVectorSet
     }
   | {
-      type?: 'image'
+      type: 'image'
       source: string
     }
 )

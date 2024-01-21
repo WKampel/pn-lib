@@ -7,9 +7,10 @@ export type SwitchProps = {
   label: string
   size?: 's' | 'm' | 'l'
   onChange: (value: boolean) => void
+  style?: object
 }
 
-export const Switch = ({ disabled = false, value, label, size = 'm', onChange }: SwitchProps) => {
+export const Switch = ({ style, disabled = false, value, label, size = 'm', onChange }: SwitchProps) => {
   const tokens = useTheme()
 
   return (
@@ -21,6 +22,7 @@ export const Switch = ({ disabled = false, value, label, size = 'm', onChange }:
         alignItems: 'center',
         borderRadius: tokens.radius_round,
         paddingHorizontal: tokens.size_xs + (tokens.size_m - tokens.size_xs),
+        ...style,
       }}
       onPress={() => onChange(!value)}
     >

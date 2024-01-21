@@ -13,8 +13,8 @@ const saveItem = async (key: string, value: string): Promise<void> => {
   return await SecureStore.setItemAsync(key, value)
 }
 
-export const useStorage = (key: string): [string | null, (val: string | null) => void, boolean] => {
-  const [item, setItem] = useState<string | null>(null)
+export const useStorage = (key: string): [string | undefined | null, (val: string | null) => void, boolean] => {
+  const [item, setItem] = useState<string | undefined | null>(undefined)
 
   useEffect(() => {
     getItem(key).then(val => {

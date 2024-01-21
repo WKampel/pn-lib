@@ -5,6 +5,7 @@ type Defined<T> = Exclude<T, undefined>
 export const theme: {
   color_bg: Defined<ViewStyle['backgroundColor']>
   color_bg_surface: Defined<ViewStyle['backgroundColor']>
+  color_bg_surface_alt: Defined<ViewStyle['backgroundColor']>
   color_bg_surface_alternate: Defined<ViewStyle['backgroundColor']>
   color_bg_surface_disabled: Defined<ViewStyle['backgroundColor']>
   color_bg_surface_emphasis: Defined<ViewStyle['backgroundColor']>
@@ -29,6 +30,7 @@ export const theme: {
 } = {
   color_bg: 'white',
   color_bg_surface: 'white',
+  color_bg_surface_alt: 'rgb(240, 243, 245)',
   color_bg_surface_alternate: 'whitesmoke',
   color_bg_surface_disabled: 'rgb(220, 220, 220)',
   color_bg_surface_emphasis: 'rgb(220, 220, 220)',

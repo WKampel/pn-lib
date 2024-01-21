@@ -46,7 +46,7 @@ export const Table = <TRow extends object>({ style, rows: rowsProp, cols = [], o
 
   const onClickCol = useCallback(
     (colIndex: number) => {
-      setSortByIndex(prevIndex => (prevIndex === colIndex ? null : colIndex))
+      setSortByIndex(prevIndex => colIndex)
       if (sortByIndex === colIndex) {
         setSortDir(prevDir => (prevDir === 1 ? -1 : 1))
       }
@@ -73,7 +73,7 @@ export const Table = <TRow extends object>({ style, rows: rowsProp, cols = [], o
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: tokens.spacing_m }}>
         {headerLeft}
         {<ActivityIndicator animating={loading} style={{ marginLeft: 'auto' }} />}
-        <SearchTextInput style={{ flex: 1, maxWidth: 300 }} totalRowCount={totalRowCount} value={searchKeyword} onChange={setSearchKeyword} />
+        <SearchTextInput flex containerStyle={{ maxWidth: 300 }} totalRowCount={totalRowCount} value={searchKeyword} onChange={setSearchKeyword} />
       </View>
 
       <View style={{ flex: 1 }}>

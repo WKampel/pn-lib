@@ -38,7 +38,7 @@ export const PracticeDrawerGroup = ({ children, label, currentRouteName, items }
   return (
     <View
       style={{
-        backgroundColor: 'rgb(240,243,245)',
+        backgroundColor: tokens.color_bg_surface_alt,
         borderRadius: 10,
         paddingLeft: 15,
         height: open ? 'auto' : 40,

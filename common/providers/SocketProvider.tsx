@@ -8,7 +8,7 @@ import { usePractice } from '../hooks/usePractice'
 const API_URL = process.env.EXPO_PUBLIC_API_URL
 const APP = process.env.EXPO_PUBLIC_APP
 
-export const SocketProvider = ({ token, children }: { token: string | null; children: ReactNode }) => {
+export const SocketProvider = ({ token, children }: { token: string | undefined | null; children: ReactNode }) => {
   const [socket, setSocket] = useState<Socket | undefined>(undefined)
   const practice = usePractice()
 

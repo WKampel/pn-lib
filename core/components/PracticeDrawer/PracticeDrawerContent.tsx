@@ -1,6 +1,5 @@
 import { AntDesign, Feather } from '@expo/vector-icons'
-import { useNavigation } from '@react-navigation/native'
-import { useMemo } from 'react'
+import { ReactNode, useMemo } from 'react'
 import { ScrollView } from 'react-native'
 import { useAuthToken } from '../../../common/hooks/useAuthToken'
 import { useCurrentRoute } from '../../hooks/useCurrentRoute'
@@ -9,13 +8,12 @@ import { PracticeDrawerGroup } from './PracticeDrawerGroup'
 import { PracticeDrawerHeader } from './PracticeDrawerHeader'
 import { PracticeDrawerItem } from './PracticeDrawerItem'
 
-export const PracticeDrawerContent = ({ switchPractice, items = [] }: { switchPractice: () => void; items: PracticeDrawerItemType[] }) => {
+export const PracticeDrawerContent = ({ switchPractice, items = [] }: { switchPractice?: () => void; items: PracticeDrawerItemType[] }) => {
   const currentRoute = useCurrentRoute()
 
-  const nav = useNavigation()
   const { setToken } = useAuthToken()
 
-  const generateChildren = (items: PracticeDrawerItemType[], level = 0) => {
+  const generateChildren = (items: PracticeDrawerItemType[], level = 0): ReactNode[] => {
     return items.map((item, i) => {
       if (item.type === 'group') {
         return (
@@ -25,14 +23,18 @@ export const PracticeDrawerContent = ({ switchPractice, items = [] }: { switchPr
         )
       } else if (item.type === 'item') {
         return <PracticeDrawerItem key={i} icon={item.icon} label={item.label} onPress={item.onPress} color={item.color} isFocused={item.active} />
+      } else {
+        console.log('item:', item)
+        throw new Error('Missing item type')
       }
     })
   }
 
   // Switch practice item
   const switchPracticeItem: PracticeDrawerItemType = {
+    type: 'item',
     label: 'Switch Practice',
-    onPress: switchPractice,
+    onPress: () => switchPractice?.(),
     icon: <AntDesign name='back' />,
     color: 'rgb(175,175,175)',
     active: false,
@@ -40,6 +42,7 @@ export const PracticeDrawerContent = ({ switchPractice, items = [] }: { switchPr
 
   // Sign out item
   const signOutItem: PracticeDrawerItemType = {
+    type: 'item',
     label: 'Sign Out',
     onPress: () => setToken(null),
     icon: <Feather name='log-out' />,
@@ -49,8 +52,10 @@ export const PracticeDrawerContent = ({ switchPractice, items = [] }: { switchPr
 
   // Children
   const children = useMemo(() => {
-    return generateChildren([...items, switchPracticeItem, signOutItem])
-  }, [items, switchPracticeItem, signOutItem])
+    const itemsArray = [...items, signOutItem]
+    if (switchPractice) itemsArray.push(switchPracticeItem)
+    return generateChildren(itemsArray)
+  }, [items, switchPractice, switchPracticeItem, signOutItem])
 
   return (
     <>

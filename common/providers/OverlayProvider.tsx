@@ -1,9 +1,9 @@
-import { ReactNode, useState } from 'react'
+import { ReactElement, ReactNode, useState } from 'react'
 import { View } from 'react-native'
 import { OverlayContext } from '../contexts/OverlayContext'
 
 export const OverlayProvider = ({ children }: { children: ReactNode }) => {
-  const [overlay, setOverlay] = useState<ReactNode>(null)
+  const [overlay, setOverlay] = useState<ReactElement | undefined>(undefined)
 
   return (
     <OverlayContext.Provider value={{ setOverlay }}>

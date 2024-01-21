@@ -5,14 +5,13 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { AppTile } from '../common/components/AppTile'
 import { ImageAutoHeight } from '../common/components/ImageAutoHeight'
 import { Screen } from '../common/components/Screen'
-import { NavAction } from '../common/hooks/useNav'
 import { usePractice } from '../common/hooks/usePractice'
 import { useTheme } from '../common/hooks/useTheme'
 
 type AppTileName = 'MESSAGES' | 'CHECK_IN' | 'ANNOUNCEMENTS' | 'SERVICES' | 'FORMS' | 'ABOUT_US' | 'PROFILE' | 'REVIEW' | 'APPOINTMENTS' | 'PAYMENT'
 
 type PatientHomeScreenProps = {
-  links?: Record<AppTileName, NavAction>
+  links?: Record<AppTileName, () => void>
 }
 
 export const PatientHomeScreen = ({ links }: PatientHomeScreenProps) => {
@@ -22,7 +21,7 @@ export const PatientHomeScreen = ({ links }: PatientHomeScreenProps) => {
 
   return (
     <Screen>
-      <View style={{ flex: 1, paddingBottom: insets.bottom }}>
+      <View style={{ flex: 1, paddingBottom: insets.bottom, padding: tokens.spacing_s }}>
         <View style={{ gap: tokens.spacing_xs, alignItems: 'center', marginBottom: tokens.spacing_s }}>
           <ImageAutoHeight
             style={{
@@ -48,28 +47,28 @@ export const PatientHomeScreen = ({ links }: PatientHomeScreenProps) => {
           }}
         >
           <Row>
-            <AppTile to={links?.MESSAGES} icon={<AntDesign name='message1' />} title='MESSAGES' />
-            <AppTile to={links?.CHECK_IN} icon={<AntDesign name='calendar' />} title='CHECK IN' />
+            <AppTile onPress={links?.MESSAGES} icon={<AntDesign name='message1' />} title='MESSAGES' />
+            <AppTile onPress={links?.CHECK_IN} icon={<AntDesign name='calendar' />} title='CHECK IN' />
           </Row>
 
           <Row>
-            <AppTile to={links?.ANNOUNCEMENTS} icon={<Entypo name='megaphone' />} title='ANNOUNCEMENTS' />
-            <AppTile to={links?.SERVICES} icon={<MaterialCommunityIcons name='tooth-outline' />} title='SERVICES' />
+            <AppTile onPress={links?.ANNOUNCEMENTS} icon={<Entypo name='megaphone' />} title='ANNOUNCEMENTS' />
+            <AppTile onPress={links?.SERVICES} icon={<MaterialCommunityIcons name='tooth-outline' />} title='SERVICES' />
           </Row>
 
           <Row>
-            <AppTile to={links?.FORMS} icon={<AntDesign name='form' />} title='FORMS' />
-            <AppTile to={links?.ABOUT_US} icon={<AntDesign name='infocirlceo' />} title='ABOUT US' />
+            <AppTile onPress={links?.FORMS} icon={<AntDesign name='form' />} title='FORMS' />
+            <AppTile onPress={links?.ABOUT_US} icon={<AntDesign name='infocirlceo' />} title='ABOUT US' />
           </Row>
 
           <Row>
-            <AppTile to={links?.PROFILE} icon={<AntDesign name='profile' />} title='PATIENT PROFILE' />
-            <AppTile to={links?.REVIEW} icon={<AntDesign name='staro' />} title='REVIEW' />
+            <AppTile onPress={links?.PROFILE} icon={<AntDesign name='profile' />} title='PATIENT PROFILE' />
+            <AppTile onPress={links?.REVIEW} icon={<AntDesign name='staro' />} title='REVIEW' />
           </Row>
 
           <Row>
-            <AppTile to={links?.APPOINTMENTS} icon={<AntDesign name='calendar' />} title='APPOINTMENTS' />
-            <AppTile to={links?.PAYMENT} icon={<AntDesign name='creditcard' />} title='MAKE PAYMENT' />
+            <AppTile onPress={links?.APPOINTMENTS} icon={<AntDesign name='calendar' />} title='APPOINTMENTS' />
+            <AppTile onPress={links?.PAYMENT} icon={<AntDesign name='creditcard' />} title='MAKE PAYMENT' />
           </Row>
         </View>
       </View>

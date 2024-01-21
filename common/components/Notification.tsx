@@ -39,6 +39,7 @@ export const Notification = (props: NotificationProps) => {
         borderRadius: tokens.radius_s,
         marginBottom: tokens.spacing_m,
         gap: tokens.spacing_s,
+        backgroundColor: bgColorMap[type],
       }}
       onPress={handlePress}
     >
@@ -53,7 +54,6 @@ export const Notification = (props: NotificationProps) => {
               fontWeight: tokens.weight_heavy,
               marginBottom: tokens.spacing_xs,
               color: 'white',
-              backgroundColor: bgColorMap[type],
             }}
           >
             {title}

@@ -8,7 +8,7 @@ import { PracticeDrawerItemType } from '../../types/PracticeDrawerItemType'
 import { PracticeDrawerContent } from './PracticeDrawerContent'
 
 type PracticeDrawerProps = {
-  switchPractice: () => void
+  switchPractice?: () => void
   items: PracticeDrawerItemType[]
   children: ReactNode
 }

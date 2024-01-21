@@ -2,7 +2,7 @@ import { ColorValue, Text } from 'react-native'
 import { IconSet } from '../types/IconSet'
 import { Image } from './Image'
 
-export const Icon = ({ id, set, color, size }: { id: keyof IconSet; set: IconSet; color?: ColorValue; size?: number }) => {
+export const Icon = ({ id, set, color = 'black', size = 10 }: { id: keyof IconSet; set: IconSet; color?: ColorValue; size?: number }) => {
   const icon = set[id]
   if (icon) {
     if (icon.type === 'expo-vector') {

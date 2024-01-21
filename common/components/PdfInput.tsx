@@ -2,12 +2,12 @@
 import { ReactNativeFile } from 'apollo-upload-client'
 import * as DocumentPicker from 'expo-document-picker'
 import { ActivityIndicator, Platform, StyleProp, TouchableOpacity, View, ViewStyle } from 'react-native'
-import WebView from 'react-native-webview'
 import { CreateFileMutation, CreateFileMutationVariables } from '../../../gql/graphql'
 import { CreateFile } from '../../mutations/CreateFileMutation'
 import { usePracticeMutation } from '../hooks/usePracticeMutation'
 import { useTheme } from '../hooks/useTheme'
 import { FileState } from '../types/FileState'
+import { Pdf } from './Pdf'
 import { SolidButton } from './buttons/SolidButton'
 
 export type PdfInputProps = {
@@ -65,8 +65,8 @@ export const PdfInput = ({ style, label = 'Upload Pdf', onChange, value }: PdfIn
       style={[
         {
           width: 200,
-          borderWidth: 1,
-          borderColor: tokens.color_border_on_surface,
+          borderWidth: 1.5,
+          borderColor: tokens.color_border_on_surface_semi_intense,
           borderStyle: 'dashed',
           padding: tokens.spacing_s,
           borderRadius: tokens.radius_s,
@@ -76,19 +76,21 @@ export const PdfInput = ({ style, label = 'Upload Pdf', onChange, value }: PdfIn
       ]}
       onPress={onPress}
     >
-      <View>{createFile.loading ? <ActivityIndicator animating={true} /> : <SolidButton size='s' variant='secondary' text={label} onPress={onPress} />}</View>
-
-      <View style={{ aspectRatio: 0.7 }}>
-        {value?.url ? (
-          Platform.OS === 'web' ? (
-            <div>
-              <div dangerouslySetInnerHTML={{ __html: value?.url }} />
-            </div>
-          ) : (
-            <WebView source={{ uri: value?.url }} />
-          )
-        ) : null}
+      <View style={{ margin: 'auto' }}>
+        {createFile.loading ? <ActivityIndicator animating={true} /> : <SolidButton size='s' variant='secondary' text={label} onPress={onPress} />}
       </View>
+
+      {value?.url && (
+        <View style={{ aspectRatio: 0.7 }}>
+          <Pdf
+            style={{
+              width: '100%',
+              height: '100%',
+            }}
+            src={value?.url}
+          />
+        </View>
+      )}
     </TouchableOpacity>
   )
 }

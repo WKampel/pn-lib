@@ -81,8 +81,8 @@ export const ImageInput = ({ style, label = 'Upload Image', onChange, value, cam
         {
           width: 200,
           aspectRatio: 1,
-          borderWidth: 1,
-          borderColor: tokens.color_border_on_surface,
+          borderWidth: 1.5,
+          borderColor: tokens.color_border_on_surface_semi_intense,
           borderStyle: 'dashed',
           padding: tokens.spacing_s,
           borderRadius: tokens.radius_s,
@@ -92,7 +92,9 @@ export const ImageInput = ({ style, label = 'Upload Image', onChange, value, cam
       ]}
       onPress={onPress}
     >
-      <View>{createFile.loading ? <ActivityIndicator animating={true} /> : <SolidButton size='s' variant='secondary' text={label} onPress={onPress} />}</View>
+      <View style={{ margin: 'auto' }}>
+        {createFile.loading ? <ActivityIndicator animating={true} /> : <SolidButton size='s' variant='secondary' text={label} onPress={onPress} />}
+      </View>
 
       {value?.url && (
         <Image

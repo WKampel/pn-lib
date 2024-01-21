@@ -16,10 +16,10 @@ export type TextInputProps = {
   onKeyPress?: (e: NativeSyntheticEvent<TextInputKeyPressEventData>) => void
   containerStyle?: TextInputContainerStyles
   textStyle?: TextInputTextStyles
+  flex?: number | boolean
 }
 
 export type TextInputContainerStyles = {
-  flex?: number
   maxWidth?: number
 }
 
@@ -40,19 +40,27 @@ export const TextInput = ({
   onKeyPress,
   containerStyle,
   textStyle,
+  flex,
 }: TextInputProps) => {
   const tokens = useTheme()
+
+  const heightMap = {
+    s: tokens.size_s,
+    m: tokens.size_m,
+    l: tokens.size_l,
+  }
 
   return (
     <ReactNativeTextInput
       secureTextEntry={password}
       style={{
-        height: tokens.size_m,
-        backgroundColor: 'rgb(240, 242, 244)',
+        height: heightMap[size],
+        backgroundColor: 'rgb(250, 250, 250)',
         paddingLeft: tokens.spacing_s,
         borderRadius: tokens.radius_xs,
         borderWidth: 1.5,
-        borderColor: 'rgb(220,220,220)',
+        borderColor: tokens.color_border_on_surface,
+        flex: flex === true ? 1 : flex ? flex : undefined,
         ...containerStyle,
       }}
       value={value}

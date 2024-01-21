@@ -1,57 +1,61 @@
 import { Text, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import useStyles from '../hooks/useStyles'
-import BackButton from './BackButton.ios'
-import OpenDrawerButton from './OpenDrawerButton'
+import { useTheme } from '../../common/hooks/useTheme'
+import { BackButton } from './BackButton.native'
+import { OpenDrawerButton } from './OpenDrawerButton'
 
-const Header = ({ options, route }) => {
+type HeaderProps = {
+  options?: {
+    title?: string
+  }
+  route: {
+    name: string
+  }
+  handleBackTo?: () => void
+}
+
+export const Header = ({ options, route, handleBackTo }: HeaderProps) => {
   const insets = useSafeAreaInsets()
-  const styles = useStyles(styleConfig)
+  const tokens = useTheme()
 
   return (
     <View
-      style={[
-        styles.header,
-        {
-          paddingTop: insets.top,
-        },
-      ]}
+      style={{
+        backgroundColor: tokens.color_bg_surface,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        height: 100,
+        paddingLeft: 10,
+        paddingRight: 10,
+        paddingTop: insets.top,
+      }}
     >
-      <View style={[styles.item, styles.headerLeft]}>{options?.back ? <BackButton to={options?.back} /> : null}</View>
-      <Text style={styles.title}>{options?.title || route.name}</Text>
-      <View style={[styles.item, styles.headerRight]}>
+      <View
+        style={{
+          flex: 1,
+          alignItems: 'flex-start',
+        }}
+      >
+        {handleBackTo ? <BackButton onPress={handleBackTo} /> : null}
+      </View>
+      <Text
+        style={{
+          fontSize: tokens.font_size_l,
+          flex: 1,
+          textAlign: 'center',
+        }}
+      >
+        {options?.title || route.name}
+      </Text>
+      <View
+        style={{
+          flex: 1,
+          alignItems: 'flex-end',
+        }}
+      >
         <OpenDrawerButton />
       </View>
     </View>
   )
-}
-
-export default Header
-
-const styleConfig = {
-  base: {
-    header: {
-      backgroundColor: '$color-bg-surface',
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      height: 100,
-      paddingLeft: 10,
-      paddingRight: 10,
-    },
-    title: {
-      fontSize: '$font-size-l',
-      flex: 1,
-      textAlign: 'center',
-    },
-    item: {
-      flex: 1,
-    },
-    headerLeft: {
-      alignItems: 'flex-start',
-    },
-    headerRight: {
-      alignItems: 'flex-end',
-    },
-  },
 }

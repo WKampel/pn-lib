@@ -5,7 +5,6 @@ export const GetActiveServices = graphql(`
     activeServices(practiceId: $practiceId) {
       id
       name
-      desc
       active
       icon
     }
