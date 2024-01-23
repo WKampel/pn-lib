@@ -16,7 +16,7 @@ export const EditableListItem = ({ onUp, onDown, onDelete, children, isOpen, set
   const tokens = useTheme()
   return (
     <View style={{ gap: tokens.spacing_xs }}>
-      <View style={{ flexDirection: 'row' }}>
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: tokens.spacing_m }}>
         {children}
         <TouchableOpacity onPress={() => setIsOpen(!isOpen)}>
           <Entypo name='dots-three-horizontal' size={24} />

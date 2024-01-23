@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { View } from 'react-native'
+import { useTheme } from '../hooks/useTheme'
 import { uuid } from '../utils/uuid'
 import { EditableListItem } from './EditableListItem'
 import { SolidButton } from './buttons/SolidButton'
@@ -28,9 +29,13 @@ const EditableList = <TItem extends { id: string }>({ onChange, value, getItemCh
 
   const deleteItem = (id: string) => onChange(value.filter(item => item.id !== id))
 
+  const tokens = useTheme()
+
   return (
-    <View>
-      <SolidButton variant='secondary' size='s' text='Add Field' onPress={addFieldBefore} />
+    <View style={{ gap: tokens.spacing_m }}>
+      <View style={{ alignSelf: 'flex-start' }}>
+        <SolidButton variant='secondary' size='s' text='Add Field' onPress={addFieldBefore} />
+      </View>
       {value?.map(item => {
         return (
           <EditableListItem
@@ -48,7 +53,7 @@ const EditableList = <TItem extends { id: string }>({ onChange, value, getItemCh
           </EditableListItem>
         )
       })}
-      {value?.length > 0 && <SolidButton variant='secondary' size='s' text='Add Field' onPress={addFieldAfter} />}
+      <View style={{ alignSelf: 'flex-start' }}>{value?.length > 0 ? <SolidButton variant='secondary' size='s' text='Add Field' onPress={addFieldAfter} /> : null}</View>
     </View>
   )
 }

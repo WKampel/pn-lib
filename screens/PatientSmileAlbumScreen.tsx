@@ -1,5 +1,6 @@
-import { ScrollView, Text, View } from 'react-native'
+import { ScrollView, View } from 'react-native'
 import { SmileAlbum as GqlSmileAlbum } from '../../gql/graphql'
+import { H } from '../common/components/H'
 import { Image } from '../common/components/Image'
 import { Screen } from '../common/components/Screen'
 import { useTheme } from '../common/hooks/useTheme'
@@ -9,9 +10,13 @@ export const PatientSmileAlbumScreen = ({ data }: { data: Omit<GqlSmileAlbum, 'i
 
   return (
     <Screen>
-      <ScrollView style={{ flex: 1, gap: tokens.spacing_l }}>
-        <Text>{data.name}</Text>
-        <Text>{data.desc}</Text>
+      <ScrollView contentContainerStyle={{ gap: tokens.spacing_l, paddingHorizontal: tokens.spacing_s }} style={{ flex: 1 }}>
+        <View style={{ alignSelf: 'center' }}>
+          <H style={{ textAlign: 'center' }}>{data.name}</H>
+          <H style={{ textAlign: 'center' }} size='s'>
+            {data.desc}
+          </H>
+        </View>
 
         {data.items?.map((item, i) => (
           <View key={item.id} style={{ flexDirection: 'row' }}>

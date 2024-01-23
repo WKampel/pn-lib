@@ -1,7 +1,7 @@
 import { SaveFormat, manipulateAsync } from 'expo-image-manipulator'
 import { useCallback, useRef, useState } from 'react'
 import Cropper, { Area } from 'react-easy-crop'
-import { Image, Text, View } from 'react-native'
+import { Image, View } from 'react-native'
 import { useConfirm } from '../hooks/useConfirm'
 import { useTheme } from '../hooks/useTheme'
 import { ImageInput as BaseImageInput, ImageInputProps } from './ImageInput.native.tsx'
@@ -71,26 +71,25 @@ export const ImageInput = (props: WebImageInputProps) => {
   return (
     <>
       <Modal autoWidth isOpen={modalOpen} onClose={closeModal}>
-        <View style={{ flexDirection: 'row', gap: tokens.spacing_m }}>
-          <SolidButton variant='primary' onPress={closeModal} text='Finish' />
-          <View style={{ flex: 1, gap: tokens.spacing_l }}>
-            <Text>Zoom</Text>
+        <View style={{ gap: tokens.spacing_m }}>
+          <View style={{ flexDirection: 'row', gap: tokens.spacing_m, alignItems: 'center' }}>
             <Slider style={{ flex: 1, height: 25 }} min={MIN_ZOOM} max={MAX_ZOOM} onChange={setZoom} value={zoom} />
+            <SolidButton variant='primary' onPress={closeModal} text='Finish' />
           </View>
-        </View>
-        <View style={{ width: 500, height: 500 }}>
-          <Cropper
-            image={url.current}
-            crop={crop}
-            zoom={zoom}
-            minZoom={MIN_ZOOM}
-            maxZoom={MAX_ZOOM}
-            restrictPosition={false}
-            aspect={props.aspect || 1}
-            onCropChange={setCrop}
-            onCropComplete={onCropComplete}
-            onZoomChange={setZoom}
-          />
+          <View style={{ width: 500, height: 500 }}>
+            <Cropper
+              image={url.current}
+              crop={crop}
+              zoom={zoom}
+              minZoom={MIN_ZOOM}
+              maxZoom={MAX_ZOOM}
+              restrictPosition={false}
+              aspect={props.aspect || 1}
+              onCropChange={setCrop}
+              onCropComplete={onCropComplete}
+              onZoomChange={setZoom}
+            />
+          </View>
         </View>
       </Modal>
       <BaseImageInput transformUri={transformUri} {...props} />

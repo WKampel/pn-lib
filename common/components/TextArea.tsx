@@ -1,4 +1,4 @@
-import { NativeSyntheticEvent, TextInput as ReactNativeTextInput, TextInputKeyPressEventData } from 'react-native'
+import { NativeSyntheticEvent, Platform, TextInput as ReactNativeTextInput, TextInputKeyPressEventData } from 'react-native'
 import { useTheme } from '../hooks/useTheme'
 
 export type TextAreaProps = {
@@ -38,6 +38,19 @@ export const TextArea = ({ disabled = false, password, email, loading, value, la
       }}
       value={value}
       onChangeText={onChange}
+      onChange={e => {
+        if (Platform.OS === 'web') {
+          const el = e?.target || e?.nativeEvent?.target
+          if (el) {
+            // @ts-ignore
+            el.style.height = 0
+            // @ts-ignore
+            const newHeight = el.offsetHeight - el.clientHeight + el.scrollHeight
+            // @ts-ignore
+            el.style.height = `${newHeight}px`
+          }
+        }
+      }}
       placeholder={label}
       placeholderTextColor='gray'
       keyboardType={email ? 'email-address' : 'default'}

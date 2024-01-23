@@ -9,7 +9,7 @@ export const PatientFaqsScreen = ({ data }: { data: Faq[] }) => {
 
   return (
     <Screen>
-      <ScrollView style={{ flex: 1, gap: tokens.spacing_l }}>
+      <ScrollView style={{ flex: 1 }} contentContainerStyle={{ gap: tokens.spacing_m, paddingHorizontal: tokens.spacing_m }}>
         <Accordion
           items={data.map(faq => ({
             title: faq.question,

@@ -5,10 +5,16 @@ export type SolidButtonProps = BaseButtonProps & {
   variant?: 'primary' | 'secondary' | 'danger'
 }
 
-export const SolidButton = (props: SolidButtonProps) => {
+export const SolidButton = ({ size = 'm', variant = 'primary', disabled, ...other }: SolidButtonProps) => {
   const tokens = useTheme()
 
-  const commonContainerStyle = { padding: tokens.spacing_s, borderRadius: tokens.radius_s }
+  const borderRadiusMap = {
+    s: tokens.radius_xs,
+    m: tokens.radius_s,
+    l: tokens.radius_m,
+  }
+
+  const commonContainerStyle = { padding: tokens.spacing_s, borderRadius: borderRadiusMap[size] }
 
   const variantStyles = {
     primary: {
@@ -20,15 +26,16 @@ export const SolidButton = (props: SolidButtonProps) => {
       containerStyle: { backgroundColor: tokens.color_ui_secondary },
     },
     danger: {
-      textStyle: { color: tokens.color_text_on_primary },
+      textStyle: { color: 'black' },
       containerStyle: { backgroundColor: tokens.color_danger },
     },
   }
 
-  const disabledContainerStyle = props.disabled ? { opacity: 0.25 } : {}
+  const disabledContainerStyle = disabled ? { opacity: 0.25 } : {}
 
-  const { variant = 'primary' } = props
   const { textStyle, containerStyle } = variantStyles[variant]
 
-  return <BaseButton textStyle={textStyle} containerStyle={{ ...commonContainerStyle, ...containerStyle, ...disabledContainerStyle }} {...props} />
+  return (
+    <BaseButton textStyle={textStyle} containerStyle={{ ...commonContainerStyle, ...containerStyle, ...disabledContainerStyle }} size={size} disabled={disabled} {...other} />
+  )
 }

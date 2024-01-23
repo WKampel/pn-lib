@@ -1,4 +1,4 @@
-import { ApolloError, DocumentNode, MutationHookOptions, useMutation as useMutationGraphQL } from '@apollo/client'
+import { ApolloError, DocumentNode, useMutation as useMutationGraphQL } from '@apollo/client'
 import { namedOperations } from '../../../gql/graphql'
 import { useNotification } from './useNotification'
 
@@ -49,7 +49,7 @@ export const useMutation = <TData, TVariables>(query: DocumentNode, config: UseM
       }
     },
     refetchQueries: config.refetchQueries,
-  } as MutationHookOptions<TData, TVariables>)
+  })
 
   return {
     loading,

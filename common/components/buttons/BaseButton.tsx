@@ -46,6 +46,8 @@ export const BaseButton = ({ size = 'm', onPress, loading, disabled, containerSt
           height: heightMap[size],
           alignItems: 'center',
           justifyContent: 'center',
+          flexDirection: 'row',
+          gap: tokens.spacing_xs,
         },
         containerStyle,
       ]}

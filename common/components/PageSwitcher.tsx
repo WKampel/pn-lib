@@ -32,7 +32,7 @@ export const PageSwitcher = ({ items, active }: PageSwitcherProps) => {
       }}
     >
       {items.map(item => (
-        <SolidButton key={item.name} variant={active === item.name ? 'primary' : 'secondary'} text={item.name} icon={item.icon} onPress={() => onPress(item)} />
+        <SolidButton size='s' key={item.name} variant={active === item.name ? 'primary' : 'secondary'} text={item.name} icon={item.icon} onPress={() => onPress(item)} />
       ))}
     </View>
   )

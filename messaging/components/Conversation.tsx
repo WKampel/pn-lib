@@ -26,6 +26,7 @@ export const Conversation = ({ messages }: ConversationProps) => {
 
   return (
     <FlatList
+      style={{ flex: 1 }}
       contentContainerStyle={{
         gap: tokens.spacing_m,
         padding: tokens.spacing_m,

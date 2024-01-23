@@ -1,6 +1,7 @@
-import React, { cloneElement, isValidElement } from 'react'
-import { ColorValue, FlatList, TouchableOpacity, View } from 'react-native'
+import React, { cloneElement, isValidElement, useState } from 'react'
+import { ColorValue, View } from 'react-native'
 import ReactSelect, { GroupBase, MenuListProps, OptionProps, ValueContainerProps, components, createFilter } from 'react-select'
+import { FixedSizeList } from 'react-window'
 import { useTheme } from '../hooks/useTheme'
 
 type LabelIconProps = {
@@ -49,15 +50,19 @@ export const Select = <TOption extends any>({ value, onChange, options, label = 
           '&:hover': {},
           boxShadow: 'none',
         }),
+        menuPortal: (baseStyles, state) => ({
+          ...baseStyles,
+          zIndex: 9999,
+        }),
       }}
       menuPortalTarget={document.body}
       options={options}
       value={selectedOption}
       onChange={option => option && onChange(getValue(option))}
       components={{
-        Option: CustomOption,
         MenuList: CustomMenuList,
         ValueContainer: CustomValueContainer,
+        Option: CustomOption,
       }}
       // Improve performance // https://www.botsplash.com/post/optimize-your-react-select-component-to-smoothly-render-10k-data
       filterOption={createFilter({ ignoreAccents: false })}
@@ -84,6 +89,33 @@ const CustomValueContainer = <TOption extends any>(props: CustomValueContainerPr
   )
 }
 
+type CustomMenuListProps<TOption> = MenuListProps<TOption, false, GroupBase<TOption>> & {}
+
+const height = 35 // Height of each option
+
+const CustomMenuList = <TOption extends any>(props: CustomMenuListProps<TOption>) => {
+  const [value] = props.getValue()
+  const initialOffset = props.options.indexOf(value) * height
+
+  const children = React.Children.toArray(props.children)
+  const itemCount = children.length
+
+  const [width, setWidth] = useState(0)
+
+  return (
+    <View
+      onLayout={event => {
+        const { width } = event.nativeEvent.layout
+        setWidth(width)
+      }}
+    >
+      <FixedSizeList height={props.maxHeight} itemCount={itemCount} itemSize={height} initialScrollOffset={initialOffset} width={width}>
+        {({ index, style }) => <div style={style}>{children[index]}</div>}
+      </FixedSizeList>
+    </View>
+  )
+}
+
 type CustomOptionProps<TOption> = OptionProps<TOption, false>
 
 const CustomOption = <TOption extends any>(props: CustomOptionProps<TOption>) => {
@@ -100,22 +132,4 @@ const CustomOption = <TOption extends any>(props: CustomOptionProps<TOption>) =>
       </View>
     </components.Option>
   )
-}
-
-type CustomMenuListProps<TOption> = MenuListProps<TOption, false, GroupBase<TOption>> & {}
-
-const CustomMenuList = <TOption extends any>(props: CustomMenuListProps<TOption>) => {
-  const getLabelIcon = props.selectProps.getLabelIcon
-  const getLabel = props.selectProps.getOptionLabel
-
-  const renderItem = ({ item }: { item: TOption }) => {
-    const icon = getLabelIcon ? getLabelIcon(item) : null
-    return (
-      <TouchableOpacity onPress={() => props.selectOption(item)} style={{ flexDirection: 'row', gap: 5, alignItems: 'center', height: 30 }}>
-        {isValidElement(icon) ? cloneElement(icon, { size: 20 }) : null}
-        {getLabel(item)}
-      </TouchableOpacity>
-    )
-  }
-  return <FlatList initialNumToRender={3} style={{ height: 300 }} data={props.options as TOption[]} renderItem={renderItem} />
 }

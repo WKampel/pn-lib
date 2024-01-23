@@ -1,4 +1,4 @@
-import { ApolloError, DocumentNode, QueryHookOptions, useQuery as apolloUseQuery } from '@apollo/client'
+import { ApolloError, DocumentNode, OperationVariables, useQuery as apolloUseQuery } from '@apollo/client'
 import { useIsFocused } from '@react-navigation/native'
 import { useEffect } from 'react'
 import { useNotification } from './useNotification'
@@ -11,12 +11,12 @@ export type UseQueryConfig<TData, TVariables> = {
   displayError?: boolean
 }
 
-export const useQuery = <TData, TVariables>(query: DocumentNode, config: UseQueryConfig<TData, TVariables>) => {
+export const useQuery = <TData, TVariables extends OperationVariables>(query: DocumentNode, config: UseQueryConfig<TData, TVariables>) => {
   const isFocused = useIsFocused()
   const { notify } = useNotification()
   const { variables, skip, onSuccess, onError, displayError } = config || {}
 
-  const { loading, error, data, refetch } = apolloUseQuery<TData>(query, {
+  const { loading, error, data, refetch } = apolloUseQuery<TData, TVariables>(query, {
     notifyOnNetworkStatusChange: true,
     variables,
     fetchPolicy: 'cache-and-network',
@@ -40,7 +40,7 @@ export const useQuery = <TData, TVariables>(query: DocumentNode, config: UseQuer
         }
       }
     },
-  } as QueryHookOptions)
+  })
 
   useEffect(() => {
     if (isFocused && !skip && !loading) {
@@ -52,6 +52,8 @@ export const useQuery = <TData, TVariables>(query: DocumentNode, config: UseQuer
     loading,
     error,
     data,
-    exec: refetch,
+    exec: (variables: Partial<TVariables> = {}) => {
+      return refetch({ ...config.variables, ...variables })
+    },
   }
 }
