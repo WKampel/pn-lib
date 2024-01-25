@@ -1,4 +1,4 @@
-import { Platform } from 'react-native'
+import { Platform, StyleProp, ViewStyle } from 'react-native'
 import Native from './native'
 import Web from './web'
 
@@ -10,6 +10,7 @@ export type HeaderProps = {
     name: string
   }
   handleBackTo?: () => void
+  style?: StyleProp<ViewStyle>
 }
 
 export const Header = (props: HeaderProps) => {

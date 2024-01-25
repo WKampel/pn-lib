@@ -1,9 +1,10 @@
 import { Entypo } from '@expo/vector-icons'
 import { Text, TouchableOpacity } from 'react-native'
-import { BackButtonProps } from '.'
-import { useTheme } from '../../../common/hooks/useTheme'
+import { useTheme } from '../../common/hooks/useTheme'
 
-const BackButton = ({ onPress }: BackButtonProps) => {
+export type BackButtonProps = { onPress: () => void }
+
+export const BackButton = ({ onPress }: BackButtonProps) => {
   const tokens = useTheme()
 
   return (
@@ -25,5 +26,3 @@ const BackButton = ({ onPress }: BackButtonProps) => {
     </TouchableOpacity>
   )
 }
-
-export default BackButton

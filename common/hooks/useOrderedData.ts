@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { areObjectsEqual } from '../../utils/areObjectsEqual'
+import { areObjectsEqual } from '../../core/utils/areObjectsEqual'
 
 export const useOrderedData = <T extends object>(initialValue: T[] | null, idKey: keyof T) => {
   const [originalData, setOriginalData] = useState<T[]>(initialValue || [])

@@ -1,7 +1,7 @@
-import { ScrollView, View } from 'react-native'
+import { View } from 'react-native'
 import { Promotion } from '../../gql/graphql'
 import { H } from '../common/components/H'
-import { Image } from '../common/components/Image'
+import { ImageAutoHeight } from '../common/components/ImageAutoHeight'
 import { Pdf } from '../common/components/Pdf'
 import { Screen } from '../common/components/Screen'
 import { useTheme } from '../common/hooks/useTheme'
@@ -11,7 +11,7 @@ export const PatientPromotionScreen = ({ data }: { data: Omit<Promotion, 'id'> }
 
   return (
     <Screen>
-      <ScrollView style={{ flex: 1, paddingHorizontal: tokens.spacing_s }}>
+      <View style={{ flex: 1, paddingHorizontal: tokens.spacing_s, gap: tokens.spacing_m }}>
         <View style={{ alignItems: 'center', gap: tokens.spacing_m }}>
           <H style={{ textAlign: 'center' }}>{data.name}</H>
           <H style={{ textAlign: 'center' }} size='s'>
@@ -20,17 +20,16 @@ export const PatientPromotionScreen = ({ data }: { data: Omit<Promotion, 'id'> }
         </View>
 
         {data.type === 'IMAGE' ? (
-          <Image
+          <ImageAutoHeight
             style={{
-              width: '75%',
-              alignSelf: 'center',
+              width: '100%',
             }}
             source={data.image?.url || ''}
           />
         ) : null}
 
         {data.type === 'PDF' ? <Pdf style={{}} src={data.pdf?.url || ''} /> : null}
-      </ScrollView>
+      </View>
     </Screen>
   )
 }

@@ -5,22 +5,25 @@ import { useTheme } from '../../../common/hooks/useTheme'
 import { BackButton } from '../BackButton'
 import { OpenDrawerButton } from '../OpenDrawerButton'
 
-const Header = ({ options, route, handleBackTo }: HeaderProps) => {
+const Header = ({ options, route, handleBackTo, style }: HeaderProps) => {
   const insets = useSafeAreaInsets()
   const tokens = useTheme()
 
   return (
     <View
-      style={{
-        backgroundColor: tokens.color_bg_surface,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        height: 100,
-        paddingLeft: 10,
-        paddingRight: 10,
-        paddingTop: insets.top,
-      }}
+      style={[
+        {
+          backgroundColor: tokens.color_bg_surface,
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          height: 100,
+          paddingLeft: 10,
+          paddingRight: 10,
+          paddingTop: insets.top,
+        },
+        style,
+      ]}
     >
       <View
         style={{

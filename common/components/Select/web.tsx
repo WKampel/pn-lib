@@ -28,6 +28,7 @@ const Select = <TOption extends any, TValue extends string>({
 
   return (
     <ReactSelect<TOption>
+      menuPosition='fixed'
       placeholder={label}
       getOptionLabel={getLabel}
       getOptionValue={getValue}

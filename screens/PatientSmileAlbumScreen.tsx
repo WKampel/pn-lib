@@ -11,11 +11,9 @@ export const PatientSmileAlbumScreen = ({ data }: { data: Omit<GqlSmileAlbum, 'i
   return (
     <Screen>
       <ScrollView contentContainerStyle={{ gap: tokens.spacing_l, paddingHorizontal: tokens.spacing_s }} style={{ flex: 1 }}>
-        <View style={{ alignSelf: 'center' }}>
-          <H style={{ textAlign: 'center' }}>{data.name}</H>
-          <H style={{ textAlign: 'center' }} size='s'>
-            {data.desc}
-          </H>
+        <View style={{ gap: tokens.spacing_m }}>
+          <H>{data.name}</H>
+          <H size='s'>{data.desc}</H>
         </View>
 
         {data.items?.map((item, i) => (

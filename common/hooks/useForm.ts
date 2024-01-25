@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { areObjectsEqual } from '../../utils/areObjectsEqual'
+import { areObjectsEqual } from '../../core/utils/areObjectsEqual'
 
 interface FormState {
   [key: string]: unknown

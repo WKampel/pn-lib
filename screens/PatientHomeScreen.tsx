@@ -21,7 +21,7 @@ export const PatientHomeScreen = ({ links }: PatientHomeScreenProps) => {
 
   return (
     <Screen>
-      <View style={{ flex: 1, paddingBottom: insets.bottom, padding: tokens.spacing_s }}>
+      <View style={{ flex: 1, paddingBottom: insets.bottom, padding: tokens.spacing_s, gap: tokens.spacing_m }}>
         <View style={{ gap: tokens.spacing_xs, alignItems: 'center', marginBottom: tokens.spacing_s }}>
           <ImageAutoHeight
             style={{

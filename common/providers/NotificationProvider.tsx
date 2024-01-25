@@ -66,7 +66,7 @@ export const NotificationProvider = ({ children }: { children: ReactNode }) => {
         Object.assign(existingNotification, common)
       } else {
         // If not, create a new one
-        copy.push({
+        copy.unshift({
           id,
           ...common,
         })
