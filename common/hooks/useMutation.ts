@@ -10,7 +10,7 @@ export type UseMutationConfig<TData, TVariables> = {
   onError?: (error: ApolloError) => void
   displayError?: boolean
   refetchQueries?: Array<keyof OperationNames>
-  variables: TVariables
+  variables: TVariables | null
   validate?: (variables: TVariables) => ValidationErrorMessage | boolean
 }
 
@@ -22,7 +22,7 @@ export const useMutation = <TData, TVariables>(query: DocumentNode, config: UseM
   const displayError = config.displayError !== undefined ? config.displayError : true
 
   const [runMutation, { loading, error, data }] = useMutationGraphQL<TData, TVariables>(query, {
-    variables: config.variables,
+    variables: config.variables ?? undefined,
     onCompleted: data => {
       try {
         // on success
@@ -43,6 +43,8 @@ export const useMutation = <TData, TVariables>(query: DocumentNode, config: UseM
 
       // display error
       if (displayError && e?.graphQLErrors) {
+        console.log('e?.graphQLErrors:', e?.graphQLErrors)
+
         for (const error of e.graphQLErrors) {
           notify({ title: '', body: error.message, type: 'ERROR' })
         }
@@ -57,7 +59,7 @@ export const useMutation = <TData, TVariables>(query: DocumentNode, config: UseM
     errorField: error?.graphQLErrors?.[0]?.extensions?.field,
     data,
     exec: (options?: { variables: Partial<TVariables> }) => {
-      const variables = { ...config.variables, ...options?.variables }
+      const variables = { ...config.variables, ...options?.variables } as TVariables
 
       if (config.validate) {
         const validateResult = config.validate(variables)

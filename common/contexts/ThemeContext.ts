@@ -5,7 +5,9 @@ import { tokens } from '../../config/tokens'
 type Theme = typeof theme
 type Tokens = typeof tokens
 
-export const ThemeContext = createContext<Theme & Tokens>({
+export type ThemeType = Theme & Tokens
+
+export const ThemeContext = createContext<ThemeType>({
   ...tokens,
   ...theme,
 })

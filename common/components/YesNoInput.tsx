@@ -5,17 +5,15 @@ import { YesNoInputOption } from './YesNoInputOption'
 
 type YesNoInputProps = {
   label?: string
-  value: YesNo
-  onChange: (value: YesNo) => void
+  value: boolean | null
+  onChange: (value: boolean) => void
 }
-
-export type YesNo = 'YES' | 'NO'
 
 export const YesNoInput = ({ label, value, onChange }: YesNoInputProps) => {
   const tokens = useTheme()
   return (
-    <View>
-      {label && <Text style={{}}>{label}</Text>}
+    <View style={{ gap: tokens.spacing_xs }}>
+      {label ? <Text style={{}}>{label}</Text> : null}
 
       <View
         style={{
@@ -23,8 +21,8 @@ export const YesNoInput = ({ label, value, onChange }: YesNoInputProps) => {
           gap: tokens.spacing_s,
         }}
       >
-        <YesNoInputOption type='YES' value={value} onChange={onChange} />
-        <YesNoInputOption type='NO' value={value} onChange={onChange} />
+        <YesNoInputOption label='Yes' active={value === true} onPress={() => onChange(true)} />
+        <YesNoInputOption label='No' active={value === false} onPress={() => onChange(false)} />
       </View>
     </View>
   )

@@ -1,5 +1,7 @@
-import { NativeSyntheticEvent, TextInput as ReactNativeTextInput, TextInputKeyPressEventData } from 'react-native'
+import { NativeSyntheticEvent, TextInput as ReactNativeTextInput, StyleProp, TextInputKeyPressEventData, TextStyle } from 'react-native'
 import { useTheme } from '../hooks/useTheme'
+import { TextInputSize } from '../types/TextInputSize'
+import { getTextInputHeight } from '../utils/getTextInputHeight'
 
 export type TextInputProps = {
   disabled?: boolean
@@ -8,22 +10,15 @@ export type TextInputProps = {
   loading?: boolean
   value: string
   label: string
-  size?: 's' | 'm' | 'l'
+  size?: TextInputSize
   onChange: (value: string) => void
   onSubmit?: () => void
   onFocus?: () => void
   onBlur?: () => void
   onKeyPress?: (e: NativeSyntheticEvent<TextInputKeyPressEventData>) => void
-  containerStyle?: TextInputContainerStyles
-  textStyle?: TextInputTextStyles
+  style?: StyleProp<TextStyle>
   flex?: number | boolean
 }
-
-export type TextInputContainerStyles = {
-  maxWidth?: number
-}
-
-type TextInputTextStyles = {}
 
 export const TextInput = ({
   disabled = false,
@@ -38,31 +33,26 @@ export const TextInput = ({
   onFocus,
   onBlur,
   onKeyPress,
-  containerStyle,
-  textStyle,
+  style,
   flex,
 }: TextInputProps) => {
   const tokens = useTheme()
 
-  const heightMap = {
-    s: tokens.size_s,
-    m: tokens.size_m,
-    l: tokens.size_l,
-  }
-
   return (
     <ReactNativeTextInput
       secureTextEntry={password}
-      style={{
-        height: heightMap[size],
-        backgroundColor: 'rgb(250, 250, 250)',
-        paddingLeft: tokens.spacing_s,
-        borderRadius: tokens.radius_xs,
-        borderWidth: 1.5,
-        borderColor: tokens.color_border_on_surface,
-        flex: flex === true ? 1 : flex ? flex : undefined,
-        ...containerStyle,
-      }}
+      style={[
+        {
+          height: getTextInputHeight(tokens, size),
+          backgroundColor: 'rgb(250, 250, 250)',
+          paddingLeft: tokens.spacing_s,
+          borderRadius: tokens.radius_xs,
+          borderWidth: 1.5,
+          borderColor: tokens.color_border_on_surface,
+          flex: flex === true ? 1 : flex ? flex : undefined,
+        },
+        style,
+      ]}
       value={value}
       onChangeText={onChange}
       placeholder={label}

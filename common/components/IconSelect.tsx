@@ -1,7 +1,7 @@
 import React from 'react'
 import { IconSet } from '../types/IconSet'
 import { Icon } from './Icon'
-import { Select } from './Select.web'
+import { Select } from './Select'
 
 export type IconSelectProps = {
   onChange: (value: string) => void

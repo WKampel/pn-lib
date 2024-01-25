@@ -8,7 +8,7 @@ import { SolidButton } from './buttons/SolidButton'
 type EditableListProps<TItem> = {
   onChange: (value: TItem[]) => void
   value: TItem[]
-  getItemChild: (item: TItem) => React.ReactNode
+  getItemChild: (item: TItem, index: number) => React.ReactNode
   getItemDefaults: (id: string) => TItem
 }
 
@@ -36,7 +36,7 @@ const EditableList = <TItem extends { id: string }>({ onChange, value, getItemCh
       <View style={{ alignSelf: 'flex-start' }}>
         <SolidButton variant='secondary' size='s' text='Add Field' onPress={addFieldBefore} />
       </View>
-      {value?.map(item => {
+      {value?.map((item, i) => {
         return (
           <EditableListItem
             key={item.id}
@@ -49,7 +49,7 @@ const EditableList = <TItem extends { id: string }>({ onChange, value, getItemCh
               else setOpenItem(item.id)
             }}
           >
-            {getItemChild(item)}
+            {getItemChild(item, i)}
           </EditableListItem>
         )
       })}

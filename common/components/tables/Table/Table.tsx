@@ -73,7 +73,7 @@ export const Table = <TRow extends object>({ style, rows: rowsProp, cols = [], o
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: tokens.spacing_m }}>
         {headerLeft}
         {<ActivityIndicator animating={loading} style={{ marginLeft: 'auto' }} />}
-        <SearchTextInput flex containerStyle={{ maxWidth: 300 }} totalRowCount={totalRowCount} value={searchKeyword} onChange={setSearchKeyword} />
+        <SearchTextInput flex style={{ maxWidth: 300 }} totalRowCount={totalRowCount} value={searchKeyword} onChange={setSearchKeyword} />
       </View>
 
       <View style={{ flex: 1 }}>

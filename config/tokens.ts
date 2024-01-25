@@ -22,6 +22,7 @@ export const tokens: {
   size_l: number
   size_m: number
   size_s: number
+  size_xxl: number
   size_xl: number
   size_xs: number
   spacing_l: Defined<TextStyle['letterSpacing']>
@@ -54,6 +55,7 @@ export const tokens: {
   size_m: 40,
   size_s: 32,
   size_xl: 56,
+  size_xxl: 64,
   size_xs: 24,
   spacing_l: 24,
   spacing_m: 18,

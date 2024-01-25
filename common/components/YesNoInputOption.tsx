@@ -1,17 +1,40 @@
 import React from 'react'
 import { Text, TouchableOpacity } from 'react-native'
-import { YesNo } from './YesNoInput'
+import { useTheme } from '../hooks/useTheme'
 
 type YesNoInputOptionProps = {
-  type: YesNo
-  value: YesNo
-  onChange: (value: YesNo) => void
+  label: string
+  active: boolean
+  onPress: () => void
 }
 
-export const YesNoInputOption = ({ type, value, onChange }: YesNoInputOptionProps) => {
+export const YesNoInputOption = ({ active, label, onPress }: YesNoInputOptionProps) => {
+  const tokens = useTheme()
+
+  const activeContainerStyles = {
+    borderWidth: 2,
+    borderColor: 'black',
+  }
+
+  const activeTextStyles = {
+    fontWeight: tokens.weight_heavy,
+  }
+
   return (
-    <TouchableOpacity style={{}} onPress={() => onChange(type)}>
-      <Text style={{}}>{type === 'YES' ? 'Yes' : 'No'}</Text>
+    <TouchableOpacity
+      style={[
+        {
+          borderWidth: 1,
+          borderColor: tokens.color_border_on_surface,
+          borderRadius: tokens.radius_s,
+          paddingVertical: tokens.spacing_s,
+          paddingHorizontal: tokens.spacing_m,
+        },
+        active ? activeContainerStyles : {},
+      ]}
+      onPress={onPress}
+    >
+      <Text style={active ? activeTextStyles : {}}>{label}</Text>
     </TouchableOpacity>
   )
 }

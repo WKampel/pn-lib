@@ -11,7 +11,10 @@ export const GetForm = graphql(`
         name
         type
         required
-        options
+        options {
+          id
+          value
+        }
       }
     }
   }

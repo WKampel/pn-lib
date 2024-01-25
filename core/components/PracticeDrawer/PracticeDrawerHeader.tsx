@@ -90,7 +90,7 @@ const ProfileBubble = () => {
           fontSize: tokens.font_size_s,
         }}
       >
-        {/* {me?.fullName} */}
+        {me?.firstName} {me?.lastName}
       </Text>
     </View>
   )

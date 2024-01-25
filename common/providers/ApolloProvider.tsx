@@ -36,7 +36,7 @@ export const ApolloProvider = ({ children, token, setToken }: ApolloProviderProp
     const uploadLink = createUploadLink({ uri: process.env.EXPO_PUBLIC_API_URL + '/backend/graphql' })
 
     return new ApolloClient({
-      link: from([authLink, errorLink, uploadLink]),
+      link: from([authLink, uploadLink]),
       cache: new InMemoryCache(),
     })
   }, [token])
