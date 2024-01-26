@@ -9,18 +9,31 @@ export const ImageAutoHeight = ({ source, style }: { style: object; source: stri
     const calculateAspectRatio = async () => {
       let width, height
 
-      ReactNativeImage.getSize(source, (imageWidth: number, imageHeight: number) => {
+      if (typeof source === 'number') {
+        const { width: imageWidth, height: imageHeight } = ReactNativeImage.resolveAssetSource(source)
+
         width = imageWidth
         height = imageHeight
 
         if (width && height) {
           setAspectRatio(width / height)
         }
-      })
+      } else {
+        ReactNativeImage.getSize(source, (imageWidth: number, imageHeight: number) => {
+          width = imageWidth
+          height = imageHeight
+
+          if (width && height) {
+            setAspectRatio(width / height)
+          }
+        })
+      }
     }
 
     calculateAspectRatio()
   }, [source])
 
-  return <Image source={source} style={[{ aspectRatio }, style]} />
+  console.log('style:', [{ aspectRatio }, style])
+
+  return <Image source={source} style={[{ width: 'auto', height: 'auto' }, { aspectRatio }, style]} />
 }
