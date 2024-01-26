@@ -9,6 +9,11 @@ export const PageHtmlRenderer = (props: PageHtmlRendererProps) => {
   const id = '__PageHtmlRenderer__'
 
   const html = `
+  <head>
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0">
+
+
+  </head>
     <style>
         #${id} { overflow-x: hidden; max-width: 100%; }
         #${id} * { max-width: 100%; height: auto; }

@@ -1,10 +1,10 @@
-import { ScrollView, Text } from 'react-native'
+import { ScrollView, Text, View } from 'react-native'
 import { Page } from '../../gql/graphql'
 import { useTheme } from '../common/hooks/useTheme'
 import { PageHtmlRenderer } from '../contentManagement/components/PageHtmlRenderer'
 import { PagePdfRenderer } from '../contentManagement/components/PagePdfRenderer'
 
-export const PatientPageScreen = ({ data }: { data: Omit<Page, 'id'> }) => {
+export const PatientPageScreen = ({ data }: { data: Omit<Page, 'id' | 'active'> }) => {
   const tokens = useTheme()
   const { html, pdf, type } = data
   if (type === 'HTML') {
@@ -12,7 +12,7 @@ export const PatientPageScreen = ({ data }: { data: Omit<Page, 'id'> }) => {
       return <Text></Text>
     }
     return (
-      <ScrollView contentContainerStyle={{ padding: tokens.spacing_s }}>
+      <ScrollView contentContainerStyle={{ padding: tokens.spacing_s, flex: 1 }}>
         <PageHtmlRenderer html={html} />
       </ScrollView>
     )
@@ -20,7 +20,11 @@ export const PatientPageScreen = ({ data }: { data: Omit<Page, 'id'> }) => {
     if (!pdf?.url) {
       return <Text></Text>
     }
-    return <PagePdfRenderer src={pdf.url} />
+    return (
+      <View style={{ padding: tokens.spacing_s, flex: 1 }}>
+        <PagePdfRenderer src={pdf.url} />
+      </View>
+    )
   } else {
     return <Text>No page type</Text>
   }
