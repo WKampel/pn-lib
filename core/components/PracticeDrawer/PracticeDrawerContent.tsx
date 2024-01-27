@@ -52,8 +52,9 @@ export const PracticeDrawerContent = ({ switchPractice, items = [] }: { switchPr
 
   // Children
   const children = useMemo(() => {
-    const itemsArray = [...items, signOutItem]
+    const itemsArray = [...items]
     if (switchPractice) itemsArray.push(switchPracticeItem)
+    itemsArray.push(signOutItem)
     return generateChildren(itemsArray)
   }, [items, switchPractice, switchPracticeItem, signOutItem])
 
