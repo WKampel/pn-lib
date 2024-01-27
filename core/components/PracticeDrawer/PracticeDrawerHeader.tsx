@@ -18,49 +18,55 @@ export const PracticeDrawerHeader = () => {
       style={[
         {
           backgroundColor: tokens.color_ui_primary,
-          flexDirection: 'row',
-          paddingHorizontal: tokens.spacing_m,
+          paddingHorizontal: tokens.spacing_s,
           paddingVertical: tokens.spacing_xl,
           gap: tokens.spacing_s,
         },
         mobileStyles({ paddingTop: insets.top }),
       ]}
     >
-      {practice.data?.logo?.url ? (
-        <Image
-          style={{
-            width: 50,
-            height: 50,
-            borderRadius: tokens.radius_s,
-          }}
-          source={practice.data?.logo?.url}
-        />
-      ) : null}
       <View
         style={{
-          gap: tokens.spacing_xs,
-          flex: 1,
+          flexDirection: 'row',
+          gap: tokens.spacing_s,
         }}
       >
-        <Text
+        {practice.data?.logo?.url ? (
+          <Image
+            style={{
+              width: 50,
+              height: 50,
+              borderRadius: tokens.radius_s,
+            }}
+            source={practice.data?.logo?.url}
+          />
+        ) : null}
+        <View
           style={{
-            color: tokens.color_text_on_primary,
-            fontSize: tokens.font_size_l,
-            fontWeight: tokens.weight_heavy,
+            gap: tokens.spacing_xs,
+            flex: 1,
           }}
         >
-          {practice.data?.name}
-        </Text>
-        <Text
-          style={{
-            color: tokens.color_text_on_primary_subtle,
-            fontSize: tokens.font_size_s,
-          }}
-        >
-          {practice.data?.slogan}
-        </Text>
-        <ProfileBubble />
+          <Text
+            style={{
+              color: tokens.color_text_on_primary,
+              fontSize: tokens.font_size_l,
+              fontWeight: tokens.weight_heavy,
+            }}
+          >
+            {practice.data?.name}
+          </Text>
+          <Text
+            style={{
+              color: tokens.color_text_on_primary_subtle,
+              fontSize: tokens.font_size_s,
+            }}
+          >
+            {practice.data?.slogan}
+          </Text>
+        </View>
       </View>
+      <ProfileBubble />
     </View>
   )
 }
@@ -75,12 +81,11 @@ const ProfileBubble = () => {
         flexDirection: 'row',
         alignItems: 'center',
         borderWidth: 1,
-        borderRadius: tokens.radius_round,
+        borderRadius: tokens.radius_s,
         borderColor: tokens.color_border_on_surface,
-        paddingHorizontal: tokens.spacing_s,
-        paddingVertical: tokens.spacing_xs,
-        alignSelf: 'flex-start',
+        padding: tokens.spacing_s,
         gap: tokens.spacing_xs,
+        flex: 1,
       }}
     >
       <AntDesign name='user' size={tokens.font_size_s} color={tokens.color_text_on_primary} />
