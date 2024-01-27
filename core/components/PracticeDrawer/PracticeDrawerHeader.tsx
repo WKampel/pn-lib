@@ -1,13 +1,12 @@
 import { AntDesign } from '@expo/vector-icons'
-import { Text, View } from 'react-native'
+import { Text, TouchableOpacity, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Image } from '../../../common/components/Image'
-import { useMe } from '../../../common/hooks/useMe'
 import { usePractice } from '../../../common/hooks/usePractice'
 import { useTheme } from '../../../common/hooks/useTheme'
 import { mobileStyles } from '../../utils/mobileStyles'
 
-export const PracticeDrawerHeader = () => {
+export const PracticeDrawerHeader = ({ firstName, lastName, onPress }: { firstName: string; lastName: string; onPress: () => void }) => {
   const practice = usePractice()
   const insets = useSafeAreaInsets()
 
@@ -66,17 +65,17 @@ export const PracticeDrawerHeader = () => {
           </Text>
         </View>
       </View>
-      <ProfileBubble />
+      <ProfileBubble firstName={firstName} lastName={lastName} onPress={onPress} />
     </View>
   )
 }
 
-const ProfileBubble = () => {
-  const me = useMe()
+const ProfileBubble = ({ firstName, lastName, onPress }: { firstName: string; lastName: string; onPress: () => void }) => {
   const tokens = useTheme()
 
   return (
-    <View
+    <TouchableOpacity
+      onPress={onPress}
       style={{
         flexDirection: 'row',
         alignItems: 'center',
@@ -95,8 +94,8 @@ const ProfileBubble = () => {
           fontSize: tokens.font_size_s,
         }}
       >
-        {me?.firstName} {me?.lastName}
+        {firstName} {lastName}
       </Text>
-    </View>
+    </TouchableOpacity>
   )
 }
