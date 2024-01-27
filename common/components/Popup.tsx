@@ -14,7 +14,6 @@ export const Popup = ({ visible, onPressBackground, children }: { visible: boole
             height: '100%',
           }}
           onPress={onPressBackground}
-          pointerEvents='box-only'
         />
         <SafeAreaView pointerEvents='box-none' style={{ flex: 1 }}>
           {children}
