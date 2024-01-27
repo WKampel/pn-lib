@@ -6,7 +6,7 @@ import { usePractice } from '../../../common/hooks/usePractice'
 import { useTheme } from '../../../common/hooks/useTheme'
 import { mobileStyles } from '../../utils/mobileStyles'
 
-export const PracticeDrawerHeader = ({ firstName, lastName, onPress }: { firstName: string; lastName: string; onPress: () => void }) => {
+export const PracticeDrawerHeader = ({ firstName, lastName, onPressProfile }: { firstName: string; lastName: string; onPressProfile: () => void }) => {
   const practice = usePractice()
   const insets = useSafeAreaInsets()
 
@@ -65,7 +65,7 @@ export const PracticeDrawerHeader = ({ firstName, lastName, onPress }: { firstNa
           </Text>
         </View>
       </View>
-      <ProfileBubble firstName={firstName} lastName={lastName} onPress={onPress} />
+      <ProfileBubble firstName={firstName} lastName={lastName} onPress={onPressProfile} />
     </View>
   )
 }

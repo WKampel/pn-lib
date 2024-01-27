@@ -8,7 +8,19 @@ import { PracticeDrawerGroup } from './PracticeDrawerGroup'
 import { PracticeDrawerHeader } from './PracticeDrawerHeader'
 import { PracticeDrawerItem } from './PracticeDrawerItem'
 
-export const PracticeDrawerContent = ({ switchPractice, items = [] }: { switchPractice?: () => void; items: PracticeDrawerItemType[] }) => {
+export const PracticeDrawerContent = ({
+  switchPractice,
+  items = [],
+  firstName,
+  lastName,
+  onPressProfile,
+}: {
+  switchPractice?: () => void
+  items: PracticeDrawerItemType[]
+  firstName: string
+  lastName: string
+  onPressProfile: () => void
+}) => {
   const currentRoute = useCurrentRoute()
 
   const { setToken } = useAuthToken()
@@ -60,7 +72,7 @@ export const PracticeDrawerContent = ({ switchPractice, items = [] }: { switchPr
 
   return (
     <>
-      <PracticeDrawerHeader />
+      <PracticeDrawerHeader firstName={firstName} lastName={lastName} onPressProfile={onPressProfile} />
       <ScrollView style={{ borderRightWidth: 1, borderColor: 'rgb(230,230,230)' }} contentContainerStyle={{ gap: 10, padding: 10 }}>
         {children}
       </ScrollView>
