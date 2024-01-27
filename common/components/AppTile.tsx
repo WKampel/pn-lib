@@ -17,7 +17,7 @@ export const AppTile = ({ title, icon, onPress }: { icon: ReactElement<{ size: n
         flex: 1,
       }}
     >
-      {isValidElement(icon) ? cloneElement(icon, { size: tokens.size_m, color: tokens.color_text_on_primary }) : null}
+      {isValidElement(icon) ? cloneElement(icon, { size: tokens.size_s, color: tokens.color_text_on_primary }) : null}
       <Text
         style={{
           color: tokens.color_text_on_primary,

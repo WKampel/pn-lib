@@ -21,19 +21,27 @@ export const PatientHomeScreen = ({ links }: PatientHomeScreenProps) => {
 
   return (
     <Screen>
-      <View style={{ flex: 1, paddingBottom: insets.bottom, padding: tokens.spacing_s, gap: tokens.spacing_l }}>
-        <View style={{ gap: tokens.spacing_m, alignItems: 'center' }}>
+      <View style={{ flex: 1, paddingBottom: insets.bottom, padding: tokens.spacing_s, gap: tokens.spacing_m }}>
+        <View style={{ alignItems: 'center' }}>
           <ImageAutoHeight
             style={{
-              height: 125,
+              height: 175,
               borderRadius: tokens.radius_m,
             }}
             source={practice?.data?.logo?.url || ''}
           />
           <Text
             style={{
+              position: 'absolute',
               textAlign: 'center',
               fontSize: tokens.font_size_s,
+              bottom: 0,
+              backgroundColor: 'rgba(0,0,0,.5)',
+              color: 'white',
+              width: 175,
+              borderRadius: tokens.radius_m,
+              overflow: 'hidden',
+              paddingVertical: tokens.spacing_xs,
             }}
           >
             {practice.data?.slogan}
@@ -43,7 +51,7 @@ export const PatientHomeScreen = ({ links }: PatientHomeScreenProps) => {
         <View
           style={{
             flex: 1,
-            gap: tokens.spacing_s,
+            gap: tokens.spacing_xs,
           }}
         >
           <Row>
@@ -83,7 +91,7 @@ const Row = ({ children }: { children: ReactNode }) => {
       style={{
         flexDirection: 'row',
         flex: 1,
-        gap: tokens.spacing_s,
+        gap: tokens.spacing_xs,
       }}
     >
       {children}

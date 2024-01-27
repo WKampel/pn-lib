@@ -5,6 +5,8 @@ export type Me = {
   firstName: string
   lastName: string
   patientId?: string
+  patientFirstName?: string
+  patientLastName?: string
 }
 
 export const MeContext = createContext<Me | null>(null)
