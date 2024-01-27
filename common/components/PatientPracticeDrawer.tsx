@@ -15,6 +15,9 @@ type PatientPracticeDrawerProps = {
   onPressSmileAlbums: () => void
   children: React.ReactNode
   switchPractice: () => void
+  firstName: string
+  lastName: string
+  onPressProfile: () => void
 }
 
 export const PatientPracticeDrawer = (props: PatientPracticeDrawerProps) => {
@@ -65,7 +68,7 @@ export const PatientPracticeDrawer = (props: PatientPracticeDrawerProps) => {
     ...customPageItems,
   ]
   return (
-    <PracticeDrawer switchPractice={props.switchPractice} items={items}>
+    <PracticeDrawer firstName={firstName} lastName={lastName} onPressProfile={onPressProfile} switchPractice={props.switchPractice} items={items}>
       {props.children}
     </PracticeDrawer>
   )
