@@ -14,11 +14,11 @@ export const Popup = ({ visible, onPressBackground, children }: { visible: boole
             height: '100%',
           }}
           onPress={onPressBackground}
-        >
-          <SafeAreaView pointerEvents='box-none' style={{ flex: 1 }}>
-            {children}
-          </SafeAreaView>
-        </Pressable>
+          pointerEvents='box-only'
+        />
+        <SafeAreaView pointerEvents='box-none' style={{ flex: 1 }}>
+          {children}
+        </SafeAreaView>
       </KeyboardAvoidingView>
     </Modal>
   )
