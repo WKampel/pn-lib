@@ -8,16 +8,17 @@ export const Popup = ({ visible, onPressBackground, children }: { visible: boole
       <KeyboardAvoidingView>
         <Pressable
           style={{
-            backgroundColor: 'rgba(0,0,0,.5)',
+            backgroundColor: 'rgba(0,0,0,.75)',
             position: 'absolute',
             width: '100%',
             height: '100%',
           }}
           onPress={onPressBackground}
-        />
-        <SafeAreaView pointerEvents='box-none' style={{ flex: 1 }}>
-          {children}
-        </SafeAreaView>
+        >
+          <SafeAreaView pointerEvents='box-none' style={{ flex: 1 }}>
+            {children}
+          </SafeAreaView>
+        </Pressable>
       </KeyboardAvoidingView>
     </Modal>
   )

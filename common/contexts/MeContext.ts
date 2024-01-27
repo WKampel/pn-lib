@@ -6,4 +6,4 @@ export type Me = {
   lastName: string
 }
 
-export const MeContext = createContext<Me | undefined>(undefined)
+export const MeContext = createContext<Me | null>(null)
