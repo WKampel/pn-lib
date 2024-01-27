@@ -68,7 +68,7 @@ export const PatientPracticeDrawer = (props: PatientPracticeDrawerProps) => {
     ...customPageItems,
   ]
   return (
-    <PracticeDrawer firstName={firstName} lastName={lastName} onPressProfile={onPressProfile} switchPractice={props.switchPractice} items={items}>
+    <PracticeDrawer firstName={props.firstName} lastName={props.lastName} onPressProfile={props.onPressProfile} switchPractice={props.switchPractice} items={items}>
       {props.children}
     </PracticeDrawer>
   )
