@@ -48,6 +48,7 @@ export const BaseButton = ({ size = 'm', onPress, loading, disabled, containerSt
           justifyContent: 'center',
           flexDirection: 'row',
           gap: tokens.spacing_xs,
+          opacity: loading ? 0.5 : 1,
         },
         containerStyle,
       ]}

@@ -1,4 +1,4 @@
-import { ApolloError, DocumentNode, OperationVariables, useQuery as apolloUseQuery } from '@apollo/client'
+import { ApolloError, DocumentNode, OperationVariables, WatchQueryFetchPolicy, useQuery as apolloUseQuery } from '@apollo/client'
 import { useIsFocused } from '@react-navigation/native'
 import { useEffect } from 'react'
 import { useNotification } from './useNotification'
@@ -7,19 +7,20 @@ export type UseQueryConfig<TData, TVariables> = {
   variables: TVariables
   skip?: boolean
   onSuccess?: (data: TData) => void
-  onError?: () => void
+  onError?: (error: ApolloError) => void
   displayError?: boolean
+  fetchPolicy?: WatchQueryFetchPolicy
 }
 
 export const useQuery = <TData, TVariables extends OperationVariables>(query: DocumentNode, config: UseQueryConfig<TData, TVariables>) => {
   const isFocused = useIsFocused()
   const { notify } = useNotification()
-  const { variables, skip, onSuccess, onError, displayError } = config || {}
+  const { variables, skip, onSuccess, onError, displayError, fetchPolicy } = config || {}
 
   const { loading, error, data, refetch } = apolloUseQuery<TData, TVariables>(query, {
     notifyOnNetworkStatusChange: true,
     variables,
-    fetchPolicy: 'cache-and-network',
+    fetchPolicy: fetchPolicy || 'cache-and-network',
     skip,
     onCompleted: (data: TData) => {
       try {
@@ -31,7 +32,7 @@ export const useQuery = <TData, TVariables extends OperationVariables>(query: Do
     },
     onError: (err: ApolloError) => {
       // on error
-      if (onError) onError()
+      if (onError) onError(err)
 
       // display error
       if (displayError) {
