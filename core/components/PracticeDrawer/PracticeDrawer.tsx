@@ -11,6 +11,9 @@ type PracticeDrawerProps = {
   switchPractice?: () => void
   items: PracticeDrawerItemType[]
   children: ReactNode
+  firstName: string
+  lastName: string
+  onPressProfile: () => void
 }
 
 export const PracticeDrawer = (props: PracticeDrawerProps) => {
@@ -21,7 +24,7 @@ export const PracticeDrawer = (props: PracticeDrawerProps) => {
   )
 }
 
-const Inner = ({ switchPractice, items, children }: PracticeDrawerProps) => {
+const Inner = ({ switchPractice, items, children, firstName, lastName, onPressProfile }: PracticeDrawerProps) => {
   const dimensions = useWindowDimensions()
   const { open, setOpen } = useDrawer()
 
@@ -36,7 +39,9 @@ const Inner = ({ switchPractice, items, children }: PracticeDrawerProps) => {
       onOpen={() => setOpen(true)}
       onClose={() => setOpen(false)}
       drawerType={dimensions.width > 900 ? 'permanent' : undefined}
-      renderDrawerContent={() => <PracticeDrawerContent items={items} switchPractice={switchPractice} />}
+      renderDrawerContent={() => (
+        <PracticeDrawerContent firstName={firstName} lastName={lastName} onPressProfile={onPressProfile} items={items} switchPractice={switchPractice} />
+      )}
     >
       {children}
     </Drawer>
