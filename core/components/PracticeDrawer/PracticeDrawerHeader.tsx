@@ -84,7 +84,6 @@ const ProfileBubble = ({ firstName, lastName, onPress }: { firstName: string; la
         borderColor: tokens.color_border_on_surface,
         padding: tokens.spacing_s,
         gap: tokens.spacing_xs,
-        flex: 1,
       }}
     >
       <AntDesign name='user' size={tokens.font_size_s} color={tokens.color_text_on_primary} />
