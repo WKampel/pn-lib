@@ -1,5 +1,5 @@
-import { ReactNode } from 'react'
-import { Modal, Pressable, SafeAreaView, View } from 'react-native'
+import { ReactNode, useEffect, useRef } from 'react'
+import { Animated, Modal, Pressable, SafeAreaView } from 'react-native'
 import { KeyboardAvoidingView } from './KeyboardAvoidingView'
 
 type PopupProps = {
@@ -29,17 +29,28 @@ const PopupContent = ({ onPressBackground, children }: Omit<PopupProps, 'visible
 
 // The modal has a bug on ios where it doesn't always show despite visible=true. That's why we have this component.
 export const PopupWithoutModal = ({ visible, ...props }: PopupProps) => {
-  if (!visible) return <View></View>
+  const fadeAnim = useRef(new Animated.Value(0)).current
+
+  useEffect(() => {
+    Animated.timing(fadeAnim, {
+      toValue: visible ? 1 : 0,
+      duration: 200,
+      useNativeDriver: true,
+    }).start()
+  }, [visible])
+
+  if (!visible) return null
   return (
-    <View
+    <Animated.View
       style={{
         position: 'absolute',
         width: '100%',
         height: '100%',
+        opacity: fadeAnim,
       }}
     >
       <PopupContent {...props} />
-    </View>
+    </Animated.View>
   )
 }
 
