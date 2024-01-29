@@ -86,7 +86,7 @@ const ProfileBubble = ({ firstName, lastName, onPress }: { firstName: string; la
         gap: tokens.spacing_xs,
       }}
     >
-      <AntDesign name='user' size={tokens.font_size_s} color={tokens.color_text_on_primary} />
+      <AntDesign name='user' size={tokens.font_size_m} color={tokens.color_text_on_primary} />
       <Text
         style={{
           color: tokens.color_text_on_primary,
