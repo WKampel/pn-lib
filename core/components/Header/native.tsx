@@ -27,7 +27,7 @@ const Header = ({ options, route, handleBackTo, style }: HeaderProps) => {
     >
       <View
         style={{
-          flex: 1,
+          width: 50,
           alignItems: 'flex-start',
         }}
       >
@@ -44,7 +44,7 @@ const Header = ({ options, route, handleBackTo, style }: HeaderProps) => {
       </Text>
       <View
         style={{
-          flex: 1,
+          width: 50,
           alignItems: 'flex-end',
         }}
       >

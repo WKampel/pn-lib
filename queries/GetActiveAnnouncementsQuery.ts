@@ -6,6 +6,7 @@ export const GetActiveAnnouncements = graphql(`
       id
       text
       expiration
+      createdAt
     }
   }
 `)
