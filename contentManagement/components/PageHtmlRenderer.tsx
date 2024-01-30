@@ -15,7 +15,7 @@ export const PageHtmlRenderer = (props: PageHtmlRendererProps) => {
 
   </head>
     <style>
-        #${id} { overflow-x: hidden; max-width: 100%; }
+        #${id} { overflow-x: hidden; max-width: 100%; overflow-y: auto; }
         #${id} * { max-width: 100%; height: auto; }
     </style>
     <div id='${id}'>
