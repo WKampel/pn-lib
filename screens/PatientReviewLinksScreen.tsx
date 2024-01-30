@@ -9,7 +9,7 @@ export const PatientReviewLinksScreen = ({ data }: { data: GqlReviewLink[] }) =>
 
   return (
     <Screen>
-      <ScrollView style={{ flex: 1 }} contentContainerStyle={{ gap: tokens.spacing_m, paddingHorizontal: tokens.spacing_m }}>
+      <ScrollView style={{ flex: 1 }} contentContainerStyle={{ gap: tokens.spacing_m, paddingHorizontal: tokens.spacing_m, paddingTop: tokens.spacing_m }}>
         <Text>We'd love to hear from you. Leave a review by clicking on the review source below. It will redirect you to that platform!</Text>
         {data.map(link => (
           <ReviewLink key={link.id} link={link.link} icon={link.icon} name={link.name} />
