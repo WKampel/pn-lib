@@ -14,7 +14,7 @@ export const PatientServicesScreen = ({ onPressService }: { onPressService?: (se
 
   return (
     <Screen>
-      <ScrollView style={{ flex: 1 }} contentContainerStyle={{ gap: tokens.spacing_m, paddingHorizontal: tokens.spacing_m }}>
+      <ScrollView style={{ flex: 1 }} contentContainerStyle={{ gap: tokens.spacing_m, paddingHorizontal: tokens.spacing_m, paddingTop: tokens.spacing_m }}>
         {services.map(service => (
           <Service key={service.id} name={service.name} icon={service.icon} onPress={() => onPressService?.(service.id)} />
         ))}

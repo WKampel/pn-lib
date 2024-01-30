@@ -16,7 +16,20 @@ export const PatientServiceScreen = ({ data, onPressScheduleAppointment }: { dat
   return (
     <Screen>
       <View style={{ flex: 1 }}>
-        <View style={{ flexDirection: 'row', alignSelf: 'center', alignItems: 'center', justifyContent: 'center', gap: tokens.spacing_l, paddingBottom: tokens.spacing_m }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignSelf: 'center',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: tokens.spacing_l,
+            paddingVertical: tokens.spacing_m,
+            width: '100%',
+            borderWidth: 1,
+            backgroundColor: tokens.color_bg_surface_alt,
+            borderColor: tokens.color_border_on_surface,
+          }}
+        >
           {data.icon ? <Icon set={serviceIconSet} id={data.icon} size={40} /> : null}
           <H>{data.name}</H>
         </View>
