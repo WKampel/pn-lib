@@ -1,4 +1,5 @@
-import { ScrollView, View } from 'react-native'
+import { View } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Service as GqlService } from '../../gql/graphql'
 import { H } from '../common/components/H'
 import { Icon } from '../common/components/Icon'
@@ -10,20 +11,19 @@ import { PageHtmlRenderer } from '../contentManagement/components/PageHtmlRender
 
 export const PatientServiceScreen = ({ data, onPressScheduleAppointment }: { data: Omit<GqlService, 'id'>; onPressScheduleAppointment?: () => void }) => {
   const tokens = useTheme()
+  const insets = useSafeAreaInsets()
 
   return (
     <Screen>
-      <View style={{ gap: tokens.spacing_xl, flex: 1 }}>
-        <View style={{ flexDirection: 'row', alignSelf: 'center', alignItems: 'center', justifyContent: 'center', gap: tokens.spacing_l }}>
+      <View style={{ flex: 1 }}>
+        <View style={{ flexDirection: 'row', alignSelf: 'center', alignItems: 'center', justifyContent: 'center', gap: tokens.spacing_l, paddingBottom: tokens.spacing_m }}>
           {data.icon ? <Icon set={serviceIconSet} id={data.icon} size={40} /> : null}
           <H>{data.name}</H>
         </View>
 
-        <ScrollView contentContainerStyle={{ paddingHorizontal: tokens.spacing_s, flex: 1 }} style={{ flex: 1 }}>
-          {data.desc ? <PageHtmlRenderer html={data.desc} /> : null}
-        </ScrollView>
+        <View style={{ paddingHorizontal: tokens.spacing_s, flex: 1 }}>{data.desc ? <PageHtmlRenderer html={data.desc} /> : null}</View>
 
-        <View style={{ paddingHorizontal: tokens.spacing_s }}>
+        <View style={{ paddingHorizontal: tokens.spacing_s, paddingBottom: insets.bottom }}>
           <SolidButton text='Schedule Appointment' onPress={onPressScheduleAppointment} />
         </View>
       </View>
