@@ -24,7 +24,11 @@ export const PageHtmlRenderer = (props: PageHtmlRendererProps) => {
   `
 
   if (Platform.OS === 'web') {
-    return <div dangerouslySetInnerHTML={{ __html: html }} />
+    return (
+      <div style={{ flex: 1 }}>
+        <div dangerouslySetInnerHTML={{ __html: html }} />
+      </div>
+    )
   } else {
     // I'll do this later
     return <MobileWebView style={{ flex: 1 }} source={{ html }} />
