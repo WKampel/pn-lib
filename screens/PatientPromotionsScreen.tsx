@@ -14,7 +14,7 @@ export const PatientPromotionsScreen = ({ onPressPromotion }: { onPressPromotion
 
   return (
     <Screen>
-      <ScrollView style={{ flex: 1 }} contentContainerStyle={{ gap: tokens.spacing_m, paddingHorizontal: tokens.spacing_m }}>
+      <ScrollView style={{ flex: 1 }} contentContainerStyle={{ gap: tokens.spacing_m, paddingHorizontal: tokens.spacing_m, paddingTop: tokens.spacing_m }}>
         {promotions.map(promotion => (
           <Promotion key={promotion.id} name={promotion.name} onPress={() => onPressPromotion?.(promotion.id)} />
         ))}
