@@ -15,7 +15,7 @@ export const PageHtmlRenderer = (props: PageHtmlRendererProps) => {
 
   </head>
     <style>
-        #${id} { overflow-x: hidden; max-width: 100%; overflow-y: auto; }
+        #${id} { overflow-x: hidden; max-width: 100%; }
         #${id} * { max-width: 100%; height: auto; }
     </style>
     <div id='${id}'>
@@ -25,7 +25,7 @@ export const PageHtmlRenderer = (props: PageHtmlRendererProps) => {
 
   if (Platform.OS === 'web') {
     return (
-      <div style={{ flex: 1 }}>
+      <div style={{ height: '100%', overflowY: 'auto' }}>
         <div dangerouslySetInnerHTML={{ __html: html }} />
       </div>
     )
