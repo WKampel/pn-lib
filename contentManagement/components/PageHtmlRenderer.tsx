@@ -31,6 +31,6 @@ export const PageHtmlRenderer = (props: PageHtmlRendererProps) => {
     )
   } else {
     // I'll do this later
-    return <MobileWebView source={{ html }} />
+    return <MobileWebView style={{ flex: 1 }} source={{ html }} />
   }
 }

@@ -4,7 +4,9 @@ import { useQuery, UseQueryConfig } from './useQuery'
 
 type PracticeVariables<TVariables extends object> = TVariables & { practiceId?: number }
 
-export const usePracticeQuery = <TData, TVariables extends object = {}>(query: DocumentNode, config: UseQueryConfig<TData, Omit<TVariables, 'practiceId'>>) => {
+export type UsePracticeQueryConfig<TData, TVariables> = UseQueryConfig<TData, Omit<TVariables, 'practiceId'>>
+
+export const usePracticeQuery = <TData, TVariables extends object = {}>(query: DocumentNode, config: UsePracticeQueryConfig<TData, TVariables>) => {
   const practice = usePractice()
 
   // Include practiceId in variables if it's defined

@@ -19,7 +19,7 @@ export const PatientServiceScreen = ({ data, onPressScheduleAppointment }: { dat
           <H>{data.name}</H>
         </View>
 
-        <ScrollView contentContainerStyle={{ paddingHorizontal: tokens.spacing_s }} style={{ flex: 1 }}>
+        <ScrollView contentContainerStyle={{ paddingHorizontal: tokens.spacing_s, flex: 1 }} style={{ flex: 1 }}>
           {data.desc ? <PageHtmlRenderer html={data.desc} /> : null}
         </ScrollView>
 
