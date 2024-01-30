@@ -33,7 +33,5 @@ export const ImageAutoHeight = ({ source, style }: { style: object; source: stri
     calculateAspectRatio()
   }, [source])
 
-  console.log('style:', [{ aspectRatio }, style])
-
   return <Image source={source} style={[{ width: 'auto', height: 'auto' }, { aspectRatio }, style]} />
 }
