@@ -2,9 +2,10 @@ import { useEffect, useRef } from 'react'
 import { DeviceEventEmitter } from 'react-native'
 import { AllRealTimeEvents } from '../../../pn-core-lib/types/realTimeEvents/AllRealTimeEvents'
 
-export const useSocketEvent = (
-  type: keyof AllRealTimeEvents, // Use keyof AllRealTimeEvents to restrict type to valid event names
-  callback: (data: AllRealTimeEvents[keyof AllRealTimeEvents]) => void, // Use the correct data type based on the event name
+
+export const useSocketEvent = <T extends RealTimeEventNames>(
+  type: T, // Use keyof AllRealTimeEvents to restrict type to valid event names
+  callback: (data: RealTimeEventMap[T]) => void,
   dependencies: Array<any> = []
 ) => {
   // Use a ref to track the latest callback
