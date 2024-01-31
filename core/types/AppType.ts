@@ -1,1 +1,1 @@
-export type AppType = 'OFFICE' | 'PATIENT'
+export type AppType = 'office' | 'patient'
