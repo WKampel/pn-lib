@@ -22,7 +22,7 @@ export const PatientHomeScreen = ({ links }: PatientHomeScreenProps) => {
   return (
     <Screen>
       <View style={{ flex: 1, paddingBottom: insets.bottom, padding: tokens.spacing_s, gap: tokens.spacing_m }}>
-        <View style={{ alignItems: 'center' }}>
+        <View style={{ alignItems: 'center', alignSelf: 'center' }}>
           <ImageAutoHeight
             style={{
               height: 175,
@@ -38,10 +38,10 @@ export const PatientHomeScreen = ({ links }: PatientHomeScreenProps) => {
               bottom: 0,
               backgroundColor: 'rgba(0,0,0,.5)',
               color: 'white',
-              width: 175,
+              maxWidth: '100%',
               borderRadius: tokens.radius_m,
               overflow: 'hidden',
-              paddingVertical: tokens.spacing_xs,
+              padding: tokens.spacing_xs,
             }}
           >
             {practice.data?.slogan}
