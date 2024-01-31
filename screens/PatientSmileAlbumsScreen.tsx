@@ -14,7 +14,7 @@ export const PatientSmileAlbumsScreen = ({ onPressSmileAlbum }: { onPressSmileAl
 
   return (
     <Screen>
-      <ScrollView style={{ flex: 1 }} contentContainerStyle={{ gap: tokens.spacing_m, paddingHorizontal: tokens.spacing_m }}>
+      <ScrollView style={{ flex: 1 }} contentContainerStyle={{ gap: tokens.spacing_m, paddingHorizontal: tokens.spacing_m, paddingTop: tokens.spacing_m }}>
         {smileAlbums.map(smileAlbum => (
           <SmileAlbum name={smileAlbum.name} onPress={() => onPressSmileAlbum?.(smileAlbum.id)} />
         ))}
