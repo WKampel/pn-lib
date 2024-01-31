@@ -30,7 +30,7 @@ export const useNewMessageNotification = (onPressNotification: (message: RealTim
       if (data.sentBy === 'ADMIN') {
         notify({
           type: 'INFO',
-          title: `${data.adminFullName} ${data} sent you a message`,
+          title: `${data.adminFullName} sent you a message`,
           body: data.body,
           onPress: () => onPressNotification(data),
           lifeSpan: 60,
