@@ -3,11 +3,12 @@ import { useAppConfig } from '../../core/hooks/useAppConfig'
 import { useNotification } from './useNotification'
 import { useSocketEvent } from './useSocketEvent'
 
-export const useNewMessageNotification = (onPressNotification: (message: RealTimeMessageEventData) => void) => {
+export const useNewMessageNotification = (onPressNotification: (message: RealTimeMessageEventData) => void, enabled: boolean = true) => {
   const { notify } = useNotification()
   const config = useAppConfig()
 
   useSocketEvent('new message', data => {
+    if (!enabled) return
     const lifeSpan = 60 * 1000
 
     if (config.app === 'OFFICE') {
