@@ -13,7 +13,7 @@ export const AccordionItem = ({ title, body, isOpen, setIsOpen }: AccordionItemP
   const tokens = useTheme()
 
   return (
-    <View>
+    <View style={{ gap: tokens.spacing_xs }}>
       <TouchableOpacity
         style={{
           flexDirection: 'row',
@@ -38,8 +38,8 @@ export const AccordionItem = ({ title, body, isOpen, setIsOpen }: AccordionItemP
         <View>
           <Text
             style={{
-              paddingLeft: tokens.spacing_s,
-              fontSize: tokens.font_size_m,
+              paddingLeft: tokens.spacing_m,
+              fontSize: tokens.font_size_s,
               marginBottom: tokens.spacing_m,
             }}
           >
