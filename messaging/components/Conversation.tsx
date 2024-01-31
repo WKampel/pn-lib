@@ -1,5 +1,5 @@
 import { FlatList, ListRenderItem } from 'react-native'
-import { MessageSentBy } from '../../../gql/graphql'
+import { MessageSentBy } from '../../../pn-core-lib/types/MessageSentBy'
 import { useTheme } from '../../common/hooks/useTheme'
 import { useAppConfig } from '../../core/hooks/useAppConfig'
 import { determineMessageFrom } from '../utils/determineMessageFrom'
@@ -9,11 +9,11 @@ type ConversationProps = {
   messages: MessageData[]
 }
 
-type MessageData = {
+export type MessageData = {
   id: string
   body: string
-  sentBy: MessageSentBy
   createdAt: Date
+  sentBy: MessageSentBy
 }
 
 export const Conversation = ({ messages }: ConversationProps) => {
