@@ -12,7 +12,6 @@ type Notification = {
   id: string
   title: string
   body: ReactNode | string
-  linkTo?: string
   createdAt: Date
   timeout: NodeJS.Timeout
   type: NotificationType
@@ -42,7 +41,7 @@ export const NotificationProvider = ({ children }: { children: ReactNode }) => {
     )
   }
 
-  const notify = ({ id = uuid.v4() as string, title, body, linkTo, onPress, lifeSpan = DEFAULT_LIFESPAN, type = 'INFO' }: NotifyParams) => {
+  const notify = ({ id = uuid.v4() as string, title, body, onPress, lifeSpan = DEFAULT_LIFESPAN, type = 'INFO' }: NotifyParams) => {
     setNotifications(prev => {
       const copy = [...prev]
       const existingNotification = copy.find(notif => notif.id === id)
@@ -50,7 +49,6 @@ export const NotificationProvider = ({ children }: { children: ReactNode }) => {
       const common = {
         title,
         body,
-        linkTo,
         onPress,
         lifeSpan,
         type,
@@ -94,7 +92,6 @@ export const NotificationProvider = ({ children }: { children: ReactNode }) => {
             onPress={() => {
               if (notif.onPress) notif.onPress()
             }}
-            linkTo={notif.linkTo}
             onDelete={() => clearOne(notif.id)}
             type={notif.type}
           />

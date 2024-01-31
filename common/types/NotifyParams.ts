@@ -9,7 +9,6 @@ export type NotifyParams = {
   title: string
   body: ReactNode | string
   type: NotificationType
-  linkTo?: string
   lifeSpan?: number
   onPress?: () => void
 }

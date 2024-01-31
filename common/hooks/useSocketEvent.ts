@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { DeviceEventEmitter } from 'react-native'
-import {RealTimeEventNames } from '../../../pn-core-lib/types/realTimeEvents/AllRealTimeEvents'
-
+import { RealTimeEventMap, RealTimeEventNames } from '../../../pn-core-lib/types/realTimeEvents/AllRealTimeEvents'
 
 export const useSocketEvent = <T extends RealTimeEventNames>(
   type: T, // Use keyof AllRealTimeEvents to restrict type to valid event names
