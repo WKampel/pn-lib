@@ -1,5 +1,5 @@
 import { createContext } from 'react'
-import { AppType } from '../types/AppType'
+import { AppType } from '../../../pn-core-lib/types/AppType'
 
 type AppConfig = {
   app: AppType

@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
+import { AppType } from '../../../pn-core-lib/types/AppType'
 import { AppConfigContext } from '../contexts/AppConfigContext'
-import { AppType } from '../types/AppType'
 
 function getAppType(): AppType {
   const app = process.env.EXPO_PUBLIC_APP
