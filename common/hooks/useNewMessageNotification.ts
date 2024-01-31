@@ -1,4 +1,5 @@
 import { Message } from '../../../gql/graphql'
+import { RealTimeMessageEventData } from '../../../pn-core-lib/types/socketEvents/IRealTimeMessageEventData'
 import { useNotification } from './useNotification'
 import { useSocketEvent } from './useSocketEvent'
 
@@ -12,10 +13,10 @@ patientId: string;
 export const useNewMessageNotification = () => {
   const { notify } = useNotification()
 
-  useSocketEvent('new message', (data: Message) => {
+  useSocketEvent('new message', (data: RealTimeMessageEventData) => {
     notify({
       type: 'INFO',
-      title: `${data.} ${data.lastName} sent you a message`,
+      title: `${data.} ${data} sent you a message`,
       body: data.body,
       linkTo: data.linkTo,
       lifeSpan: data.lifeSpan,
