@@ -14,7 +14,7 @@ export const SolidButton = ({ size = 'm', variant = 'primary', disabled, ...othe
     l: tokens.radius_m,
   }
 
-  const commonContainerStyle = { padding: tokens.spacing_s, borderRadius: borderRadiusMap[size] }
+  const commonContainerStyle = { paddingHorizontal: tokens.spacing_s, borderRadius: borderRadiusMap[size] }
 
   const variantStyles = {
     primary: {

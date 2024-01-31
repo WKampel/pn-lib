@@ -1,5 +1,5 @@
 import { cloneElement } from 'react'
-import { ActivityIndicator, Text, TextStyle, TouchableOpacity, ViewStyle } from 'react-native'
+import { ActivityIndicator, StyleProp, Text, TextStyle, TouchableOpacity, ViewStyle } from 'react-native'
 import { useTheme } from '../../hooks/useTheme'
 
 export type BaseButtonProps = {
@@ -9,19 +9,8 @@ export type BaseButtonProps = {
   disabled?: boolean
   loading?: boolean
   size?: 's' | 'm' | 'l'
-  containerStyle?: BaseButtonContainerStyles
-  textStyle?: BaseButtonTextStyles
-}
-
-type BaseButtonContainerStyles = {
-  backgroundColor: ViewStyle['backgroundColor']
-  padding: ViewStyle['padding']
-  borderRadius: ViewStyle['borderRadius']
-}
-
-type BaseButtonTextStyles = {
-  color?: TextStyle['color']
-  fontSize?: TextStyle['fontSize']
+  containerStyle?: StyleProp<ViewStyle>
+  textStyle?: StyleProp<TextStyle>
 }
 
 export const BaseButton = ({ size = 'm', onPress, loading, disabled, containerStyle, textStyle, text, icon }: BaseButtonProps) => {
@@ -36,6 +25,9 @@ export const BaseButton = ({ size = 'm', onPress, loading, disabled, containerSt
     m: tokens.size_m,
     l: tokens.size_l,
   }
+
+  const textStyleAsObject = textStyle && typeof textStyle === 'object' && !Array.isArray(textStyle) ? textStyle : {}
+  const { color, fontSize } = textStyleAsObject as TextStyle
 
   return (
     <TouchableOpacity
@@ -54,11 +46,11 @@ export const BaseButton = ({ size = 'm', onPress, loading, disabled, containerSt
       ]}
     >
       {loading ? (
-        <ActivityIndicator color={textStyle?.color} />
+        <ActivityIndicator color={color} />
       ) : (
         <>
           {text ? <Text style={textStyle}>{text}</Text> : null}
-          {icon ? cloneElement(icon, { color: textStyle?.color, size: textStyle?.fontSize }) : null}
+          {icon ? cloneElement(icon, { color, size: fontSize }) : null}
         </>
       )}
     </TouchableOpacity>
