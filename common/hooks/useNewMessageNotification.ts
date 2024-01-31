@@ -12,10 +12,10 @@ export const useNewMessageNotification = (onPressNotification: (message: RealTim
       if (data.sentBy === 'PATIENT') {
         notify({
           type: 'INFO',
-          title: `${data.patientFullName} ${data} sent you a message`,
+          title: `${data.patientFullName} sent you a message`,
           body: data.body,
           onPress: () => onPressNotification(data),
-          lifeSpan: 60,
+          lifeSpan: 60 * 1000,
         })
       } else if (data.sentBy === 'SERVER') {
         notify({
@@ -23,7 +23,7 @@ export const useNewMessageNotification = (onPressNotification: (message: RealTim
           title: `New message`,
           body: data.body,
           onPress: () => onPressNotification(data),
-          lifeSpan: 60,
+          lifeSpan: 60 * 1000,
         })
       }
     } else if (config.app === 'PATIENT') {
