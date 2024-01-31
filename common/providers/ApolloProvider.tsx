@@ -29,14 +29,13 @@ export const ApolloProvider = ({ children, token, setToken }: ApolloProviderProp
         const { statusCode } = networkError as any
         if (statusCode === 401) setToken?.(null)
         console.log(`[Network error]: ${networkError}`)
-        notify({ title: 'Network error', body: 'Please check your internet connection and try again', type: 'ERROR' })
       }
     })
 
     const uploadLink = createUploadLink({ uri: process.env.EXPO_PUBLIC_API_URL + '/backend/graphql' })
 
     return new ApolloClient({
-      link: from([authLink, uploadLink]),
+      link: from([authLink, errorLink, uploadLink]),
       cache: new InMemoryCache(),
     })
   }, [token])
