@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { DeviceEventEmitter } from 'react-native'
-import { AllRealTimeEvents } from '../../../pn-core-lib/types/realTimeEvents/AllRealTimeEvents'
+import {RealTimeEventNames } from '../../../pn-core-lib/types/realTimeEvents/AllRealTimeEvents'
 
 
 export const useSocketEvent = <T extends RealTimeEventNames>(
