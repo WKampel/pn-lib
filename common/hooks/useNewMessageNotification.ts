@@ -3,7 +3,7 @@ import { useAppConfig } from '../../core/hooks/useAppConfig'
 import { useNotification } from './useNotification'
 import { useSocketEvent } from './useSocketEvent'
 
-export const useNewMessageNotification = ({ onPressNotification: onPressMessage }: { onPressNotification: (message: RealTimeMessageEventData) => void }) => {
+export const useNewMessageNotification = (onPressNotification: (message: RealTimeMessageEventData) => void) => {
   const { notify } = useNotification()
   const config = useAppConfig()
 
@@ -14,7 +14,7 @@ export const useNewMessageNotification = ({ onPressNotification: onPressMessage 
           type: 'INFO',
           title: `${data.patientFullName} ${data} sent you a message`,
           body: data.body,
-          onPress: () => onPressMessage(data),
+          onPress: () => onPressNotification(data),
           lifeSpan: 60,
         })
       } else if (data.sentBy === 'SERVER') {
@@ -22,7 +22,7 @@ export const useNewMessageNotification = ({ onPressNotification: onPressMessage 
           type: 'INFO',
           title: `New message`,
           body: data.body,
-          onPress: () => onPressMessage(data),
+          onPress: () => onPressNotification(data),
           lifeSpan: 60,
         })
       }
@@ -32,7 +32,7 @@ export const useNewMessageNotification = ({ onPressNotification: onPressMessage 
           type: 'INFO',
           title: `${data.adminFullName} ${data} sent you a message`,
           body: data.body,
-          onPress: () => onPressMessage(data),
+          onPress: () => onPressNotification(data),
           lifeSpan: 60,
         })
       } else if (data.sentBy === 'SERVER') {
@@ -40,7 +40,7 @@ export const useNewMessageNotification = ({ onPressNotification: onPressMessage 
           type: 'INFO',
           title: `New message`,
           body: data.body,
-          onPress: () => onPressMessage(data),
+          onPress: () => onPressNotification(data),
           lifeSpan: 60,
         })
       }
