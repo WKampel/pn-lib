@@ -8,7 +8,7 @@ export const useNewMessageNotification = (onPressNotification: (message: RealTim
   const config = useAppConfig()
 
   useSocketEvent('new message', data => {
-    if (config.app === 'office') {
+    if (config.app === 'OFFICE') {
       if (data.sentBy === 'PATIENT') {
         notify({
           type: 'INFO',
@@ -26,7 +26,7 @@ export const useNewMessageNotification = (onPressNotification: (message: RealTim
           lifeSpan: 60,
         })
       }
-    } else if (config.app === 'patient') {
+    } else if (config.app === 'PATIENT') {
       if (data.sentBy === 'ADMIN') {
         notify({
           type: 'INFO',
