@@ -11,7 +11,7 @@ export const PatientPromotionScreen = ({ data }: { data: Omit<Promotion, 'id'> }
 
   return (
     <Screen>
-      <View style={{ flex: 1, paddingHorizontal: tokens.spacing_s, gap: tokens.spacing_m }}>
+      <View style={{ flex: 1, paddingHorizontal: tokens.spacing_s, gap: tokens.spacing_m, paddingTop: tokens.spacing_m }}>
         <View style={{ alignItems: 'center', gap: tokens.spacing_m }}>
           <H style={{ textAlign: 'center' }}>{data.name}</H>
           <H style={{ textAlign: 'center' }} size='s'>
