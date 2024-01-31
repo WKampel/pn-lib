@@ -8,6 +8,8 @@ export const useNewMessageNotification = (onPressNotification: (message: RealTim
   const config = useAppConfig()
 
   useSocketEvent('new message', data => {
+    const lifeSpan = 60 * 1000
+
     if (config.app === 'OFFICE') {
       if (data.sentBy === 'PATIENT') {
         notify({
@@ -15,7 +17,7 @@ export const useNewMessageNotification = (onPressNotification: (message: RealTim
           title: `${data.patientFullName} sent you a message`,
           body: data.body,
           onPress: () => onPressNotification(data),
-          lifeSpan: 60 * 1000,
+          lifeSpan,
         })
       } else if (data.sentBy === 'SERVER') {
         notify({
@@ -23,7 +25,7 @@ export const useNewMessageNotification = (onPressNotification: (message: RealTim
           title: `New message`,
           body: data.body,
           onPress: () => onPressNotification(data),
-          lifeSpan: 60 * 1000,
+          lifeSpan,
         })
       }
     } else if (config.app === 'PATIENT') {
@@ -33,7 +35,7 @@ export const useNewMessageNotification = (onPressNotification: (message: RealTim
           title: `${data.adminFullName} sent you a message`,
           body: data.body,
           onPress: () => onPressNotification(data),
-          lifeSpan: 60,
+          lifeSpan,
         })
       } else if (data.sentBy === 'SERVER') {
         notify({
@@ -41,7 +43,7 @@ export const useNewMessageNotification = (onPressNotification: (message: RealTim
           title: `New message`,
           body: data.body,
           onPress: () => onPressNotification(data),
-          lifeSpan: 60,
+          lifeSpan,
         })
       }
     }
