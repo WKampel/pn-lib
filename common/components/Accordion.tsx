@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { View } from 'react-native'
+import { useTheme } from '../hooks/useTheme'
 import { AccordionItem } from './AccordionItem'
 
 export type AccordionProps = {
@@ -11,9 +12,9 @@ export type AccordionProps = {
 
 export const Accordion = ({ items }: AccordionProps) => {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
-
+  const tokens = useTheme()
   return (
-    <View>
+    <View style={{ gap: tokens.spacing_m }}>
       {items.map((item, i) => (
         <AccordionItem
           {...item}
