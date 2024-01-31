@@ -90,7 +90,10 @@ export const NotificationProvider = ({ children }: { children: ReactNode }) => {
             title={notif.title}
             body={notif.body}
             onPress={() => {
-              if (notif.onPress) notif.onPress()
+              if (notif.onPress) {
+                notif.onPress()
+                clearOne(notif.id)
+              }
             }}
             onDelete={() => clearOne(notif.id)}
             type={notif.type}
