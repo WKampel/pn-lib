@@ -8,14 +8,10 @@ export const GetPatientForm = graphql(`
       responses {
         id
         formFieldId
-        textInputValue
-        textAreaValue
-        yesNoValue
-        radioValue
-        dropdownValue
+        booleanValue
         dateValue
-        timeValue
-        signatureValue
+        stringValue
+        stringArrayValue
       }
       form {
         id
