@@ -1,18 +1,26 @@
 import * as Notifications from 'expo-notifications'
 import { useEffect } from 'react'
-import { PushNotifData } from '../../../pn-core-lib/types/PushNotifData'
+import { PushNotifData, PushNotifType } from '../../../pn-core-lib/types/PushNotifData'
 
-type UseHandlePushNotifProps = {
-    onPressHandles: { [key in PushNOti]: () => void }}
+type PushNotifHandler<T extends PushNotifData> = (data: Extract<PushNotifData, { type: T['type'] }>) => void
 
-export const useHandlePushNotif = (props: UseHandlePushNotifProps) => {
+type PushNotifHandlers = {
+  [K in PushNotifType]: PushNotifHandler<Extract<PushNotifData, { type: K }>>
+}
+
+export const useHandlePushNotif = (handlers?: PushNotifHandlers) => {
   useEffect(() => {
     const subscription = Notifications.addNotificationResponseReceivedListener(response => {
-      const type = response.notification.request.content.data.type as PushNotifType
+      const data = response.notification.request.content.data as PushNotifData
 
-      switch (type) {
+      if (!data.type) return
+
+      switch (data.type) {
         case 'ANNOUNCEMENT_CREATED':
-          props.onPressHandles.get(type)()
+          if (handlers?.[data.type]) handlers[data.type](data)
+          break
+        case 'FORM_ASSIGNED':
+          if (handlers?.[data.type]) handlers[data.type](data)
           break
       }
     })
