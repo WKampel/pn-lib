@@ -33,7 +33,7 @@ export const PatientFormScreen = ({ formName, formDesc, fields, onSubmit, onChan
 
   return (
     <Screen>
-      <ScrollView style={{ flex: 1 }} contentContainerStyle={{ gap: tokens.spacing_l, padding: tokens.spacing_s, paddingBottom: 300 }}>
+      <ScrollView style={{ flex: 1 }} contentContainerStyle={{ gap: tokens.spacing_l, padding: tokens.spacing_s, paddingBottom: 400 }}>
         <View style={{ justifyContent: 'center', gap: tokens.spacing_s }}>
           <Text style={{ textAlign: 'center' }}>{practice.data?.name}</Text>
           <Text style={{ textAlign: 'center' }}>{practice.data?.slogan}</Text>
