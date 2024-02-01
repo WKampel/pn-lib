@@ -1,23 +1,27 @@
-import { InAppNotificationEventData, InAppNotificationEventName } from '../../../pn-core-lib/types/InAppNotificationEventData'
+import { InAppNotificationEventData } from '../../../pn-core-lib/types/InAppNotificationEventData'
 import { useNotification } from './useNotification'
 import { useSocketEvent } from './useSocketEvent'
 
-type NotificationHandler<T extends InAppNotificationEventData> = (data: T) => void
-
-type InAppNotificationHandlers = {
-  [K in InAppNotificationEventName]?: NotificationHandler<Extract<InAppNotificationEventData, { notificationName: K }>>
+type UseInAppNotificationsProps = {
+  onPress?: (data: InAppNotificationEventData) => void
+  shouldDisplay?: (data: InAppNotificationEventData) => boolean
 }
 
-export const useInAppNotifications = (handlers?: InAppNotificationHandlers) => {
+export const useInAppNotifications = (props: UseInAppNotificationsProps) => {
   const { notify } = useNotification()
 
   useSocketEvent('notification', data => {
+    if (props.shouldDisplay && !props.shouldDisplay(data.data)) {
+      return
+    }
+
     notify({
       type: 'INFO',
       title: data.title,
       body: data.body,
       onPress: () => {
-        if (data.data.notificationName === 'new message') {
+        if (props.onPress) {
+          props.onPress(data.data)
         }
       },
     })
