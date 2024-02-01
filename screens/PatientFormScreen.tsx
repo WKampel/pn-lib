@@ -33,7 +33,7 @@ export const PatientFormScreen = ({ formName, formDesc, fields, onSubmit, onChan
 
   return (
     <Screen>
-      <ScrollView style={{ flex: 1 }} contentContainerStyle={{ gap: tokens.spacing_l, padding: tokens.spacing_s }}>
+      <ScrollView style={{ flex: 1 }} contentContainerStyle={{ gap: tokens.spacing_l, padding: tokens.spacing_s, paddingBottom: 300 }}>
         <View style={{ justifyContent: 'center', gap: tokens.spacing_s }}>
           <Text style={{ textAlign: 'center' }}>{practice.data?.name}</Text>
           <Text style={{ textAlign: 'center' }}>{practice.data?.slogan}</Text>
@@ -47,27 +47,28 @@ export const PatientFormScreen = ({ formName, formDesc, fields, onSubmit, onChan
 
         <View style={{ gap: tokens.spacing_l }}>
           {fields.map(field => {
+            const name = field.name + (field.required ? '*' : '')
             switch (field.type) {
               case 'TITLE':
-                return <FormFieldTitle name={field.name} />
+                return <FormFieldTitle name={name} />
               case 'TEXT_INPUT':
-                return <FormFieldTextInput name={field.name} value={field.value} onChange={val => onChangeFieldValue(field, val)} />
+                return <FormFieldTextInput name={name} value={field.value} onChange={val => onChangeFieldValue(field, val)} />
               case 'DATE':
-                return <FormFieldDate name={field.name} value={field.value} onChange={val => onChangeFieldValue(field, val)} />
+                return <FormFieldDate name={name} value={field.value} onChange={val => onChangeFieldValue(field, val)} />
               case 'TIME':
-                return <FormFieldTime name={field.name} value={field.value} onChange={val => onChangeFieldValue(field, val)} />
+                return <FormFieldTime name={name} value={field.value} onChange={val => onChangeFieldValue(field, val)} />
               case 'YES_NO':
-                return <FormFieldYesNo name={field.name} value={field.value} onChange={val => onChangeFieldValue(field, val)} />
+                return <FormFieldYesNo name={name} value={field.value} onChange={val => onChangeFieldValue(field, val)} />
               case 'RADIO':
-                return <FormFieldRadio name={field.name} value={field.value} onChange={val => onChangeFieldValue(field, val)} options={field.options} />
+                return <FormFieldRadio name={name} value={field.value} onChange={val => onChangeFieldValue(field, val)} options={field.options} />
               case 'DROPDOWN':
-                return <FormFieldSelect name={field.name} value={field.value} onChange={val => onChangeFieldValue(field, val)} options={field.options} />
+                return <FormFieldSelect name={name} value={field.value} onChange={val => onChangeFieldValue(field, val)} options={field.options} />
               case 'LONG_TEXT':
-                return <FormFieldLongText name={field.name} />
+                return <FormFieldLongText name={name} />
               case 'SIGNATURE':
-                return <FormFieldSignature name={field.name} value={field.value} onChange={val => onChangeFieldValue(field, val)} />
+                return <FormFieldSignature name={name} value={field.value} onChange={val => onChangeFieldValue(field, val)} />
               case 'TEXT_AREA':
-                return <FormFieldTextArea name={field.name} value={field.value} onChange={val => onChangeFieldValue(field, val)} />
+                return <FormFieldTextArea name={name} value={field.value} onChange={val => onChangeFieldValue(field, val)} />
               default:
                 assertUnreachable(field)
             }

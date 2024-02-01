@@ -17,7 +17,6 @@ export const FormFieldSignature = ({ value, onChange, name }: FormFieldSignature
       style={{
         fontSize: tokens.font_size_xl,
         backgroundColor: tokens.color_bg_surface_alt,
-        padding: tokens.spacing_m,
         fontFamily: 'Allura-Regular',
       }}
     />
