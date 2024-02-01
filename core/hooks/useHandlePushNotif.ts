@@ -1,12 +1,20 @@
-import { useEffect } from 'react'
 import * as Notifications from 'expo-notifications'
+import { useEffect } from 'react'
+import { PushNotifType } from '../../../pn-core-lib/types/PushNotifType'
 
-export const useHandlePushNotif = () => {
+type UseHandlePushNotifProps = {
+  onPressHandles: { [key in keyof PushNotifType]: () => void }
+}
+
+export const useHandlePushNotif = (props: UseHandlePushNotifProps) => {
   useEffect(() => {
     const subscription = Notifications.addNotificationResponseReceivedListener(response => {
-      const { screen } = response.notification.request.content.data
-      if (screen) {
-        // Navigate to the screen
+      const type = response.notification.request.content.data.type as PushNotifType
+
+      switch (type) {
+        case 'ANNOUNCEMENT_CREATED':
+          props.onPressHandles.get(type)()
+          break
       }
     })
 
