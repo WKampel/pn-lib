@@ -1,10 +1,9 @@
 import * as Notifications from 'expo-notifications'
 import { useEffect } from 'react'
-import { PushNotifType } from '../../../pn-core-lib/types/PushNotifType'
+import { PushNotifData } from '../../../pn-core-lib/types/PushNotifData'
 
 type UseHandlePushNotifProps = {
-  onPressHandles: { [key in keyof PushNotifType]: () => void }
-}
+    onPressHandles: { [key in PushNOti]: () => void }}
 
 export const useHandlePushNotif = (props: UseHandlePushNotifProps) => {
   useEffect(() => {
