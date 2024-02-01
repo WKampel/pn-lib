@@ -20,7 +20,7 @@ export const useHandlePushNotifs = (navigation: NavigationProp<RootStackParamLis
       switch (data.type) {
         case 'ANNOUNCEMENT_CREATED':
           if (handlers?.[data.type]) handlers[data.type](data)
-          navigation.navigate('Practice', { id: data.announcementId })
+          navigation.navigate('Practice', { practiceUrl: data.practiceUrl, params: {} })
           break
         case 'FORM_ASSIGNED':
           if (handlers?.[data.type]) handlers[data.type](data)
