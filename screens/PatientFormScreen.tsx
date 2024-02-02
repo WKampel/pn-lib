@@ -16,17 +16,21 @@ import { FormFieldTime } from '../formManagement/components/formField/fieldTypes
 import { FormFieldTitle } from '../formManagement/components/formField/fieldTypes/FormFieldTitle'
 import { FormFieldYesNo } from '../formManagement/components/formField/fieldTypes/FormFieldYesNo'
 import { OnChangeFieldValueFn } from '../formManagement/hooks/usePatientForm'
-import { PatientFormFieldData } from '../formManagement/types/PatientFormFieldData'
+import { FormFieldData } from '../formManagement/types/FormFieldData'
 
 type PatientFormScreenProps = {
   formName: string
   formDesc: string
-  fields: PatientFormFieldData[]
+  fields: FormFieldData[]
+
+  responses: Reponse[]
   onSubmit: () => void
-  onChangeFieldValue: OnChangeFieldValueFn
+  onChangeResponseValue?: OnChangeFieldValueFn
 }
 
-export const PatientFormScreen = ({ formName, formDesc, fields, onSubmit, onChangeFieldValue }: PatientFormScreenProps) => {
+type Reponse = {}
+
+export const PatientFormScreen = ({ formName, formDesc, fields, responses, onSubmit, onChangeFieldValue }: PatientFormScreenProps) => {
   const practice = usePractice()
 
   const tokens = useTheme()
@@ -52,23 +56,23 @@ export const PatientFormScreen = ({ formName, formDesc, fields, onSubmit, onChan
               case 'TITLE':
                 return <FormFieldTitle name={name} />
               case 'TEXT_INPUT':
-                return <FormFieldTextInput name={name} value={field.value} onChange={val => onChangeFieldValue(field, val)} />
+                return <FormFieldTextInput name={name} value={} onChange={val => onChangeFieldValue(field, val)} />
               case 'DATE':
-                return <FormFieldDate name={name} value={field.value} onChange={val => onChangeFieldValue(field, val)} />
+                return <FormFieldDate name={name} value={} onChange={val => onChangeFieldValue(field, val)} />
               case 'TIME':
-                return <FormFieldTime name={name} value={field.value} onChange={val => onChangeFieldValue(field, val)} />
+                return <FormFieldTime name={name} value={} onChange={val => onChangeFieldValue(field, val)} />
               case 'YES_NO':
-                return <FormFieldYesNo name={name} value={field.value} onChange={val => onChangeFieldValue(field, val)} />
+                return <FormFieldYesNo name={name} value={} onChange={val => onChangeFieldValue(field, val)} />
               case 'RADIO':
-                return <FormFieldRadio name={name} value={field.value} onChange={val => onChangeFieldValue(field, val)} options={field.options} />
+                return <FormFieldRadio name={name} value={} onChange={val => onChangeFieldValue(field, val)} options={field.options} />
               case 'DROPDOWN':
-                return <FormFieldSelect name={name} value={field.value} onChange={val => onChangeFieldValue(field, val)} options={field.options} />
+                return <FormFieldSelect name={name} value={} onChange={val => onChangeFieldValue(field, val)} options={field.options} />
               case 'LONG_TEXT':
                 return <FormFieldLongText name={name} />
               case 'SIGNATURE':
-                return <FormFieldSignature name={name} value={field.value} onChange={val => onChangeFieldValue(field, val)} />
+                return <FormFieldSignature name={name} value={} onChange={val => onChangeFieldValue(field, val)} />
               case 'TEXT_AREA':
-                return <FormFieldTextArea name={name} value={field.value} onChange={val => onChangeFieldValue(field, val)} />
+                return <FormFieldTextArea name={name} value={} onChange={val => onChangeFieldValue(field, val)} />
               default:
                 assertUnreachable(field)
             }
