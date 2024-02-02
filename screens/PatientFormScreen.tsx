@@ -4,33 +4,16 @@ import { Screen } from '../common/components/Screen'
 import { SolidButton } from '../common/components/buttons/SolidButton'
 import { usePractice } from '../common/hooks/usePractice'
 import { useTheme } from '../common/hooks/useTheme'
-import { assertUnreachable } from '../core/utils/assertUnreachable'
-import { FormFieldDate } from '../formManagement/components/formField/fieldTypes/FormFieldDate'
-import { FormFieldLongText } from '../formManagement/components/formField/fieldTypes/FormFieldLongText'
-import { FormFieldRadio } from '../formManagement/components/formField/fieldTypes/FormFieldRadio'
-import { FormFieldSelect } from '../formManagement/components/formField/fieldTypes/FormFieldSelect'
-import { FormFieldSignature } from '../formManagement/components/formField/fieldTypes/FormFieldSignature'
-import { FormFieldTextArea } from '../formManagement/components/formField/fieldTypes/FormFieldTextArea'
-import { FormFieldTextInput } from '../formManagement/components/formField/fieldTypes/FormFieldTextInput'
-import { FormFieldTime } from '../formManagement/components/formField/fieldTypes/FormFieldTime'
-import { FormFieldTitle } from '../formManagement/components/formField/fieldTypes/FormFieldTitle'
-import { FormFieldYesNo } from '../formManagement/components/formField/fieldTypes/FormFieldYesNo'
-import { OnChangeFieldValueFn } from '../formManagement/hooks/usePatientForm'
-import { FormFieldData } from '../formManagement/types/FormFieldData'
+import { PatientFormFieldProps, PatientFormFieldRenderer } from '../patientManagement/components/patientForm/PatientFormFieldRenderer'
 
 type PatientFormScreenProps = {
   formName: string
   formDesc: string
-  fields: FormFieldData[]
-
-  responses: Reponse[]
+  fields: PatientFormFieldProps[]
   onSubmit: () => void
-  onChangeResponseValue?: OnChangeFieldValueFn
 }
 
-type Reponse = {}
-
-export const PatientFormScreen = ({ formName, formDesc, fields, responses, onSubmit, onChangeFieldValue }: PatientFormScreenProps) => {
+export const PatientFormScreen = ({ formName, formDesc, fields, onSubmit }: PatientFormScreenProps) => {
   const tokens = useTheme()
 
   return (
@@ -39,33 +22,9 @@ export const PatientFormScreen = ({ formName, formDesc, fields, responses, onSub
         <Header formName={formName} formDesc={formDesc} />
 
         <View style={{ gap: tokens.spacing_l }}>
-          {fields.map(field => {
-            const name = field.name + (field.required ? '*' : '')
-            switch (field.type) {
-              case 'TITLE':
-                return <FormFieldTitle name={name} />
-              case 'TEXT_INPUT':
-                return <FormFieldTextInput name={name} value={} onChange={val => onChangeFieldValue(field, val)} />
-              case 'DATE':
-                return <FormFieldDate name={name} value={} onChange={val => onChangeFieldValue(field, val)} />
-              case 'TIME':
-                return <FormFieldTime name={name} value={} onChange={val => onChangeFieldValue(field, val)} />
-              case 'YES_NO':
-                return <FormFieldYesNo name={name} value={} onChange={val => onChangeFieldValue(field, val)} />
-              case 'RADIO':
-                return <FormFieldRadio name={name} value={} onChange={val => onChangeFieldValue(field, val)} options={field.options} />
-              case 'DROPDOWN':
-                return <FormFieldSelect name={name} value={} onChange={val => onChangeFieldValue(field, val)} options={field.options} />
-              case 'LONG_TEXT':
-                return <FormFieldLongText name={name} />
-              case 'SIGNATURE':
-                return <FormFieldSignature name={name} value={} onChange={val => onChangeFieldValue(field, val)} />
-              case 'TEXT_AREA':
-                return <FormFieldTextArea name={name} value={} onChange={val => onChangeFieldValue(field, val)} />
-              default:
-                assertUnreachable(field)
-            }
-          })}
+          {fields.map(field => (
+            <PatientFormFieldRenderer field={field} />
+          ))}
         </View>
 
         <SolidButton text='Submit' onPress={onSubmit} />

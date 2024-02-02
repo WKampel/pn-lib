@@ -26,7 +26,7 @@ type FormFieldOption = {
   value: string
 }
 
-type PatientFormFieldProps =
+export type PatientFormFieldProps =
   | BasePatientFormFieldProps<never, 'TITLE'>
   | BasePatientFormFieldProps<string, 'TEXT_INPUT'>
   | BasePatientFormFieldProps<Date, 'DATE'>
