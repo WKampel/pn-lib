@@ -1,14 +1,8 @@
 import { Select } from '../../../../common/components/Select'
-import { FormFieldOptionData } from '../../../types/FormFieldOptionData'
+import { FormFieldOptionData } from '../../../../formManagement/types/FormFieldOptionData'
+import { ExtractPatientFormFieldProps } from '../PatientFormFieldRenderer'
 
-type FormFieldProps = {
-  value: string
-  onChange: (value: string) => void
-  name: string
-  options: FormFieldOptionData[]
-}
-
-export const FormFieldSelect = ({ value, onChange, name, options }: FormFieldProps) => {
+export const PatientFormFieldSelect = ({ value, onChange, name, options }: ExtractPatientFormFieldProps<'DROPDOWN'>) => {
   return (
     <Select<FormFieldOptionData, string>
       value={value}

@@ -1,13 +1,8 @@
 import { TextInput } from '../../../../common/components/TextInput'
 import { useTheme } from '../../../../common/hooks/useTheme'
+import { ExtractPatientFormFieldProps } from '../PatientFormFieldRenderer'
 
-type FormFieldSignatureProps = {
-  value: string
-  onChange: (value: string) => void
-  name: string
-}
-
-export const FormFieldSignature = ({ value, onChange, name }: FormFieldSignatureProps) => {
+export const PatientFormFieldSignature = ({ value, onChange, name }: ExtractPatientFormFieldProps<'SIGNATURE'>) => {
   const tokens = useTheme()
   return (
     <TextInput
