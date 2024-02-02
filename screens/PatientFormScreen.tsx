@@ -4,9 +4,9 @@ import { Screen } from '../common/components/Screen'
 import { SolidButton } from '../common/components/buttons/SolidButton'
 import { usePractice } from '../common/hooks/usePractice'
 import { useTheme } from '../common/hooks/useTheme'
-import { OnChangeFieldValueFn } from '../formManagement/hooks/usePatientForm'
 import { PatientFormFieldData } from '../formManagement/types/PatientFormFieldData'
 import { PatientFormFieldRenderer } from '../patientManagement/components/patientForm/PatientFormFieldRenderer'
+import { OnChangeFieldValueFn } from '../patientManagement/hooks/usePatientForm'
 
 type PatientFormScreenProps = {
   formName: string
