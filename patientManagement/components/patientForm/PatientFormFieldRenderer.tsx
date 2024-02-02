@@ -1,4 +1,5 @@
 import { FormFieldType } from '../../../../gql/graphql'
+import { FormFieldValueTypeMap } from '../../../../pn-core-lib/types/FormField'
 import { assertUnreachable } from '../../../core/utils/assertUnreachable'
 import { PatientFormFieldDate } from './fields/PatientFormFieldDate'
 import { PatientFormFieldLongText } from './fields/PatientFormFieldLongText'
@@ -27,16 +28,16 @@ type FormFieldOption = {
 }
 
 export type PatientFormFieldProps =
-  | BasePatientFormFieldProps<never, 'TITLE'>
-  | BasePatientFormFieldProps<string, 'TEXT_INPUT'>
-  | BasePatientFormFieldProps<Date, 'DATE'>
-  | BasePatientFormFieldProps<Date, 'TIME'>
-  | BasePatientFormFieldProps<boolean | null, 'YES_NO'>
-  | BasePatientFormFieldProps<string[], 'RADIO'>
-  | BasePatientFormFieldProps<string, 'DROPDOWN'>
-  | BasePatientFormFieldProps<never, 'LONG_TEXT'>
-  | BasePatientFormFieldProps<string, 'SIGNATURE'>
-  | BasePatientFormFieldProps<string, 'TEXT_AREA'>
+  | BasePatientFormFieldProps<FormFieldValueTypeMap['TITLE'], 'TITLE'>
+  | BasePatientFormFieldProps<FormFieldValueTypeMap['TEXT_INPUT'], 'TEXT_INPUT'>
+  | BasePatientFormFieldProps<FormFieldValueTypeMap['DATE'], 'DATE'>
+  | BasePatientFormFieldProps<FormFieldValueTypeMap['TIME'], 'TIME'>
+  | BasePatientFormFieldProps<FormFieldValueTypeMap['YES_NO'], 'YES_NO'>
+  | BasePatientFormFieldProps<FormFieldValueTypeMap['RADIO'], 'RADIO'>
+  | BasePatientFormFieldProps<FormFieldValueTypeMap['DROPDOWN'], 'DROPDOWN'>
+  | BasePatientFormFieldProps<FormFieldValueTypeMap['LONG_TEXT'], 'LONG_TEXT'>
+  | BasePatientFormFieldProps<FormFieldValueTypeMap['SIGNATURE'], 'SIGNATURE'>
+  | BasePatientFormFieldProps<FormFieldValueTypeMap['TEXT_AREA'], 'TEXT_AREA'>
 
 export type ExtractPatientFormFieldProps<TFormFieldType extends FormFieldType> = Extract<PatientFormFieldProps, { type: TFormFieldType }>
 
