@@ -4,11 +4,6 @@ import { Screen } from '../common/components/Screen'
 import { SolidButton } from '../common/components/buttons/SolidButton'
 import { usePractice } from '../common/hooks/usePractice'
 import { useTheme } from '../common/hooks/useTheme'
-<<<<<<< HEAD
-import { PatientFormFieldData } from '../formManagement/types/PatientFormFieldData'
-import { PatientFormFieldRenderer } from '../patientManagement/components/patientForm/PatientFormFieldRenderer'
-import { OnChangeFieldValueFn } from '../patientManagement/hooks/usePatientForm'
-=======
 import { assertUnreachable } from '../core/utils/assertUnreachable'
 import { FormFieldDate } from '../formManagement/components/formField/fieldTypes/FormFieldDate'
 import { FormFieldLongText } from '../formManagement/components/formField/fieldTypes/FormFieldLongText'
@@ -22,7 +17,6 @@ import { FormFieldTitle } from '../formManagement/components/formField/fieldType
 import { FormFieldYesNo } from '../formManagement/components/formField/fieldTypes/FormFieldYesNo'
 import { OnChangeFieldValueFn } from '../formManagement/hooks/usePatientForm'
 import { FormFieldData } from '../formManagement/types/FormFieldData'
->>>>>>> 9a1227042ff4fcc422e9a0939cdfe8a3d2e92f93
 
 type PatientFormScreenProps = {
   formName: string
@@ -34,15 +28,9 @@ type PatientFormScreenProps = {
   onChangeResponseValue?: OnChangeFieldValueFn
 }
 
-<<<<<<< HEAD
-export const PatientFormScreen = ({ formName, formDesc, fields, onSubmit, onChangeFieldValue }: PatientFormScreenProps) => {
-=======
 type Reponse = {}
 
 export const PatientFormScreen = ({ formName, formDesc, fields, responses, onSubmit, onChangeFieldValue }: PatientFormScreenProps) => {
-  const practice = usePractice()
-
->>>>>>> 9a1227042ff4fcc422e9a0939cdfe8a3d2e92f93
   const tokens = useTheme()
 
   return (
@@ -51,11 +39,6 @@ export const PatientFormScreen = ({ formName, formDesc, fields, responses, onSub
         <Header formName={formName} formDesc={formDesc} />
 
         <View style={{ gap: tokens.spacing_l }}>
-<<<<<<< HEAD
-          {fields.map(field => (
-            <PatientFormFieldRenderer field={field} />
-          ))}
-=======
           {fields.map(field => {
             const name = field.name + (field.required ? '*' : '')
             switch (field.type) {
@@ -83,7 +66,6 @@ export const PatientFormScreen = ({ formName, formDesc, fields, responses, onSub
                 assertUnreachable(field)
             }
           })}
->>>>>>> 9a1227042ff4fcc422e9a0939cdfe8a3d2e92f93
         </View>
 
         <SolidButton text='Submit' onPress={onSubmit} />
