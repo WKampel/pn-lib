@@ -1,32 +1,95 @@
-import { useForm } from '../../common/hooks/useForm'
-import { PatientFormFieldData, PatientFormFieldDataWithValue } from '../types/PatientFormFieldData'
+import { useEffect, useState } from 'react'
+import { FormField, FormResponse } from '../../../gql/graphql'
+import { assertUnreachable } from '../../core/utils/assertUnreachable'
+import { PatientFormFieldProps } from '../components/patientForm/PatientFormFieldRenderer'
 
-export type OnChangeResponseValueFn = <T extends PatientFormFieldDataWithValue['type']>(
-  field: Extract<PatientFormFieldDataWithValue, { type: T }>,
-  value: Extract<PatientFormFieldDataWithValue, { type: T }>['value']
-) => void
+export const usePatientForm = (formFields: FormField[], formResponses: FormResponse[]) => {
+  const [formState, setFormState] = useState<Record<FormField['id'], PatientFormFieldProps>>({})
 
-export const usePatientForm = () => {
-  const { data, onChangeField, updateInitialState, isModified } = useForm<{
-    fields: PatientFormFieldData[]
-  }>({
-    fields: [],
-  })
+  useEffect(() => {
+    const initialState = formFields.reduce((acc, field) => {
+      const response = formResponses.find(res => res.formFieldId === field.id)
+      const type = field.type
 
-  const onChangeResponseValue: OnChangeResponseValueFn = (field, value) => {
-    let newFields = [...data.fields]
-    const index = newFields.findIndex(f => f.id === field.id)
-    if (index === -1) return
+      switch (type) {
+        case 'TEXT_INPUT':
+        case 'DROPDOWN':
+        case 'SIGNATURE':
+        case 'TEXT_AREA':
+          acc[field.id] = {
+            id: field.id,
+            name: field.name,
+            type: type,
+            required: field.required,
+            options: field.options,
+            value: response?.stringValue || '',
+            onChange: (value: string) => {
+              const copy = { ...formState }
+              copy[field.id].value = value
+              setFormState(copy)
+            },
+          }
+          break
+        case 'DATE':
+        case 'TIME':
+          acc[field.id] = {
+            id: field.id,
+            name: field.name,
+            type: type,
+            required: field.required,
+            options: field.options,
+            value: response?.dateValue || new Date(),
+            onChange: (value: Date) => {
+              const copy = { ...formState }
+              copy[field.id].value = value
+              setFormState(copy)
+            },
+          }
+          break
+        case 'YES_NO':
+          acc[field.id] = {
+            id: field.id,
+            name: field.name,
+            type: type,
+            required: field.required,
+            options: field.options,
+            value: response?.booleanValue === true ? true : response?.booleanValue === false ? false : null,
+            onChange: (value: boolean | null) => {
+              const copy = { ...formState }
+              copy[field.id].value = value
+              setFormState(copy)
+            },
+          }
+          break
+        case 'RADIO':
+          acc[field.id] = {
+            id: field.id,
+            name: field.name,
+            type: type,
+            required: field.required,
+            options: field.options,
+            value: response?.stringArrayValue || [],
+            onChange: (value: string[]) => {
+              const copy = { ...formState }
+              copy[field.id].value = value
+              setFormState(copy)
+            },
+          }
+          break
+        case 'TITLE':
+        case 'LONG_TEXT':
+          break
+        default:
+          assertUnreachable(type)
+      }
 
-    newFields[index] = { ...field, value }
+      return acc
+    }, {} as Record<FormField['id'], PatientFormFieldProps>)
 
-    onChangeField('fields')(newFields)
-  }
+    setFormState(initialState)
+  }, [formFields, formResponses])
 
-  return {
-    fields: data.fields,
-    isModified,
-    onChangeFieldValue,
-    updateInitialState,
-  }
+  const handleSubmit = () => {}
+
+  return { formState, handleSubmit }
 }

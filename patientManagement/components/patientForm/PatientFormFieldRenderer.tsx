@@ -31,7 +31,7 @@ export type PatientFormFieldProps =
   | BasePatientFormFieldProps<string, 'TEXT_INPUT'>
   | BasePatientFormFieldProps<Date, 'DATE'>
   | BasePatientFormFieldProps<Date, 'TIME'>
-  | BasePatientFormFieldProps<boolean, 'YES_NO'>
+  | BasePatientFormFieldProps<boolean | null, 'YES_NO'>
   | BasePatientFormFieldProps<string[], 'RADIO'>
   | BasePatientFormFieldProps<string, 'DROPDOWN'>
   | BasePatientFormFieldProps<never, 'LONG_TEXT'>
