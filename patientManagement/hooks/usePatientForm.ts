@@ -1,7 +1,7 @@
 import { useForm } from '../../common/hooks/useForm'
 import { PatientFormFieldData, PatientFormFieldDataWithValue } from '../types/PatientFormFieldData'
 
-export type OnChangeFieldValueFn = <T extends PatientFormFieldDataWithValue['type']>(
+export type OnChangeResponseValueFn = <T extends PatientFormFieldDataWithValue['type']>(
   field: Extract<PatientFormFieldDataWithValue, { type: T }>,
   value: Extract<PatientFormFieldDataWithValue, { type: T }>['value']
 ) => void
@@ -13,7 +13,7 @@ export const usePatientForm = () => {
     fields: [],
   })
 
-  const onChangeFieldValue: OnChangeFieldValueFn = (field, value) => {
+  const onChangeResponseValue: OnChangeResponseValueFn = (field, value) => {
     let newFields = [...data.fields]
     const index = newFields.findIndex(f => f.id === field.id)
     if (index === -1) return
