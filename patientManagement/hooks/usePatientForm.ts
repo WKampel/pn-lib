@@ -50,7 +50,7 @@ export const usePatientForm = (initialFormFields: FormField[], initialFormRespon
             break
           case 'TITLE':
           case 'LONG_TEXT':
-            return null
+            break
           default:
             assertUnreachable(type)
         }
