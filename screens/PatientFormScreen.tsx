@@ -11,9 +11,10 @@ type PatientFormScreenProps = {
   formDesc: string
   fields: PatientFormFieldProps[]
   onSubmit: () => void
+  submitting: boolean
 }
 
-export const PatientFormScreen = ({ formName, formDesc, fields, onSubmit }: PatientFormScreenProps) => {
+export const PatientFormScreen = ({ formName, formDesc, fields, onSubmit, submitting }: PatientFormScreenProps) => {
   const tokens = useTheme()
 
   return (
@@ -27,7 +28,7 @@ export const PatientFormScreen = ({ formName, formDesc, fields, onSubmit }: Pati
           ))}
         </View>
 
-        <SolidButton text='Submit' onPress={onSubmit} />
+        <SolidButton loading={submitting} text='Submit' onPress={onSubmit} />
       </ScrollView>
     </Screen>
   )
