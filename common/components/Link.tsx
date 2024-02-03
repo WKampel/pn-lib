@@ -6,9 +6,10 @@ type LinkProps = {
   children: ReactNode
   onPress: () => void
   textStyle?: StyleProp<TextStyle>
+  inheritFontSize?: boolean
 }
 
-export const Link = ({ textStyle = {}, children, onPress }: LinkProps) => {
+export const Link = ({ textStyle = {}, children, onPress }: LinkProps, inheritFontSize = false) => {
   const tokens = useTheme()
 
   return (
@@ -17,7 +18,7 @@ export const Link = ({ textStyle = {}, children, onPress }: LinkProps) => {
         style={[
           {
             color: tokens.color_ui_primary,
-            fontSize: tokens.font_size_m,
+            fontSize: inheritFontSize ? undefined : tokens.font_size_m,
             textDecorationLine: 'underline',
           },
           textStyle,
