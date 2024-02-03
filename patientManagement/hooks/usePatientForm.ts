@@ -38,8 +38,8 @@ export const usePatientForm = (formFields: FormField[], formResponses: FormRespo
             type: type,
             required: field.required,
             options: field.options,
-            value: response?.dateValue || new Date(),
-            onChange: (value: Date) => {
+            value: response?.dateValue || null,
+            onChange: (value: Date | null) => {
               const copy = { ...formState }
               copy[field.id].value = value
               setFormState(copy)
