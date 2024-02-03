@@ -16,6 +16,7 @@ export const Link = ({ children, onPress }: LinkProps) => {
         style={{
           color: tokens.color_ui_primary,
           fontSize: tokens.font_size_m,
+          textDecorationLine: 'underline',
         }}
       >
         {children}
