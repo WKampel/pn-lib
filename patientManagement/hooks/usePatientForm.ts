@@ -4,87 +4,60 @@ import { assertUnreachable } from '../../core/utils/assertUnreachable'
 import { PatientFormFieldProps } from '../components/patientForm/PatientFormFieldRenderer'
 
 export const usePatientForm = (formFields: FormField[], formResponses: FormResponse[]) => {
-  const [formState, setFormState] = useState<Record<FormField['id'], PatientFormFieldProps>>({})
+  const [formState, setFormState] = useState<PatientFormFieldProps[]>([])
+
+  const updateFormState = (fieldId: string, newValue: any) => {
+    setFormState(currentFormState => currentFormState.map(field => (field.id === fieldId ? { ...field, value: newValue } : field)))
+  }
 
   useEffect(() => {
-    const initialState = formFields.reduce((acc, field) => {
-      const response = formResponses.find(res => res.formFieldId === field.id)
-      const type = field.type
+    const initialState = formFields
+      .map(field => {
+        const response = formResponses.find(res => res.formFieldId === field.id)
+        const type = field.type
 
-      switch (type) {
-        case 'TEXT_INPUT':
-        case 'DROPDOWN':
-        case 'SIGNATURE':
-        case 'TEXT_AREA':
-          acc[field.id] = {
-            id: field.id,
-            name: field.name,
-            type: type,
-            required: field.required,
-            options: field.options,
-            value: response?.stringValue || '',
-            onChange: (value: string) => {
-              const copy = { ...formState }
-              copy[field.id].value = value
-              setFormState(copy)
-            },
-          }
-          break
-        case 'DATE':
-        case 'TIME':
-          acc[field.id] = {
-            id: field.id,
-            name: field.name,
-            type: type,
-            required: field.required,
-            options: field.options,
-            value: response?.dateValue || null,
-            onChange: (value: Date | null) => {
-              const copy = { ...formState }
-              copy[field.id].value = value
-              setFormState(copy)
-            },
-          }
-          break
-        case 'YES_NO':
-          acc[field.id] = {
-            id: field.id,
-            name: field.name,
-            type: type,
-            required: field.required,
-            options: field.options,
-            value: response?.booleanValue === true ? true : response?.booleanValue === false ? false : null,
-            onChange: (value: boolean | null) => {
-              const copy = { ...formState }
-              copy[field.id].value = value
-              setFormState(copy)
-            },
-          }
-          break
-        case 'RADIO':
-          acc[field.id] = {
-            id: field.id,
-            name: field.name,
-            type: type,
-            required: field.required,
-            options: field.options,
-            value: response?.stringArrayValue || [],
-            onChange: (value: string[]) => {
-              const copy = { ...formState }
-              copy[field.id].value = value
-              setFormState(copy)
-            },
-          }
-          break
-        case 'TITLE':
-        case 'LONG_TEXT':
-          break
-        default:
-          assertUnreachable(type)
-      }
+        const commonProps = {
+          id: field.id,
+          name: field.name,
+          type,
+          required: field.required,
+          options: field.options,
+        }
 
-      return acc
-    }, {} as Record<FormField['id'], PatientFormFieldProps>)
+        let value
+        let onChange
+
+        switch (type) {
+          case 'TEXT_INPUT':
+          case 'DROPDOWN':
+          case 'SIGNATURE':
+          case 'TEXT_AREA':
+            value = response?.stringValue || ''
+            onChange = (newValue: string) => updateFormState(field.id, newValue)
+            break
+          case 'DATE':
+          case 'TIME':
+            value = response?.dateValue || null
+            onChange = (newValue: Date | null) => updateFormState(field.id, newValue)
+            break
+          case 'YES_NO':
+            value = typeof response?.booleanValue === 'boolean' ? response.booleanValue : null
+            onChange = (newValue: boolean | null) => updateFormState(field.id, newValue)
+            break
+          case 'RADIO':
+            value = response?.stringArrayValue || []
+            onChange = (newValue: string[]) => updateFormState(field.id, newValue)
+            break
+          case 'TITLE':
+          case 'LONG_TEXT':
+            return null
+          default:
+            assertUnreachable(type)
+        }
+
+        return { ...commonProps, value, onChange }
+      })
+      .filter(Boolean) as PatientFormFieldProps[]
 
     setFormState(initialState)
   }, [formFields, formResponses])
