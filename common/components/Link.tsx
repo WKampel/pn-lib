@@ -5,7 +5,7 @@ import { useTheme } from '../hooks/useTheme'
 type LinkProps = {
   children: ReactNode
   onPress: () => void
-  textStyle: StyleProp<TextStyle>
+  textStyle?: StyleProp<TextStyle>
 }
 
 export const Link = ({ textStyle = {}, children, onPress }: LinkProps) => {
