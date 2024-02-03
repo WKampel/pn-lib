@@ -3,14 +3,14 @@ import { FormField, FormResponse } from '../../../gql/graphql'
 import { assertUnreachable } from '../../core/utils/assertUnreachable'
 import { PatientFormFieldProps } from '../components/patientForm/PatientFormFieldRenderer'
 
-export const usePatientForm = (formFields: FormField[], formResponses: FormResponse[]) => {
+export const usePatientForm = (initialFormFields: FormField[], initialFormResponses: FormResponse[]) => {
   const [formState, setFormState] = useState<PatientFormFieldProps[]>([])
 
   const updateFormState = (fieldId: string, newValue: any) => {
     setFormState(currentFormState => currentFormState.map(field => (field.id === fieldId ? { ...field, value: newValue } : field)))
   }
 
-  useEffect(() => {
+  const setState = (formFields: FormField[], formResponses: FormResponse[]) => {
     const initialState = formFields
       .map(field => {
         const response = formResponses.find(res => res.formFieldId === field.id)
@@ -60,9 +60,15 @@ export const usePatientForm = (formFields: FormField[], formResponses: FormRespo
       .filter(Boolean) as PatientFormFieldProps[]
 
     setFormState(initialState)
-  }, [formFields, formResponses])
+  }
 
-  const handleSubmit = () => {}
+  useEffect(() => {
+    setState(initialFormFields, initialFormResponses)
+  }, [])
 
-  return { formState, handleSubmit }
+  const updateInitialState = (formFields: FormField[], formResponses: FormResponse[]) => {
+    setState(formFields, formResponses)
+  }
+
+  return { formState, updateInitialState }
 }
