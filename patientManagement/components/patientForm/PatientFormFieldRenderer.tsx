@@ -2,12 +2,14 @@ import { FormFieldType } from '../../../../gql/graphql'
 import { FormFieldValueTypeMap } from '../../../../pn-core-lib/types/FormField'
 import { assertUnreachable } from '../../../core/utils/assertUnreachable'
 import { PatientFormFieldDate } from './fields/PatientFormFieldDate'
+import { PatientFormFieldLongText } from './fields/PatientFormFieldLongText'
 import { PatientFormFieldRadio } from './fields/PatientFormFieldRadio'
 import { PatientFormFieldSelect } from './fields/PatientFormFieldSelect'
 import { PatientFormFieldSignature } from './fields/PatientFormFieldSignature'
 import { PatientFormFieldTextArea } from './fields/PatientFormFieldTextArea'
 import { PatientFormFieldTextInput } from './fields/PatientFormFieldTextInput'
 import { PatientFormFieldTime } from './fields/PatientFormFieldTime'
+import { PatientFormFieldTitle } from './fields/PatientFormFieldTitle'
 import { PatientFormFieldYesNo } from './fields/PatientFormFieldYesNo'
 
 type BasePatientFormFieldProps<TValue, TFormFieldType extends FormFieldType> = {
@@ -26,6 +28,8 @@ type FormFieldOption = {
 }
 
 export type PatientFormFieldProps =
+  | BasePatientFormFieldProps<null, 'TITLE'>
+  | BasePatientFormFieldProps<null, 'LONG_TEXT'>
   | BasePatientFormFieldProps<FormFieldValueTypeMap['TEXT_INPUT'], 'TEXT_INPUT'>
   | BasePatientFormFieldProps<FormFieldValueTypeMap['DATE'], 'DATE'>
   | BasePatientFormFieldProps<FormFieldValueTypeMap['TIME'], 'TIME'>
@@ -41,6 +45,10 @@ export const PatientFormFieldRenderer = ({ field }: { field: PatientFormFieldPro
   const name = field.name + (field.required ? '*' : '')
   const type = field.type
   switch (type) {
+    case 'TITLE':
+      return <PatientFormFieldTitle {...field} name={name} />
+    case 'LONG_TEXT':
+      return <PatientFormFieldLongText {...field} name={name} />
     case 'TEXT_INPUT':
       return <PatientFormFieldTextInput {...field} name={name} />
     case 'DATE':
