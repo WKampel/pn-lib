@@ -1,13 +1,11 @@
 import { Platform } from 'react-native'
 import MobileWebView from 'react-native-webview'
-import { useTheme } from '../../common/hooks/useTheme'
 
 type PageHtmlRendererProps = {
   html: string
 }
 
 export const PageHtmlRenderer = (props: PageHtmlRendererProps) => {
-  const tokens = useTheme()
   const id = '__PageHtmlRenderer__'
 
   const html = `
