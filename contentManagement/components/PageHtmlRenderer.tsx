@@ -17,12 +17,12 @@ export const PageHtmlRenderer = (props: PageHtmlRendererProps) => {
 
   </head>
     <style>
-        #${id} { overflow-x: hidden; max-width: 100%;  }
+        #${id} { overflow-x: hidden; max-width: 100%; padding:${tokens.spacing_s}px;  }
         #${id} * { max-width: 100%; height: auto; }
 
         #pageHtmlRendererBody{
           margin: 0!important;
-          padding: ${tokens.spacing_s}px !important;
+          padding: 0!important;
         }
     </style>
     <body id='pageHtmlRendererBody'>
