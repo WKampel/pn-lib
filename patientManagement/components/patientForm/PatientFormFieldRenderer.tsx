@@ -80,11 +80,13 @@ const withLabel = (field: JSX.Element, name: string, required: boolean) => {
         style={{
           height: tokens.size_s,
           alignItems: 'center',
+          flexDirection: 'row',
+          gap: tokens.spacing_xs,
           paddingHorizontal: tokens.spacing_xs,
         }}
       >
         <Text style={{}}>{name}</Text>
-        {required ? <Text style={{ color: tokens.color_danger }}>*</Text> : null}
+        {required ? <Text style={{ color: tokens.color_danger }}>(required)</Text> : null}
       </View>
       {field}
     </View>
