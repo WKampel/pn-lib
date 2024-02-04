@@ -20,14 +20,16 @@ export const PageHtmlRenderer = (props: PageHtmlRendererProps) => {
         #${id} { overflow-x: hidden; max-width: 100%;  }
         #${id} * { max-width: 100%; height: auto; }
 
-        body{
+        #pageHtmlRendererBody{
           margin: 0!important;
           padding: ${tokens.spacing_s}px !important;
         }
     </style>
-    <div id='${id}'>
-        ${props.html}
-    </div>
+    <body id='pageHtmlRendererBody'>
+      <div id='${id}'>
+          ${props.html}
+      </div>
+    </body>
   `
 
   if (Platform.OS === 'web') {
