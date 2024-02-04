@@ -8,7 +8,7 @@ export const PatientFormFieldSignature = ({ value, onChange, name }: ExtractPati
     <TextInput
       value={value}
       onChange={onChange}
-      label={name}
+      label=''
       style={{
         fontSize: tokens.font_size_xl,
         backgroundColor: tokens.color_bg_surface_alt,
