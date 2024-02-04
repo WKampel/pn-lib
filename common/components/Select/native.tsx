@@ -23,13 +23,15 @@ const Select = <TOption extends any, TValue extends string>({ value, onChange, o
         gap: 10,
       }}
     >
-      <Text
-        style={{
-          color: 'black',
-        }}
-      >
-        {label}
-      </Text>
+      {label ? (
+        <Text
+          style={{
+            color: 'black',
+          }}
+        >
+          {label}
+        </Text>
+      ) : null}
 
       <View>
         <TouchableOpacity

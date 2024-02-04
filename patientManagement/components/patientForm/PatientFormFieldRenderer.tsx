@@ -1,5 +1,7 @@
+import { Text, View } from 'react-native'
 import { FormFieldType } from '../../../../gql/graphql'
 import { FormFieldValueTypeMap } from '../../../../pn-core-lib/types/FormField'
+import { useTheme } from '../../../common/hooks/useTheme'
 import { assertUnreachable } from '../../../core/utils/assertUnreachable'
 import { PatientFormFieldDate } from './fields/PatientFormFieldDate'
 import { PatientFormFieldLongText } from './fields/PatientFormFieldLongText'
@@ -42,30 +44,49 @@ export type PatientFormFieldProps =
 export type ExtractPatientFormFieldProps<TFormFieldType extends FormFieldType> = Extract<PatientFormFieldProps, { type: TFormFieldType }>
 
 export const PatientFormFieldRenderer = ({ field }: { field: PatientFormFieldProps }) => {
-  const name = field.name + (field.required ? '*' : '')
   const type = field.type
+
   switch (type) {
     case 'TITLE':
-      return <PatientFormFieldTitle {...field} name={name} />
+      return <PatientFormFieldTitle {...field} name={field.name} />
     case 'LONG_TEXT':
-      return <PatientFormFieldLongText {...field} name={name} />
+      return <PatientFormFieldLongText {...field} name={field.name} />
     case 'TEXT_INPUT':
-      return <PatientFormFieldTextInput {...field} name={name} />
+      return withLabel(<PatientFormFieldTextInput {...field} name={field.name} />, field.name, field.required)
     case 'DATE':
-      return <PatientFormFieldDate {...field} name={name} />
+      return withLabel(<PatientFormFieldDate {...field} name={field.name} />, field.name, field.required)
     case 'TIME':
-      return <PatientFormFieldTime {...field} name={name} />
+      return withLabel(<PatientFormFieldTime {...field} name={field.name} />, field.name, field.required)
     case 'YES_NO':
-      return <PatientFormFieldYesNo {...field} name={name} />
+      return withLabel(<PatientFormFieldYesNo {...field} name={field.name} />, field.name, field.required)
     case 'RADIO':
-      return <PatientFormFieldRadio {...field} name={name} />
+      return withLabel(<PatientFormFieldRadio {...field} name={field.name} />, field.name, field.required)
     case 'DROPDOWN':
-      return <PatientFormFieldSelect {...field} name={name} />
+      return withLabel(<PatientFormFieldSelect {...field} name={field.name} />, field.name, field.required)
     case 'SIGNATURE':
-      return <PatientFormFieldSignature {...field} name={name} />
+      return withLabel(<PatientFormFieldSignature {...field} name={field.name} />, field.name, field.required)
     case 'TEXT_AREA':
-      return <PatientFormFieldTextArea {...field} name={name} />
+      return withLabel(<PatientFormFieldTextArea {...field} name={field.name} />, field.name, field.required)
     default:
       assertUnreachable(type)
   }
+}
+
+const withLabel = (field: JSX.Element, name: string, required: boolean) => {
+  const tokens = useTheme()
+  return (
+    <View style={{ gap: tokens.spacing_xs, backgroundColor: tokens.color_bg_surface_alternate, padding: tokens.spacing_s, borderRadius: tokens.radius_s }}>
+      <View
+        style={{
+          height: tokens.size_s,
+          alignItems: 'center',
+          paddingHorizontal: tokens.spacing_xs,
+        }}
+      >
+        <Text style={{}}>{name}</Text>
+        {required ? <Text style={{ color: tokens.color_danger }}>*</Text> : null}
+      </View>
+      {field}
+    </View>
+  )
 }

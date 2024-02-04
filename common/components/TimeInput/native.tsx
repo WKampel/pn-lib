@@ -25,7 +25,7 @@ const TimeInput = ({ onChange, value, label }: TimeInputProps) => {
 
   return (
     <View style={{ gap: tokens.spacing_s }}>
-      <Text>{label}</Text>
+      {label ? <Text>{label}</Text> : null}
       <View style={{ marginRight: 'auto' }}>
         <SolidButton variant='secondary' onPress={show} text={value ? moment(value).format('hh:mm A') : 'Pick Time'} />
       </View>

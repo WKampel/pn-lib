@@ -25,7 +25,7 @@ const DayInput = ({ onChange, value, label }: DayInputProps) => {
 
   return (
     <View style={{ gap: tokens.spacing_s }}>
-      <Text>{label}</Text>
+      {label ? <Text>{label}</Text> : null}
       <View style={{ marginRight: 'auto' }}>
         <SolidButton variant='secondary' onPress={show} text={value ? moment(value).format('MMM DD, YYYY') : 'Pick Day'} />
       </View>

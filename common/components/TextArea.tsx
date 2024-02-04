@@ -29,7 +29,7 @@ export const TextArea = ({ disabled = false, password, email, loading, value, la
       secureTextEntry={password}
       style={{
         minHeight: tokens.size_m,
-        backgroundColor: 'rgb(240, 242, 244)',
+        backgroundColor: 'rgb(250, 250, 250)',
         paddingLeft: tokens.spacing_s,
         borderRadius: tokens.radius_xs,
         borderWidth: 1.5,
