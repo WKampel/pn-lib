@@ -9,15 +9,15 @@ const TimeInput = ({ disabled, value, onChange, label, onFocus, onBlur, size = '
   const inputRef = useRef(null)
 
   const setLocalTimeToParentState = () => {
-    if (moment(value).isValid()) {
-      setTime(moment(value).format('HH:mm'))
+    if (value && moment(value).isValid()) {
+      setTime(value)
     }
   }
 
   // When local time changes, send it to parent if valid
   useEffect(() => {
     if (moment(time, 'HH:mm').isValid()) {
-      onChange?.(moment(time, 'HH:mm').toDate())
+      onChange?.(time)
     }
   }, [time])
 

@@ -4,8 +4,8 @@ import Native from './native'
 import Web from './web'
 
 export type TimeInputProps = {
-  value: Date | null
-  onChange: (value: Date) => void
+  value: string | null
+  onChange: (value: string) => void
   label?: string
   disabled?: boolean
   onFocus?: () => void

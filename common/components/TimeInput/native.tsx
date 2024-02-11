@@ -13,7 +13,9 @@ const TimeInput = ({ onChange, value, label }: TimeInputProps) => {
   const hide = () => setIsOpen(false)
 
   const handleConfirm = (date: Date) => {
-    onChange(date)
+    // onChange requires the time in string format of hh:mm A
+    const time = moment.utc(date).format('hh:mm A')
+    onChange(time)
     hide()
   }
 
@@ -27,12 +29,20 @@ const TimeInput = ({ onChange, value, label }: TimeInputProps) => {
     <View style={{ gap: tokens.spacing_s }}>
       {label ? <Text>{label}</Text> : null}
       <View style={{ marginRight: 'auto' }}>
-        <SolidButton variant='secondary' onPress={show} text={value ? moment(value).format('hh:mm A') : 'Pick Time'} />
+        <SolidButton variant='secondary' onPress={show} text={value || 'Pick Time'} />
       </View>
 
       {/* This wrapping view is necessary. The DateTimePickerModal adds an extra element, and if it's not wrapped in a view that extra element with affect the gap */}
       <View>
-        <DateTimePickerModal isVisible={isOpen} themeVariant='light' date={value || undefined} mode='time' onCancel={handleCancel} onConfirm={handleConfirm} />
+        <DateTimePickerModal
+          timeZoneOffsetInMinutes={0}
+          isVisible={isOpen}
+          themeVariant='light'
+          date={value ? new Date(value) : undefined}
+          mode='time'
+          onCancel={handleCancel}
+          onConfirm={handleConfirm}
+        />
       </View>
     </View>
   )
