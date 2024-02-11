@@ -22,7 +22,7 @@ export const PatientHomeScreen = ({ links }: PatientHomeScreenProps) => {
   return (
     <Screen>
       <View style={{ flex: 1, paddingBottom: insets.bottom, padding: tokens.spacing_s, gap: tokens.spacing_s }}>
-        <View style={{ alignItems: 'center', alignSelf: 'center', gap: tokens.spacing_xs }}>
+        <View style={{ alignItems: 'center', alignSelf: 'center', gap: tokens.spacing_s }}>
           <ImageAutoHeight
             style={{
               height: 150,
@@ -30,20 +30,22 @@ export const PatientHomeScreen = ({ links }: PatientHomeScreenProps) => {
             }}
             source={practice?.data?.logo?.url || ''}
           />
-          <Text
-            style={{
-              textAlign: 'center',
-              fontSize: tokens.font_size_s,
-              backgroundColor: 'rgb(100, 100, 100)',
-              color: 'white',
-              maxWidth: '100%',
-              borderRadius: tokens.radius_m,
-              overflow: 'hidden',
-              padding: tokens.spacing_xs,
-            }}
-          >
-            {practice.data?.slogan}
-          </Text>
+          {practice.data?.slogan ? (
+            <Text
+              style={{
+                textAlign: 'center',
+                fontSize: tokens.font_size_s,
+                backgroundColor: 'rgb(100, 100, 100)',
+                color: 'white',
+                maxWidth: '100%',
+                borderRadius: tokens.radius_m,
+                overflow: 'hidden',
+                padding: tokens.spacing_xs,
+              }}
+            >
+              {practice.data?.slogan}
+            </Text>
+          ) : null}
         </View>
 
         <View
