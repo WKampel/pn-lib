@@ -25,7 +25,7 @@ export const PatientHomeScreen = ({ links }: PatientHomeScreenProps) => {
         <View style={{ alignItems: 'center', alignSelf: 'center', gap: tokens.spacing_xs }}>
           <ImageAutoHeight
             style={{
-              height: 175,
+              height: 150,
               borderRadius: tokens.radius_m,
             }}
             source={practice?.data?.logo?.url || ''}
