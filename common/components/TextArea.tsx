@@ -14,6 +14,7 @@ export type TextAreaProps = {
   onBlur?: () => void
   onKeyPress?: (e: NativeSyntheticEvent<TextInputKeyPressEventData>) => void
   containerStyle?: TextAreaContainerStyles
+  flex?: boolean | number
 }
 
 export type TextAreaContainerStyles = {
@@ -21,7 +22,21 @@ export type TextAreaContainerStyles = {
   maxWidth?: number
 }
 
-export const TextArea = ({ disabled = false, password, email, loading, value, label, onChange, onSubmit, onFocus, onBlur, onKeyPress, containerStyle }: TextAreaProps) => {
+export const TextArea = ({
+  flex,
+  disabled = false,
+  password,
+  email,
+  loading,
+  value,
+  label,
+  onChange,
+  onSubmit,
+  onFocus,
+  onBlur,
+  onKeyPress,
+  containerStyle,
+}: TextAreaProps) => {
   const tokens = useTheme()
 
   return (
@@ -34,6 +49,7 @@ export const TextArea = ({ disabled = false, password, email, loading, value, la
         borderRadius: tokens.radius_xs,
         borderWidth: 1.5,
         borderColor: 'rgb(220,220,220)',
+        flex: flex === true ? 1 : flex ? flex : undefined,
         ...containerStyle,
       }}
       value={value}

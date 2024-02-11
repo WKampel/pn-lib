@@ -11,7 +11,7 @@ type PatientFormScreenProps = {
   formDesc: string
   fields: PatientFormFieldProps[]
   onSubmit: () => void
-  submitting: boolean
+  submitting?: boolean
 }
 
 export const PatientFormScreen = ({ formName, formDesc, fields, onSubmit, submitting }: PatientFormScreenProps) => {

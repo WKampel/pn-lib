@@ -78,7 +78,7 @@ const withLabel = (field: JSX.Element, name: string, required: boolean) => {
     <View style={{ gap: tokens.spacing_xs, backgroundColor: tokens.color_bg_surface_alternate, padding: tokens.spacing_s, borderRadius: tokens.radius_s }}>
       <View
         style={{
-          height: tokens.size_s,
+          minHeight: tokens.size_s,
           alignItems: 'center',
           flexDirection: 'row',
           gap: tokens.spacing_xs,
