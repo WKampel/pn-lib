@@ -13,7 +13,8 @@ const DayInput = ({ onChange, value, label }: DayInputProps) => {
   const hide = () => setIsOpen(false)
 
   const handleConfirm = (date: Date) => {
-    onChange(date)
+    const utcDate = moment.utc(date).startOf('day').format('YYYY-MM-DD')
+    onChange(utcDate)
     hide()
   }
 
@@ -27,12 +28,20 @@ const DayInput = ({ onChange, value, label }: DayInputProps) => {
     <View style={{ gap: tokens.spacing_s }}>
       {label ? <Text>{label}</Text> : null}
       <View style={{ marginRight: 'auto' }}>
-        <SolidButton variant='secondary' onPress={show} text={value ? moment(value).format('MMM DD, YYYY') : 'Pick Day'} />
+        <SolidButton variant='secondary' onPress={show} text={value || 'Pick Day'} />
       </View>
 
       {/* This wrapping view is necessary. The DateTimePickerModal adds an extra element, and if it's not wrapped in a view that extra element with affect the gap */}
       <View>
-        <DateTimePickerModal isVisible={isOpen} themeVariant='light' date={value || undefined} mode='date' onCancel={handleCancel} onConfirm={handleConfirm} />
+        <DateTimePickerModal
+          isVisible={isOpen}
+          themeVariant='light'
+          timeZoneOffsetInMinutes={0}
+          date={value ? new Date(value) : undefined}
+          mode='date'
+          onCancel={handleCancel}
+          onConfirm={handleConfirm}
+        />
       </View>
     </View>
   )

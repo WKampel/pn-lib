@@ -19,7 +19,7 @@ const DayInput = ({ disabled, value, onChange, label, onFocus, onBlur, size = 'm
   // When local date changes, send it to parent if valid
   useEffect(() => {
     if (moment.utc(date).isValid()) {
-      onChange(moment.utc(date).toDate())
+      onChange(date)
     }
   }, [date])
 

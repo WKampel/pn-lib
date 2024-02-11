@@ -5,8 +5,8 @@ import Web from './web'
 
 export type DayInputProps = {
   disabled?: boolean
-  value: Date | null
-  onChange: (date: Date) => void
+  value: string | null
+  onChange: (date: string) => void
   label?: string
   onFocus?: () => void
   onBlur?: () => void
