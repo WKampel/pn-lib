@@ -63,13 +63,43 @@ const Select = <TOption extends any, TValue extends string>({ value, onChange, o
           <View style={{ marginTop: 'auto', padding: 10, paddingBottom: insets.bottom }}>
             <View style={{ backgroundColor: 'white', borderRadius: 15 }}>
               <Picker selectedValue={value} onValueChange={(itemValue, itemIndex) => onChange(itemValue)}>
+                <Picker.Item color='gray' enabled={false} label='Select...' value='' />
+
                 {options.map(option => {
                   const label = getLabel(option)
                   const value = getValue(option)
                   return <Picker.Item key={value} label={label} value={value} />
                 })}
               </Picker>
+
+              {/* <TouchableOpacity
+                style={{
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  height: 50,
+                  borderTopWidth: 1,
+                  borderTopColor: 'rgb(230,230,230)',
+                }}
+              >
+                <Text style={{ fontSize: 18, color: 'rgb(50, 150, 250)' }}>Confirm</Text>
+              </TouchableOpacity> */}
             </View>
+
+            {/* <TouchableOpacity
+              onPress={() => setIsOpen(false)}
+              style={{
+                backgroundColor: 'white',
+                borderRadius: 12,
+                marginTop: 8,
+                alignItems: 'center',
+                justifyContent: 'center',
+                height: 50,
+                borderTopWidth: 1,
+                borderTopColor: 'rgb(230,230,230)',
+              }}
+            >
+              <Text style={{ fontSize: 18, color: 'red' }}>Cancel</Text>
+            </TouchableOpacity> */}
           </View>
         </Modal>
       </View>
