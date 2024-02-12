@@ -11,6 +11,8 @@ export const GetPatientPastAppointments = graphql(`
       patientFirstName
       patientLastName
       patientGender
+      notified
+      patientId
     }
   }
 `)
