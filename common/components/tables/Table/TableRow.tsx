@@ -25,7 +25,7 @@ export const TableRow = <TRow extends object>({ onPress, row, cols, even }: { on
       <>
         {cols.map((col, colIndex) => (
           <TableCell key={colIndex} col={col}>
-            <Text style={{ height: '100%', display: 'flex', alignItems: 'center', overflow: 'hidden' }}>{col.getCell(row)}</Text>
+            <Text numberOfLines={1}>{col.getCell(row)}</Text>
           </TableCell>
         ))}
       </>
