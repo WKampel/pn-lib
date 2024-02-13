@@ -34,9 +34,8 @@ export const PatientHomeScreen = ({ links }: PatientHomeScreenProps) => {
             <Text
               style={{
                 textAlign: 'center',
-                fontSize: tokens.font_size_s,
-                backgroundColor: 'rgb(100, 100, 100)',
-                color: 'white',
+                fontSize: tokens.font_size_m,
+                color: tokens.color_ui_primary,
                 maxWidth: '100%',
                 borderRadius: tokens.radius_m,
                 overflow: 'hidden',
