@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react'
 import { NativeSyntheticEvent, Platform, TextInput as ReactNativeTextInput, TextInputKeyPressEventData } from 'react-native'
 import { useTheme } from '../hooks/useTheme'
 
@@ -38,12 +39,26 @@ export const TextArea = ({
   containerStyle,
 }: TextAreaProps) => {
   const tokens = useTheme()
+  const ref = useRef<ReactNativeTextInput>(null)
+
+  useEffect(() => adjustHeight(), [ref.current])
+
+  const adjustHeight = () => {
+    const el: any = ref.current
+    if (Platform.OS === 'web' && el) {
+      el.style.height = 0
+      const newHeight = el.offsetHeight - el.clientHeight + el.scrollHeight
+      el.style.height = `${newHeight}px`
+    }
+  }
 
   return (
     <ReactNativeTextInput
+      ref={ref}
       secureTextEntry={password}
       style={{
-        minHeight: tokens.size_m,
+        minHeight: tokens.size_m - 20,
+        paddingVertical: 10,
         backgroundColor: 'rgb(250, 250, 250)',
         paddingLeft: tokens.spacing_s,
         borderRadius: tokens.radius_xs,
@@ -54,19 +69,7 @@ export const TextArea = ({
       }}
       value={value}
       onChangeText={onChange}
-      onChange={e => {
-        if (Platform.OS === 'web') {
-          const el = e?.target || e?.nativeEvent?.target
-          if (el) {
-            // @ts-ignore
-            el.style.height = 0
-            // @ts-ignore
-            const newHeight = el.offsetHeight - el.clientHeight + el.scrollHeight
-            // @ts-ignore
-            el.style.height = `${newHeight}px`
-          }
-        }
-      }}
+      onChange={adjustHeight}
       placeholder={label}
       placeholderTextColor='gray'
       keyboardType={email ? 'email-address' : 'default'}
