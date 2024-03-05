@@ -1,6 +1,8 @@
 import { ReactElement } from 'react'
+import { Platform } from 'react-native'
 import { AppType } from '../../../pn-core-lib/types/AppType'
 import { AppConfigContext } from '../contexts/AppConfigContext'
+import { useAppVersion } from '../hooks/useAppVersion'
 
 function getAppType(): AppType {
   const app = process.env.EXPO_PUBLIC_APP
@@ -16,8 +18,12 @@ function getAppType(): AppType {
 }
 
 export const AppConfigProvider = ({ children }: { children: ReactElement }) => {
+  const appVersion = useAppVersion()
+
   const config = {
     app: getAppType(),
+    version: appVersion || '',
+    platform: Platform.OS,
   }
 
   return <AppConfigContext.Provider value={config}>{children}</AppConfigContext.Provider>

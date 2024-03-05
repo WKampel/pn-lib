@@ -4,7 +4,7 @@ import { onError } from '@apollo/client/link/error'
 // @ts-ignore
 import { createUploadLink } from 'apollo-upload-client'
 import { ReactNode, useMemo } from 'react'
-import { useNotification } from '../hooks/useNotification'
+import { useAppConfig } from '../../core/hooks/useAppConfig'
 
 type ApolloProviderProps = {
   children: ReactNode
@@ -13,13 +13,16 @@ type ApolloProviderProps = {
 }
 
 export const ApolloProvider = ({ children, token, setToken }: ApolloProviderProps) => {
-  const { notify } = useNotification()
+  const { version, platform, app } = useAppConfig()
+
   const client = useMemo(() => {
     const authLink = setContext((_, { headers }) => ({
       headers: {
         ...headers,
         authorization: token ? `Bearer ${token}` : '',
-        app: process.env.EXPO_PUBLIC_APP,
+        app,
+        version,
+        platform,
       },
     }))
 
