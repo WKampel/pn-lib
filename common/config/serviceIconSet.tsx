@@ -1,6 +1,6 @@
 import { IconSet } from '../types/IconSet'
 import { generateImageIconSet } from '../utils/generateImageIconSet'
-import { dentalset1, dentalset2, dentalset3, dentalset4, dentalset5, dentalset6 } from './dentalSets'
+import { dentalset1, dentalset2, dentalset3, dentalset4, dentalset5, dentalset6, dentalset7 } from './dentalSets'
 
 export const serviceIconSet: IconSet = {
   ...generateImageIconSet(dentalset1, 'dentalset1'),
@@ -9,4 +9,5 @@ export const serviceIconSet: IconSet = {
   ...generateImageIconSet(dentalset4, 'dentalset4'),
   ...generateImageIconSet(dentalset5, 'dentalset5'),
   ...generateImageIconSet(dentalset6, 'dentalset6'),
+  ...generateImageIconSet(dentalset7, 'dentalset7'),
 }

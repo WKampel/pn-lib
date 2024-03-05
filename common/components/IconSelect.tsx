@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { IconSet } from '../types/IconSet'
 import { Icon } from './Icon'
 import { Select } from './Select'
@@ -12,7 +12,12 @@ export type IconSelectProps = {
 }
 
 export const IconSelect = ({ onChange, value, label, set, flex }: IconSelectProps) => {
-  const options = Object.keys(set).map(key => ({ label: set[key].label, value: key }))
+  const options = useMemo(() => {
+    return Object.keys(set)
+      .map(key => ({ label: set[key].label, value: key }))
+      .sort((a, b) => a.label.localeCompare(b.label))
+  }, [set])
+
   return (
     <Select
       label={label || 'Select Icon'}

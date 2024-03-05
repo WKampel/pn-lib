@@ -134,3 +134,7 @@ export const dentalset6 = {
   dentalimplants: require('../../assets/dental-icons/set-6/dental-implants.png'),
   rootcanal: require('../../assets/dental-icons/set-6/root-canal.png'),
 }
+
+export const dentalset7 = {
+  kidfriendly: require('../../assets/dental-icons/set-7/kid-friendly.png'),
+}
