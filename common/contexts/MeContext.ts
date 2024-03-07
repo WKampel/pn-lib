@@ -5,7 +5,7 @@ type Patient = {
   id: string
   firstName?: string | null
   lastName?: string | null
-  birthDay?: Date | null
+  birthDay?: string | null
   gender?: Gender | null
 }
 export type Me = {
