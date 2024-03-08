@@ -32,9 +32,25 @@ export const PageHtmlRenderer = (props: PageHtmlRendererProps) => {
     </body>
   `
 
+  const blockNavigation = (navState: any) => {
+    // Block navigation to youtube. This is to prevent clicking on an embeded youtube video's title and opening the full youtube website. Apple rejected the app for this.
+    if (navState.url.includes('youtube.com') && !navState.url.includes('/embed/')) {
+      return false
+    }
+    return true
+  }
+
   if (Platform.OS === 'web') {
     return <div style={{ height: '100%', overflowY: 'auto' }} dangerouslySetInnerHTML={{ __html: html }} />
   } else {
-    return <MobileWebView style={{ flex: 1 }} source={{ html }} />
+    return (
+      <MobileWebView
+        onShouldStartLoadWithRequest={blockNavigation} // for iOS
+        onNavigationStateChange={blockNavigation}
+        allowsInlineMediaPlayback={true}
+        style={{ flex: 1 }}
+        source={{ html }}
+      />
+    )
   }
 }
