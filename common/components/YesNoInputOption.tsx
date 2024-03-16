@@ -9,7 +9,7 @@ type YesNoInputOptionProps = {
 }
 
 export const YesNoInputOption = ({ active, label, onPress }: YesNoInputOptionProps) => {
-  const tokens = useTheme()
+  const { tokens } = useTheme()
 
   const activeContainerStyles = {
     borderWidth: 2,

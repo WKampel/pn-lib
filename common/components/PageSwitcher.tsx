@@ -21,7 +21,7 @@ export const PageSwitcher = ({ items, active }: PageSwitcherProps) => {
     }
   }
 
-  const tokens = useTheme()
+  const { tokens } = useTheme()
 
   return (
     <View

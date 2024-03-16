@@ -25,7 +25,7 @@ const formatDateDisplay = (startDate: Date) => {
 }
 
 export const Appointment = ({ desc, startDate, patientFirstName, patientLastName, patientGender, onPress, children }: AppointmentProps) => {
-  const tokens = useTheme()
+  const { tokens } = useTheme()
 
   return (
     <TouchableOpacity

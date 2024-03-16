@@ -11,7 +11,7 @@ type AProps = {
 }
 
 export const A = ({ children, href, newTab, download, style }: AProps) => {
-  const tokens = useTheme()
+  const { tokens } = useTheme()
   return (
     <ExpoA
       download={download}

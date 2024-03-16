@@ -29,7 +29,7 @@ const EditableList = <TItem extends { id: string }>({ onChange, value, getItemCh
 
   const deleteItem = (id: string) => onChange(value.filter(item => item.id !== id))
 
-  const tokens = useTheme()
+  const { tokens } = useTheme()
 
   return (
     <View style={{ gap: tokens.spacing_m }}>

@@ -10,7 +10,7 @@ export const PracticeDrawerHeader = ({ firstName, lastName, onPressProfile }: { 
   const practice = usePractice()
   const insets = useSafeAreaInsets()
 
-  const tokens = useTheme()
+  const { tokens } = useTheme()
 
   return (
     <View
@@ -71,7 +71,7 @@ export const PracticeDrawerHeader = ({ firstName, lastName, onPressProfile }: { 
 }
 
 const ProfileBubble = ({ firstName, lastName, onPress }: { firstName: string; lastName: string; onPress: () => void }) => {
-  const tokens = useTheme()
+  const { tokens } = useTheme()
 
   return (
     <TouchableOpacity

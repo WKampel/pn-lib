@@ -33,7 +33,7 @@ export const PracticeDrawerGroup = ({ children, label, currentRouteName, items }
     }
   }, [currentRouteName])
 
-  const tokens = useTheme()
+  const { tokens } = useTheme()
 
   return (
     <View

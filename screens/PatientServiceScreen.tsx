@@ -10,7 +10,7 @@ import { useTheme } from '../common/hooks/useTheme'
 import { PageHtmlRenderer } from '../contentManagement/components/PageHtmlRenderer'
 
 export const PatientServiceScreen = ({ data, onPressScheduleAppointment }: { data: Omit<GqlService, 'id'>; onPressScheduleAppointment?: () => void }) => {
-  const tokens = useTheme()
+  const { tokens } = useTheme()
   const insets = useSafeAreaInsets()
 
   return (

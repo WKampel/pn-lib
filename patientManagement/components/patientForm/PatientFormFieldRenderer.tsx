@@ -73,7 +73,7 @@ export const PatientFormFieldRenderer = ({ field }: { field: PatientFormFieldPro
 }
 
 const withLabel = (field: JSX.Element, name: string, required: boolean) => {
-  const tokens = useTheme()
+  const { tokens } = useTheme()
   return (
     <View style={{ gap: tokens.spacing_xs, backgroundColor: tokens.color_bg_surface_alternate, padding: tokens.spacing_s, borderRadius: tokens.radius_s }}>
       <View

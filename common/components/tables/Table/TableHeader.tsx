@@ -5,7 +5,7 @@ import { TableCol } from '../../../types/TableCol'
 import { TableCell } from './TableCell'
 
 export const TableHeader = <TRow extends object>({ col, onPress, activeSort }: { col: TableCol<TRow>; onPress: () => void; activeSort: boolean }) => {
-  const tokens = useTheme()
+  const { tokens } = useTheme()
   return (
     <TouchableOpacity
       style={[

@@ -8,7 +8,7 @@ export const PracticeIdTextInput = ({ onChange, flex, ...other }: Omit<TextInput
     if (value.match(/[^a-zA-Z]/)) return
     onChange(value)
   }
-  const tokens = useTheme()
+  const { tokens } = useTheme()
   return (
     <View
       style={{

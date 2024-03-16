@@ -10,7 +10,7 @@ type LinkProps = {
 }
 
 export const Link = ({ textStyle = {}, children, onPress }: LinkProps, inheritFontSize = false) => {
-  const tokens = useTheme()
+  const { tokens } = useTheme()
 
   return (
     <TouchableOpacity onPress={onPress}>

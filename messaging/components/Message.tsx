@@ -16,7 +16,7 @@ export const Message = ({ body, createdAt, from }: MessageProps) => {
 }
 
 const BaseMessage = ({ body, createdAt, styles }: { body: string; createdAt: Date; styles: { message: {}; text: {} } }) => {
-  const tokens = useTheme()
+  const { tokens } = useTheme()
 
   return (
     <View
@@ -50,7 +50,7 @@ const BaseMessage = ({ body, createdAt, styles }: { body: string; createdAt: Dat
 }
 
 const MyMessage = ({ body, createdAt }: { body: string; createdAt: Date }) => {
-  const tokens = useTheme()
+  const { tokens } = useTheme()
   return (
     <BaseMessage
       body={body}
@@ -69,7 +69,7 @@ const MyMessage = ({ body, createdAt }: { body: string; createdAt: Date }) => {
 }
 
 const ServerMessage = ({ body, createdAt }: { body: string; createdAt: Date }) => {
-  const tokens = useTheme()
+  const { tokens } = useTheme()
   return (
     <BaseMessage
       body={body}
@@ -89,7 +89,7 @@ const ServerMessage = ({ body, createdAt }: { body: string; createdAt: Date }) =
 }
 
 const PenpalMessage = ({ body, createdAt }: { body: string; createdAt: Date }) => {
-  const tokens = useTheme()
+  const { tokens } = useTheme()
   return (
     <BaseMessage
       body={body}

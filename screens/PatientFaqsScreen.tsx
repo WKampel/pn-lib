@@ -5,7 +5,7 @@ import { Screen } from '../common/components/Screen'
 import { useTheme } from '../common/hooks/useTheme'
 
 export const PatientFaqsScreen = ({ data }: { data: Faq[] }) => {
-  const tokens = useTheme()
+  const { tokens } = useTheme()
 
   return (
     <Screen>

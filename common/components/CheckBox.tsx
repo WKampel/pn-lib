@@ -10,7 +10,7 @@ type CheckBoxProps = {
 }
 
 export const CheckBox = ({ onChange, value, label, round = false }: CheckBoxProps) => {
-  const tokens = useTheme()
+  const { tokens } = useTheme()
 
   return (
     <TouchableOpacity

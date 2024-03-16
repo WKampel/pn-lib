@@ -5,7 +5,7 @@ import { useTheme } from '../../common/hooks/useTheme'
 export type BackButtonProps = { onPress: () => void }
 
 export const BackButton = ({ onPress }: BackButtonProps) => {
-  const tokens = useTheme()
+  const { tokens } = useTheme()
 
   return (
     <TouchableOpacity

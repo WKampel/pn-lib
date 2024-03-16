@@ -10,7 +10,7 @@ export type AccordionItemProps = {
 }
 
 export const AccordionItem = ({ title, body, isOpen, setIsOpen }: AccordionItemProps) => {
-  const tokens = useTheme()
+  const { tokens } = useTheme()
 
   return (
     <View style={{ gap: tokens.spacing_xs }}>

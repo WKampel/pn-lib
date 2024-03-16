@@ -16,7 +16,7 @@ type IconProps = {
 type Variant = 'DEFAULT' | 'SUCCESS' | 'ERROR'
 
 export const Tag = ({ text, icon, variant = 'DEFAULT' }: TagProps) => {
-  const tokens = useTheme()
+  const { tokens } = useTheme()
 
   // Determine bg color by variant
 

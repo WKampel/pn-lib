@@ -13,7 +13,7 @@ type RadioProps<TOption> = {
 }
 
 export const Radio = <TOption extends any>({ label, value: valueProp, onChange, options = [], getValue, getLabel }: RadioProps<TOption>) => {
-  const tokens = useTheme()
+  const { tokens } = useTheme()
 
   const handleChange = useCallback(
     (optionValue: string) => () => {

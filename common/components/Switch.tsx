@@ -11,7 +11,7 @@ export type SwitchProps = {
 }
 
 export const Switch = ({ style, disabled = false, value, label, size = 'm', onChange }: SwitchProps) => {
-  const tokens = useTheme()
+  const { tokens } = useTheme()
 
   return (
     <TouchableOpacity

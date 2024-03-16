@@ -23,7 +23,7 @@ const ImageInput = (props: ImageInputProps) => {
   const [pixels, setPixels] = useState<Area>()
   const [modalOpen, setModalOpen] = useState(false)
 
-  const tokens = useTheme()
+  const { tokens } = useTheme()
 
   const onCropComplete = useCallback((croppedArea: Area, croppedAreaPixels: Area) => {
     setPixels(croppedAreaPixels)

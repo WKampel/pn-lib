@@ -4,7 +4,7 @@ import { useTheme } from '../hooks/useTheme'
 import { Icon } from './Icon'
 
 export const Service = ({ icon, name, onPress }: { icon?: string | null; name: string; onPress: () => void }) => {
-  const tokens = useTheme()
+  const { tokens } = useTheme()
 
   return (
     <TouchableOpacity

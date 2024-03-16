@@ -10,7 +10,7 @@ export const PatientPromotionsScreen = ({ onPressPromotion }: { onPressPromotion
   const { data } = usePracticeQuery<GetActivePromotionsQuery, GetActivePromotionsQueryVariables>(GetActivePromotions, { variables: {} })
   const promotions = data?.activePromotions || []
 
-  const tokens = useTheme()
+  const { tokens } = useTheme()
 
   return (
     <Screen>

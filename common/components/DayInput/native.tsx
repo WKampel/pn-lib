@@ -22,7 +22,7 @@ const DayInput = ({ onChange, value, label }: DayInputProps) => {
     hide()
   }
 
-  const tokens = useTheme()
+  const { tokens } = useTheme()
 
   return (
     <View style={{ gap: tokens.spacing_s }}>

@@ -12,7 +12,7 @@ type ComposeMessageProp = {
 }
 
 export const ComposeMessage = ({ onChange, value, onSubmit, loading }: ComposeMessageProp) => {
-  const tokens = useTheme()
+  const { tokens } = useTheme()
   return (
     <View style={{ flexDirection: 'row', gap: tokens.spacing_m }}>
       <TextArea containerStyle={{ flex: 1 }} label='Message...' onChange={onChange} value={value} />

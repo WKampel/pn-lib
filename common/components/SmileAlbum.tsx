@@ -2,7 +2,7 @@ import { Text, TouchableOpacity } from 'react-native'
 import { useTheme } from '../hooks/useTheme'
 
 export const SmileAlbum = ({ name, onPress }: { name: string; onPress: () => void }) => {
-  const tokens = useTheme()
+  const { tokens } = useTheme()
 
   return (
     <TouchableOpacity

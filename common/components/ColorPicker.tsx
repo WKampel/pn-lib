@@ -8,7 +8,7 @@ const hexColorRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/
 
 export const ColorPicker = ({ value, onChange, label = 'Color' }: { value: string; onChange: (value: string) => void; label: string }) => {
   const [inputValue, setInputValue] = useState(value)
-  const tokens = useTheme()
+  const { tokens } = useTheme()
 
   useEffect(() => {
     setInputValue(value)

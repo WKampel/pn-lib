@@ -3,7 +3,7 @@ import { ColorValue, Text, TouchableOpacity } from 'react-native'
 import { useTheme } from '../hooks/useTheme'
 
 export const AppTile = ({ title, icon, onPress }: { icon: ReactElement<{ size: number; color: ColorValue }>; title: string; onPress?: () => void }) => {
-  const tokens = useTheme()
+  const { tokens } = useTheme()
 
   return (
     <TouchableOpacity

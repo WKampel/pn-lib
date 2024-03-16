@@ -17,7 +17,7 @@ export type MessageData = {
 }
 
 export const Conversation = ({ messages }: ConversationProps) => {
-  const tokens = useTheme()
+  const { tokens } = useTheme()
   const appConfig = useAppConfig()
 
   const renderItem: ListRenderItem<MessageData> = ({ item, index }) => (

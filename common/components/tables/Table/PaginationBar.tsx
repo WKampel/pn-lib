@@ -3,7 +3,7 @@ import { ScrollView, Text, TextStyle, TouchableOpacity, View } from 'react-nativ
 import { useTheme } from '../../../hooks/useTheme'
 
 export const PaginationBar = ({ pageCount, page, onPressPage }: { pageCount: number; page: number; onPressPage: (i: number) => void }) => {
-  const tokens = useTheme()
+  const { tokens } = useTheme()
   if (pageCount <= 1) return null
 
   return (
@@ -18,7 +18,7 @@ export const PaginationBar = ({ pageCount, page, onPressPage }: { pageCount: num
 }
 
 const PageButton = ({ index, isActive, onPress }: { index: number; isActive: boolean; onPress: () => void }) => {
-  const tokens = useTheme()
+  const { tokens } = useTheme()
   const textStyle: TextStyle = isActive ? { fontWeight: 'bold' } : {}
   return (
     <TouchableOpacity

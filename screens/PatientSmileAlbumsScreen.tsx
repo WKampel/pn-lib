@@ -10,7 +10,7 @@ export const PatientSmileAlbumsScreen = ({ onPressSmileAlbum }: { onPressSmileAl
   const { data } = usePracticeQuery<GetAllSmileAlbumsQuery, GetAllSmileAlbumsQueryVariables>(GetAllSmileAlbums, { variables: {} })
   const smileAlbums = data?.allSmileAlbums || []
 
-  const tokens = useTheme()
+  const { tokens } = useTheme()
 
   return (
     <Screen>

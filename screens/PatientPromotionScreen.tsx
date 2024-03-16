@@ -7,7 +7,7 @@ import { Screen } from '../common/components/Screen'
 import { useTheme } from '../common/hooks/useTheme'
 
 export const PatientPromotionScreen = ({ data }: { data: Omit<Promotion, 'id'> }) => {
-  const tokens = useTheme()
+  const { tokens } = useTheme()
 
   return (
     <Screen>

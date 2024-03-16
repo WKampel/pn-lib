@@ -17,7 +17,7 @@ type PatientHomeScreenProps = {
 export const PatientHomeScreen = ({ links }: PatientHomeScreenProps) => {
   const practice = usePractice()
   const insets = useSafeAreaInsets()
-  const tokens = useTheme()
+  const { tokens } = useTheme()
 
   return (
     <Screen>
@@ -84,7 +84,7 @@ export const PatientHomeScreen = ({ links }: PatientHomeScreenProps) => {
 }
 
 const Row = ({ children }: { children: ReactNode }) => {
-  const tokens = useTheme()
+  const { tokens } = useTheme()
   return (
     <View
       style={{

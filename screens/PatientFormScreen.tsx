@@ -15,7 +15,7 @@ type PatientFormScreenProps = {
 }
 
 export const PatientFormScreen = ({ formName, formDesc, fields, onSubmit, submitting }: PatientFormScreenProps) => {
-  const tokens = useTheme()
+  const { tokens } = useTheme()
 
   return (
     <Screen>
@@ -35,7 +35,7 @@ export const PatientFormScreen = ({ formName, formDesc, fields, onSubmit, submit
 }
 
 const Header = ({ formName, formDesc }: { formName: string; formDesc: string }) => {
-  const tokens = useTheme()
+  const { tokens } = useTheme()
   const practice = usePractice()
   return (
     <View style={{ justifyContent: 'center', gap: tokens.spacing_s }}>

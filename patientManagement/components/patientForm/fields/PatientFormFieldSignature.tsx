@@ -3,7 +3,7 @@ import { useTheme } from '../../../../common/hooks/useTheme'
 import { ExtractPatientFormFieldProps } from '../PatientFormFieldRenderer'
 
 export const PatientFormFieldSignature = ({ value, onChange, name }: ExtractPatientFormFieldProps<'SIGNATURE'>) => {
-  const tokens = useTheme()
+  const { tokens } = useTheme()
   return (
     <TextInput
       value={value}

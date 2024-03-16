@@ -8,7 +8,7 @@ type SegmentedControlProps<T> = {
 }
 
 export function SegmentedControl<T extends string>(props: SegmentedControlProps<T>) {
-  const tokens = useTheme()
+  const { tokens } = useTheme()
   return (
     <View
       style={{

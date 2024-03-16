@@ -5,7 +5,7 @@ import { PageHtmlRenderer } from '../contentManagement/components/PageHtmlRender
 import { PagePdfRenderer } from '../contentManagement/components/PagePdfRenderer'
 
 export const PatientPageScreen = ({ data }: { data: Omit<Page, 'id' | 'active'> }) => {
-  const tokens = useTheme()
+  const { tokens } = useTheme()
   const { html, pdf, type } = data
   if (type === 'HTML') {
     if (!html) {

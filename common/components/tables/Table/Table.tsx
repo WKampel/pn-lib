@@ -23,7 +23,7 @@ export type TableProps<TRow extends object> = {
 }
 
 export const Table = <TRow extends object>({ style, rows: rowsProp, cols = [], onRowPress, headerLeft, loading, perPage = 100, getRowId }: TableProps<TRow>) => {
-  const tokens = useTheme()
+  const { tokens } = useTheme()
   const [page, setPage] = useState<number>(0)
   const [searchKeyword, setSearchKeyword] = useState<string>('')
   const [sortByIndex, setSortByIndex] = useState<number | null>(null)

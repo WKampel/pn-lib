@@ -35,7 +35,7 @@ const TimeInput = ({ disabled, value, onChange, label, onFocus, onBlur, size = '
     setLocalTimeToParentState()
   }
 
-  const tokens = useTheme()
+  const { tokens } = useTheme()
 
   return createElement('input', {
     ref: inputRef,

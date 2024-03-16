@@ -20,7 +20,7 @@ const iconMap = {
 
 export const Notification = (props: NotificationProps) => {
   const { title, body, type, onPress, onDelete } = props
-  const tokens = useTheme()
+  const { tokens } = useTheme()
 
   const bgColorMap = {
     INFO: tokens.color_info,

@@ -18,7 +18,7 @@ export const BaseButton = ({ size = 'm', onPress, loading, disabled, containerSt
     if (onPress) onPress()
   }
 
-  const tokens = useTheme()
+  const { tokens } = useTheme()
 
   const heightMap = {
     s: tokens.size_s,

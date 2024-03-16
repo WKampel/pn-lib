@@ -6,7 +6,7 @@ export type SolidButtonProps = BaseButtonProps & {
 }
 
 export const SolidButton = ({ size = 'm', variant = 'primary', disabled, ...other }: SolidButtonProps) => {
-  const tokens = useTheme()
+  const { tokens } = useTheme()
 
   const borderRadiusMap = {
     s: tokens.radius_xs,

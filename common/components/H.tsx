@@ -3,7 +3,7 @@ import { StyleProp, Text, TextStyle } from 'react-native'
 import { useTheme } from '../hooks/useTheme'
 
 export const H = ({ children, size = 'm', style }: { style?: StyleProp<TextStyle>; children: ReactNode; size?: 's' | 'm' | 'l' | 'xl' }) => {
-  const tokens = useTheme()
+  const { tokens } = useTheme()
 
   const fontSizeMap = {
     s: tokens.font_size_m,

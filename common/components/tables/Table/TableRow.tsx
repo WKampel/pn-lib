@@ -5,7 +5,7 @@ import { TableCol } from '../../../types/TableCol'
 import { TableCell } from './TableCell'
 
 export const TableRow = <TRow extends object>({ onPress, row, cols, even }: { onPress: () => void; row: TRow; cols: TableCol<TRow>[]; even: boolean }) => {
-  const tokens = useTheme()
+  const { tokens } = useTheme()
   const [isHovered, setIsHovered] = useState(false)
 
   return (

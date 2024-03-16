@@ -23,7 +23,7 @@ const TimeInput = ({ onChange, value, label }: TimeInputProps) => {
     hide()
   }
 
-  const tokens = useTheme()
+  const { tokens } = useTheme()
 
   return (
     <View style={{ gap: tokens.spacing_s }}>

@@ -13,7 +13,7 @@ import { ImageInputProps } from './index'
 
 const ImageInput = ({ style, label = 'Upload Image', onChange, value, camera, transformUri }: ImageInputProps) => {
   const [_, requestPermission] = ImagePicker.useCameraPermissions()
-  const tokens = useTheme()
+  const { tokens } = useTheme()
 
   // Create file mutation
   const createFile = usePracticeMutation<CreateFileMutation, CreateFileMutationVariables>(CreateFile, {

@@ -11,7 +11,7 @@ type PracticeDrawerItemProps = {
 }
 
 export const PracticeDrawerItem = ({ icon, label, onPress, isFocused, color: colorProp }: PracticeDrawerItemProps) => {
-  const tokens = useTheme()
+  const { tokens } = useTheme()
 
   const color = isFocused ? tokens.color_ui_primary : colorProp ? colorProp : tokens.color_text_on_surface
 

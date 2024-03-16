@@ -6,7 +6,7 @@ import { Screen } from '../common/components/Screen'
 import { useTheme } from '../common/hooks/useTheme'
 
 export const PatientSmileAlbumScreen = ({ data }: { data: Omit<GqlSmileAlbum, 'id'> }) => {
-  const tokens = useTheme()
+  const { tokens } = useTheme()
 
   return (
     <Screen>

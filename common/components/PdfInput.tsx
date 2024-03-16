@@ -18,7 +18,7 @@ export type PdfInputProps = {
 }
 
 export const PdfInput = ({ style, label = 'Upload Pdf', onChange, value }: PdfInputProps) => {
-  const tokens = useTheme()
+  const { tokens } = useTheme()
 
   // Create file mutation
   const createFile = usePracticeMutation<CreateFileMutation, CreateFileMutationVariables>(CreateFile, {

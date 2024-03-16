@@ -7,7 +7,7 @@ import { OpenDrawerButton } from '../OpenDrawerButton'
 const Header = ({ options, route, handleBackTo }: HeaderProps) => {
   const dimensions = useWindowDimensions()
   const isMobile = dimensions.width < 900
-  const tokens = useTheme()
+  const { tokens } = useTheme()
 
   return (
     <View

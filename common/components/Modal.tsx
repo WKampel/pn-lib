@@ -10,7 +10,7 @@ type ModalProps = {
 }
 
 export const Modal = ({ onClose, isOpen, children, autoWidth }: ModalProps) => {
-  const tokens = useTheme()
+  const { tokens } = useTheme()
   return (
     <Popup onPressBackground={onClose} visible={isOpen}>
       <View

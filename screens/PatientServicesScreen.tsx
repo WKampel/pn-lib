@@ -10,7 +10,7 @@ export const PatientServicesScreen = ({ onPressService }: { onPressService?: (se
   const { data } = usePracticeQuery<GetActiveServicesQuery, GetActiveServicesQueryVariables>(GetActiveServices, { variables: {} })
   const services = data?.activeServices || []
 
-  const tokens = useTheme()
+  const { tokens } = useTheme()
 
   return (
     <Screen>

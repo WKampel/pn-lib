@@ -5,7 +5,7 @@ import { useDrawer } from '../hooks/useDrawer'
 
 export const OpenDrawerButton = () => {
   const { setOpen } = useDrawer()
-  const tokens = useTheme()
+  const { tokens } = useTheme()
 
   return (
     <TouchableOpacity

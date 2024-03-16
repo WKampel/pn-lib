@@ -7,7 +7,7 @@ type PageHtmlRendererProps = {
 }
 
 export const PageHtmlRenderer = (props: PageHtmlRendererProps) => {
-  const tokens = useTheme()
+  const { tokens } = useTheme()
   const id = '__PageHtmlRenderer__'
 
   const html = `

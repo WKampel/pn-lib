@@ -13,7 +13,7 @@ type EditableListItemProps = {
 }
 
 export const EditableListItem = ({ onUp, onDown, onDelete, children, isOpen, setIsOpen }: EditableListItemProps) => {
-  const tokens = useTheme()
+  const { tokens } = useTheme()
   return (
     <View style={{ gap: tokens.spacing_xs }}>
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: tokens.spacing_m }}>

@@ -4,7 +4,7 @@ import { useTheme } from '../hooks/useTheme'
 import { Icon } from './Icon'
 
 export const ReviewLink = ({ link, icon, name }: { link: string; icon?: string | null; name: string }) => {
-  const tokens = useTheme()
+  const { tokens } = useTheme()
 
   return (
     <TouchableOpacity

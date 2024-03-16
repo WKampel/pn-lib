@@ -24,7 +24,7 @@ const Select = <TOption extends any, TValue extends string>({
 }: SelectProps<TOption, TValue>) => {
   const selectedOption = options.find(option => getValue(option) === value)
 
-  const tokens = useTheme()
+  const { tokens } = useTheme()
 
   return (
     <ReactSelect<TOption>
@@ -118,7 +118,7 @@ type CustomOptionProps<TOption> = OptionProps<TOption, false>
 const CustomOption = <TOption extends any>(props: CustomOptionProps<TOption>) => {
   const getLabelIcon = props.selectProps.getLabelIcon
 
-  const tokens = useTheme()
+  const { tokens } = useTheme()
   const { data } = props
   const icon = getLabelIcon ? getLabelIcon(data) : null
   return (

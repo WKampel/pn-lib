@@ -36,7 +36,7 @@ export const TextInput = ({
   style,
   flex,
 }: TextInputProps) => {
-  const tokens = useTheme()
+  const { tokens } = useTheme()
 
   return (
     <ReactNativeTextInput

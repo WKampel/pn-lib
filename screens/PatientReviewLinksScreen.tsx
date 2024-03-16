@@ -5,7 +5,7 @@ import { Screen } from '../common/components/Screen'
 import { useTheme } from '../common/hooks/useTheme'
 
 export const PatientReviewLinksScreen = ({ data }: { data: GqlReviewLink[] }) => {
-  const tokens = useTheme()
+  const { tokens } = useTheme()
 
   return (
     <Screen>

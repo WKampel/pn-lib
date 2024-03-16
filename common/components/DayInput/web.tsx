@@ -8,7 +8,7 @@ const DayInput = ({ disabled, value, onChange, label, onFocus, onBlur, size = 'm
   const [date, setDate] = useState('')
   const inputRef = useRef(null)
 
-  const tokens = useTheme()
+  const { tokens } = useTheme()
 
   const setLocalDateToParentState = () => {
     if (moment.utc(value).isValid()) {

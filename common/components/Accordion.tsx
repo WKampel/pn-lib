@@ -12,7 +12,7 @@ export type AccordionProps = {
 
 export const Accordion = ({ items }: AccordionProps) => {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
-  const tokens = useTheme()
+  const { tokens } = useTheme()
   return (
     <View style={{ gap: tokens.spacing_m }}>
       {items.map((item, i) => (

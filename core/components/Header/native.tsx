@@ -7,7 +7,7 @@ import { OpenDrawerButton } from '../OpenDrawerButton'
 
 const Header = ({ options, route, handleBackTo, style }: HeaderProps) => {
   const insets = useSafeAreaInsets()
-  const tokens = useTheme()
+  const { tokens } = useTheme()
 
   return (
     <View

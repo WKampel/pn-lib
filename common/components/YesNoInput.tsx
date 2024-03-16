@@ -10,7 +10,7 @@ type YesNoInputProps = {
 }
 
 export const YesNoInput = ({ label, value, onChange }: YesNoInputProps) => {
-  const tokens = useTheme()
+  const { tokens } = useTheme()
   return (
     <View style={{ gap: tokens.spacing_xs }}>
       {label ? <Text style={{}}>{label}</Text> : null}

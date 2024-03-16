@@ -8,7 +8,7 @@ export const PatientPaymentScreen = () => {
   const practice = usePractice()
   const stripePaymentLink = practice.data?.stripePaymentLink
 
-  const tokens = useTheme()
+  const { tokens } = useTheme()
 
   return (
     <Screen>

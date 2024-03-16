@@ -38,7 +38,7 @@ export const TextArea = ({
   onKeyPress,
   containerStyle,
 }: TextAreaProps) => {
-  const tokens = useTheme()
+  const { tokens } = useTheme()
   const ref = useRef<ReactNativeTextInput>(null)
 
   useEffect(() => adjustHeight(), [ref.current])
