@@ -18,8 +18,7 @@ export const GetPractice = graphql(`
       sikkaOfficeId
       stripePaymentLink
       subscribed
-      appointmentReminderNotice
-      appointmentReminderText
+      confirmationNotice
     }
   }
 `)
