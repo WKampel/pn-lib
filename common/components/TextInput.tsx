@@ -9,7 +9,7 @@ export type TextInputProps = {
   email?: boolean
   loading?: boolean
   value: string
-  label: string
+  label?: string
   size?: TextInputSize
   onChange: (value: string) => void
   onSubmit?: () => void
