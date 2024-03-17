@@ -8,7 +8,7 @@ import { Screen } from '../common/components/Screen'
 import { usePractice } from '../common/hooks/usePractice'
 import { useTheme } from '../common/hooks/useTheme'
 
-type AppTileName = 'MESSAGES' | 'CHECK_IN' | 'ANNOUNCEMENTS' | 'SERVICES' | 'FORMS' | 'ABOUT_US' | 'PROFILE' | 'REVIEW' | 'APPOINTMENTS' | 'PAYMENT'
+type AppTileName = 'MESSAGES' | 'PHOTOS' | 'ANNOUNCEMENTS' | 'SERVICES' | 'FORMS' | 'ABOUT_US' | 'PROFILE' | 'REVIEW' | 'APPOINTMENTS' | 'PAYMENT'
 
 type PatientHomeScreenProps = {
   links?: Record<AppTileName, () => void>
@@ -55,7 +55,7 @@ export const PatientHomeScreen = ({ links }: PatientHomeScreenProps) => {
         >
           <Row>
             <AppTile onPress={links?.MESSAGES} icon={<AntDesign name='message1' />} title='MESSAGES' />
-            <AppTile onPress={links?.CHECK_IN} icon={<AntDesign name='calendar' />} title='CHECK IN' />
+            <AppTile onPress={links?.PHOTOS} icon={<AntDesign name='camera' />} title='PHOTOS' />
           </Row>
 
           <Row>
