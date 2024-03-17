@@ -7,7 +7,7 @@ export const GetPatientPastAppointments = graphql(`
       desc
       startDate
       endDate
-      checkedIn
+      confirmed
       patientFirstName
       patientLastName
       patientGender
