@@ -1,4 +1,4 @@
-import { AntDesign, Entypo, MaterialCommunityIcons } from '@expo/vector-icons'
+import { AntDesign, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { ReactNode } from 'react'
 import { Text, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -55,11 +55,11 @@ export const PatientHomeScreen = ({ links }: PatientHomeScreenProps) => {
         >
           <Row>
             <AppTile onPress={links?.MESSAGES} icon={<AntDesign name='message1' />} title='MESSAGES' />
-            <AppTile onPress={links?.PHOTOS} icon={<AntDesign name='camera' />} title='PHOTOS' />
+            <AppTile onPress={links?.APPOINTMENTS} icon={<AntDesign name='calendar' />} title='APPOINTMENTS' />
           </Row>
 
           <Row>
-            <AppTile onPress={links?.ANNOUNCEMENTS} icon={<Entypo name='megaphone' />} title='ANNOUNCEMENTS' />
+            <AppTile onPress={links?.ANNOUNCEMENTS} icon={<Ionicons name='megaphone-outline' />} title='ANNOUNCEMENTS' />
             <AppTile onPress={links?.SERVICES} icon={<MaterialCommunityIcons name='tooth-outline' />} title='SERVICES' />
           </Row>
 
@@ -70,11 +70,11 @@ export const PatientHomeScreen = ({ links }: PatientHomeScreenProps) => {
 
           <Row>
             <AppTile onPress={links?.PROFILE} icon={<AntDesign name='profile' />} title='PATIENT PROFILE' />
-            <AppTile onPress={links?.REVIEW} icon={<AntDesign name='staro' />} title='REVIEW' />
+            <AppTile onPress={links?.PHOTOS} icon={<AntDesign name='camerao' />} title='PHOTOS' />
           </Row>
 
           <Row>
-            <AppTile onPress={links?.APPOINTMENTS} icon={<AntDesign name='calendar' />} title='APPOINTMENTS' />
+            <AppTile onPress={links?.REVIEW} icon={<AntDesign name='staro' />} title='REVIEW' />
             <AppTile onPress={links?.PAYMENT} icon={<AntDesign name='creditcard' />} title='MAKE PAYMENT' />
           </Row>
         </View>
