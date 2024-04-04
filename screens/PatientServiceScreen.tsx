@@ -37,7 +37,7 @@ export const PatientServiceScreen = ({ data, onPressScheduleAppointment }: { dat
         <View style={{ paddingHorizontal: tokens.spacing_s, flex: 1 }}>{data.desc ? <PageHtmlRenderer html={data.desc} /> : null}</View>
 
         <View style={{ paddingHorizontal: tokens.spacing_s, paddingBottom: insets.bottom }}>
-          <SolidButton text='Schedule Appointment' onPress={onPressScheduleAppointment} />
+          <SolidButton text='Request Appointment' onPress={onPressScheduleAppointment} />
         </View>
       </View>
     </Screen>

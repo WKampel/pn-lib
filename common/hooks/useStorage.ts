@@ -17,9 +17,13 @@ export const useStorage = (key: string): [string | undefined | null, (val: strin
   const [item, setItem] = useState<string | undefined | null>(undefined)
 
   useEffect(() => {
-    getItem(key).then(val => {
-      setItem(val || null)
-    })
+    getItem(key)
+      .then(val => {
+        setItem(val || null)
+      })
+      .catch(err => {
+        setItem(null)
+      })
   }, [key])
 
   return [
