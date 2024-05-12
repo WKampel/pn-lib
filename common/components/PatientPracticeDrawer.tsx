@@ -20,6 +20,7 @@ type PatientPracticeDrawerProps = {
   firstName: string
   lastName: string
   onPressProfile: () => void
+  onPressSettings: () => void
 }
 
 export const PatientPracticeDrawer = (props: PatientPracticeDrawerProps) => {
@@ -75,6 +76,7 @@ export const PatientPracticeDrawer = (props: PatientPracticeDrawerProps) => {
   const bottom = (
     <View style={{ margin: tokens.spacing_s }}>
       <TouchableOpacity
+        onPress={props.onPressSettings}
         style={{
           flexDirection: 'row',
           alignItems: 'center',
