@@ -14,12 +14,14 @@ export const PracticeDrawerContent = ({
   firstName,
   lastName,
   onPressProfile,
+  bottom,
 }: {
   switchPractice?: () => void
   items: PracticeDrawerItemType[]
   firstName: string
   lastName: string
   onPressProfile: () => void
+  bottom?: ReactNode
 }) => {
   const currentRoute = useCurrentRoute()
 
@@ -36,7 +38,6 @@ export const PracticeDrawerContent = ({
       } else if (item.type === 'item') {
         return <PracticeDrawerItem key={i} icon={item.icon} label={item.label} onPress={item.onPress} color={item.color} isFocused={item.active} />
       } else {
-        console.log('item:', item)
         throw new Error('Missing item type')
       }
     })
@@ -76,6 +77,7 @@ export const PracticeDrawerContent = ({
       <ScrollView style={{ borderRightWidth: 1, borderColor: 'rgb(230,230,230)' }} contentContainerStyle={{ gap: 10, padding: 10 }}>
         {children}
       </ScrollView>
+      {bottom}
     </>
   )
 }

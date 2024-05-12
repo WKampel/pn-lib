@@ -42,7 +42,7 @@ export const theme: {
   color_text_on_bg: 'black',
   color_text_on_bg_subtle: 'darkgray',
   color_text_on_primary: 'white',
-  color_text_on_primary_subtle: 'lightgray',
+  color_text_on_primary_subtle: 'rgb(225,225,225)',
   color_text_on_secondary: 'black',
   color_text_on_secondary_subtle: 'darkgray',
   color_text_on_surface: 'black',

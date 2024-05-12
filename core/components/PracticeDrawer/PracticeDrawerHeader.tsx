@@ -49,8 +49,7 @@ export const PracticeDrawerHeader = ({ firstName, lastName, onPressProfile }: { 
           <Text
             style={{
               color: tokens.color_text_on_primary,
-              fontSize: tokens.font_size_l,
-              fontWeight: tokens.weight_heavy,
+              fontSize: tokens.font_size_m,
             }}
           >
             {practice.data?.name}
@@ -80,13 +79,15 @@ const ProfileBubble = ({ firstName, lastName, onPress }: { firstName: string; la
         flexDirection: 'row',
         alignItems: 'center',
         borderWidth: 1,
-        borderRadius: tokens.radius_s,
+        borderRadius: tokens.radius_round,
         borderColor: tokens.color_border_on_surface,
-        padding: tokens.spacing_s,
+        paddingVertical: tokens.spacing_xs,
+        paddingHorizontal: tokens.spacing_s,
         gap: tokens.spacing_xs,
+        alignSelf: 'flex-start',
       }}
     >
-      <AntDesign name='user' size={tokens.font_size_m} color={tokens.color_text_on_primary} />
+      <AntDesign name='user' size={tokens.font_size_s} color={tokens.color_text_on_primary} />
       <Text
         style={{
           color: tokens.color_text_on_primary,
