@@ -8,10 +8,12 @@ type Patient = {
   birthDay?: string | null
   gender?: Gender | null
 }
+
 export type Me = {
   email: string
   firstName: string
   lastName: string
+  phoneNumber: string
   patient?: Patient | null
   patientError?: boolean
   patientLoading?: boolean

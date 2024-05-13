@@ -1,4 +1,4 @@
-import { NativeSyntheticEvent, TextInput as ReactNativeTextInput, StyleProp, TextInputKeyPressEventData, TextStyle } from 'react-native'
+import { KeyboardType, NativeSyntheticEvent, TextInput as ReactNativeTextInput, StyleProp, TextInputKeyPressEventData, TextStyle } from 'react-native'
 import { useTheme } from '../hooks/useTheme'
 import { TextInputSize } from '../types/TextInputSize'
 import { getTextInputHeight } from '../utils/getTextInputHeight'
@@ -18,9 +18,12 @@ export type TextInputProps = {
   onKeyPress?: (e: NativeSyntheticEvent<TextInputKeyPressEventData>) => void
   style?: StyleProp<TextStyle>
   flex?: number | boolean
+  keyboardType?: KeyboardType
+  id?: string
 }
 
 export const TextInput = ({
+  id,
   disabled = false,
   password,
   email,
@@ -35,11 +38,13 @@ export const TextInput = ({
   onKeyPress,
   style,
   flex,
+  keyboardType,
 }: TextInputProps) => {
   const { tokens } = useTheme()
 
   return (
     <ReactNativeTextInput
+      id={id}
       secureTextEntry={password}
       style={[
         {
@@ -57,7 +62,7 @@ export const TextInput = ({
       onChangeText={onChange}
       placeholder={label}
       placeholderTextColor='gray'
-      keyboardType={email ? 'email-address' : 'default'}
+      keyboardType={email ? 'email-address' : keyboardType ? keyboardType : 'default'}
       onSubmitEditing={onSubmit}
       onFocus={onFocus}
       onBlur={onBlur}
