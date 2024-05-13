@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react'
+import { useMemo } from 'react'
 import { Platform, Text } from 'react-native'
 import { CodeField, Cursor, useBlurOnFulfill, useClearByFocusCell } from 'react-native-confirmation-code-field'
 import { useTheme } from '../hooks/useTheme'
@@ -8,7 +8,7 @@ export type PhoneCodeInputProps = Omit<TextInputProps, 'keyboardType'> & {
   onChange: (code: string) => void
   codeLength?: number
   value: string
-  onFulfill: (code: string) => void
+  onFulfill: () => void
 }
 
 export const PhoneCodeInput = ({ onChange, onFulfill, codeLength = 6, value }: PhoneCodeInputProps) => {
@@ -26,19 +26,15 @@ export const PhoneCodeInput = ({ onChange, onFulfill, codeLength = 6, value }: P
     return 'one-time-code'
   }, [Platform.OS])
 
-  // on fullfil
-  useEffect(() => {
-    if (value.length === codeLength) {
-      onFulfill(value)
-    }
-  }, [onChange, value, codeLength])
-
   return (
     <CodeField
       ref={ref}
       {...props}
       value={value}
-      onChangeText={onChange}
+      onChangeText={value => {
+        onChange(value)
+        if (value.length === codeLength) onFulfill()
+      }}
       cellCount={codeLength}
       rootStyle={{
         flex: 1,

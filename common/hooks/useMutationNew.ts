@@ -1,10 +1,13 @@
 import { ApolloError, DocumentNode, useMutation as useMutationGraphQL } from '@apollo/client'
 import { namedOperations } from '../../../gql/graphql'
+import { useNotification } from './useNotification'
 
 export type UseMutationConfig<TData, TVariables> = {
   onCompleted?: (data: TData) => void
   onError?: (error: ApolloError) => void
   refetchQueries?: Array<keyof OperationNames>
+  displaySuccess?: boolean | string
+  displayError?: boolean
 }
 
 type OperationNames = typeof namedOperations.Query
@@ -14,10 +17,16 @@ type OperationNames = typeof namedOperations.Query
 // 2) Allows the 'refetchQueries' to be typed, providing better type safety and autocompletion in IDEs.
 // 3) Provides a flexible structure for adding any additional configuration or functionality that might be needed in the future.
 export const useMutationNew = <TData, TVariables>(query: DocumentNode, config: UseMutationConfig<TData, TVariables>) => {
-  const { onCompleted, onError, refetchQueries } = config || {}
+  const { onCompleted, onError, refetchQueries, displayError = true, displaySuccess } = config
+  const { notify } = useNotification()
 
   const [runMutation, { loading, error, data }] = useMutationGraphQL<TData, TVariables>(query, {
     onCompleted: data => {
+      if (displaySuccess) {
+        const title = typeof displaySuccess === 'string' ? displaySuccess : 'Success'
+        notify({ title, body: '', type: 'INFO', lifeSpan: 3000 })
+      }
+
       try {
         onCompleted?.(data)
       } catch (e) {
@@ -25,6 +34,12 @@ export const useMutationNew = <TData, TVariables>(query: DocumentNode, config: U
       }
     },
     onError: e => {
+      if (displayError && e?.graphQLErrors) {
+        for (const error of e.graphQLErrors) {
+          notify({ title: '', body: error.message, type: 'ERROR' })
+        }
+      }
+
       try {
         onError?.(e)
       } catch (e) {
