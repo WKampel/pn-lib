@@ -20,6 +20,7 @@ export type TextInputProps = {
   flex?: number | boolean
   keyboardType?: KeyboardType
   id?: string
+  placeholder?: string
 }
 
 export const TextInput = ({
@@ -39,6 +40,7 @@ export const TextInput = ({
   style,
   flex,
   keyboardType,
+  placeholder,
 }: TextInputProps) => {
   const { tokens } = useTheme()
 
@@ -60,7 +62,7 @@ export const TextInput = ({
       ]}
       value={value}
       onChangeText={onChange}
-      placeholder={label}
+      placeholder={placeholder || label}
       placeholderTextColor='gray'
       keyboardType={email ? 'email-address' : keyboardType ? keyboardType : 'default'}
       onSubmitEditing={onSubmit}

@@ -4,14 +4,13 @@ import { CodeField, Cursor, useBlurOnFulfill, useClearByFocusCell } from 'react-
 import { useTheme } from '../hooks/useTheme'
 import { TextInputProps } from './TextInput'
 
-export type PhoneCodeInputProps = Omit<TextInputProps, 'keyboardType'> & {
-  onChange: (code: string) => void
+export type PhoneCodeInputProps = Omit<TextInputProps, 'keyboardType' | 'onChange'> & {
+  onChange: (code: string, fulfilled?: boolean) => void
   codeLength?: number
   value: string
-  onFulfill: () => void
 }
 
-export const PhoneCodeInput = ({ onChange, onFulfill, codeLength = 6, value }: PhoneCodeInputProps) => {
+export const PhoneCodeInput = ({ onChange, codeLength = 6, value }: PhoneCodeInputProps) => {
   const ref = useBlurOnFulfill({ value, cellCount: codeLength })
 
   const { tokens } = useTheme()
@@ -32,8 +31,7 @@ export const PhoneCodeInput = ({ onChange, onFulfill, codeLength = 6, value }: P
       {...props}
       value={value}
       onChangeText={value => {
-        onChange(value)
-        if (value.length === codeLength) onFulfill()
+        onChange(value, value.length === codeLength)
       }}
       cellCount={codeLength}
       rootStyle={{
