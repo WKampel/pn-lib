@@ -41,7 +41,7 @@ const Select = <TOption extends any, TValue extends string>({
           ...baseStyles,
           height: tokens.size_m,
           borderColor: state.isFocused ? tokens.color_ui_primary.toString() : tokens.color_border_on_surface.toString(),
-          borderWidth: 1.5,
+          borderWidth: 1,
           borderRadius: tokens.radius_xs as number,
           backgroundColor: 'rgb(250, 250, 250)',
           '&:hover': {},

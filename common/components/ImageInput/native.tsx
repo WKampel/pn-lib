@@ -72,7 +72,7 @@ const ImageInput = ({ style, label = 'Upload Image', onChange, value, camera, tr
         {
           width: 200,
           aspectRatio: 1,
-          borderWidth: 1.5,
+          borderWidth: 1,
           borderColor: tokens.color_border_on_surface_semi_intense,
           borderStyle: 'dashed',
           padding: tokens.spacing_s,

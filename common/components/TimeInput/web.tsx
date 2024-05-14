@@ -51,7 +51,7 @@ const TimeInput = ({ disabled, value, onChange, label, onFocus, onBlur, size = '
       backgroundColor: 'rgb(250, 250, 250)',
       paddingLeft: tokens.spacing_s,
       borderRadius: tokens.radius_xs,
-      borderWidth: 1.5,
+      borderWidth: 1,
       borderColor: tokens.color_border_on_surface,
       flex: flex === true ? 1 : flex ? flex : undefined,
       borderStyle: 'solid',

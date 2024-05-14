@@ -65,7 +65,7 @@ export const PdfInput = ({ style, label = 'Upload Pdf', onChange, value }: PdfIn
       style={[
         {
           width: 200,
-          borderWidth: 1.5,
+          borderWidth: 1,
           borderColor: tokens.color_border_on_surface_semi_intense,
           borderStyle: 'dashed',
           padding: tokens.spacing_s,

@@ -62,7 +62,7 @@ export const TextArea = ({
         backgroundColor: 'rgb(250, 250, 250)',
         paddingLeft: tokens.spacing_s,
         borderRadius: tokens.radius_xs,
-        borderWidth: 1.5,
+        borderWidth: 1,
         borderColor: 'rgb(220,220,220)',
         flex: flex === true ? 1 : flex ? flex : undefined,
         ...containerStyle,

@@ -13,5 +13,5 @@ export const PhoneNumberInput = (props: PhoneNumberInputProps) => {
     props.onChange(modified)
   }
 
-  return <TextInput label='Phone Number (10 digits)' placeholder='678-315-9174 (without dashes)' keyboardType='phone-pad' {...props} onChange={onChange} />
+  return <TextInput label='Phone Number (10 digits)' placeholder='(xxx) xxx-xxxx' keyboardType='phone-pad' {...props} onChange={onChange} />
 }
