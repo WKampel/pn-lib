@@ -1,6 +1,6 @@
 import { TextInput, TextInputProps } from './TextInput'
 
-export type PhoneNumberInputProps = Omit<TextInputProps, 'keyboardType'> & {}
+export type PhoneNumberInputProps = Omit<TextInputProps, 'keyboardType' | 'email'> & {}
 
 export const PhoneNumberInput = (props: PhoneNumberInputProps) => {
   const onChange = (value: string) => {
@@ -13,5 +13,5 @@ export const PhoneNumberInput = (props: PhoneNumberInputProps) => {
     props.onChange(modified)
   }
 
-  return <TextInput label='Phone Number (10 digits)' placeholder='(xxx) xxx-xxxx' keyboardType='phone-pad' {...props} onChange={onChange} />
+  return <TextInput label='Phone Number (xxx) xxx-xxxx' keyboardType='phone-pad' {...props} onChange={onChange} />
 }

@@ -10,10 +10,10 @@ type Patient = {
 }
 
 export type Me = {
-  email: string
+  email?: string | null
   firstName: string
   lastName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   patient?: Patient | null
   patientError?: boolean
   patientLoading?: boolean
