@@ -18,7 +18,7 @@ export const PracticeIdTextInput = ({ onChange, flex, ...other }: Omit<TextInput
         gap: tokens.spacing_xs,
       }}
     >
-      <Text style={{ fontSize: tokens.font_size_xs }}>www.platformnow.app/</Text>
+      <Text style={{ fontSize: tokens.font_size_xs }}>www.mydentistapp.com/</Text>
       <TextInput flex {...other} label='Practice Identifier' onChange={handleChange} />
     </View>
   )
