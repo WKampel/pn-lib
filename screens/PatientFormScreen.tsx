@@ -2,7 +2,7 @@ import { ScrollView, Text, View } from 'react-native'
 import { H } from '../common/components/H'
 import { Screen } from '../common/components/Screen'
 import { SolidButton } from '../common/components/buttons/SolidButton'
-import { usePractice } from '../common/hooks/usePractice.tx'
+import { usePractice } from '../common/hooks/usePractice.ts/index.ios'
 import { useTheme } from '../common/hooks/useTheme'
 import { PatientFormFieldProps, PatientFormFieldRenderer } from '../patientManagement/components/patientForm/PatientFormFieldRenderer'
 

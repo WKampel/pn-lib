@@ -3,7 +3,7 @@ import React, { ReactNode, useCallback, useState } from 'react'
 import { DeviceEventEmitter } from 'react-native'
 import io, { Socket } from 'socket.io-client'
 import { SocketContext } from '../contexts/SocketContext'
-import { usePractice } from '../hooks/usePractice.tx'
+import { usePractice } from '../hooks/usePractice.ts/index.ios'
 
 const API_URL = process.env.EXPO_PUBLIC_API_URL
 const APP = process.env.EXPO_PUBLIC_APP
