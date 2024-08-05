@@ -5,7 +5,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { AppTile } from '../common/components/AppTile'
 import { ImageAutoHeight } from '../common/components/ImageAutoHeight'
 import { Screen } from '../common/components/Screen'
-import { usePractice } from '../common/hooks/usePractice.ts/index.ios'
+import { usePractice } from '../common/hooks/usePractice'
 import { useTheme } from '../common/hooks/useTheme'
 
 type AppTileName = 'MESSAGES' | 'PHOTOS' | 'ANNOUNCEMENTS' | 'SERVICES' | 'FORMS' | 'ABOUT_US' | 'PROFILE' | 'REVIEW' | 'APPOINTMENTS' | 'PAYMENT'

@@ -2,7 +2,7 @@ import { AntDesign } from '@expo/vector-icons'
 import { Text, TouchableOpacity, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Image } from '../../../common/components/Image'
-import { usePractice } from '../../../common/hooks/usePractice.ts/index.ios'
+import { usePractice } from '../../../common/hooks/usePractice'
 import { useTheme } from '../../../common/hooks/useTheme'
 import { mobileStyles } from '../../utils/mobileStyles'
 
