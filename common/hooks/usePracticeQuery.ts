@@ -1,5 +1,5 @@
 import { DocumentNode } from '@apollo/client'
-import { usePractice } from './usePractice'
+import { usePractice } from './usePractice.tx'
 import { useQuery, UseQueryConfig } from './useQuery'
 
 type PracticeVariables<TVariables extends object> = TVariables & { practiceId?: number }

@@ -1,7 +1,7 @@
 import { Linking, Text, View } from 'react-native'
 import { Screen } from '../common/components/Screen'
 import { SolidButton } from '../common/components/buttons/SolidButton'
-import { usePractice } from '../common/hooks/usePractice'
+import { usePractice } from '../common/hooks/usePractice.tx'
 import { useTheme } from '../common/hooks/useTheme'
 
 export const PatientPaymentScreen = () => {

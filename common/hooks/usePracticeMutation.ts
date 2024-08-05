@@ -1,6 +1,6 @@
 import { DocumentNode } from '@apollo/client'
 import { UseMutationConfig, useMutation } from './useMutation'
-import { usePractice } from './usePractice'
+import { usePractice } from './usePractice.tx'
 
 type PracticeVariables<TVariables extends object> = TVariables & { practiceId?: number }
 
