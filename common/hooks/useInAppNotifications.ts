@@ -24,6 +24,7 @@ export const useInAppNotifications = (props: UseInAppNotificationsProps) => {
           props.onPress(data.data)
         }
       },
+      lifeSpan: 60000,
     })
   })
 }
