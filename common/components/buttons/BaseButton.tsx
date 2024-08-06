@@ -1,5 +1,5 @@
 import { cloneElement } from 'react'
-import { ActivityIndicator, StyleProp, Text, TextStyle, TouchableOpacity, ViewStyle } from 'react-native'
+import { ActivityIndicator, StyleProp, StyleSheet, Text, TextStyle, TouchableOpacity, ViewStyle } from 'react-native'
 import { useTheme } from '../../hooks/useTheme'
 
 export type BaseButtonProps = {
@@ -26,8 +26,9 @@ export const BaseButton = ({ size = 'm', onPress, loading, disabled, containerSt
     l: tokens.size_l,
   }
 
-  const textStyleAsObject = textStyle && typeof textStyle === 'object' && !Array.isArray(textStyle) ? textStyle : {}
-  const { color, fontSize } = textStyleAsObject as TextStyle
+  // Get color from text style
+  const color = StyleSheet.flatten(textStyle).color
+  const fontSize = StyleSheet.flatten(textStyle).fontSize
 
   return (
     <TouchableOpacity
