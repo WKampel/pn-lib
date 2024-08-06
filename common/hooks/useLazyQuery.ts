@@ -6,7 +6,7 @@ export type UseLazyQueryConfig<TData, TVariables> = {
   fetchPolicy?: WatchQueryFetchPolicy
 }
 
-export const useLazyQuery = <TData, TVariables extends OperationVariables>(query: DocumentNode, config: UseLazyQueryConfig<TData, TVariables>) => {
+export const useLazyQuery = <TData, TVariables extends OperationVariables>(query: DocumentNode, config?: UseLazyQueryConfig<TData, TVariables>) => {
   const { onCompleted, onError, fetchPolicy } = config || {}
 
   const [run, { loading, error, data }] = apolloUseLazyQuery<TData, TVariables>(query, {
