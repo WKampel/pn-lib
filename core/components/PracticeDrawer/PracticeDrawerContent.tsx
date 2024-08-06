@@ -13,14 +13,14 @@ export const PracticeDrawerContent = ({
   items = [],
   firstName,
   lastName,
-  onPressProfile,
+  onPressProfile = () => {},
   bottom,
 }: {
   switchPractice?: () => void
-  items: PracticeDrawerItemType[]
+  items?: PracticeDrawerItemType[]
   firstName: string
   lastName: string
-  onPressProfile: () => void
+  onPressProfile?: () => void
   bottom?: ReactNode
 }) => {
   const currentRoute = useCurrentRoute()
