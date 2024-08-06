@@ -4,7 +4,7 @@ import { useTheme } from '../../../common/hooks/useTheme'
 
 type PracticeDrawerItemProps = {
   icon: ReactElement
-  label: string
+  label: string | ReactElement
   onPress: () => void
   isFocused: boolean
   color?: string

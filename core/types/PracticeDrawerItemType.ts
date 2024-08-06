@@ -6,7 +6,7 @@ export type PracticeDrawerItemType =
     }
   | {
       type: 'item'
-      label: string
+      label: string | JSX.Element
       icon: JSX.Element
       active: boolean
       onPress: () => void
