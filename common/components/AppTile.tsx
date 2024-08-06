@@ -1,5 +1,5 @@
 import { ReactElement, cloneElement, isValidElement } from 'react'
-import { ColorValue, Text, TouchableOpacity } from 'react-native'
+import { ColorValue, Text, TouchableOpacity, View } from 'react-native'
 import { useTheme } from '../hooks/useTheme'
 
 export const AppTile = ({
@@ -39,6 +39,24 @@ export const AppTile = ({
       >
         {title}
       </Text>
+      {reddot ? (
+        <View
+          style={{
+            backgroundColor: 'red',
+            width: 22,
+            height: 22,
+            borderRadius: 10,
+            position: 'absolute',
+            top: 0,
+            right: 0,
+            transform: [{ translateX: 6 }, { translateY: -6 }],
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <Text style={{ color: 'white' }}>1</Text>
+        </View>
+      ) : null}
     </TouchableOpacity>
   )
 }

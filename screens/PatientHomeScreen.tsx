@@ -1,6 +1,6 @@
 import { AntDesign, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { ReactNode } from 'react'
-import { Text, View } from 'react-native'
+import { Platform, Text, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { AppTile } from '../common/components/AppTile'
 import { ImageAutoHeight } from '../common/components/ImageAutoHeight'
@@ -15,14 +15,14 @@ type PatientHomeScreenProps = {
   reddots?: Record<AppTileName, boolean>
 }
 
-export const PatientHomeScreen = ({ links }: PatientHomeScreenProps) => {
+export const PatientHomeScreen = ({ links, reddots }: PatientHomeScreenProps) => {
   const practice = usePractice()
   const insets = useSafeAreaInsets()
   const { tokens } = useTheme()
 
   return (
     <Screen>
-      <View style={{ flex: 1, paddingBottom: insets.bottom, padding: tokens.spacing_s, gap: tokens.spacing_s }}>
+      <View style={{ flex: 1, paddingBottom: insets.bottom + (Platform.OS === 'android' ? tokens.spacing_s : 0), padding: tokens.spacing_s, gap: tokens.spacing_s }}>
         <View style={{ alignItems: 'center', alignSelf: 'center', gap: tokens.spacing_s }}>
           <ImageAutoHeight
             style={{
@@ -51,7 +51,7 @@ export const PatientHomeScreen = ({ links }: PatientHomeScreenProps) => {
         <View
           style={{
             flex: 1,
-            gap: tokens.spacing_xs,
+            gap: 8,
           }}
         >
           <Row>
@@ -91,7 +91,7 @@ const Row = ({ children }: { children: ReactNode }) => {
       style={{
         flexDirection: 'row',
         flex: 1,
-        gap: tokens.spacing_xs,
+        gap: 8,
       }}
     >
       {children}
