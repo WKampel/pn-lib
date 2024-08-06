@@ -1,4 +1,5 @@
-import { useEffect, useRef } from 'react'
+import { useFocusEffect } from '@react-navigation/native'
+import React, { useEffect, useRef } from 'react'
 import { DeviceEventEmitter } from 'react-native'
 import { SocketEventMap, SocketEventName } from '../../../pn-core-lib/types/SocketEvent'
 
@@ -15,16 +16,18 @@ export const useSocketEvent = <T extends SocketEventName>(
     callbackRef.current = callback
   }, [callback]) // Add all dependencies that might change the callback
 
-  useEffect(() => {
-    const eventListener = DeviceEventEmitter.addListener('socket event', info => {
-      if (info.type === type) {
-        // Use the current callback from the ref
-        callbackRef.current(info.data)
-      }
-    })
+  useFocusEffect(
+    React.useCallback(() => {
+      const eventListener = DeviceEventEmitter.addListener('socket event', info => {
+        if (info.type === type) {
+          // Use the current callback from the ref
+          callbackRef.current(info.data)
+        }
+      })
 
-    return () => {
-      eventListener.remove()
-    }
-  }, [type, ...dependencies]) // Add dependencies that might change how the event is handled
+      return () => {
+        eventListener.remove()
+      }
+    }, [type, ...dependencies])
+  ) // Add dependencies that might change how the event is handled
 }
