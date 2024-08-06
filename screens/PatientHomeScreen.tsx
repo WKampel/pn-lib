@@ -12,6 +12,7 @@ type AppTileName = 'MESSAGES' | 'PHOTOS' | 'ANNOUNCEMENTS' | 'SERVICES' | 'FORMS
 
 type PatientHomeScreenProps = {
   links?: Record<AppTileName, () => void>
+  reddots?: Record<AppTileName, boolean>
 }
 
 export const PatientHomeScreen = ({ links }: PatientHomeScreenProps) => {
@@ -54,7 +55,7 @@ export const PatientHomeScreen = ({ links }: PatientHomeScreenProps) => {
           }}
         >
           <Row>
-            <AppTile onPress={links?.MESSAGES} icon={<AntDesign name='message1' />} title='MESSAGES' />
+            <AppTile onPress={links?.MESSAGES} icon={<AntDesign name='message1' />} title='MESSAGES' reddot={reddots?.MESSAGES} />
             <AppTile onPress={links?.APPOINTMENTS} icon={<AntDesign name='calendar' />} title='APPOINTMENTS' />
           </Row>
 

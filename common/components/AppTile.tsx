@@ -2,7 +2,17 @@ import { ReactElement, cloneElement, isValidElement } from 'react'
 import { ColorValue, Text, TouchableOpacity } from 'react-native'
 import { useTheme } from '../hooks/useTheme'
 
-export const AppTile = ({ title, icon, onPress }: { icon: ReactElement<{ size: number; color: ColorValue }>; title: string; onPress?: () => void }) => {
+export const AppTile = ({
+  title,
+  icon,
+  onPress,
+  reddot,
+}: {
+  icon: ReactElement<{ size: number; color: ColorValue }>
+  title: string
+  onPress?: () => void
+  reddot?: boolean
+}) => {
   const { tokens } = useTheme()
 
   return (
